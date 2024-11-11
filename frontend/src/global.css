@@ -1,3 +1,70 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Secondary-Regular";
+  src:
+    local("Jua-Regular"),
+    url(./assets/fonts/Jua-Regular.ttf) format("woff");
+}
+
+@font-face {
+  font-family: "Primary-Regular";
+  src:
+    local("Roboto-Regular"),
+    url(./assets/fonts/Roboto-Regular.ttf) format("woff");
+}
+
+@font-face {
+  font-family: "Primary-Bold";
+  src:
+    local("Roboto-Bold"),
+    url(./assets/fonts/Roboto-Bold.ttf) format("woff");
+}
+
+@font-face {
+  font-family: "Primary-Medium";
+  src:
+    local("Roboto-Medium"),
+    url(./assets/fonts/Roboto-Medium.ttf) format("woff");
+}
+
+@font-face {
+  font-family: "Primary-Light";
+  src:
+    local("Roboto-Light"),
+    url(./assets/fonts/Roboto-Light.ttf) format("woff");
+}
+
+@layer base {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.17rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  h5 {
+    font-size: 0.83rem;
+  }
+
+  h6 {
+    font-size: 0.67rem;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
