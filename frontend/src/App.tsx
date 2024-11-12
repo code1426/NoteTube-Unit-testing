@@ -1,6 +1,5 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <div className="flex h-screen self-center w-screen items-center justify-center bg-green-300">
