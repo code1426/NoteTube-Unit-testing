@@ -4,9 +4,9 @@ import {
   PiPaperclip,
   PiTrash,
   PiUpload,
-  PiUserCircleFill,
 } from "react-icons/pi";
 import { useState } from "react";
+import Header from "../components/header";
 
 const HomePage = () => {
   const [noteText, setNoteText] = useState("");
@@ -40,26 +40,12 @@ const HomePage = () => {
 
   return (
     <div className="relative w-full h-auto min-h-screen p-4 bg-white">
-      {/* Header Top Section */}
-      <div className="header-top w-full px-4 py-6 bg-white flex justify-between items-center">
-        <div className="text-black text-4xl md:text-6xl lg:text-6xl font-primaryBold">
-          Welcome User!
-        </div>
-        <div>
-          <button className="hover:bg-gray-200 rounded">
-            <PiUserCircleFill size={60} />
-          </button>
-        </div>
-      </div>
-
-      {/* Header Bottom Section */}
+      <Header isHomePage={true} />
       <div className="header-bottom w-full px-20 pt-20 pb-10 bg-white flex justify-between items-center">
         <div className="text-black text-2xl md:text-5xl lg:text-5xl font-secondaryRegular">
           Upload Notes
         </div>
       </div>
-
-      {/* Upload Notes Section */}
       <div className="uploadNotes relative w-full h-auto min-h-screen px-20 bg-white">
         <div className="w-full bg-white rounded-lg border-4 border-[#03c04a] flex flex-col">
           <textarea
@@ -99,6 +85,9 @@ const HomePage = () => {
             Upload
           </button>
         </div>
+      </div>
+      <div className="text-black text-2xl md:text-5xl lg:text-5xl flex gap-3 font-secondaryRegular align-middle items-center">
+        <div>Flashcards</div>
       </div>
     </div>
   );
