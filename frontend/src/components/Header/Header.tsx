@@ -5,6 +5,10 @@ interface HeaderProps {
 }
 
 const Header = ({ isHomePage }: HeaderProps) => {
+  const handleBack = () => {
+    return null;
+  };
+
   return (
     <div>
       <div className="header-top w-full px-4 py-6 bg-white flex justify-between items-center">
@@ -12,7 +16,7 @@ const Header = ({ isHomePage }: HeaderProps) => {
           {isHomePage ? (
             "Welcome User!"
           ) : (
-            <button>
+            <button onClick={handleBack}>
               {" "}
               <PiArrowCircleLeftBold size={60} />{" "}
             </button>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   PiListBold,
   PiListNumbersBold,
@@ -10,6 +10,7 @@ import {
 const TextInputSection = () => {
   const [noteText, setNoteText] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNoteText(e.target.value);
@@ -36,10 +37,52 @@ const TextInputSection = () => {
   const clearText = () => {
     setNoteText("");
   };
+
+  const createBulletedList = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      const { selectionStart, selectionEnd } = textarea;
+      const beforeText = noteText.slice(0, selectionStart);
+      const selectedText = noteText.slice(selectionStart, selectionEnd);
+      const afterText = noteText.slice(selectionEnd);
+
+      const formattedText = selectedText
+        .split("\n")
+        .map((line) => {
+          const cleanedLine = line.replace(/^(•|\d+\.)\s*/, "").trim();
+          return cleanedLine ? `• ${cleanedLine}` : "";
+        })
+        .join("\n");
+
+      setNoteText(beforeText + formattedText + afterText);
+    }
+  };
+
+  const createNumberedList = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      const { selectionStart, selectionEnd } = textarea;
+      const beforeText = noteText.slice(0, selectionStart);
+      const selectedText = noteText.slice(selectionStart, selectionEnd);
+      const afterText = noteText.slice(selectionEnd);
+
+      const formattedText = selectedText
+        .split("\n")
+        .map((line, index) => {
+          const cleanedLine = line.replace(/^(•|\d+\.)\s*/, "").trim();
+          return cleanedLine ? `${index + 1}. ${cleanedLine}` : "";
+        })
+        .join("\n");
+
+      setNoteText(beforeText + formattedText + afterText);
+    }
+  };
+
   return (
     <div className="uploadNotes relative w-full h-auto min-h-screen px-20 bg-white">
       <div className="w-full bg-white rounded-lg border-4 border-[#03c04a] flex flex-col">
         <textarea
+          ref={textareaRef}
           className="w-auto h-80 p-3 rounded-lg border-2 border-[#03c04a] text-black justify-left text-3xl font-primaryRegular overflow-hidden overflow-y-scroll resize-none scrollbar-hidden"
           placeholder="Input text here"
           value={noteText}
@@ -47,10 +90,16 @@ const TextInputSection = () => {
         />
         <div className="editText text-gray-400 text-sm mt-2 flex justify-between">
           <div className="flex gap-2">
-            <button className="p-2 text-black hover:bg-gray-200 rounded">
+            <button
+              className="p-2 text-black hover:bg-gray-200 rounded"
+              onClick={createBulletedList}
+            >
               <PiListBold size={40} />
             </button>
-            <button className="p-2 text-black hover:bg-gray-200 rounded">
+            <button
+              className="p-2 text-black hover:bg-gray-200 rounded"
+              onClick={createNumberedList}
+            >
               <PiListNumbersBold size={40} />
             </button>
           </div>
