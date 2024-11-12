@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import TextInputSection from "../components/TextInputSection";
 
 const HomePage = () => {

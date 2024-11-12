@@ -1,6 +1,6 @@
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import SubHeader from "../components/SubHeader";
-import Card from "../components/Card";
+import Card from "../components/FlashcardsPage/Card";
 import {
   PiListBold,
   PiListNumbersBold,
