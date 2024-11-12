@@ -2,6 +2,7 @@ import {
   PiListBold,
   PiListNumbersBold,
   PiPaperclip,
+  PiTrash,
   PiUpload,
   PiUserCircleFill,
 } from "react-icons/pi";
@@ -30,6 +31,10 @@ const HomePage = () => {
       return;
     }
     console.log(noteText);
+    setNoteText("");
+  };
+
+  const clearText = () => {
     setNoteText("");
   };
 
@@ -63,12 +68,20 @@ const HomePage = () => {
             value={noteText}
             onChange={handleTextChange}
           />
-          <div className="editText text-gray-400 text-sm mt-2 flex gap-2">
-            <button className="p-2 text-black hover:bg-gray-200 rounded">
-              <PiListBold size={40} />
-            </button>
-            <button className="p-2 text-black hover:bg-gray-200 rounded">
-              <PiListNumbersBold size={40} />
+          <div className="editText text-gray-400 text-sm mt-2 flex justify-between">
+            <div className="flex gap-2">
+              <button className="p-2 text-black hover:bg-gray-200 rounded">
+                <PiListBold size={40} />
+              </button>
+              <button className="p-2 text-black hover:bg-gray-200 rounded">
+                <PiListNumbersBold size={40} />
+              </button>
+            </div>
+            <button
+              className="p-2 text-black hover:bg-gray-200 rounded"
+              onClick={clearText}
+            >
+              <PiTrash size={40} />
             </button>
           </div>
         </div>
