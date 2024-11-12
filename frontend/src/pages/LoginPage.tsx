@@ -36,14 +36,16 @@ const LoginPage = () => {
           </div>
 
           <div className="flex flex-row justify-between">
-          <div className="remember-me flex">
-            <input className="accent-green w-5" type="checkbox" />
-            <label className="ml-2 text-black ">Remember me</label>
-          </div>
+            <div className="remember-me flex">
+              <input className="accent-green w-5" type="checkbox" />
+              <label className="ml-2 text-black ">Remember me</label>
+            </div>
 
-          <div className="">
-            <span className="text-green cursor-pointer">Forgot Password?</span>
-          </div>
+            <div className="">
+              <span className="text-green cursor-pointer">
+                Forgot Password?
+              </span>
+            </div>
           </div>
 
           <button
