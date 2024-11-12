@@ -1,6 +1,6 @@
 import { PiPencil, PiTrash } from "react-icons/pi";
 import { useState } from "react";
-import DeleteCardModal from "../DeleteCardModal";
+import DeleteCardModal from "./DeleteCardModal";
 
 const Card = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

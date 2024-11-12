@@ -1,4 +1,8 @@
-const DeleteCardModal = ({ onClose }) => {
+interface DeleteCardModalProps {
+  onClose: () => void;
+}
+
+const DeleteCardModal = ({ onClose }: DeleteCardModalProps) => {
   return (
     <div className="absolute top-12 right-0 z-50 bg-white p-4 rounded-lg shadow-lg w-[250px] border border-gray-300">
       <h2 className="text-lg font-bold mb-2">Confirm Delete</h2>
