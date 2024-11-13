@@ -1,10 +1,10 @@
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 export interface SectionProps {
   title: string;
   description: string;
   reverse: boolean;
-  Icon?: ReactElement;
+  Icon?: ReactNode;
 }
 
 const Section = ({

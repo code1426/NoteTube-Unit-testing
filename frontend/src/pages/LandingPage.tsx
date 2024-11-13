@@ -8,24 +8,32 @@ import Hero from "../components/Landing/Hero";
 import Section from "../components/Landing/Section";
 
 const LandingPage = () => {
-  const aboutRef = useRef<HTMLDivElement | null>(null);
-  const featuresRef = useRef<HTMLDivElement | null>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const featuresRef = useRef<HTMLDivElement>(null);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
-    console.log(ref.current);
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="min-h-screen w-screen flex flex-col justify-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat">
-      <Header
-        aboutOnClick={() => scrollToSection(aboutRef)}
-        featuresOnClick={() => scrollToSection(featuresRef)}
-      />
+      <Header>
+        <button
+          className="text-green text-xl font-secondaryRegular hover:text-green_hover hover:cursor-pointer transition-all duration-300"
+          onClick={() => scrollToSection(aboutRef)}
+        >
+          About
+        </button>
+        <button
+          className="text-green text-xl font-secondaryRegular hover:text-green_hover hover:cursor-pointer transition-all duration-300"
+          onClick={() => scrollToSection(featuresRef)}
+        >
+          Features
+        </button>
+      </Header>
       <Hero />
       <div ref={aboutRef}>
         <Section
-          // ref={aboutRef}
           title="What is NoteTube?"
           description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quidem delectus quasi modi tempore voluptatem ipsam aspernatur laudantium. Cum similique iusto nobis itaque officiis delectus odit molestiae temporibus. Accusantium, earum."
           reverse
@@ -33,14 +41,12 @@ const LandingPage = () => {
       </div>
       <div ref={featuresRef}>
         <Section
-          // ref={featuresRef}
           title="Upload Notes"
           description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quidem delectus quasi modi tempore voluptatem ipsam aspernatur laudantium. Cum similique iusto nobis itaque officiis delectus odit molestiae temporibus. Accusantium, earum.f"
           reverse={false}
           Icon={<CgNotes />}
         />
       </div>
-
       <Section
         title="Get Related Videos"
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quidem delectus quasi modi tempore voluptatem ipsam aspernatur laudantium. Cum similique iusto nobis itaque officiis delectus odit molestiae temporibus. Accusantium, earum."
