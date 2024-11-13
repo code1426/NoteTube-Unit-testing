@@ -1,9 +1,9 @@
 const LoginPage = () => {
   return (
-    <div className="main flex flex-row w-screen h-screen p-8 gap-8">
-      <div className="section1 bg-green flex flex-1 flex-col rounded-lg items-center justify-center gap-2 ">
+    <div className="main flex w-screen h-screen p-8 gap-8">
+      <div className="section1 bg-green hidden flex-1 flex-col rounded-lg items-center justify-center gap-2 p-12 md:flex lg:flex xl:flex">
         <span className="text-white text-6xl font-semibold">NoteTube</span>
-        <div className="text-black text-justify w-3/4 text-lg">
+        <div className="text-black w-full text-lg">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et
           aliquam lectus. Integer at tellus consequat, egestas elit ac, eleifend
           erat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
@@ -12,11 +12,11 @@ const LoginPage = () => {
         </div>
       </div>
 
-      <div className="form flex flex-1 flex-col gap-6 p-6 pt-20">
-        <h1 className="register flex text-start text-green text-5xl font-semibold">
+      <div className="form flex flex-1 flex-col gap-6 items-center py-6 justify-center">
+        <h1 className="register flex text-start text-green text-5xl font-semibold w-[92%]">
           Welcome Back!
         </h1>
-        <form className=" flex flex-col gap-5" onSubmit={() => {}}>
+        <form className=" flex flex-col gap-3 w-[92%]" onSubmit={() => {}}>
           <div className="username-container flex flex-col gap-2 text-xl">
             <div className=" text-black">Username/Email</div>
             <input
@@ -50,13 +50,13 @@ const LoginPage = () => {
 
           <button
             type="submit"
-            className="Submit-button flex bg-green rounded-full py-4 text-center justify-center text-xl text-black transition-all hover:bg-green_hover"
+            className="Submit-button flex bg-green rounded-full py-4 text-center justify-center text-xl text-black transition-all hover:bg-green_hover mt-8"
           >
             Log in
           </button>
         </form>
 
-        <div className="flex flex-1 items-center justify-center">
+        <div className="flex items-center justify-center">
           Not yet registered?
           <span className="text-green px-2 cursor-pointer">Sign Up</span>
         </div>
