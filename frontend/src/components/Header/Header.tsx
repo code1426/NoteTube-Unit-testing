@@ -10,23 +10,23 @@ const Header = ({ isHomePage }: HeaderProps) => {
   };
 
   return (
-    <div>
-      <div className="header-top w-full px-4 py-6 bg-white flex justify-between items-center">
-        <div className="text-black text-4xl md:text-6xl lg:text-6xl font-primaryBold">
-          {isHomePage ? (
-            "Welcome User!"
-          ) : (
-            <button onClick={handleBack}>
-              {" "}
-              <PiArrowCircleLeftBold size={60} />{" "}
-            </button>
-          )}
-        </div>
-        <div>
-          <button className="hover:bg-gray-200 rounded">
-            <PiUserCircleFill size={60} />
+    <div className="flex flex-row top-0 px-10 w-full h-20 bg-white items-center justify-between z-10 sticky">
+      <div className="text-black text-4xl font-primaryBold">
+        {isHomePage ? (
+          "Welcome User!"
+        ) : (
+          <button
+            className="hover:bg-gray-200 rounded-full"
+            onClick={handleBack}
+          >
+            <PiArrowCircleLeftBold size={60} />
           </button>
-        </div>
+        )}
+      </div>
+      <div>
+        <button className="hover:bg-gray-200 rounded-full">
+          <PiUserCircleFill size={60} />
+        </button>
       </div>
     </div>
   );

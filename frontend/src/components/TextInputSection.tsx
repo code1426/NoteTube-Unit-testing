@@ -79,11 +79,11 @@ const TextInputSection = () => {
   };
 
   return (
-    <div className="uploadNotes relative w-full h-auto min-h-screen px-20 bg-white">
-      <div className="w-full bg-white rounded-lg border-4 border-[#03c04a] flex flex-col">
+    <div className="textInputSection py-10 px-20">
+      <div className="rounded-lg border-4 border-[#03c04a] flex flex-col">
         <textarea
           ref={textareaRef}
-          className="w-auto h-80 p-3 rounded-lg border-2 border-[#03c04a] text-black justify-left text-3xl font-primaryRegular overflow-hidden overflow-y-scroll resize-none scrollbar-hidden"
+          className="textBox h-80 p-3 rounded-lg border-2 border-[#03c04a] text-black justify-left text-3xl font-primaryRegular overflow-hidden overflow-y-scroll resize-none scrollbar-hidden"
           placeholder="Input text here"
           value={noteText}
           onChange={handleTextChange}
