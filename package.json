@@ -13,8 +13,5 @@
   "license": "ISC",
   "devDependencies": {
     "prettier": "^3.3.3"
-  },
-  "dependencies": {
-    "react-router-dom": "^6.28.0"
   }
 }
