@@ -3,19 +3,20 @@ import toast, { Toaster } from "react-hot-toast";
 import { Spinner } from "react-activity";
 import "react-activity/src/Spinner/Spinner";
 
+import { FormData } from "../types/user.types";
 import useRegisterUser from "../hooks/useRegisterUser";
 
 const RegisterPage = () => {
   const { submitData, loading } = useRegisterUser();
 
   const formInitialvalues = {
-    Username: "",
-    Email: "",
-    Password: "",
-    ConfirmPassword: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   };
 
-  const [formData, setFormData] = useState(formInitialvalues);
+  const [formData, setFormData] = useState<FormData>(formInitialvalues);
   const [errors, setErrors] = useState({
     ...formInitialvalues,
   });
@@ -45,10 +46,9 @@ const RegisterPage = () => {
 
     Object.keys(formData).forEach((key) => {
       if (formData[key as keyof typeof formData] === "") {
-        newErrors[key] = `Please fill out the ${key.replace(
-          /([A-Z])/g,
-          " $1",
-        )}.`;
+        newErrors[key] = `Please fill out the ${(
+          key[0].toUpperCase() + key.slice(1)
+        ).replace(/([A-Z])/g, " $1")}.`;
         hasErrors = true;
       }
     });
@@ -89,17 +89,17 @@ const RegisterPage = () => {
             <div className=" text-black">Username</div>
             <input
               className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
-                errors.Username
+                errors.username
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
               placeholder="Username"
-              name="Username"
-              value={formData.Username}
+              name="username"
+              value={formData.username}
               onChange={handleChange}
             />
-            {errors.Username && (
-              <p className="text-red-500 text-sm">{errors.Username}</p>
+            {errors.username && (
+              <p className="text-red-500 text-sm">{errors.username}</p>
             )}
           </div>
 
@@ -107,18 +107,18 @@ const RegisterPage = () => {
             <div className=" text-black">Email</div>
             <input
               className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
-                errors.Email
+                errors.email
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
               type="text"
               placeholder="Email"
-              name="Email"
-              value={formData.Email}
+              name="email"
+              value={formData.email}
               onChange={handleChange}
             />
-            {errors.Email && (
-              <p className="text-red-500 text-sm">{errors.Email}</p>
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
             )}
           </div>
 
@@ -126,39 +126,39 @@ const RegisterPage = () => {
             <div className=" text-black">Password</div>
             <input
               className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
-                errors.Password
+                errors.password
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
               type="password"
               placeholder="Password"
-              name="Password"
-              value={formData.Password}
+              name="password"
+              value={formData.password}
               onChange={handleChange}
             />
-            {errors.Password && (
-              <p className="text-red-500 text-sm">{errors.Password}</p>
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password}</p>
             )}
           </div>
 
           <div className="confirm-container flex flex-col gap-1 text-xl">
-            <div className=" text-black">Confirm Password</div>
+            <div className=" text-black">Confirm password</div>
             <input
               type="password"
               className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
-                errors.ConfirmPassword
+                errors.confirmPassword
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
               placeholder="Confirm Password"
-              name="ConfirmPassword"
-              value={formData.ConfirmPassword}
+              name="confirmPassword"
+              value={formData.confirmPassword}
               onChange={handleChange}
             />
             <p
-              className={`text-red-500 text-sm ${errors.ConfirmPassword || "hidden"}`}
+              className={`text-red-500 text-sm ${errors.confirmPassword || "hidden"}`}
             >
-              {errors.ConfirmPassword}
+              {errors.confirmPassword}
             </p>
           </div>
 

@@ -8,9 +8,7 @@ const jwtGenerator = (userId: string) => {
     user: userId,
   };
 
-  return jwt.sign(payload, process.env.DATABASE_URL!, {
-    expiresIn: "2 days",
-  });
+  return jwt.sign(userId, process.env.DATABASE_URL!);
 };
 
 export default jwtGenerator;

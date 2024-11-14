@@ -4,37 +4,31 @@ import bcrypt from "bcrypt";
 import jwtGenerator from "../utils/jwtGenerator";
 import validateInfo from "../middleware/validateInfo";
 import authorization from "../middleware/authorization";
+import type { User } from "../types/user.types";
 
 const router = express.Router();
-
-export interface User {
-  Username: string;
-  Email: string;
-  Password: string;
-  ConfirmPassword: string;
-}
 
 router.post(
   "/register",
   validateInfo,
   async (request: Request, response: Response) => {
     try {
-      const { Username, Email, Password, ConfirmPassword } =
+      const { username, email, password, confirmPassword } =
         request.body as User;
 
       // Check if user already exists
       const existingUser = await pool.query(
         "SELECT * FROM Users WHERE email = $1",
-        [Email],
+        [email],
       );
       if (existingUser.rows.length !== 0) {
-        console.log("User already exists")
+        console.log("User already exists");
         response.status(401).json({ error: "User already exists" });
         return;
       }
 
-      if (Password !== ConfirmPassword) {
-        console.log("Passwords do not match")
+      if (password !== confirmPassword) {
+        console.log("Passwords do not match");
         response.status(401).json({ error: "Passwords do not match" });
         return;
       }
@@ -42,20 +36,20 @@ router.post(
       // Hash password
       const saltRounds = 10;
       const salt = await bcrypt.genSalt(saltRounds);
-      const hashedPassword = await bcrypt.hash(Password, salt);
+      const hashedPassword = await bcrypt.hash(password, salt);
 
       // Create a new user
       const user = await pool.query(
         "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3) RETURNING *",
-        [Username, Email, hashedPassword],
+        [username, email, hashedPassword],
       );
 
       // Generate JWT token
       const token = jwtGenerator(user.rows[0].id);
-      console.log("token: ", token)
+      console.log("token: ", token);
       response.status(201).json(token);
     } catch (error) {
-      console.log("error: ", error)
+      console.log("error: ", error);
       response.status(500).json({ error: error });
     }
   },
@@ -66,10 +60,10 @@ router.post(
   validateInfo,
   async (request: Request, response: Response) => {
     try {
-      const { Email, Password } = request.body as Omit<User, "Username">;
+      const { email, password } = request.body as Omit<User, "username">;
 
       const user = await pool.query("SELECT * FROM Users WHERE email = $1", [
-        Email,
+        email,
       ]);
 
       if (user.rows.length === 0) {
@@ -78,7 +72,7 @@ router.post(
       }
 
       const isValidPassword = await bcrypt.compare(
-        Password,
+        password,
         user.rows[0].password,
       );
       if (!isValidPassword) {
@@ -98,9 +92,9 @@ router.post(
 
 router.get("/verify", authorization, (_request, response) => {
   try {
-    response.status(200).json(true);
+    response.status(200).json(true); // response is true because the token is valid
   } catch (error) {
-    response.status(500).json({ error: "not authorize" });
+    response.status(500).json({ error: "not authorized" });
   }
 });
 

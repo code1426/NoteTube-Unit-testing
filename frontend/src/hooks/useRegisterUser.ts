@@ -1,15 +1,11 @@
 import { useState } from "react";
+import { FormData } from "../types/user.types";
 
 const useRegisterUser = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<any>(null);
+  const [error, setError] = useState(null);
 
-  const submitData = async (formData: {
-    Username: string;
-    Email: string;
-    Password: string;
-    ConfirmPassword: string;
-  }) => {
+  const submitData = async (formData: FormData) => {
     try {
       setLoading(true);
       const response = await fetch("http://localhost:3000/auth/register", {
@@ -19,6 +15,10 @@ const useRegisterUser = () => {
         },
         body: JSON.stringify(formData),
       });
+
+      // if (response.status === 401) {
+      //   response
+      // }
 
       const token = await response.json();
 
@@ -32,9 +32,9 @@ const useRegisterUser = () => {
         console.log("from register page: failed");
         // setIsAuthenticated(true);
       }
-    } catch (err) {
-      console.error(err);
-      setError(err);
+    } catch (error) {
+      console.log("ERROR IN USER REGISTRATION: ",error);
+      // setError(error);
     } finally {
       setLoading(false);
     }

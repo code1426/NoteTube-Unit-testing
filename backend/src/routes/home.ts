@@ -4,7 +4,9 @@ import authorization from "../middleware/authorization";
 
 const router = express.Router();
 
-router.get("/", authorization, async (request: any, response: Response) => {
+
+
+router.get("/", authorization, async (request: Request, response: Response) => {
   try {
     const user = await pool.query(
       "SELECT username FROM Users WHERE id = $1",
