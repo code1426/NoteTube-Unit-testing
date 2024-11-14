@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { FormData } from "../types/user.types";
 
+interface ErrorDetails {
+  field:string;
+  message: string;
+}
+
 const useRegisterUser = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<ErrorDetails | null>(null);
 
   const submitData = async (formData: FormData) => {
-    try {
+    
       setLoading(true);
       const response = await fetch("http://localhost:3000/auth/register", {
         method: "POST",
@@ -16,31 +21,28 @@ const useRegisterUser = () => {
         body: JSON.stringify(formData),
       });
 
-      // if (response.status === 401) {
-      //   response
-      // }
+      if (!response.ok) {
+        const errorDetails: ErrorDetails = await response.json();
+        setLoading(false);
+        setError(errorDetails)
+        throw new Error(errorDetails.message || "An unknown error occurred");
+      }
 
+      // If the response is OK, get the token from the response
       const token = await response.json();
 
       if (token) {
         localStorage.setItem("token", token);
         setLoading(false);
-        console.log("from register page: success");
+        console.log("Registration successful");
         // setIsAuthenticated(true);
       } else {
         setLoading(false);
-        console.log("from register page: failed");
-        // setIsAuthenticated(true);
+        console.log("Registration failed, no token received");
       }
-    } catch (error) {
-      console.log("ERROR IN USER REGISTRATION: ",error);
-      // setError(error);
-    } finally {
-      setLoading(false);
-    }
   };
 
-  return { submitData, loading, error };
+  return { submitData, loading, error, setError };
 };
 
 export default useRegisterUser;

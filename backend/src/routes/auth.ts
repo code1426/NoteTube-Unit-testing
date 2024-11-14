@@ -16,20 +16,38 @@ router.post(
       const { username, email, password, confirmPassword } =
         request.body as User;
 
+      const existingUsername = await pool.query(
+        "SELECT * FROM Users WHERE username = $1",
+        [username],
+      );
+      if (existingUsername.rows.length !== 0) {
+        response.status(401).json({
+          field: "username",
+          message: "This username is already taken. Try another one!",
+        });
+        return;
+      }
+
       // Check if user already exists
       const existingUser = await pool.query(
         "SELECT * FROM Users WHERE email = $1",
         [email],
       );
       if (existingUser.rows.length !== 0) {
-        console.log("User already exists");
-        response.status(401).json({ error: "User already exists" });
+        response.status(401).json({
+          field: "email",
+          message:
+            "This email is already in use. Please use a different one.",
+        });
         return;
       }
 
       if (password !== confirmPassword) {
         console.log("Passwords do not match");
-        response.status(401).json({ error: "Passwords do not match" });
+        response.status(401).json({
+          field: "password",
+          message: "Oops! The passwords don't match. Please try again.",
+        });
         return;
       }
 
@@ -50,7 +68,7 @@ router.post(
       response.status(201).json(token);
     } catch (error) {
       console.log("error: ", error);
-      response.status(500).json({ error: error });
+      response.status(500).json({ message: error });
     }
   },
 );
@@ -67,7 +85,9 @@ router.post(
       ]);
 
       if (user.rows.length === 0) {
-        response.status(401).json({ error: "Password or Email is Incorrect" });
+        response
+          .status(401)
+          .json({ field: "", error: "Password or Email is Incorrect" });
         return;
       }
 
@@ -76,7 +96,9 @@ router.post(
         user.rows[0].password,
       );
       if (!isValidPassword) {
-        response.status(401).json({ error: "Password or Email is Incorrect" });
+        response
+          .status(401)
+          .json({ field: "", message: "Password or Email is Incorrect" });
         return;
       }
 
@@ -85,7 +107,7 @@ router.post(
       console.log(user.rows[0].id);
       response.json(token);
     } catch (error) {
-      response.status(500).json({ error: error });
+      response.status(500).json({ message: error });
     }
   },
 );
@@ -94,7 +116,7 @@ router.get("/verify", authorization, (_request, response) => {
   try {
     response.status(200).json(true); // response is true because the token is valid
   } catch (error) {
-    response.status(500).json({ error: "not authorized" });
+    response.status(500).json({ field: "", message: "Unauthorized" });
   }
 });
 

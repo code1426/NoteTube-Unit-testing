@@ -15,21 +15,24 @@ const validateInfo = (
 
   if (request.path === "/register") {
     if (![email, username, password].every(Boolean)) {
-      console.log("Missing credentials");
-      response.status(401).json({ error: "Missing Credentials" });
+      response.status(401).json({ field: "", message: "Missing Credentials" });
       return;
     } else if (!isValidEmail(email)) {
-      console.log("Invalid email");
-      response.status(401).json({ error: "Invalid Email" });
+      response.status(401).json({ field: "email", message: "Invalid Email" });
+      return;
+    } else if (password.length < 8) {
+      response.status(401).json({
+        field: "password",
+        message: "Password must be at least 8 characters long",
+      });
       return;
     }
-
   } else if (request.path === "/login") {
     if (![email, password].every(Boolean)) {
-      response.status(401).json({ error: "Missing Credentials" });
+      response.status(401).json({ field: "", message: "Missing Credentials" });
       return;
     } else if (!isValidEmail(email)) {
-      response.status(401).json({ error: "Invalid Email" });
+      response.status(401).json({ field: "email", message: "Invalid Email" });
       return;
     }
   }

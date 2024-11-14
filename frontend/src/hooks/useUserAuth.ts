@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const useUserAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<any>(false);
+  const [error, setError] = useState<Error | null | unknown>(null);
 
   useEffect(() => {
     const checkAuthenticated = async () => {
@@ -14,10 +14,12 @@ const useUserAuth = () => {
         });
 
         const isAuthorized = await result.json();
-
-        isAuthorized ? setIsAuthenticated(true) : setIsAuthenticated(false);
-        
-      } catch (error) {
+        if (isAuthorized) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch (error: unknown) {
         console.error(error);
         setError(error);
       }

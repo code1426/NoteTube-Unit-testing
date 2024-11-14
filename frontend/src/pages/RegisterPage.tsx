@@ -1,13 +1,19 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { Spinner } from "react-activity";
 import "react-activity/src/Spinner/Spinner";
 
-import { FormData } from "../types/user.types";
+import { FormData, FormErrors } from "../types/user.types";
 import useRegisterUser from "../hooks/useRegisterUser";
 
 const RegisterPage = () => {
-  const { submitData, loading } = useRegisterUser();
+  const {
+    submitData,
+    loading,
+    error: registerError,
+    setError,
+  } = useRegisterUser();
 
   const formInitialvalues = {
     username: "",
@@ -17,8 +23,11 @@ const RegisterPage = () => {
   };
 
   const [formData, setFormData] = useState<FormData>(formInitialvalues);
-  const [errors, setErrors] = useState({
-    ...formInitialvalues,
+  const [errors, setErrors] = useState<FormErrors>({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (
@@ -35,6 +44,7 @@ const RegisterPage = () => {
         ...prevErrors,
         [e.target.name]: "",
       }));
+      setError(null);
     }
   };
 
@@ -42,11 +52,16 @@ const RegisterPage = () => {
     e.preventDefault();
 
     let hasErrors = false;
-    const newErrors: any = {};
+    const newErrors: FormErrors = {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    };
 
     Object.keys(formData).forEach((key) => {
       if (formData[key as keyof typeof formData] === "") {
-        newErrors[key] = `Please fill out the ${(
+        newErrors[key as keyof FormErrors] = `Please fill out the ${(
           key[0].toUpperCase() + key.slice(1)
         ).replace(/([A-Z])/g, " $1")}.`;
         hasErrors = true;
@@ -57,12 +72,16 @@ const RegisterPage = () => {
 
     if (!hasErrors) {
       // Submit here then clear form
-      await toast.promise(submitData(formData), {
-        loading: "Creating your account… Please wait.",
-        success: <b>Registration successful!</b>,
-        error: <b>Something went wrong!</b>,
-      });
-      setFormData(formInitialvalues);
+      submitData(formData)
+        .then(() => {
+          toast.success("Registration successful!");
+          setFormData(formInitialvalues);
+        })
+        .catch((error) => {
+          toast.error(error.message);
+          // setFormData(formInitialvalues);
+        });
+      // setFormData(formInitialvalues);
     }
   };
 
@@ -89,7 +108,7 @@ const RegisterPage = () => {
             <div className=" text-black">Username</div>
             <input
               className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
-                errors.username
+                errors.username || registerError?.field === "username"
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
@@ -107,7 +126,7 @@ const RegisterPage = () => {
             <div className=" text-black">Email</div>
             <input
               className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
-                errors.email
+                errors.email || registerError?.field === "email"
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
@@ -126,7 +145,7 @@ const RegisterPage = () => {
             <div className=" text-black">Password</div>
             <input
               className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
-                errors.password
+                errors.password || registerError?.field === "password"
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
@@ -146,7 +165,7 @@ const RegisterPage = () => {
             <input
               type="password"
               className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
-                errors.confirmPassword
+                errors.confirmPassword || registerError?.field === "password"
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
@@ -176,7 +195,9 @@ const RegisterPage = () => {
 
         <div className="flex items-center justify-center mb-8">
           Already Have an account?
-          <span className="text-green px-2 cursor-pointer">Log in</span>
+          <Link to="/login">
+            <span className="text-green px-2 cursor-pointer">Log in</span>
+          </Link>
         </div>
       </div>
     </div>

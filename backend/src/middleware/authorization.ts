@@ -1,12 +1,8 @@
-import jwt, { JwtPayload, VerifyErrors, VerifyCallback } from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 import type { NextFunction, Request, Response } from "express";
 
 dotenv.config();
-
-interface CustomJwtPayload extends JwtPayload {
-  user: string; // Assuming `user` is a string, adjust accordingly
-}
 
 const authorization = (
   request: Request,
@@ -18,7 +14,7 @@ const authorization = (
 
     if (!jwtToken) {
       console.log("no token");
-      response.status(401).json({ error: "Not Authorized" });
+      response.status(401).json({ field: "", message: "Unauthorized" });
       return;
     }
 
@@ -30,7 +26,7 @@ const authorization = (
 
     next();
   } catch (error) {
-    response.status(403).json({ error: "Not Authorized" });
+    response.status(403).json({ field: "", message: "Unauthorized" });
   }
 };
 
