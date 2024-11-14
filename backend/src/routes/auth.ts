@@ -87,7 +87,7 @@ router.post(
       if (user.rows.length === 0) {
         response
           .status(401)
-          .json({ field: "", error: "Password or Email is Incorrect" });
+          .json({ field: "both", message: "Password or Email is Incorrect" });
         return;
       }
 
@@ -98,7 +98,7 @@ router.post(
       if (!isValidPassword) {
         response
           .status(401)
-          .json({ field: "", message: "Password or Email is Incorrect" });
+          .json({ field: "both", message: "Password or Email is Incorrect" });
         return;
       }
 

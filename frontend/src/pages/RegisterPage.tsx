@@ -1,19 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { Spinner } from "react-activity";
 import "react-activity/src/Spinner/Spinner";
 
-import { FormData, FormErrors } from "../types/user.types";
-import useRegisterUser from "../hooks/useRegisterUser";
+import { RegisterData } from "../types/user.types";
+import useAuth from "../hooks/useAuth";
 
 const RegisterPage = () => {
   const {
     submitData,
     loading,
     error: registerError,
-    setError,
-  } = useRegisterUser();
+    setError: setRegisterError,
+  } = useAuth("register");
+
+  const navigate = useNavigate()
 
   const formInitialvalues = {
     username: "",
@@ -22,8 +24,8 @@ const RegisterPage = () => {
     confirmPassword: "",
   };
 
-  const [formData, setFormData] = useState<FormData>(formInitialvalues);
-  const [errors, setErrors] = useState<FormErrors>({
+  const [formData, setFormData] = useState<RegisterData>(formInitialvalues);
+  const [errors, setErrors] = useState<RegisterData>({
     username: "",
     email: "",
     password: "",
@@ -44,7 +46,7 @@ const RegisterPage = () => {
         ...prevErrors,
         [e.target.name]: "",
       }));
-      setError(null);
+      setRegisterError(null);
     }
   };
 
@@ -52,7 +54,7 @@ const RegisterPage = () => {
     e.preventDefault();
 
     let hasErrors = false;
-    const newErrors: FormErrors = {
+    const newErrors: RegisterData = {
       username: "",
       email: "",
       password: "",
@@ -61,7 +63,7 @@ const RegisterPage = () => {
 
     Object.keys(formData).forEach((key) => {
       if (formData[key as keyof typeof formData] === "") {
-        newErrors[key as keyof FormErrors] = `Please fill out the ${(
+        newErrors[key as keyof RegisterData] = `Please fill out the ${(
           key[0].toUpperCase() + key.slice(1)
         ).replace(/([A-Z])/g, " $1")}.`;
         hasErrors = true;
@@ -76,12 +78,13 @@ const RegisterPage = () => {
         .then(() => {
           toast.success("Registration successful!");
           setFormData(formInitialvalues);
+          setTimeout(() => {
+            navigate("/login");
+          }, 1250);
         })
         .catch((error) => {
           toast.error(error.message);
-          // setFormData(formInitialvalues);
         });
-      // setFormData(formInitialvalues);
     }
   };
 
@@ -100,7 +103,7 @@ const RegisterPage = () => {
       </div>
 
       <div className="form flex flex-1 flex-col gap-2 py-5 justify-between">
-        <h1 className="register flex text-start text-green text-5xl font-semibold w-[92%]">
+        <h1 className="register font-primaryRegular flex text-start text-green text-5xl font-semibold w-[92%]">
           Register
         </h1>
         <form className=" flex flex-col gap-2 w-[92%]" onSubmit={handleSubmit}>

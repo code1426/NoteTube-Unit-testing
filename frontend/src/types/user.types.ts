@@ -1,13 +1,11 @@
-export interface FormData {
+export interface RegisterData {
   username: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
-export interface FormErrors {
-  username: string;
+export interface LoginData {
   email: string;
   password: string;
-  confirmPassword: string;
 }

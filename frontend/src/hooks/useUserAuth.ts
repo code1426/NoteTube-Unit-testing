@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+// will be used to check wether the user is already logged in to redirect them to the home page.
+
 const useUserAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
