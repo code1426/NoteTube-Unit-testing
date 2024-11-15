@@ -68,3 +68,15 @@
     text-wrap: balance;
   }
 }
+
+.left-icon.visible,
+.right-icon.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.section.visible {
+  animation: bounceIn 1s ease;
+  opacity: 1;
+  transform: translateX(0);
+}
