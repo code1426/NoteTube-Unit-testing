@@ -1,5 +1,6 @@
 import { useState } from "react";
-const Flashcards = () => {
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+const FlashcardsQuizPage = () => {
   const [text, setText] = useState(
     "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis beatae omnis culpa sed illo voluptas qui blanditiis et. Atque doloribus itaque aliquid labore magnam dolorem nostrum asperiores quisquam repudiandae consequatur.",
   );
@@ -24,8 +25,13 @@ const Flashcards = () => {
   return (
     <div>
       <div
-        className={` w-full md:w-full lg:w-full h-screen flex-grow bg-white grid place-items-center`}
+        className={` w-full md:w-full lg:w-full h-screen flex-grow bg-white grid grid-cols-3  place-items-center`}
       >
+        {/* previous flashcard */}
+        <button className="">
+          <FaChevronLeft />
+        </button>
+        {/* main card */}
         <div
           className={`${effect ? "animate-flip" : ""} w-[60vh] h-[75vh] bg-green grid place-items-center rounded-[50px]`}
           onClick={isFlipped ? revealQuestion : revealAnswer}
@@ -45,9 +51,13 @@ const Flashcards = () => {
             </div>
           </div>
         </div>
+        {/* next flashcard */}
+        <button className="">
+          <FaChevronRight />
+        </button>
       </div>
     </div>
   );
 };
 
-export default Flashcards;
+export default FlashcardsQuizPage;
