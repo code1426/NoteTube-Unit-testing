@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  options: {
+    safelist: ["visible", "animate-bounceIn"],
+  },
   theme: {
     extend: {
       keyframes: {
@@ -9,9 +12,15 @@ export default {
           "75%": { transform: "rotateY(120deg)" },
           "100%": { transform: "rotateY(1800deg)" },
         },
+        bounceIn: {
+          "0%": { transform: "translateY(50px)", opacity: "0" },
+          "50%": { transform: "translateY(-10px)" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
       },
       animation: {
         flip: "flip 200ms ease-in-out",
+        bounceIn: "bounceIn 1000ms ease",
       },
       colors: {
         green: "#03C04A",

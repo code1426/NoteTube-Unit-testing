@@ -8,7 +8,7 @@ export interface LandingHeaderProps {
 
 const LandingHeader = ({ children }: LandingHeaderProps) => {
   return (
-    <div className="flex flex-row top-0 px-10 w-screen h-20 bg-white bg-opacity-70 items-center justify-between sticky backdrop-blur-xl">
+    <div className="flex flex-row top-0 px-10 w-screen h-20 bg-white bg-opacity-70 items-center justify-between sticky backdrop-blur-xl z-50">
       <div className="flex flex-row text-green text-xl font-secondaryRegular hover:text-green_hover transition-all duration-300 gap-5">
         <GrStatusPlaceholderSmall size={24} />
         NoteTube
