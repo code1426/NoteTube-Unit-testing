@@ -12,7 +12,8 @@ const useAuth = (type: "register" | "login") => {
 
   const submitData = async (data: RegisterData | LoginData) => {
     setLoading(true);
-    const response = await fetch(`http://localhost:3000/auth/${type}`, {
+    const API_URL = "http://localhost:3000" // to be replaced with the real API URL (e.g. process.env.**)
+    const response = await fetch(`${API_URL}/auth/${type}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -26,22 +27,15 @@ const useAuth = (type: "register" | "login") => {
       setError(errorDetails);
       throw new Error(errorDetails.message || "An unknown error occurred");
     } else {
-      setLoading(false)
+      setLoading(false);
     }
 
-    if (type === "login") {
-      const token = await response.json();
+    const token = await response.json();
 
-      if (token) {
-        localStorage.setItem("token", token);
-        setLoading(false);
-        console.log("Registration successful");
-        // setIsAuthenticated(true);
-      } else {
-        setLoading(false);
-        console.log("Registration failed, no token received");
-      }
+    if (token) {
+      localStorage.setItem("token", token);
     }
+    setLoading(false);
   };
 
   return { submitData, loading, error, setError };
