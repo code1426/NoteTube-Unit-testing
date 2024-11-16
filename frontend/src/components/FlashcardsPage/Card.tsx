@@ -38,7 +38,7 @@ const Card: React.FC<CardProps> = ({ cardFront, cardBack }) => {
         </div>
       </div>
       <div className="w-full border-t-2 border-gray-300 mb-3"></div>
-      <div className="text-2xl font-secondaryRegular text-gray-700">
+      <div className="text-2xl text-left font-secondaryRegular text-gray-700">
         {cardBack}
       </div>
 

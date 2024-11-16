@@ -5,15 +5,17 @@ import SubHeader from "../components/Header/SubHeader";
 import Card from "../components/FlashcardsPage/Card";
 import useFetchCards from "../hooks/useFetchCards";
 import { Card as CardType } from "../types/card.types";
+import LoadingScreen from "../components/LoadingScreen";
 
 const FlashcardsPage: React.FC = () => {
   const { deckId, deckName } = useParams<{
     deckId: string;
     deckName: string;
   }>();
+
   const { cards, loading } = useFetchCards(deckId);
 
-  if (loading) return <p>Loading cards...</p>;
+  if (loading) return <LoadingScreen message="Loading cards..." />;
 
   return (
     <div>
@@ -21,7 +23,7 @@ const FlashcardsPage: React.FC = () => {
       <SubHeader
         isFlashCardsPage={true}
         isSectionTitleOnly={false}
-        sectionTitle={deckName}
+        sectionTitle={deckName || "Untitled Deck"}
       />
       <div className="px-20">
         <div className="pb-20 text-black text-2xl md:text-5xl lg:text-5xl flex gap-3 font-secondaryRegular align-middle items-center">
@@ -29,7 +31,9 @@ const FlashcardsPage: React.FC = () => {
         </div>
         <div className="space-y-5">
           {cards.length === 0 ? (
-            <p>No cards available.</p>
+            <p className=" text-3xl text-center text-primaryRegular">
+              No cards available.
+            </p>
           ) : (
             cards.map((card: CardType) => (
               <Card

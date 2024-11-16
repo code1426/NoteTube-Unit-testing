@@ -6,15 +6,15 @@ interface UseFetchCardsResult {
   loading: boolean;
 }
 
-const useFetchCards = (deckId: string): UseFetchCardsResult => {
+const useFetchCards = (deckId: string | undefined): UseFetchCardsResult => {
   const [cards, setCards] = useState<Card[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchCards = async () => {
-      const url = `http://localhost:3000/decks/${deckId}/cards`;
       try {
-        const response = await fetch(url);
+        const API_URL = "http://localhost:3000";
+        const response = await fetch(`${API_URL}/decks/${deckId}/cards`);
         const data: Card[] = await response.json();
         setCards(data);
       } catch (error) {
