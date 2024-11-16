@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
@@ -8,18 +8,67 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import FlashcardsPage from "./pages/FlashcardsPage";
 import MyDeck from "./pages/MyDecksPage";
+import LoadingScreen from "./components/LoadingScreen";
+
+import useUserVerification from "./hooks/useUserVerification";
 
 const App = () => {
-  return (
+  const {
+    isAuthenticated,
+    setIsAuthenticated,
+    loading: loadingVerification,
+  } = useUserVerification();
+
+  return loadingVerification ? (
+    <LoadingScreen />
+  ) : (
     <StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/decks" element={<MyDeck />} />s
-          <Route path="/flashcards" element={<FlashcardsPage />} />
+          <Route
+            path="/"
+            element={
+              !isAuthenticated ? <LandingPage /> : <Navigate to="/home" />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              !isAuthenticated ? (
+                <LoginPage setAuth={setIsAuthenticated} />
+              ) : (
+                <Navigate to="/home" />
+              )
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              !isAuthenticated ? (
+                <RegisterPage setAuth={setIsAuthenticated} />
+              ) : (
+                <Navigate to="/home" />
+              )
+            }
+          />
+          <Route
+            path="/home"
+            element={
+              isAuthenticated ? (
+                <HomePage setAuth={setIsAuthenticated} />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+          <Route
+            path="/decks"
+            element={isAuthenticated ? <MyDeck /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/flashcards"
+            element={isAuthenticated ? <FlashcardsPage /> : <Navigate to="/" />}
+          />
         </Routes>
       </BrowserRouter>
     </StrictMode>

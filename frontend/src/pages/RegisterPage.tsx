@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { Spinner } from "react-activity";
 import "react-activity/src/Spinner/Spinner";
@@ -7,15 +7,17 @@ import "react-activity/src/Spinner/Spinner";
 import { RegisterData } from "../types/user.types";
 import useAuth from "../hooks/useAuth";
 
-const RegisterPage = () => {
+interface Props {
+  setAuth: (value: boolean) => void;
+}
+
+const RegisterPage = ({ setAuth }: Props) => {
   const {
     submitData,
     loading,
     error: registerError,
     setError: setRegisterError,
   } = useAuth("register");
-
-  const navigate = useNavigate()
 
   const formInitialvalues = {
     username: "",
@@ -73,14 +75,13 @@ const RegisterPage = () => {
     setErrors(newErrors);
 
     if (!hasErrors) {
-      // Submit here then clear form
       submitData(formData)
         .then(() => {
           toast.success("Registration successful!");
           setFormData(formInitialvalues);
           setTimeout(() => {
-            navigate("/login");
-          }, 1250);
+            setAuth(true);
+          }, 1000);
         })
         .catch((error) => {
           toast.error(error.message);
@@ -186,7 +187,7 @@ const RegisterPage = () => {
 
           <button
             type="submit"
-            className="Submit-button flex bg-green rounded-full min-w-full h-15 py-4 text-center justify-center text-xl text-black transition-all hover:bg-green_hover active:scale-[0.98] mt-6"
+            className="Submit-button flex bg-green rounded-full min-w-full h-14 py-4 text-center items-center justify-center text-xl text-black transition-all hover:bg-green_hover active:scale-[0.98] mt-6"
           >
             {loading ? (
               <Spinner size={12} color="#fff" animating={true} />
