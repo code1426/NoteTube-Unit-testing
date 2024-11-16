@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { Spinner } from "react-activity";
 import "react-activity/src/Spinner/Spinner";
@@ -7,15 +7,17 @@ import "react-activity/src/Spinner/Spinner";
 import { LoginData } from "../types/user.types";
 import useAuth from "../hooks/useAuth";
 
-const LoginPage = () => {
+interface Props {
+  setAuth: (auth: boolean) => void;
+}
+
+const LoginPage = ({ setAuth }: Props) => {
   const {
     submitData,
     loading,
     error: loginError,
     setError: setLoginError,
   } = useAuth("login");
-
-  const navigate = useNavigate();
 
   const formInitialvalues = {
     email: "",
@@ -67,20 +69,17 @@ const LoginPage = () => {
     setErrors(newErrors);
 
     if (!hasErrors) {
-      // Submit here then clear form
       submitData(formData)
         .then(() => {
           toast.success("Login successful!");
           setFormData(formInitialvalues);
           setTimeout(() => {
-            navigate("/home");
-          }, 1250);
+            setAuth(true);
+          }, 1000);
         })
         .catch((error) => {
           toast.error(error.message);
-          // setFormData(formInitialvalues);
         });
-      // setFormData(formInitialvalues);
     }
   };
 
@@ -156,7 +155,7 @@ const LoginPage = () => {
 
           <button
             type="submit"
-            className="Submit-button flex bg-green rounded-full py-4 text-center justify-center text-xl text-black transition-all hover:bg-green_hover mt-8"
+            className="Submit-button flex bg-green rounded-full min-w-full h-14 items-center py-4 text-center justify-center text-xl text-black transition-all hover:bg-green_hover mt-8"
           >
             {loading ? (
               <Spinner size={12} color="#fff" animating={true} />

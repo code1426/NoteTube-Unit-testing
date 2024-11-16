@@ -36,8 +36,7 @@ router.post(
       if (existingUser.rows.length !== 0) {
         response.status(401).json({
           field: "email",
-          message:
-            "This email is already in use. Please use a different one.",
+          message: "This email is already in use. Please use a different one.",
         });
         return;
       }

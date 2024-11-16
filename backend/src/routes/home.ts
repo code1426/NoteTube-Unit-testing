@@ -6,13 +6,14 @@ const router = express.Router();
 
 router.get("/", authorization, async (request: Request, response: Response) => {
   try {
-    const user = await pool.query("SELECT username FROM Users WHERE id = $1", [
-      request.user,
-    ]);
+    const user = await pool.query(
+      "SELECT id, username FROM Users WHERE id = $1",
+      [request.user],
+    );
 
     response.status(200).json(user.rows[0]);
   } catch (error) {
-    response.status(500).json({ error: error });
+    response.status(500).json({ message: error });
   }
 });
 
