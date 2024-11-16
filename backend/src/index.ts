@@ -4,6 +4,8 @@ import { Pool } from "pg";
 import * as dotenv from "dotenv";
 import authRoutes from "./routes/auth";
 import homeRoutes from "./routes/home";
+import deckRoutes from "./routes/deck";
+import cardRoutes from "./routes/card";
 
 dotenv.config({ path: "../.env" });
 
@@ -17,6 +19,8 @@ app.use(express.json()); // use express.json to allow to parse JSON requests
 app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/home", homeRoutes);
+app.use("/decks", deckRoutes);
+app.use("/", cardRoutes);
 
 const PORT = 3000;
 

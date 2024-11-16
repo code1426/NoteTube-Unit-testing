@@ -1,14 +1,15 @@
 import React from "react";
 import { PiDotsThreeCircle } from "react-icons/pi";
+import { Link } from "react-router-dom";
+import { Deck as DeckType } from "../../types/deck.types";
 
-interface DeckProps {
-  deckName: string;
-  deckCardsCount: number;
+interface DeckProps extends DeckType {
+  // Props automatically get the types from DeckType
 }
 
-const Deck: React.FC<DeckProps> = ({ deckName, deckCardsCount }) => {
+const Deck: React.FC<DeckProps> = ({ id, deck_name, card_count }) => {
   const manageDeck = () => {
-    console.log("Selected deck: ", { deckName });
+    console.log("Selected deck: ", { deck_name });
   };
 
   return (
@@ -22,14 +23,17 @@ const Deck: React.FC<DeckProps> = ({ deckName, deckCardsCount }) => {
         </button>
       </div>
 
-      <div className="p-6 flex flex-col items-start justify-center space-y-2">
-        <div className="text-3xl font-secondaryRegular">{deckName}</div>
+      <Link
+        to={`/flashcards/${id}/${deck_name}`}
+        className="p-6 flex flex-col items-start justify-center space-y-2 hover:bg-gray-100 rounded-b-[35px]"
+      >
+        <div className="text-3xl font-secondaryRegular">{deck_name}</div>
         <div className="text-gray-500 text-lg font-primaryRegular">
-          {deckCardsCount === 0
+          {card_count === 0
             ? "No cards"
-            : `${deckCardsCount} card${deckCardsCount !== 1 ? "s" : ""}`}
+            : `${card_count} card${card_count !== 1 ? "s" : ""}`}
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

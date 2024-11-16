@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import { PiPencil, PiTrash } from "react-icons/pi";
-import { useState } from "react";
 import DeleteCardModal from "./DeleteCardModal";
 
 interface CardProps {
@@ -11,7 +11,7 @@ const Card: React.FC<CardProps> = ({ cardFront, cardBack }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleEditCard = () => {
-    return;
+    return null;
   };
 
   const handleDeleteCard = () => {

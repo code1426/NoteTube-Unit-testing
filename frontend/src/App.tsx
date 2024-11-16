@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import FlashcardsPage from "./pages/FlashcardsPage";
 import MyDeck from "./pages/MyDecksPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const App = () => {
   return (
@@ -18,8 +19,12 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/decks" element={<MyDeck />} />s
-          <Route path="/flashcards" element={<FlashcardsPage />} />
+          <Route path="/decks" element={<MyDeck />} />
+          <Route
+            path="/flashcards/:deckId/:deckName"
+            element={<FlashcardsPage />}
+          />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </StrictMode>

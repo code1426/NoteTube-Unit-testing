@@ -1,12 +1,15 @@
 import { PiArrowCircleLeftBold, PiUserCircleFill } from "react-icons/pi";
+import { Link, useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   isHomePage: boolean;
 }
 
 const Header = ({ isHomePage }: HeaderProps) => {
+  const navigate = useNavigate();
+
   const handleBack = () => {
-    return null;
+    navigate(-1);
   };
 
   return (
@@ -23,10 +26,13 @@ const Header = ({ isHomePage }: HeaderProps) => {
           </button>
         )}
       </div>
+
       <div>
-        <button className="hover:bg-gray-200 rounded-full">
-          <PiUserCircleFill size={60} />
-        </button>
+        <Link to="/profile">
+          <button className="hover:bg-gray-200 rounded-full">
+            <PiUserCircleFill size={60} />
+          </button>
+        </Link>
       </div>
     </div>
   );
