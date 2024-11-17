@@ -10,6 +10,7 @@ import FlashcardsPage from "./pages/FlashcardsPage";
 import MyDecksPage from "./pages/MyDecksPage";
 import ProfilePage from "./pages/ProfilePage";
 import LoadingScreen from "./components/LoadingScreen";
+import SideBarLayout from "./components/Sidebar/Layout";
 
 import useUserVerification from "./hooks/useUserVerification";
 
@@ -26,6 +27,32 @@ const App = () => {
     <StrictMode>
       <BrowserRouter>
         <Routes>
+          <Route element={<SideBarLayout setAuth={setIsAuthenticated} />}>
+            <Route
+              path="/home"
+              element={
+                isAuthenticated ? (
+                  <HomePage setAuth={setIsAuthenticated} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route
+              path="/decks"
+              element={isAuthenticated ? <MyDecksPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/flashcards/:deckId/:deckName"
+              element={
+                isAuthenticated ? <FlashcardsPage /> : <Navigate to="/" />
+              }
+            />
+            <Route
+              path="/profile"
+              element={isAuthenticated ? <ProfilePage /> : <Navigate to="/" />}
+            />
+          </Route>
           <Route
             path="/"
             element={
@@ -51,28 +78,6 @@ const App = () => {
                 <Navigate to="/home" />
               )
             }
-          />
-          <Route
-            path="/home"
-            element={
-              isAuthenticated ? (
-                <HomePage setAuth={setIsAuthenticated} />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route
-            path="/decks"
-            element={isAuthenticated ? <MyDecksPage /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/flashcards/:deckId/:deckName"
-            element={isAuthenticated ? <FlashcardsPage /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/profile"
-            element={isAuthenticated ? <ProfilePage /> : <Navigate to="/" />}
           />
         </Routes>
       </BrowserRouter>
