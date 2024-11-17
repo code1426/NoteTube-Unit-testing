@@ -16,14 +16,14 @@ const MyDecksPage: React.FC = () => {
   }
 
   return (
-    <div className="relative w-full h-auto min-h-screen p-4 bg-white">
+    <div className="relative w-screen h-auto min-h-screen p-4 bg-white">
       <Header isHomePage={false} />
       <SubHeader
         isFlashCardsPage={false}
         isSectionTitleOnly={false}
         sectionTitle="My Decks"
       />
-      <div className="w-screen flex px-20 gap-5">
+      <div className="w-full flex px-20 gap-5">
         {decks.length === 0 ? (
           <p className="text-3xl text-center text-primaryRegular">
             No decks available.

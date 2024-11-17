@@ -1,7 +1,6 @@
 import Header from "../components/Header/Header";
 import TextInputSection from "../components/TextInputSection";
 import SubHeader from "../components/Header/SubHeader";
-import { Link } from "react-router-dom";
 
 import UseUser from "../hooks/useUser";
 import LoadingScreen from "../components/LoadingScreen";
@@ -33,9 +32,6 @@ const HomePage = ({ setAuth }: Props) => {
         sectionTitle="Upload Notes"
       />
       <TextInputSection />
-      <Link to={"/decks"}>
-        <button>My Decks</button>
-      </Link>
     </div>
   );
 };
