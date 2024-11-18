@@ -20,13 +20,13 @@ const LoginPage = ({ setAuth }: Props) => {
   } = useAuth("login");
 
   const formInitialvalues = {
-    email: "",
+    usernameEmail: "",
     password: "",
   };
 
   const [formData, setFormData] = useState<LoginData>(formInitialvalues);
   const [errors, setErrors] = useState<LoginData>({
-    email: "",
+    usernameEmail: "",
     password: "",
   });
 
@@ -53,7 +53,7 @@ const LoginPage = ({ setAuth }: Props) => {
 
     let hasErrors = false;
     const newErrors: LoginData = {
-      email: "",
+      usernameEmail: "",
       password: "",
     };
 
@@ -103,21 +103,21 @@ const LoginPage = ({ setAuth }: Props) => {
         </h1>
         <form className=" flex flex-col gap-3 w-[92%]" onSubmit={handleSubmit}>
           <div className="email-container flex flex-col gap-2 text-xl">
-            <div className=" text-black">Email</div>
+            <div className=" text-black">Username/Email</div>
             <input
               className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
-                errors.email || loginError?.field === "both"
+                errors.usernameEmail || loginError?.field === "both"
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
               type="text"
               placeholder="Email"
-              name="email"
-              value={formData.email}
+              name="usernameEmail"
+              value={formData.usernameEmail}
               onChange={handleChange}
             />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email}</p>
+            {errors.usernameEmail && (
+              <p className="text-red-500 text-sm">{errors.usernameEmail}</p>
             )}
           </div>
 

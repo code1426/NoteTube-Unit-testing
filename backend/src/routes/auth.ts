@@ -72,44 +72,43 @@ router.post(
   },
 );
 
-router.post(
-  "/login",
-  validateInfo,
-  async (request: Request, response: Response) => {
-    try {
-      const { email, password } = request.body as Omit<User, "username">;
+router.post("/login", async (request: Request, response: Response) => {
+  try {
+    const { usernameEmail, password } = request.body as Omit<User, "username">;
 
-      const user = await pool.query("SELECT * FROM Users WHERE email = $1", [
-        email,
-      ]);
+    const user = await pool.query(
+      "SELECT * FROM Users WHERE email = $1 OR username = $1",
+      [usernameEmail],
+    );
 
-      if (user.rows.length === 0) {
-        response
-          .status(401)
-          .json({ field: "both", message: "Password or Email is Incorrect" });
-        return;
-      }
-
-      const isValidPassword = await bcrypt.compare(
-        password,
-        user.rows[0].password,
-      );
-      if (!isValidPassword) {
-        response
-          .status(401)
-          .json({ field: "both", message: "Password or Email is Incorrect" });
-        return;
-      }
-
-      // Generate JWT token
-      const token = jwtGenerator(user.rows[0].id);
-      console.log(user.rows[0].id);
-      response.json(token);
-    } catch (error) {
-      response.status(500).json({ message: error });
+    if (user.rows.length === 0) {
+      response.status(401).json({
+        field: "both",
+        message: "Password or Username/Email is Incorrect",
+      });
+      return;
     }
-  },
-);
+
+    const isValidPassword = await bcrypt.compare(
+      password,
+      user.rows[0].password,
+    );
+    if (!isValidPassword) {
+      response.status(401).json({
+        field: "both",
+        message: "Password or Username/Email is Incorrect",
+      });
+      return;
+    }
+
+    // Generate JWT token
+    const token = jwtGenerator(user.rows[0].id);
+    console.log(user.rows[0].id);
+    response.json(token);
+  } catch (error) {
+    response.status(500).json({ message: error });
+  }
+});
 
 router.get("/verify", authorization, (_request, response) => {
   try {
