@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import { PiPencil, PiTrash } from "react-icons/pi";
 import DeleteCardModal from "./DeleteCardModal";
+import EditCardModal from "./EditCardModal";
 
 interface CardProps {
+  cardId: string;
   cardFront: string;
   cardBack: string;
 }
 
-const Card: React.FC<CardProps> = ({ cardFront, cardBack }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const Card: React.FC<CardProps> = ({ cardId, cardFront, cardBack }) => {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleEditCard = () => {
-    return null;
+    setIsEditModalOpen(true);
   };
 
   const handleDeleteCard = () => {
-    setIsModalOpen(true);
+    setIsDeleteModalOpen(true);
   };
 
   return (
@@ -38,11 +41,23 @@ const Card: React.FC<CardProps> = ({ cardFront, cardBack }) => {
         </div>
       </div>
       <div className="w-full border-t-2 border-gray-300 mb-3"></div>
-      <div className="text-2xl text-left font-secondaryRegular text-gray-700">
+      <div className="text-2xl flex flex-col text-left font-secondaryRegular text-gray-700">
         {cardBack}
       </div>
 
-      {isModalOpen && <DeleteCardModal onClose={() => setIsModalOpen(false)} />}
+      {isEditModalOpen && (
+        <EditCardModal
+          cardId={cardId}
+          cardFront={cardFront}
+          cardBack={cardBack}
+          onClose={() => setIsEditModalOpen(false)}
+          onEdit={() => setIsEditModalOpen(false)}
+        />
+      )}
+
+      {isDeleteModalOpen && (
+        <DeleteCardModal onClose={() => setIsDeleteModalOpen(false)} />
+      )}
     </div>
   );
 };

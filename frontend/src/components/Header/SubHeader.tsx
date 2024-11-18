@@ -12,35 +12,21 @@ interface SubHeaderProps {
   isFlashCardsPage: boolean;
   isSectionTitleOnly: boolean;
   sectionTitle: string;
+  onAdd?: () => void;
 }
 
 const SubHeader: React.FC<SubHeaderProps> = ({
   isFlashCardsPage,
   isSectionTitleOnly,
   sectionTitle,
+  onAdd,
 }) => {
   const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
 
-  const handleManage = () => {
-    return null;
-  };
-
-  const handleQuiz = () => {
-    return null;
-  };
-
-  const handleAdd = () => {
-    return null;
-  };
-
   const handleSearch = () => {
     setIsSearchActive(!isSearchActive);
     setSearchText("");
-  };
-
-  const handleFilter = () => {
-    return null;
   };
 
   return (
@@ -52,7 +38,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
           {!isSectionTitleOnly && (
             <button
               className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200"
-              onClick={handleManage}
+              onClick={() => console.log("manage button")} // placeholder
             >
               <PiDotsThreeCircle size={50} />
             </button>
@@ -65,7 +51,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
               <div>
                 <button
                   className="flex py-5 px-16 border-2 border-black bg-[#03c04a] rounded-[50px] gap-2 hover:bg-gray-200"
-                  onClick={handleQuiz}
+                  onClick={() => console.log("quiz clicked")} // Placeholder
                 >
                   <PiCards size={30} /> Quiz
                 </button>
@@ -74,7 +60,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
             <div>
               <button
                 className="flex py-5 px-16 border-2 border-[#03c04a] rounded-[50px] gap-2 hover:bg-gray-200"
-                onClick={handleAdd}
+                onClick={onAdd}
               >
                 <PiPlus size={30} /> Add
               </button>
@@ -108,7 +94,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
             <div className="relative">
               <button
                 className="flex items-center hover:underline gap-2"
-                onClick={handleFilter}
+                onClick={() => console.log("filter clicked")} // Placeholder
               >
                 <PiFunnel size={40} /> Filter
               </button>

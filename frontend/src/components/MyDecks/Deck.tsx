@@ -24,7 +24,7 @@ const Deck: React.FC<DeckProps> = ({ id, deck_name, card_count }) => {
       </div>
 
       <Link
-        to={`/flashcards/${id}/${deck_name}`}
+        to={`/flashcards/${id}`}
         className="p-6 flex flex-col items-start justify-center space-y-2 hover:bg-gray-100 rounded-b-[35px]"
       >
         <div className="text-3xl font-secondaryRegular">{deck_name}</div>

@@ -4,7 +4,7 @@ import SubHeader from "../components/Header/SubHeader";
 import Deck from "../components/MyDecks/Deck";
 import LoadingScreen from "../components/LoadingScreen";
 import UseUser from "../hooks/useUser";
-import useFetchDecks from "../hooks/useFetchDecks";
+import useFetchDecks from "../hooks/Decks/useFetchDecks";
 import { Deck as DeckType } from "../types/deck.types";
 
 const MyDecksPage: React.FC = () => {
@@ -16,7 +16,7 @@ const MyDecksPage: React.FC = () => {
   }
 
   return (
-    <div className="relative w-full h-auto min-h-screen p-4 bg-white">
+    <div className="relative w-screen h-auto min-h-screen p-4 bg-white">
       <Header isHomePage={false} />
       <SubHeader
         isFlashCardsPage={false}

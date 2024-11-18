@@ -67,7 +67,7 @@ const App = () => {
             element={isAuthenticated ? <MyDecksPage /> : <Navigate to="/" />}
           />
           <Route
-            path="/flashcards/:deckId/:deckName"
+            path="/flashcards/:deckId"
             element={isAuthenticated ? <FlashcardsPage /> : <Navigate to="/" />}
           />
           <Route

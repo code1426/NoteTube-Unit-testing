@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Card } from "../types/card.types";
+import { Card } from "../../types/card.types";
 
 interface UseFetchCardsResult {
   cards: Card[];
