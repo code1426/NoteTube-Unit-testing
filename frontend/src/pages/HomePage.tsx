@@ -1,31 +1,20 @@
 import Header from "../components/Header/Header";
 import TextInputSection from "../components/TextInputSection";
 import SubHeader from "../components/Header/SubHeader";
-
-import UseUser from "../hooks/useUser";
 import LoadingScreen from "../components/LoadingScreen";
 
-interface Props {
-  setAuth: (value: boolean) => void;
-}
+import UseUser from "../hooks/useUser";
 
-const HomePage = ({ setAuth }: Props) => {
-
+const HomePage = () => {
   const { user, loading } = UseUser();
 
-  // temporarily used in the header user icon for testing purposes
-  const logout = () => {
-    localStorage.removeItem("token");
-    setAuth(false);
-  };
-
   if (loading || !user) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
 
   return (
     <div className="relative w-full h-auto min-h-screen p-4 bg-white">
-      <Header isHomePage={true} username={user.username} logout={logout} />
+      <Header isHomePage={true} username={user.username} />
       <SubHeader
         isFlashCardsPage={false}
         isSectionTitleOnly={true}
