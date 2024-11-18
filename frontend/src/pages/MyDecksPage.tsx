@@ -23,7 +23,7 @@ const MyDecksPage: React.FC = () => {
         isSectionTitleOnly={false}
         sectionTitle="My Decks"
       />
-      <div className="w-screen flex px-20 gap-5">
+      <div className="w-full flex px-20 gap-5">
         {decks.length === 0 ? (
           <p className="text-3xl text-center text-primaryRegular">
             No decks available.
