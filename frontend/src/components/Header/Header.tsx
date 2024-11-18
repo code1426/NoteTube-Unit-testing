@@ -4,10 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 interface HeaderProps {
   isHomePage: boolean;
   username?: string | undefined;
-  logout?: () => void;
 }
 
-const Header = ({ isHomePage, username, logout }: HeaderProps) => {
+const Header = ({ isHomePage, username }: HeaderProps) => {
   const navigate = useNavigate();
   const handleBack = () => {
     navigate(-1);
@@ -17,7 +16,7 @@ const Header = ({ isHomePage, username, logout }: HeaderProps) => {
     <div className="flex flex-row top-0 px-10 w-full h-20 bg-white items-center justify-between z-10 sticky">
       <div className="text-black text-4xl font-primaryBold">
         {isHomePage ? (
-          `Welcome ${username![0].toUpperCase() + username!.slice(1)}!` // capitalized
+          `Welcome ${username}!`
         ) : (
           <button
             className="hover:bg-gray-200 rounded-full"
