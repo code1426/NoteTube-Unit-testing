@@ -7,6 +7,9 @@
     "install-all": "npm i && npm prune && cd frontend && npm i && npm prune && cd ../backend && npm i && npm prune",
     "frontend": "cd frontend && npm run dev",
     "backend": "cd backend && npm run dev",
+    "migrate-status": "cd backend && npx dbmate status",
+    "migrate-up": "cd backend && npx dbmate up",
+    "migrate-down": "cd backend && npx dbmate down",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
