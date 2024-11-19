@@ -6,7 +6,7 @@ interface LayoutProps {
   setAuth: (value: boolean) => void;
 }
 
-const Layout = ({setAuth}: LayoutProps) => {
+const Layout = ({ setAuth }: LayoutProps) => {
   return (
     <div className="flex">
       <SideBar setAuth={setAuth} />
