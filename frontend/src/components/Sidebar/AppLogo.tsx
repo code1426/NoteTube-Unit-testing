@@ -4,20 +4,32 @@ interface Props {
 }
 const Logo = ({ setIsExpanded, isExpanded }: Props) => {
   return (
-    <div className=" flex flex-row gap-2 items-center justify-center">
+    <div className=" flex flex-row gap-2 items-center justify-center p-2">
       <div
         onClick={() => {
           setIsExpanded(!isExpanded);
         }}
-        className="icon flex rounded-full bg-white w-14 h-14"
-      ></div>
-      <div
-        onClick={() => {
-          setIsExpanded(!isExpanded);
-        }}
-        className={`${isExpanded || "hidden"} text-white text-3xl`}
+        className="group icon flex rounded-full  bg-gray-700 w-14 h-14 relative"
       >
-        NoteTube
+        <span
+          className={`flex item-center absolute w-auto left-full ml-4 p-2 rounded-md shadow-md text-white bg-green text-xs font-bold z-50 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-100 ease-in-out ${isExpanded ? "opacity-0 invisible" : "opacity-100"}`}
+        >
+          Notetube
+        </span>
+      </div>
+      <div
+        onClick={() => {
+          setIsExpanded(!isExpanded);
+        }}
+        className={`wrapper grid transition-all duration-300 ease-in-out ${
+          isExpanded ? "grid-rows-1" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div
+          className={`text-green font-secondaryRegular text-3xl whitespace-nowrap ml-4 transition-all duration-300 ease-in-out transform ${isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"}`}
+        >
+          NoteTube
+        </div>
       </div>
     </div>
   );
