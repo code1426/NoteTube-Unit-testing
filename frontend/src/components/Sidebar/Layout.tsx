@@ -8,9 +8,11 @@ interface LayoutProps {
 
 const Layout = ({ setAuth }: LayoutProps) => {
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <SideBar setAuth={setAuth} />
-      <Outlet />
+      <main className="flex-1 overflow-auto">
+        <Outlet />
+      </main>
     </div>
   );
 };

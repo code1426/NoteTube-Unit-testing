@@ -1,3 +1,5 @@
+import { FcVideoFile } from "react-icons/fc"; //placeholder
+
 interface Props {
   setIsExpanded: (value: boolean) => void;
   isExpanded: boolean;
@@ -9,8 +11,9 @@ const Logo = ({ setIsExpanded, isExpanded }: Props) => {
         onClick={() => {
           setIsExpanded(!isExpanded);
         }}
-        className="group icon flex rounded-full  bg-gray-700 w-14 h-14 relative"
+        className="group icon flex rounded-full w-14 h-14 relative border-2 border-black border-solid"
       >
+        <FcVideoFile className="text-4xl text-black m-auto" />
         <span
           className={`flex item-center absolute w-auto left-full ml-4 p-2 rounded-md shadow-md text-white bg-green text-xs font-bold z-50 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-100 ease-in-out ${isExpanded ? "opacity-0 invisible" : "opacity-100"}`}
         >
