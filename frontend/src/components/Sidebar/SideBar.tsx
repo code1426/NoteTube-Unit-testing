@@ -1,4 +1,8 @@
 import { useState, useRef, useEffect } from "react";
+import { MdOutlineNoteAdd } from "react-icons/md"; // upload notes
+import { TbCards } from "react-icons/tb"; // my decks
+import { RiHistoryLine } from "react-icons/ri"; // history
+import { GoVideo } from "react-icons/go"; // generate videos
 
 import MenuItem from "./MenuItem";
 import Logout from "./Logout";
@@ -49,13 +53,25 @@ const SideBar = ({ setAuth }: Props) => {
             route="/home"
             label="Upload Notes"
             isExpanded={isExpanded}
+            Icon={MdOutlineNoteAdd}
           />
-          <MenuItem route="/decks" label="My Decks" isExpanded={isExpanded} />
-          <MenuItem route="/history" label="History" isExpanded={isExpanded} />
+          <MenuItem
+            route="/decks"
+            label="My Decks"
+            isExpanded={isExpanded}
+            Icon={TbCards}
+          />
+          <MenuItem
+            route="/history"
+            label="History"
+            isExpanded={isExpanded}
+            Icon={RiHistoryLine}
+          />
           <MenuItem
             route="/generated-videos"
             label="Generate Videos"
             isExpanded={isExpanded}
+            Icon={GoVideo}
           />
         </div>
 

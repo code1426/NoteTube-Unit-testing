@@ -1,3 +1,5 @@
+import { RiLogoutBoxLine } from "react-icons/ri"; //logout
+
 interface Props {
   logout: () => void;
   isExpanded?: boolean;
@@ -10,8 +12,9 @@ const Logout = ({ logout, isExpanded }: Props) => {
     >
       <div
         onClick={logout}
-        className="icon flex rounded-full bg-gray-700 min-w-14 min-h-14 relative"
+        className="icon flex rounded-full min-w-14 min-h-14 relative"
       >
+        <RiLogoutBoxLine className="text-black text-4xl m-auto" />
         <span
           className={`flex item-center absolute w-auto left-full ml-4 p-2 rounded-md shadow-md text-white bg-red-500 text-xs font-bold z-50 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-100 ease-in-out ${isExpanded ? "opacity-0 invisible" : "opacity-100"}`}
         >
