@@ -7,6 +7,7 @@ import {
   PiFunnel,
   PiX,
 } from "react-icons/pi";
+import FilterCardModal from "../FlashcardsPage/FilterCardModal";
 
 interface SubHeaderProps {
   isFlashCardsPage: boolean;
@@ -23,12 +24,18 @@ const SubHeader: React.FC<SubHeaderProps> = ({
 }) => {
   const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   const handleSearch = () => {
     setIsSearchActive(!isSearchActive);
     setSearchText("");
   };
-
+  const openFilter = () => {
+    setIsFilterOpen(true);
+  };
+  const closeFilter = () => {
+    setIsFilterOpen(false);
+  };
   return (
     <div>
       <div className="subheader px-20 py-10 flex justify-between items-center">
@@ -94,10 +101,11 @@ const SubHeader: React.FC<SubHeaderProps> = ({
             <div className="relative">
               <button
                 className="flex items-center hover:underline gap-2"
-                onClick={() => console.log("filter clicked")} // Placeholder
+                onClick={openFilter} // Placeholder
               >
                 <PiFunnel size={40} /> Filter
               </button>
+              {isFilterOpen && <FilterCardModal onClose={closeFilter} />}
             </div>
           </div>
         )}
