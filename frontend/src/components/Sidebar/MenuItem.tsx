@@ -25,7 +25,7 @@ const MenuItem = ({ route, label, isExpanded, Icon }: Props) => {
             </span>
           </div>
           <div
-            className={`wrapper grid transition-all duration-300 ease-in-out self-center w-40 px-4 ${
+            className={`wrapper grid transition-all duration-300 ease-in-out self-center w-40 px-1 ${
               isExpanded ? "grid-rows-1" : "grid-rows-[0fr]"
             }`}
           >

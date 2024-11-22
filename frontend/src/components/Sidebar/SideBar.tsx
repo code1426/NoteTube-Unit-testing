@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { MdOutlineNoteAdd } from "react-icons/md"; // upload notes
 import { TbCards } from "react-icons/tb"; // my decks
 import { RiHistoryLine } from "react-icons/ri"; // history
-import { GoVideo } from "react-icons/go"; // generate videos
+import { GoVideo } from "react-icons/go"; // generated videos
 
 import MenuItem from "./MenuItem";
 import Logout from "./Logout";
@@ -42,7 +42,7 @@ const SideBar = ({ setAuth }: Props) => {
     <div className="border-r-2 border-green border-solid max-h-screen relative">
       <div
         ref={sidebarRef}
-        className={`container flex flex-col ${isExpanded ? "w-64" : "w-24"} h-screen px-3 bg-white transition-all ease-linear duration-300 -z-50 `}
+        className={`container flex flex-col ${isExpanded ? "w-64" : "w-24"} h-screen px-3 bg-white transition-all ease-linear duration-250 -z-50 `}
       >
         <div className="flex h-40 items-center justify-start border-b-2 border-green">
           <Logo isExpanded={isExpanded} setIsExpanded={setIsExpanded}></Logo>
@@ -69,7 +69,7 @@ const SideBar = ({ setAuth }: Props) => {
           />
           <MenuItem
             route="/generated-videos"
-            label="Generate Videos"
+            label="Generated Videos"
             isExpanded={isExpanded}
             Icon={GoVideo}
           />

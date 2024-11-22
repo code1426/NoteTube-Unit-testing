@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { Spinner } from "react-activity";
 import "react-activity/src/Spinner/Spinner";
@@ -111,7 +111,7 @@ const LoginPage = ({ setAuth }: Props) => {
                   : "border-green"
               }`}
               type="text"
-              placeholder="Email"
+              placeholder="Username or Email"
               name="usernameEmail"
               value={formData.usernameEmail}
               onChange={handleChange}

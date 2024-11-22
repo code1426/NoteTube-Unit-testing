@@ -4,7 +4,7 @@ const ProfilePage = () => {
   return (
     <div>
       <Header isHomePage={false} />
-      <div className="w-screen h-screen bg-white grid place-items-center ">
+      <div className="w-full h-screen bg-white grid place-items-center ">
         <div className="bg-white w-full h-full grid place-items-center">
           <div className="w-[60vh] h-[73vh] bg-green grid place-items-center rounded-2xl  overflow-hidden">
             <div className=" m-3 bg-white  h-[50vh] rounded-2xl">
