@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PiList, PiListNumbers, PiTrash, PiX } from "react-icons/pi";
 import useCreateFlashcard from "../../hooks/Flashcards/useCreateFlashcard";
-import Spinner from "react-activity/src/Spinner/Spinner";
+import { Spinner } from "react-activity";
 
 interface AddFlashcardModalProps {
   deckId: string;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PiList, PiListNumbers, PiTrash, PiX } from "react-icons/pi";
-import Spinner from "react-activity/dist/Spinner";
+import { Spinner } from "react-activity";
 import useUpdateFlashcard from "../../hooks/Flashcards/useUpdateFlashcard";
 import { Flashcard } from "../../types/flashcard.types";
 

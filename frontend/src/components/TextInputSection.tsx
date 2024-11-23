@@ -19,6 +19,7 @@ const TextInputSection = () => {
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     setSelectedFile(file);
+    console.log(selectedFile);
     if (file) {
       console.log(file.name);
       setSelectedFile(null);
