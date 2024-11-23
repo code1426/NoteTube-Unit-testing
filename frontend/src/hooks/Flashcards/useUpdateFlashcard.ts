@@ -20,7 +20,7 @@ const useUpdateFlashcard = (flashcardId: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/cards/${flashcardId}`, {
+      const response = await fetch(`${API_URL}/flashcards/${flashcardId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -30,17 +30,22 @@ const useUpdateFlashcard = (flashcardId: string) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Server error response:", errorData);
-        throw new Error("Failed to update card.");
+        console.log(errorData);
+        setError(
+          "Request to update flashcard failed with status: " + response.status,
+        );
+        return { success: false, error: error };
+      } else {
+        const flashcard: Flashcard = await response.json();
+        return { success: true, flashcard: flashcard };
       }
-
-      const flashcard: Flashcard = await response.json();
-      return { success: true, flashcard: flashcard };
     } catch (error) {
-      console.error("Update error:", error);
-      return { success: false, error: "Failed to update card" };
+      return { success: false, error: "Failed to update flashcard" };
+    } finally {
+      setLoading(false);
     }
   };
+
   return { updateFlashcard, loading, error };
 };
 

@@ -1,18 +1,26 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import SubHeader from "../components/Header/SubHeader";
-import Deck from "../components/Decks/DeckItem";
+import DeckItem from "../components/Decks/DeckItem";
 import LoadingScreen from "../components/LoadingScreen";
 import UseUser from "../hooks/useUser";
-import useFetchDecks from "../hooks/Decks/useFetchUserDecks";
-import { Deck as DeckType } from "../types/deck.types";
+import useFetchUserDecks from "../hooks/Decks/useFetchUserDecks";
+import type { Deck } from "../types/deck.types";
 
-const MyDecksPage: React.FC = () => {
+const UserDecksPage: React.FC = () => {
   const { user, loading: userLoading } = UseUser();
-  const { decks, loading: decksLoading } = useFetchDecks(user?.id || "");
+  const {
+    userDecks,
+    loading: decksLoading,
+    error,
+  } = useFetchUserDecks(user?.id || "");
 
   if (userLoading || !user || decksLoading) {
     return <LoadingScreen message="Loading decks..." />;
+  }
+
+  if (error) {
+    return <p className="text-3xl text-center text-primaryRegular">{error}</p>;
   }
 
   return (
@@ -24,13 +32,13 @@ const MyDecksPage: React.FC = () => {
         sectionTitle="My Decks"
       />
       <div className="w-full flex px-20 gap-5">
-        {decks.length === 0 ? (
+        {userDecks!.length === 0 ? (
           <p className="text-3xl text-center text-primaryRegular">
             No decks available.
           </p>
         ) : (
-          decks.map((deck: DeckType) => (
-            <Deck
+          userDecks!.map((deck: Deck) => (
+            <DeckItem
               key={deck.id}
               id={deck.id}
               deck_name={deck.deck_name}
@@ -43,4 +51,4 @@ const MyDecksPage: React.FC = () => {
   );
 };
 
-export default MyDecksPage;
+export default UserDecksPage;

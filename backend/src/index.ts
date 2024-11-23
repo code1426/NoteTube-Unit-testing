@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 import authRoutes from "./routes/auth";
 import homeRoutes from "./routes/home";
 import deckRoutes from "./routes/deck";
-import cardRoutes from "./routes/card";
+import flashcardRoutes from "./routes/flashcard";
 
 dotenv.config({ path: "../.env" });
 
@@ -20,7 +20,7 @@ app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/home", homeRoutes);
 app.use("/decks", deckRoutes);
-app.use("/", cardRoutes);
+app.use("/", flashcardRoutes);
 
 const PORT = 3000;
 

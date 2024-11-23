@@ -2,7 +2,7 @@ import { PiDotsThreeCircle } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import type { Deck } from "../../types/deck.types";
 
-const Deck = ({ id, deck_name, card_count }: Deck) => {
+const DeckItem = ({ id, deck_name, card_count }: Deck) => {
   const manageDeck = () => {
     console.log("Selected deck: ", { deck_name });
   };
@@ -33,4 +33,4 @@ const Deck = ({ id, deck_name, card_count }: Deck) => {
   );
 };
 
-export default Deck;
+export default DeckItem;

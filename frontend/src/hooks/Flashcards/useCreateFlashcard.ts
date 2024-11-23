@@ -21,7 +21,7 @@ const useCreateFlashcard = () => {
 
     try {
       const response = await fetch(
-        `${API_URL}/decks/${flashcardData.deckId}/cards`,
+        `${API_URL}/decks/${flashcardData.deckId}/flashcards`,
         {
           method: "POST",
           headers: {
@@ -37,13 +37,13 @@ const useCreateFlashcard = () => {
         setError(
           "Request to create flashcard failed with status: " + response.status,
         );
+        return { success: false, error: error };
+      } else {
+        const flashcard: Flashcard = await response.json();
+        return { success: true, flashcard: flashcard };
       }
-
-      const flashcard: Flashcard = await response.json();
-      return { success: true, flashcard: flashcard };
-    } catch (err) {
-      setError("Failed to create flashcard");
-      return { success: false, error };
+    } catch (error) {
+      return { success: false, error: "Failed to create flashcard" };
     } finally {
       setLoading(false);
     }

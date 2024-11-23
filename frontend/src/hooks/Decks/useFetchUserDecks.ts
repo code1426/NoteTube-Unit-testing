@@ -7,7 +7,6 @@ interface FetchUserDecksResult {
   userDecks: Deck[] | null;
   loading: boolean;
   error?: string | null;
-  refetch: () => void;
 }
 
 const useFetchUserDecks = (userId: string): FetchUserDecksResult => {
@@ -15,39 +14,40 @@ const useFetchUserDecks = (userId: string): FetchUserDecksResult => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchDecks = async () => {
-    setLoading(true);
-
-    try {
-      const response = await fetch(`${API_URL}/decks?userId=${userId}`, {
-        method: "GET",
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
-        setError(
-          "Request to fetch user decks failed with status: " + response.status,
-        );
-        return;
-      } else {
-        const data = await response.json();
-        setUserDecks(data);
-      }
-    } catch (error) {
-      console.error("Error fetching user decks:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchDecks = async () => {
+      setLoading(true);
+
+      try {
+        const response = await fetch(`${API_URL}/decks?userId=${userId}`, {
+          method: "GET",
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.log(errorData);
+          setError(
+            "Request to fetch user decks failed with status: " +
+              response.status,
+          );
+          return;
+        } else {
+          const data = await response.json();
+          setUserDecks(data);
+        }
+      } catch (error) {
+        setError("Failed to fetch user decks");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (userId) {
       fetchDecks();
     }
-  });
+  }, [userId]);
 
-  return { userDecks, loading, error, refetch: fetchDecks };
+  return { userDecks, loading, error };
 };
 
 export default useFetchUserDecks;

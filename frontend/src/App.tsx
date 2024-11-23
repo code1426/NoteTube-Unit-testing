@@ -6,7 +6,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import FlashcardsPage from "./pages/FlashcardsPage";
-import MyDecksPage from "./pages/MyDecksPage";
+import UserDecksPage from "./pages/UserDecksPage";
 import ProfilePage from "./pages/ProfilePage";
 import LoadingScreen from "./components/LoadingScreen";
 import SideBarLayout from "./components/Sidebar/Layout";
@@ -34,7 +34,9 @@ const App = () => {
             />
             <Route
               path="/decks"
-              element={isAuthenticated ? <MyDecksPage /> : <Navigate to="/" />}
+              element={
+                isAuthenticated ? <UserDecksPage /> : <Navigate to="/" />
+              }
             />
             <Route
               path="/flashcards/:deckId"
