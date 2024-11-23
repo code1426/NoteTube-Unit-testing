@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header/Header";
 import SubHeader from "../components/Header/SubHeader";
-import Card from "../components/FlashcardsPage/Card";
-import { Card as CardType } from "../types/card.types";
+import Card from "../components/Flashcards/Flashcard";
+import type { Flashcard } from "../types/flashcard.types";
 import LoadingScreen from "../components/LoadingScreen";
-import AddCardModal from "../components/FlashcardsPage/AddCardModal";
-import useFetchCards from "../hooks/Cards/useFetchCards";
-import useFetchDecks from "../hooks/Decks/useFetchDecks";
+import AddCardModal from "../components/Flashcards/AddFlashcardModal";
+import useFetchFlashcards from "../hooks/Flashcards/useFetchFlashcards";
 
 const FlashcardsPage: React.FC = () => {
   const { deckId, deckName } = useParams<{
@@ -15,7 +14,7 @@ const FlashcardsPage: React.FC = () => {
     deckName: string;
   }>();
 
-  const { cards, loading } = useFetchCards(deckId);
+  const { flashcards, loading } = useFetchFlashcards(deckId!);
   const [isAddFormVisible, setAddFormVisible] = useState(false);
 
   const toggleAddForm = () => {
@@ -50,16 +49,17 @@ const FlashcardsPage: React.FC = () => {
           />
         )}
         <div className="space-y-5">
-          {cards.length === 0 ? (
+          {flashcards!.length === 0 ? (
             <p className="text-3xl text-center text-primaryRegular">
               No cards available.
             </p>
           ) : (
-            cards.map((card: CardType) => (
+            flashcards!.map((flashcard: Flashcard) => (
               <Card
-                cardId={card.id}
-                cardFront={card.card_front}
-                cardBack={card.card_back}
+                id={flashcard.id}
+                front={flashcard.front}
+                back={flashcard.back}
+                deckId={flashcard.deckId}
               />
             ))
           )}

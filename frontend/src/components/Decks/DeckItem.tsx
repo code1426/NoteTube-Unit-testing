@@ -1,13 +1,8 @@
-import React from "react";
 import { PiDotsThreeCircle } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import { Deck as DeckType } from "../../types/deck.types";
+import type { Deck } from "../../types/deck.types";
 
-interface DeckProps extends DeckType {
-  // Props automatically get the types from DeckType
-}
-
-const Deck: React.FC<DeckProps> = ({ id, deck_name, card_count }) => {
+const Deck = ({ id, deck_name, card_count }: Deck) => {
   const manageDeck = () => {
     console.log("Selected deck: ", { deck_name });
   };

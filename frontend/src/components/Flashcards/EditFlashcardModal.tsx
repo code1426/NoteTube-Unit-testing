@@ -1,54 +1,57 @@
 import React, { useState } from "react";
 import { PiList, PiListNumbers, PiTrash, PiX } from "react-icons/pi";
 import Spinner from "react-activity/dist/Spinner";
-import useUpdateCard from "../../hooks/Cards/useUpdateCard";
+import useUpdateFlashcard from "../../hooks/Flashcards/useUpdateFlashcard";
+import { Flashcard } from "../../types/flashcard.types";
 
-interface EditCardModalProps {
-  cardId: string;
-  cardFront: string;
-  cardBack: string;
+interface EditCardModalProps extends Flashcard {
   onClose: () => void;
   onEdit: () => void;
 }
 
 const EditCardModal: React.FC<EditCardModalProps> = ({
-  cardId,
-  cardFront,
-  cardBack,
+  id,
+  front,
+  back,
+  deckId,
   onClose,
   onEdit,
 }) => {
+  const { updateFlashcard, loading, error } = useUpdateFlashcard(id);
   const [activeField, setActiveField] = useState<"front" | "back">("front");
-  const [newCardFront, setNewCardFront] = useState(cardFront);
-  const [newCardBack, setNewCardBack] = useState(cardBack);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [newFront, setNewFront] = useState(front);
+  const [newBack, setNewBack] = useState(back);
 
   const handleEditCard = async () => {
-    if (!newCardFront.trim() || !newCardBack.trim()) {
+    const isEmpty: boolean = !newFront.trim() || !newBack.trim();
+
+    if (isEmpty) {
       alert("Card front and back cannot be empty!");
       return;
     }
 
-    setIsSubmitting(true);
+    const res = await updateFlashcard({
+      id,
+      front: newFront,
+      back: newBack,
+      deckId,
+    });
 
-    try {
-      await useUpdateCard(cardId, {
-        cardFront: newCardFront,
-        cardBack: newCardBack,
-      });
+    onEdit();
+    window.location.reload();
 
-      onEdit();
-      window.location.reload();
-    } catch (error) {
+    if (res.error) {
       console.error("Failed to update card:", error);
       alert("Failed to update card. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+    }
+
+    if (res.success) {
+      onClose();
     }
   };
 
   const modifyText = (type: "bulleted" | "numbered") => {
-    const currentText = activeField === "front" ? newCardFront : newCardBack;
+    const currentText = activeField === "front" ? newFront : newBack;
     const formattedText = currentText
       .split("\n")
       .map((line, index) => {
@@ -61,17 +64,17 @@ const EditCardModal: React.FC<EditCardModalProps> = ({
       .join("\n");
 
     if (activeField === "front") {
-      setNewCardFront(formattedText);
+      setNewFront(formattedText);
     } else {
-      setNewCardBack(formattedText);
+      setNewBack(formattedText);
     }
   };
 
   const clearText = () => {
     if (activeField === "front") {
-      setNewCardFront("");
+      setNewFront("");
     } else {
-      setNewCardBack("");
+      setNewBack("");
     }
   };
 
@@ -91,18 +94,18 @@ const EditCardModal: React.FC<EditCardModalProps> = ({
           <textarea
             className="p-3 border-b-2 border-[#03c04a] text-black text-xl resize-none"
             placeholder="Card Front"
-            value={newCardFront}
-            onChange={(e) => setNewCardFront(e.target.value)}
+            value={newFront}
+            onChange={(e) => setNewFront(e.target.value)}
             onFocus={() => setActiveField("front")}
-            disabled={isSubmitting}
+            disabled={loading}
           />
           <textarea
             className="p-3 border-b-2 border-[#03c04a] text-black text-xl resize-none"
             placeholder="Card Back"
-            value={newCardBack}
-            onChange={(e) => setNewCardBack(e.target.value)}
+            value={newBack}
+            onChange={(e) => setNewBack(e.target.value)}
             onFocus={() => setActiveField("back")}
-            disabled={isSubmitting}
+            disabled={loading}
           />
           <div className="editText text-gray-400 text-sm mt-2 flex justify-between">
             <div className="flex gap-2">
@@ -131,18 +134,18 @@ const EditCardModal: React.FC<EditCardModalProps> = ({
           <button
             className="px-6 py-3 border-2 border-[#03c04a] text-black rounded-lg text-xl font-secondaryRegular"
             onClick={onClose}
-            disabled={isSubmitting}
+            disabled={loading}
           >
             Cancel
           </button>
           <button
             className={`px-6 py-3 ${
-              isSubmitting ? "bg-gray-300" : "bg-[#03c04a]"
+              loading ? "bg-gray-300" : "bg-[#03c04a]"
             } text-white rounded-lg text-xl font-secondaryRegular`}
             onClick={handleEditCard}
-            disabled={isSubmitting}
+            disabled={loading}
           >
-            {isSubmitting ? (
+            {loading ? (
               <Spinner size={12} color="#fff" animating={true} />
             ) : (
               "Update Card"

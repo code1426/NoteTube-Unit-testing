@@ -1,47 +1,56 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { PiList, PiListNumbers, PiTrash, PiX } from "react-icons/pi";
-import useCreateCard from "../../hooks/Cards/useCreateCard";
+import useCreateFlashcard from "../../hooks/Flashcards/useCreateFlashcard";
 import Spinner from "react-activity/src/Spinner/Spinner";
 
-interface AddCardModalProps {
+interface AddFlashcardModalProps {
   deckId: string;
   onClose: () => void;
   onSuccess: () => void;
 }
 
-const AddCardModal: React.FC<AddCardModalProps> = ({
+const AddFlashcardModal = ({
   deckId,
   onClose,
   onSuccess,
-}) => {
-  const [activeField, setActiveField] = useState<"front" | "back">("front");
-  const [cardFront, setCardFront] = useState("");
-  const [cardBack, setCardBack] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+}: AddFlashcardModalProps) => {
+  const { createFlashcard, loading } = useCreateFlashcard();
+  const [flashcardFront, setFlashcardFront] = useState("");
+  const [flashcardBack, setFlashcardBack] = useState("");
 
-  const handleAddCard = async () => {
-    if (!cardFront.trim() || !cardBack.trim()) {
+  const [activeField, setActiveField] = useState<"front" | "back">("front");
+
+  const handleCreateFlashcard = async () => {
+    const isEmpty: boolean = !flashcardFront.trim() || !flashcardBack.trim();
+
+    if (isEmpty) {
       alert("Both front and back text are required.");
       return;
     }
 
-    setIsSubmitting(true);
+    const res = await createFlashcard({
+      id: "",
+      front: flashcardFront,
+      back: flashcardBack,
+      deckId,
+    });
 
-    try {
-      await useCreateCard(deckId, { cardFront, cardBack });
-      setCardFront("");
-      setCardBack("");
+    if (res.error) {
+      alert("Failed to create flashcard. Please try again.");
+      return;
+    }
+
+    if (res.success) {
+      setFlashcardFront("");
+      setFlashcardBack("");
       onSuccess();
-    } catch (error) {
-      console.error(error);
-      alert("Failed to add card. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+      onClose();
     }
   };
 
   const modifyText = (type: "bulleted" | "numbered") => {
-    const currentText = activeField === "front" ? cardFront : cardBack;
+    const currentText =
+      activeField === "front" ? flashcardFront : flashcardBack;
     const formattedText = currentText
       .split("\n")
       .map((line, index) => {
@@ -54,17 +63,17 @@ const AddCardModal: React.FC<AddCardModalProps> = ({
       .join("\n");
 
     if (activeField === "front") {
-      setCardFront(formattedText);
+      setFlashcardFront(formattedText);
     } else {
-      setCardBack(formattedText);
+      setFlashcardBack(formattedText);
     }
   };
 
   const clearText = () => {
     if (activeField === "front") {
-      setCardFront("");
+      setFlashcardFront("");
     } else {
-      setCardBack("");
+      setFlashcardBack("");
     }
   };
 
@@ -84,18 +93,18 @@ const AddCardModal: React.FC<AddCardModalProps> = ({
           <textarea
             className="p-3 border-b-2 border-[#03c04a] text-black text-xl resize-none"
             placeholder="Front of the card"
-            value={cardFront}
-            onChange={(e) => setCardFront(e.target.value)}
+            value={flashcardFront}
+            onChange={(e) => setFlashcardFront(e.target.value)}
             onFocus={() => setActiveField("front")}
-            disabled={isSubmitting}
+            disabled={loading}
           />
           <textarea
             className="p-3 border-b-2 border-[#03c04a] text-black text-xl resize-none"
             placeholder="Back of the card"
-            value={cardBack}
-            onChange={(e) => setCardBack(e.target.value)}
+            value={flashcardBack}
+            onChange={(e) => setFlashcardBack(e.target.value)}
             onFocus={() => setActiveField("back")}
-            disabled={isSubmitting}
+            disabled={loading}
           />
           <div className="editText text-gray-400 text-sm mt-2 flex justify-between">
             <div className="flex gap-2">
@@ -124,18 +133,18 @@ const AddCardModal: React.FC<AddCardModalProps> = ({
           <button
             className="px-6 py-3 border-2 border-[#03c04a] text-black rounded-lg text-xl font-secondaryRegular"
             onClick={onClose}
-            disabled={isSubmitting}
+            disabled={loading}
           >
             Cancel
           </button>
           <button
             className={`px-6 py-3 ${
-              isSubmitting ? "bg-gray-300" : "bg-[#03c04a]"
+              loading ? "bg-gray-300" : "bg-[#03c04a]"
             } text-white rounded-lg text-xl font-secondaryRegular`}
-            onClick={handleAddCard}
-            disabled={isSubmitting}
+            onClick={handleCreateFlashcard}
+            disabled={loading}
           >
-            {isSubmitting ? (
+            {loading ? (
               <Spinner size={12} color="#fff" animating={true} />
             ) : (
               "Add Card"
@@ -147,4 +156,4 @@ const AddCardModal: React.FC<AddCardModalProps> = ({
   );
 };
 
-export default AddCardModal;
+export default AddFlashcardModal;

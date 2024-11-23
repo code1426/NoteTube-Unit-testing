@@ -26,18 +26,11 @@ const App = () => {
     <StrictMode>
       <BrowserRouter>
         <Routes>
-          
           {/* routes with sidebar */}
           <Route element={<SideBarLayout setAuth={setIsAuthenticated} />}>
             <Route
               path="/home"
-              element={
-                isAuthenticated ? (
-                  <HomePage />
-                ) : (
-                  <Navigate to="/" />
-                )
-              }
+              element={isAuthenticated ? <HomePage /> : <Navigate to="/" />}
             />
             <Route
               path="/decks"
@@ -55,7 +48,7 @@ const App = () => {
             />
           </Route>
 
-            {/* routes with no sidebar */}
+          {/* routes with no sidebar */}
           <Route
             path="/"
             element={

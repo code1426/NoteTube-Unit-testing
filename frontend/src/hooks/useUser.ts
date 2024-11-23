@@ -13,7 +13,7 @@ const UseUser = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const API_URL = "http://localhost:3000" // to be replaced with the real API URL (e.g. process.env.**)
+        const API_URL = "http://localhost:3000"; // to be replaced with the real API URL (e.g. process.env.**)
         const response = await fetch(`${API_URL}/home`, {
           method: "GET",
           headers: { token: localStorage.token },

@@ -7,7 +7,7 @@ import {
   PiFunnel,
   PiX,
 } from "react-icons/pi";
-import FilterCardModal from "../FlashcardsPage/FilterCardModal";
+import FilterCardModal from "../Flashcards/FilterFlashcardModal";
 
 interface SubHeaderProps {
   isFlashCardsPage: boolean;

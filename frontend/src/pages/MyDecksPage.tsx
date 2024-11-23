@@ -1,10 +1,10 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import SubHeader from "../components/Header/SubHeader";
-import Deck from "../components/MyDecks/Deck";
+import Deck from "../components/Decks/DeckItem";
 import LoadingScreen from "../components/LoadingScreen";
 import UseUser from "../hooks/useUser";
-import useFetchDecks from "../hooks/Decks/useFetchDecks";
+import useFetchDecks from "../hooks/Decks/useFetchUserDecks";
 import { Deck as DeckType } from "../types/deck.types";
 
 const MyDecksPage: React.FC = () => {
