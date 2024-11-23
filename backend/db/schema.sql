@@ -29,19 +29,6 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: cards; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.cards (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    card_front text NOT NULL,
-    card_back text NOT NULL,
-    deck_id uuid,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
-);
-
-
---
 -- Name: decks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -49,6 +36,19 @@ CREATE TABLE public.decks (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     deck_name character varying(255) NOT NULL,
     user_id uuid,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+--
+-- Name: flashcards; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.flashcards (
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    front text NOT NULL,
+    back text NOT NULL,
+    deck_id uuid,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -76,19 +76,19 @@ CREATE TABLE public.users (
 
 
 --
--- Name: cards cards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.cards
-    ADD CONSTRAINT cards_pkey PRIMARY KEY (id);
-
-
---
 -- Name: decks decks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.decks
     ADD CONSTRAINT decks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: flashcards flashcards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.flashcards
+    ADD CONSTRAINT flashcards_pkey PRIMARY KEY (id);
 
 
 --
@@ -116,19 +116,19 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: cards cards_deck_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.cards
-    ADD CONSTRAINT cards_deck_id_fkey FOREIGN KEY (deck_id) REFERENCES public.decks(id) ON DELETE CASCADE;
-
-
---
 -- Name: decks decks_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.decks
     ADD CONSTRAINT decks_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: flashcards flashcards_deck_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.flashcards
+    ADD CONSTRAINT flashcards_deck_id_fkey FOREIGN KEY (deck_id) REFERENCES public.decks(id) ON DELETE CASCADE;
 
 
 --
@@ -143,4 +143,5 @@ ALTER TABLE ONLY public.decks
 INSERT INTO public.schema_migrations (version) VALUES
     ('20241119140502'),
     ('20241119140539'),
-    ('20241119140621');
+    ('20241119140621'),
+    ('20241123115947');
