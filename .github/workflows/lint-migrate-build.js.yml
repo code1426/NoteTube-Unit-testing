@@ -1,0 +1,41 @@
+# This workflow will do a clean installation of node dependencies, lint, migrate the database, and build the source code.
+# For more information, see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: lint-migrate-build
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+          npm ci
+          npm install-frontend
+          npm install-backend
+
+    - name: Lint project
+    - run: |  
+        npm run lint-frontend
+        npm run lint-backend
+
+    - name: Migrate table schemas to local database
+      run: npm run migrate-up
+
+    - name: Build frontend
+      run: npm run build-frontend
