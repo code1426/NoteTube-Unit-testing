@@ -5,9 +5,9 @@ const validateCard = (
   response: Response,
   next: NextFunction,
 ): void => {
-  const { cardFront, cardBack } = request.body;
+  const { front, back } = request.body;
 
-  if (!cardFront || !cardBack) {
+  if (!front || !back) {
     response.status(400).json({ message: "Missing info" });
     return;
   }

@@ -3,10 +3,13 @@ import { PiPencil, PiTrash } from "react-icons/pi";
 import DeleteCardModal from "./DeleteFlashcardModal";
 import EditCardModal from "./EditFlashcardModal";
 import { Flashcard } from "../../types/flashcard.types";
+import useDeleteFlashcard from "../../hooks/Flashcards/useDeleteFlashcard";
 
 const Card = ({ id, front, back, deckId }: Flashcard) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const { deleteFlashcard, error } = useDeleteFlashcard(id);
 
   const handleEditCard = () => {
     setIsEditModalOpen(true);
@@ -14,6 +17,16 @@ const Card = ({ id, front, back, deckId }: Flashcard) => {
 
   const handleDeleteCard = () => {
     setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    const result = await deleteFlashcard();
+    if (result.success) {
+      window.location.reload();
+    } else {
+      console.error("Error deleting flashcard:", error);
+    }
+    setIsDeleteModalOpen(false);
   };
 
   return (
@@ -52,7 +65,10 @@ const Card = ({ id, front, back, deckId }: Flashcard) => {
       )}
 
       {isDeleteModalOpen && (
-        <DeleteCardModal onClose={() => setIsDeleteModalOpen(false)} />
+        <DeleteCardModal
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirmDelete={handleConfirmDelete}
+        />
       )}
     </div>
   );

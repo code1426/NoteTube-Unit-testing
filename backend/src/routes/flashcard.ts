@@ -17,10 +17,10 @@ router.post(
     try {
       const result = await pool.query(
         `
-        INSERT INTO Flashcards (deck_id, front, back, created_at)
+        INSERT INTO Flashcards (front, back, deck_id, created_at)
         VALUES ($1, $2, $3, NOW())
         RETURNING *`,
-        [deckId, front, back],
+        [front, back, deckId],
       );
 
       response.status(201).json(result.rows[0]);
@@ -78,11 +78,34 @@ router.put(
     try {
       const result = await pool.query(
         `
-        UPDATE Cards 
-        SET card_front = $1, card_back = $2
+        UPDATE Flashcards 
+        SET front = $1, back = $2
         WHERE id = $3 
         RETURNING *`,
         [front, back, id],
+      );
+
+      response.status(200).json(result.rows[0]);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+//DELETE FUNCTIONALITY
+// delte a specific card
+router.delete(
+  "/flashcards/:id",
+  async (request: Request, response: Response, next: NextFunction) => {
+    const { id } = request.params;
+
+    try {
+      const result = await pool.query(
+        `
+        DELETE FROM Flashcards 
+        WHERE id = $1
+        RETURNING *`,
+        [id],
       );
 
       response.status(200).json(result.rows[0]);

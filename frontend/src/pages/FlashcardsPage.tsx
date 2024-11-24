@@ -29,7 +29,7 @@ const FlashcardsPage: React.FC = () => {
   if (loading) return <LoadingScreen message="Loading cards..." />;
 
   return (
-    <div className="w-screen">
+    <div className="">
       <Header isHomePage={false} />
       <SubHeader
         isFlashCardsPage={true}
