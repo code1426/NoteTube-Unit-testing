@@ -6,8 +6,7 @@ name: lint-migrate-build
 on: [push, pull_request]
 
 jobs:
-  lint:
-
+  lint-migrate-build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -16,26 +15,26 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
-    - name: Install dependencies
-      run: |
+      - name: Install dependencies
+        run: |
           npm ci
           npm install-frontend
           npm install-backend
 
-    - name: Lint project
-    - run: |  
-        npm run lint-frontend
-        npm run lint-backend
+      - name: Lint project
+      - run: |
+          npm run lint-frontend
+          npm run lint-backend
 
-    - name: Migrate table schemas to local database
-      run: npm run migrate-up
+      - name: Migrate table schemas to local database
+        run: npm run migrate-up
 
-    - name: Build frontend
-      run: npm run build-frontend
+      - name: Build frontend
+        run: npm run build-frontend
