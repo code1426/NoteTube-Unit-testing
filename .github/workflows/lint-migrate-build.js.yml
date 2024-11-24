@@ -33,6 +33,12 @@ jobs:
           npm run lint-frontend
           npm run lint-backend
 
+      - name: Create backend env file
+        run: |
+          cd backend
+          touch .env
+          echo "DATABASE_URL="postgres://bb6:bb6@localhost:5432/notetube_dev?sslmode=disable"" >> .env
+
       - name: Migrate table schemas to local database
         run: npm run migrate-up
 
