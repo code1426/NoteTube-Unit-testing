@@ -1,4 +1,5 @@
 import { Spinner } from "react-activity";
+import "react-activity/src/Spinner/Spinner"
 
 interface LoadingScreenProps {
   message?: string;
