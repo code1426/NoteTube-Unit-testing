@@ -4,8 +4,6 @@
   "description": "",
   "scripts": {
     "app": "concurrently \"npm run frontend\" \"npm run backend\"",
-    "install-frontend": "cd frontend && npm ci",
-    "install-backend": "cd backend && npm ci",
     "install-all": "npm i && npm prune && cd frontend && npm i && npm prune && cd ../backend && npm i && npm prune",
     "frontend": "cd frontend && npm run dev",
     "backend": "cd backend && npm run dev",

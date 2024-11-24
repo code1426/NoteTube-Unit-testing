@@ -25,11 +25,11 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
-          npm install-frontend
-          npm install-backend
+          cd frontend && npm ci
+          cd ../backend && npm ci
 
       - name: Lint project
-      - run: |
+        run: |
           npm run lint-frontend
           npm run lint-backend
 
