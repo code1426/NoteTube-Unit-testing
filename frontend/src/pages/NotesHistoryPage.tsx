@@ -12,7 +12,7 @@ const NotesHistoryPage = () => {
   }
 
   return (
-    <div>
+    <div className="relative bg-white">
       <Header isHomePage={true} username={user.username} />
       <SubHeader
         isFlashCardsPage={false}
