@@ -11,6 +11,7 @@ import MyDecksPage from "./pages/MyDecksPage";
 import ProfilePage from "./pages/ProfilePage";
 import LoadingScreen from "./components/LoadingScreen";
 import SideBarLayout from "./components/Sidebar/Layout";
+import NotesHistoryPage from "./pages/NotesHistoryPage";
 
 import useUserVerification from "./hooks/useUserVerification";
 
@@ -27,18 +28,11 @@ const App = () => {
     <StrictMode>
       <BrowserRouter>
         <Routes>
-          
           {/* routes with sidebar */}
           <Route element={<SideBarLayout setAuth={setIsAuthenticated} />}>
             <Route
               path="/home"
-              element={
-                isAuthenticated ? (
-                  <HomePage />
-                ) : (
-                  <Navigate to="/" />
-                )
-              }
+              element={isAuthenticated ? <HomePage /> : <Navigate to="/" />}
             />
             <Route
               path="/decks"
@@ -54,9 +48,15 @@ const App = () => {
               path="/profile"
               element={isAuthenticated ? <ProfilePage /> : <Navigate to="/" />}
             />
+            <Route
+              path="/history"
+              element={
+                isAuthenticated ? <NotesHistoryPage /> : <Navigate to="/" />
+              }
+            />
           </Route>
 
-            {/* routes with no sidebar */}
+          {/* routes with no sidebar */}
           <Route
             path="/"
             element={
