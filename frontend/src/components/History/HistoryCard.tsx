@@ -17,7 +17,7 @@ const NotesHistoryCard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full justify-center items-center mb-8 gap-8 p-4">
+    <div className="flex flex-col h-screen w-full justify-center items-center mb-8 gap-8 p-4 select-none">
       <div></div>
       {items.map((item, index) => (
         <div

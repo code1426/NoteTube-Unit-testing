@@ -6,7 +6,7 @@ interface Props {
 }
 const Logo = ({ setIsExpanded, isExpanded }: Props) => {
   return (
-    <div className=" flex flex-row gap-2 items-center justify-center p-2">
+    <div className=" flex flex-row gap-2 items-center justify-center p-2 select-none">
       <div
         onClick={() => {
           setIsExpanded(!isExpanded);
