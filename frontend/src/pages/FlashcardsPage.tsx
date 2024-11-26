@@ -23,13 +23,13 @@ const FlashcardsPage: React.FC = () => {
 
   const handleFormSuccess = () => {
     setAddFormVisible(false);
-    window.location.reload(); // Reload to fetch the updated cards
+    window.location.reload();
   };
 
   if (loading) return <LoadingScreen message="Loading cards..." />;
 
   return (
-    <div className="">
+    <div>
       <Header isHomePage={false} />
       <SubHeader
         isFlashCardsPage={true}

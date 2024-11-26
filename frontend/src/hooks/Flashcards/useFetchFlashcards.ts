@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Flashcard } from "../../types/flashcard.types";
 
 const API_URL = "http://localhost:3000";
@@ -7,7 +7,6 @@ interface FetchFlashcardsResult {
   flashcards: Flashcard[] | null;
   loading: boolean;
   error?: string | null;
-  refetch: () => void; // Add a refetch method for manual reloads
 }
 
 const useFetchFlashcards = (deckId: string): FetchFlashcardsResult => {
@@ -15,44 +14,41 @@ const useFetchFlashcards = (deckId: string): FetchFlashcardsResult => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Define the fetch function with useCallback for stability
-  const fetchFlashcards = useCallback(async () => {
-    if (!deckId) {
-      setLoading(false);
-      setError("No deck ID provided");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const response = await fetch(`${API_URL}/decks/${deckId}/flashcards`, {
-        method: "GET",
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error(errorData);
-        setError(
-          `Request to fetch flashcards failed with status: ${response.status}`,
-        );
+  useEffect(() => {
+    const fetchFlashcards = async () => {
+      if (!deckId) {
+        setLoading(false);
+        setError("No deck ID provided");
         return;
       }
 
-      const data = await response.json();
-      setFlashcards(data);
-    } catch (error) {
-      setError("Failed to fetch flashcards");
-    } finally {
-      setLoading(false);
-    }
-  }, [deckId]);
+      try {
+        const response = await fetch(`${API_URL}/decks/${deckId}/flashcards`, {
+          method: "GET",
+        });
 
-  // Run the fetch function on mount or when deckId changes
-  useEffect(() => {
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.log(errorData);
+          setError(
+            "Request to fetch flashcards failed with status: " +
+              response.status,
+          );
+          return;
+        } else {
+          const data = await response.json();
+          setFlashcards(data);
+        }
+      } catch (error) {
+        setError("Failed to fetch flashcards");
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchFlashcards();
-  }, [fetchFlashcards]);
+  });
 
-  return { flashcards, loading, error, refetch: fetchFlashcards };
+  return { flashcards, loading, error };
 };
 
 export default useFetchFlashcards;
