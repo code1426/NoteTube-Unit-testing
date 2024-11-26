@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-const validateCard = (
+const validateFlashcardInfo = (
   request: Request,
   response: Response,
   next: NextFunction,
@@ -15,4 +15,4 @@ const validateCard = (
   next();
 };
 
-export default validateCard;
+export default validateFlashcardInfo;

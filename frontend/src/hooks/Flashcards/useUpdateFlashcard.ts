@@ -16,9 +16,6 @@ const useUpdateFlashcard = (flashcardId: string) => {
   const updateFlashcard = async (
     flashcardData: Flashcard,
   ): Promise<UpdateFlashcardResult> => {
-    setLoading(true);
-    setError(null);
-
     try {
       const response = await fetch(`${API_URL}/flashcards/${flashcardId}`, {
         method: "PUT",
