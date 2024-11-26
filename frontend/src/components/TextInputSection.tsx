@@ -80,7 +80,7 @@ const TextInputSection = () => {
   };
 
   return (
-    <div className="textInputSection py-10 px-20">
+    <div className="textInputSection py-10 px-20 select-none">
       <div className="rounded-lg border-4 border-[#03c04a] flex flex-col">
         <textarea
           ref={textareaRef}
