@@ -34,11 +34,12 @@ const UserDecksPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="overflow-auto scrollbar-custom h-screen">
       <Header isHomePage={false} />
       <SubHeader
         isFlashCardsPage={false}
         isSectionTitleOnly={false}
+        addCard={true}
         sectionTitle="My Decks"
         onAdd={toggleAddDeckModal}
       />
