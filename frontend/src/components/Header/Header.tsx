@@ -13,8 +13,8 @@ const Header = ({ isHomePage, username }: HeaderProps) => {
   };
 
   return (
-    <div className="px-3 h-24">
-      <div className="flex flex-row px-10 w-full h-24 border-b-2  border-green bg-white items-center justify-between z-10 sticky select-none">
+    <div className="px-3 h-24 flex w-full z-20 top-0 sticky select-none">
+      <div className="flex flex-row px-10 w-full border-b-2  border-green bg-white items-center justify-between">
         <div className="text-black text-4xl font-primaryBold">
           {isHomePage ? (
             `Welcome ${username}!`

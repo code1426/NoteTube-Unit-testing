@@ -34,7 +34,7 @@ const UserDecksPage: React.FC = () => {
   };
 
   return (
-    <div className="overflow-auto scrollbar-custom h-screen">
+    <div className="overflow-auto scrollbar-custom h-screen relative bg-white">
       <Header isHomePage={false} />
       <SubHeader
         isFlashCardsPage={false}
