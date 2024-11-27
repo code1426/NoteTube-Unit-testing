@@ -39,7 +39,7 @@ const UserDecksPage: React.FC = () => {
       <SubHeader
         isFlashCardsPage={false}
         isSectionTitleOnly={false}
-        addCard={true}
+        hasAddButton={true}
         sectionTitle="My Decks"
         onAdd={toggleAddDeckModal}
       />

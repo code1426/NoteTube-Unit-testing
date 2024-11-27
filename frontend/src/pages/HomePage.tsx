@@ -18,7 +18,7 @@ const HomePage = () => {
       <SubHeader
         isFlashCardsPage={false}
         isSectionTitleOnly={true}
-        addCard={false}
+        hasAddButton={false}
         sectionTitle="Upload Notes"
       />
       <TextInputSection />
