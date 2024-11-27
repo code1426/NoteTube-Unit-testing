@@ -12,11 +12,12 @@ const NotesHistoryPage = () => {
   }
 
   return (
-    <div className="relative bg-white">
+    <div className="relative bg-white select-none overflow-auto scrollbar-custom h-screen">
       <Header isHomePage={false} />
       <SubHeader
         isFlashCardsPage={false}
         isSectionTitleOnly={false}
+        addCard={false}
         sectionTitle="Notes History"
       />
       <NotesHistoryCard />

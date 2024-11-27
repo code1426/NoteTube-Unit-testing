@@ -13,6 +13,7 @@ interface SubHeaderProps {
   isFlashCardsPage: boolean;
   isSectionTitleOnly: boolean;
   sectionTitle: string;
+  addCard: boolean;
   onAdd?: () => void;
 }
 
@@ -20,11 +21,13 @@ const SubHeader: React.FC<SubHeaderProps> = ({
   isFlashCardsPage,
   isSectionTitleOnly,
   sectionTitle,
+  addCard,
   onAdd,
 }) => {
   const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+  // const [isAddCard, setIsAddCard] = useState<boolean>(false);
 
   const handleSearch = () => {
     setIsSearchActive(!isSearchActive);
@@ -64,14 +67,16 @@ const SubHeader: React.FC<SubHeaderProps> = ({
                 </button>
               </div>
             )}
-            <div>
-              <button
-                className="flex py-5 px-16 border-2 border-[#03c04a] rounded-[50px] gap-2 hover:bg-gray-200"
-                onClick={onAdd}
-              >
-                <PiPlus size={30} /> Add
-              </button>
-            </div>
+            {addCard && (
+              <div>
+                <button
+                  className="flex py-5 px-16 border-2 border-[#03c04a] rounded-[50px] gap-2 hover:bg-gray-200"
+                  onClick={onAdd}
+                >
+                  <PiPlus size={30} /> Add
+                </button>
+              </div>
+            )}
             <div>
               {isSearchActive ? (
                 <div className="flex items-center gap-2 border-2 border-[#03c04a] rounded-full px-4 py-2">

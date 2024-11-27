@@ -19,7 +19,7 @@ const MenuItem = ({ route, label, isExpanded, Icon }: Props) => {
           <div className="icon flex item-center justify-center rounded-full w-14 h-14 relative">
             <Icon className="text-black text-4xl m-auto" />
             <span
-              className={`absolute left-full ml-4 p-2 rounded-md shadow-md text-white bg-green text-xs font-bold z-50 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-100 ease-in-out transform ${isExpanded ? "opacity-0 invisible" : "opacity-100"}`}
+              className={`absolute left-full ml-4 p-2 rounded-md shadow-md text-white bg-green text-xs font-bold z-10 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-100 ease-in-out transform ${isExpanded ? "opacity-0 invisible" : "opacity-100"}`}
             >
               {label}
             </span>
