@@ -39,7 +39,7 @@ const UserDecksPage: React.FC = () => {
       <SubHeader
         isFlashCardsPage={false}
         isSectionTitleOnly={false}
-        addCard={true}
+        hasAddButton={true}
         sectionTitle="My Decks"
         onAdd={toggleAddDeckModal}
       />
@@ -62,6 +62,7 @@ const UserDecksPage: React.FC = () => {
               id={deck.id}
               deck_name={deck.deck_name}
               card_count={deck.card_count}
+              user_id={deck.user_id}
             />
           ))
         )}

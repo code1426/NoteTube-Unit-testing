@@ -1,51 +1,55 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { PiTrash, PiX } from "react-icons/pi";
 import { Spinner } from "react-activity";
-import useCreateDeck from "../../hooks/Decks/useCreateDeck";
+import useUpdateDeck from "../../hooks/Decks/useUpdateDeck";
+import { Deck } from "../../types/deck.types";
 
-interface AddDeckModalProps {
-  userId: string;
+interface EditDeckModalProps extends Deck {
   onClose: () => void;
-  onSuccess: () => void;
+  onEdit: () => void;
 }
 
-const AddDeckModal = ({ userId, onClose, onSuccess }: AddDeckModalProps) => {
-  const { createDeck, loading } = useCreateDeck(userId);
-  const [deckName, setDeckName] = useState("");
+const EditDeckModal: React.FC<EditDeckModalProps> = ({
+  id,
+  deck_name,
+  user_id,
+  onClose,
+  onEdit,
+}) => {
+  const { updateDeck, loading, error } = useUpdateDeck(id);
+  const [newDeckName, setNewDeckName] = useState(deck_name);
 
-  const handleCreateDeck = async () => {
-    if (!deckName) {
-      alert("Deck Name is required");
+  const handleEditDeck = async () => {
+    const isEmpty: boolean = !newDeckName.trim();
+
+    if (isEmpty) {
+      alert("Deck name cannot be empty!");
       return;
     }
 
-    const result = await createDeck({
-      id: "",
-      deck_name: deckName,
-      user_id: userId,
+    const res = await updateDeck({
+      id: id,
+      deck_name: newDeckName,
+      user_id,
     });
 
-    if (result.error) {
-      alert("Failed to create deck. Please try again.");
-      return;
-    }
-
-    if (result.success) {
-      setDeckName("");
-      onSuccess();
+    if (res.success) {
+      onEdit();
       onClose();
+      window.location.reload();
+    } else {
+      console.error("Failed to update deck:", error);
+      alert("Failed to update deck. Please try again.");
     }
   };
 
-  const clearText = () => {
-    setDeckName("");
-  };
+  const clearText = () => setNewDeckName("");
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white w-[95%] max-w-[600px] rounded-lg p-6 shadow-lg">
         <div className="flex justify-between items-center mb-4">
-          <p className="text-3xl font-secondaryRegular">Add New Deck</p>
+          <p className="text-3xl font-secondaryRegular">Edit Deck</p>
           <button
             className="text-black hover:bg-gray-200 rounded-full p-2"
             onClick={onClose}
@@ -54,11 +58,11 @@ const AddDeckModal = ({ userId, onClose, onSuccess }: AddDeckModalProps) => {
           </button>
         </div>
         <div className="flex flex-col rounded-lg border-2 border-[#03c04a]">
-          <input
-            className="p-3 border-b-2 border-[#03c04a] text-black text-xl"
-            placeholder="Deck Name"
-            value={deckName}
-            onChange={(e) => setDeckName(e.target.value)}
+          <textarea
+            className="p-3 border-b-2 border-[#03c04a] text-black text-xl resize-none"
+            placeholder="New Deck Name"
+            value={newDeckName}
+            onChange={(e) => setNewDeckName(e.target.value)}
             disabled={loading}
           />
           <div className="editText text-gray-400 text-sm mt-2 flex justify-between">
@@ -82,13 +86,13 @@ const AddDeckModal = ({ userId, onClose, onSuccess }: AddDeckModalProps) => {
             className={`px-6 py-3 ${
               loading ? "bg-gray-300" : "bg-[#03c04a]"
             } text-white rounded-lg text-xl font-secondaryRegular`}
-            onClick={handleCreateDeck}
+            onClick={handleEditDeck}
             disabled={loading}
           >
             {loading ? (
               <Spinner size={12} color="#fff" animating={true} />
             ) : (
-              "Add Deck"
+              "Update Deck"
             )}
           </button>
         </div>
@@ -97,4 +101,4 @@ const AddDeckModal = ({ userId, onClose, onSuccess }: AddDeckModalProps) => {
   );
 };
 
-export default AddDeckModal;
+export default EditDeckModal;

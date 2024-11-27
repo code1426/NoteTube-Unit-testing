@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Header from "../components/Header/Header";
 import SubHeader from "../components/Header/SubHeader";
 import Card from "../components/Flashcards/Flashcard";
@@ -9,12 +9,11 @@ import AddCardModal from "../components/Flashcards/AddFlashcardModal";
 import useFetchFlashcards from "../hooks/Flashcards/useFetchFlashcards";
 
 const FlashcardsPage: React.FC = () => {
-  const { deckId, deckName } = useParams<{
-    deckId: string;
-    deckName: string;
-  }>();
-
+  const { deckId } = useParams<{ deckId: string }>();
   const { flashcards, loading } = useFetchFlashcards(deckId!);
+  const location = useLocation();
+  const deckName = location.state?.deck_name || "Untitled Deck";
+
   const [isAddFormVisible, setAddFormVisible] = useState(false);
 
   const toggleAddForm = () => {
@@ -34,8 +33,9 @@ const FlashcardsPage: React.FC = () => {
       <SubHeader
         isFlashCardsPage={true}
         isSectionTitleOnly={false}
-        sectionTitle={deckName || "Untitled Deck"}
+        sectionTitle={deckName}
         onAdd={toggleAddForm}
+        hasAddButton={true}
       />
       <div className="px-20">
         <div className="pb-20 text-black text-2xl md:text-5xl lg:text-5xl flex gap-3 font-secondaryRegular align-middle items-center">

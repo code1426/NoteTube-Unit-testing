@@ -17,7 +17,7 @@ const NotesHistoryPage = () => {
       <SubHeader
         isFlashCardsPage={false}
         isSectionTitleOnly={false}
-        addCard={false}
+        hasAddButton={false}
         sectionTitle="Notes History"
       />
       <NotesHistoryCard />

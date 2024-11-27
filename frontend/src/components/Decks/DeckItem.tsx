@@ -1,17 +1,21 @@
+import { useState } from "react";
 import { PiDotsThreeCircle } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import type { Deck } from "../../types/deck.types";
+import ManageDeckMenu from "./ManageDeckMenu";
 
-const DeckItem = ({ id, deck_name, card_count }: Deck) => {
+const DeckItem = ({ id, deck_name, card_count, user_id }: Deck) => {
+  const [isManageMenuOpen, setIsManageMenuOpen] = useState(false);
+
   const manageDeck = () => {
-    console.log("Selected deck: ", { deck_name });
+    setIsManageMenuOpen(true);
   };
 
   return (
     <div className="w-72 border border-black rounded-[35px] bg-white hover:shadow-lg">
       <div className="w-full h-20 bg-[#03c04a] rounded-t-[35px] flex items-center justify-end px-5">
         <button
-          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200"
+          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 truncate"
           onClick={manageDeck}
         >
           <PiDotsThreeCircle size={30} color="white" />
@@ -20,6 +24,7 @@ const DeckItem = ({ id, deck_name, card_count }: Deck) => {
 
       <Link
         to={`/flashcards/${id}`}
+        state={{ deck_name }}
         className="p-6 flex flex-col items-start justify-center space-y-2 hover:bg-gray-100 rounded-b-[35px]"
       >
         <div className="text-3xl font-secondaryRegular">{deck_name}</div>
@@ -29,6 +34,15 @@ const DeckItem = ({ id, deck_name, card_count }: Deck) => {
             : `${card_count} card${card_count !== 1 ? "s" : ""}`}
         </div>
       </Link>
+
+      {isManageMenuOpen && (
+        <ManageDeckMenu
+          id={id}
+          deck_name={deck_name}
+          user_id={user_id}
+          onClose={() => setIsManageMenuOpen(false)}
+        />
+      )}
     </div>
   );
 };
