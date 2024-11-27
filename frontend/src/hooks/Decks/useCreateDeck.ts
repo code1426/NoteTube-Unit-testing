@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { DeckEntity } from "../../types/deck.types";
+import { Deck } from "../../types/deck.types";
 
 const API_URL = "http://localhost:3000";
 
 interface CreateDeckResult {
   success: boolean;
-  deck?: DeckEntity;
+  deck?: Deck;
   error?: string | null;
 }
 
@@ -13,9 +13,7 @@ const useCreateDeck = (userId: string) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const createDeck = async (
-    DeckData: DeckEntity,
-  ): Promise<CreateDeckResult> => {
+  const createDeck = async (DeckData: Deck): Promise<CreateDeckResult> => {
     setLoading(true);
     setError(null);
 
@@ -36,7 +34,7 @@ const useCreateDeck = (userId: string) => {
         );
         return { success: false, error: error };
       } else {
-        const deck: DeckEntity = await response.json();
+        const deck: Deck = await response.json();
         return { success: true, deck };
       }
     } catch (error) {
