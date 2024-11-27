@@ -52,26 +52,75 @@ router.get(
   },
 );
 
-// router.get(
-//   "/:deckId",
-//   async (request: Request, response: Response, next: NextFunction) => {
-//     try {
-//       const { deckId } = request.params;
+//UPDATE FUNCTIONALITY
+//get info  a specific deck
+router.get(
+  "/:id",
+  async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const { id } = request.params;
 
-//       const result = await pool.query(
-//         `SELECT d.id, d.deck_name, d.created_at, COUNT(c.id) AS card_count
-//          FROM Decks d
-//          LEFT JOIN Cards c ON c.deck_id = d.id
-//          WHERE d.id = $1
-//          GROUP BY d.id`,
-//         [deckId],
-//       );
-//       response.status(200).json(result.rows);
-//     } catch (error) {
-//       next(error);
-//     }
-//   },
-// );
+      const result = await pool.query(
+        `
+        SELECT * FROM Decks
+        WHERE id = $1
+         `,
+        [id],
+      );
+      response.status(200).json(result.rows);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+//UPDATE FUNCTIONALITY
+//update a specific deck
+router.put(
+  "/:id",
+  async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const { id } = request.params;
+      const { deck_name } = request.body;
+
+      const result = await pool.query(
+        `
+        UPDATE Decks
+        SET deck_name = $1
+        WHERE id = $2
+        RETURNING *
+         `,
+        [deck_name, id],
+      );
+      response.status(200).json(result.rows[0]);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+//DELETE FUNCTIONALITY
+//delete a specific deck
+router.delete(
+  "/:id",
+  async (request: Request, response: Response, next: NextFunction) => {
+    const { id } = request.params;
+
+    try {
+      const result = await pool.query(
+        `
+        DELETE FROM Decks 
+        WHERE id = $1
+        RETURNING *`,
+        [id],
+      );
+
+      response.status(200).json(result.rows[0]);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 router.use(errorHandler);
 
