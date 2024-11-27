@@ -13,7 +13,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="relative w-full h-auto min-h-screen p-4 bg-white">
+    <div className="relative w-full h-auto min-h-screen bg-white">
       <Header isHomePage={true} username={user.username} />
       <SubHeader
         isFlashCardsPage={false}
