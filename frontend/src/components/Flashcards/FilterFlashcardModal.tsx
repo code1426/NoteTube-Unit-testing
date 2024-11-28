@@ -3,7 +3,6 @@ import { FaChevronUp } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 interface FilterCardModalProps {
   onClose: () => void;
-  onSuccess: () => void;
 }
 
 const FilterCardModal = ({ onClose }: FilterCardModalProps) => {
