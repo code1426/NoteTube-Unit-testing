@@ -12,10 +12,10 @@ const DeckItem = ({ id, deckName, cardCount, userId }: Deck) => {
   };
 
   return (
-    <div className="w-72 border border-black rounded-[35px] bg-white hover:shadow-lg gap-2 ">
-      <div className="w-full h-20 bg-[#03c04a] rounded-t-[35px] flex items-center justify-end px-5">
+    <div className="w-72 border border-black rounded-3xl bg-white hover:shadow-lg gap-2 min-h-60">
+      <div className="w-full h-20 bg-[#03c04a] rounded-t-3xl flex items-center justify-end px-5">
         <button
-          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 truncate"
+          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200"
           onClick={manageDeck}
         >
           <PiDotsThreeCircle size={30} color="white" />

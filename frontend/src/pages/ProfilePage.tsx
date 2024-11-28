@@ -1,12 +1,28 @@
+import { useState } from "react";
 import { MdPhotoCamera } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { BiEdit } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
+import AccountSettings from "../components/Settings/AccountSettings";
+import EditProfile from "../components/Settings/EditProfile";
 
-//
 const ProfilePage = () => {
+  const [activeOverlay, setActiveOverlay] = useState<
+    "EditProfile" | "AccountSettings" | null
+  >(null);
+
+  const closeOverlay = () => {
+    setActiveOverlay(null);
+  };
+
   return (
     <div className="relative bg-white select-none overflow-auto scrollbar-custom h-screen">
+      {activeOverlay === "EditProfile" && (
+        <EditProfile onClose={closeOverlay} />
+      )}
+      {activeOverlay === "AccountSettings" && (
+        <AccountSettings onClose={closeOverlay} />
+      )}
       <div className="w-full mt-2 absolute h-64 px-6 z-0">
         <div
           id="background"
@@ -49,11 +65,17 @@ const ProfilePage = () => {
           id="settings"
           className="flex h-auto w-52 justify-center items-center absolute rounded-xl p-2 self-center mt-28 flex-col gap-2"
         >
-          <div className="flex w-48 h-auto border-2 border-green rounded-xl p-2 hover:cursor-pointer gap-2">
+          <div
+            className="flex w-48 h-auto border-2 border-green rounded-xl p-2 hover:cursor-pointer gap-2"
+            onClick={() => setActiveOverlay("EditProfile")}
+          >
             <BiEdit size={25} />
             Edit Profile
           </div>
-          <div className="flex w-48 h-auto border-2 border-green rounded-xl p-2 hover:cursor-pointer gap-2">
+          <div
+            className="flex w-48 h-auto border-2 border-green rounded-xl p-2 hover:cursor-pointer gap-2"
+            onClick={() => setActiveOverlay("AccountSettings")}
+          >
             <IoSettingsOutline size={25} />
             Account Settings
           </div>

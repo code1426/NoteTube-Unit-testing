@@ -90,8 +90,8 @@ const SideBar = ({ setAuth }: Props) => {
             currentMenu={currentMenu}
           />
           <MenuItem
-            route="/generated-videos"
-            label="Generated Videos"
+            route="/video-generator"
+            label="Video Generator"
             setCurrentMenu={setCurrentMenu}
             isExpanded={isExpanded}
             Icon={GoVideo}

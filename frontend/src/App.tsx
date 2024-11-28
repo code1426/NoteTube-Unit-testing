@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage";
 import LoadingScreen from "./components/LoadingScreen";
 import SideBarLayout from "./components/Sidebar/Layout";
 import NotesHistoryPage from "./pages/NotesHistoryPage";
+import VideoGeneratorPage from "./pages/VideoGeneratorPage";
 
 import useUserVerification from "./hooks/useUserVerification";
 
@@ -53,6 +54,12 @@ const App = () => {
               path="/history"
               element={
                 isAuthenticated ? <NotesHistoryPage /> : <Navigate to="/" />
+              }
+            />
+            <Route
+              path="/video-generator"
+              element={
+                isAuthenticated ? <VideoGeneratorPage /> : <Navigate to="/" />
               }
             />
           </Route>
