@@ -21,8 +21,8 @@ const AddDeckModal = ({ userId, onClose, onSuccess }: AddDeckModalProps) => {
 
     const result = await createDeck({
       id: "",
-      deck_name: deckName,
-      user_id: userId,
+      deckName: deckName,
+      userId: userId,
     });
 
     if (result.error) {

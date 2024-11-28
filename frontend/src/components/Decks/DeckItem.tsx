@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import type { Deck } from "../../types/deck.types";
 import ManageDeckMenu from "./ManageDeckMenu";
 
-const DeckItem = ({ id, deck_name, card_count, user_id }: Deck) => {
+const DeckItem = ({ id, deckName, cardCount, userId }: Deck) => {
   const [isManageMenuOpen, setIsManageMenuOpen] = useState(false);
 
   const manageDeck = () => {
@@ -24,22 +24,22 @@ const DeckItem = ({ id, deck_name, card_count, user_id }: Deck) => {
 
       <Link
         to={`/flashcards/${id}`}
-        state={{ deck_name }}
+        state={{ deckName }}
         className="p-6 flex flex-col items-start justify-center space-y-2 hover:bg-gray-100 rounded-b-[35px]"
       >
-        <div className="text-3xl font-secondaryRegular">{deck_name}</div>
+        <div className="text-3xl font-secondaryRegular">{deckName}</div>
         <div className="text-gray-500 text-lg font-primaryRegular">
-          {card_count === 0
+          {cardCount === 0
             ? "No cards"
-            : `${card_count} card${card_count !== 1 ? "s" : ""}`}
+            : `${cardCount} card${cardCount !== 1 ? "s" : ""}`}
         </div>
       </Link>
 
       {isManageMenuOpen && (
         <ManageDeckMenu
           id={id}
-          deck_name={deck_name}
-          user_id={user_id}
+          deckName={deckName}
+          userId={userId}
           onClose={() => setIsManageMenuOpen(false)}
         />
       )}
