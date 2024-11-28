@@ -11,8 +11,8 @@ interface ManageDeckMenuProps extends Deck {
 
 const ManageDeckMenu = ({
   id,
-  deck_name,
-  user_id,
+  deckName,
+  userId,
   onClose,
 }: ManageDeckMenuProps) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -65,8 +65,8 @@ const ManageDeckMenu = ({
       {isEditModalOpen && (
         <EditDeckModal
           id={id}
-          deck_name={deck_name}
-          user_id={user_id}
+          deckName={deckName}
+          userId={userId}
           onClose={() => setIsEditModalOpen(false)}
           onEdit={() => setIsEditModalOpen(false)}
         />

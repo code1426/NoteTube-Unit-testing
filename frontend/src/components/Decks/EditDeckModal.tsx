@@ -11,13 +11,13 @@ interface EditDeckModalProps extends Deck {
 
 const EditDeckModal: React.FC<EditDeckModalProps> = ({
   id,
-  deck_name,
-  user_id,
+  deckName,
+  userId,
   onClose,
   onEdit,
 }) => {
   const { updateDeck, loading, error } = useUpdateDeck(id);
-  const [newDeckName, setNewDeckName] = useState(deck_name);
+  const [newDeckName, setNewDeckName] = useState(deckName);
 
   const handleEditDeck = async () => {
     const isEmpty: boolean = !newDeckName.trim();
@@ -29,8 +29,8 @@ const EditDeckModal: React.FC<EditDeckModalProps> = ({
 
     const res = await updateDeck({
       id: id,
-      deck_name: newDeckName,
-      user_id,
+      deckName: newDeckName,
+      userId,
     });
 
     if (res.success) {

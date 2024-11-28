@@ -12,7 +12,7 @@ const FlashcardsPage: React.FC = () => {
   const { deckId } = useParams<{ deckId: string }>();
   const { flashcards, loading } = useFetchFlashcards(deckId!);
   const location = useLocation();
-  const deckName = location.state?.deck_name || "Untitled Deck";
+  const deckName = location.state?.deckName || "Untitled Deck";
 
   const [isAddFormVisible, setAddFormVisible] = useState(false);
 
@@ -56,6 +56,7 @@ const FlashcardsPage: React.FC = () => {
           ) : (
             flashcards!.map((flashcard: Flashcard) => (
               <Card
+                key={flashcard.id}
                 id={flashcard.id}
                 front={flashcard.front}
                 back={flashcard.back}

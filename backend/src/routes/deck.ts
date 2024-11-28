@@ -11,8 +11,9 @@ router.post(
   "/:userId",
   validateDeckInfo,
   async (request: Request, response: Response, next: NextFunction) => {
-    const { userId } = request.params;
     const { deckName } = request.body;
+    const { userId } = request.params;
+
     try {
       const result = await pool.query(
         `
@@ -81,7 +82,7 @@ router.put(
   async (request: Request, response: Response, next: NextFunction) => {
     try {
       const { id } = request.params;
-      const { deck_name } = request.body;
+      const { deckName } = request.body;
 
       const result = await pool.query(
         `
@@ -90,7 +91,7 @@ router.put(
         WHERE id = $2
         RETURNING *
          `,
-        [deck_name, id],
+        [deckName, id],
       );
       response.status(200).json(result.rows[0]);
     } catch (error) {
