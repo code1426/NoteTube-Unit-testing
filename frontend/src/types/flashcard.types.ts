@@ -3,4 +3,5 @@ export interface Flashcard {
   front: string;
   back: string;
   deckId: string;
+  createdAt: string;
 }

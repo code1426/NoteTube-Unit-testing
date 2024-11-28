@@ -1,5 +1,5 @@
-export interface Options {
-  sortByNames: String,
-  sortByDate: String,
-  searchByName: String
+export interface options {
+  sortByNames: string;
+  sortByDate: string;
+  searchByName: string;
 }
