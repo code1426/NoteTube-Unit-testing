@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Deck } from "../../types/deck.types";
 
-const API_URL = "http://localhost:3000";
-
 interface CreateDeckResult {
   success: boolean;
   deck?: Deck;
@@ -18,13 +16,16 @@ const useCreateDeck = (userId: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/decks/${userId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/decks/${userId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(DeckData),
         },
-        body: JSON.stringify(DeckData),
-      });
+      );
 
       if (!response.ok) {
         const errorData = await response.json();

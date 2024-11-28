@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Deck } from "../../types/deck.types";
 
-const API_URL = "http://localhost:3000";
-
 interface UpdateDeckResult {
   success: boolean;
   deck?: Deck;
@@ -16,13 +14,16 @@ const useUpdateDeck = (deckId: string) => {
   const updateDeck = async (deckData: Deck): Promise<UpdateDeckResult> => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/decks/${deckId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/decks/${deckId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(deckData),
         },
-        body: JSON.stringify(deckData),
-      });
+      );
 
       if (!response.ok) {
         const errorData = await response.json();

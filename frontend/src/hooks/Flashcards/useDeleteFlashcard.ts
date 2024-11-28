@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-const API_URL = "http://localhost:3000";
-
 const useDeleteFlashcard = (flashcardId: string) => {
   const [error, setError] = useState<string | null>(null);
 
@@ -12,9 +10,12 @@ const useDeleteFlashcard = (flashcardId: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/flashcards/${flashcardId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/flashcards/${flashcardId}`,
+        {
+          method: "DELETE",
+        },
+      );
 
       if (!response.ok) {
         const errorData = await response.json();

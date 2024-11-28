@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { Flashcard } from "../../types/flashcard.types";
 
-const API_URL = "http://localhost:3000";
-
 interface FetchFlashcardsResult {
   flashcards: Flashcard[] | null;
   loading: boolean;
@@ -23,9 +21,12 @@ const useFetchFlashcards = (deckId: string): FetchFlashcardsResult => {
       }
 
       try {
-        const response = await fetch(`${API_URL}/decks/${deckId}/flashcards`, {
-          method: "GET",
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_API_URL}/decks/${deckId}/flashcards`,
+          {
+            method: "GET",
+          },
+        );
 
         if (!response.ok) {
           const errorData = await response.json();

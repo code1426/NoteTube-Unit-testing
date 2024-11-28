@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { DeckEntity } from "../../types/deck.types";
 
-const API_URL = "http://localhost:3000";
-
 interface FetchUserDecksResult {
   userDecks: DeckEntity[] | null;
   loading: boolean;
@@ -19,9 +17,12 @@ const useFetchUserDecks = (userId: string): FetchUserDecksResult => {
       setLoading(true);
 
       try {
-        const response = await fetch(`${API_URL}/decks?userId=${userId}`, {
-          method: "GET",
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_API_URL}/decks?userId=${userId}`,
+          {
+            method: "GET",
+          },
+        );
 
         if (!response.ok) {
           const errorData = await response.json();

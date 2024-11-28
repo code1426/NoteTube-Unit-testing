@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-const API_URL = "http://localhost:3000";
-
 const useDeleteDeck = (deckId: string) => {
   const [error, setError] = useState<string | null>(null);
 
@@ -12,9 +10,12 @@ const useDeleteDeck = (deckId: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/decks/${deckId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/decks/${deckId}`,
+        {
+          method: "DELETE",
+        },
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
