@@ -42,7 +42,11 @@ const SubHeader: React.FC<SubHeaderProps> = ({
     <div>
       <div className="subheader px-20 py-10 flex justify-between items-center select-none">
         <div className="text-black text-2xl md:text-5xl lg:text-5xl flex gap-3 font-secondaryRegular align-middle items-center">
-          <div>{sectionTitle}</div>
+          {sectionTitle.length >= 12 ? (
+            <div>{sectionTitle.slice(0, 12) + "..."}</div>
+          ) : (
+            <div>{sectionTitle}</div>
+          )}
 
           {!isSectionTitleOnly && (
             <button

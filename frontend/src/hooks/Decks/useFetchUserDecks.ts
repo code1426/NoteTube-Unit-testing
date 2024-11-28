@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { Deck } from "../../types/deck.types";
+import { DeckEntity } from "../../types/deck.types";
 
 const API_URL = "http://localhost:3000";
 
 interface FetchUserDecksResult {
-  userDecks: Deck[] | null;
+  userDecks: DeckEntity[] | null;
   loading: boolean;
   error?: string | null;
 }
 
 const useFetchUserDecks = (userId: string): FetchUserDecksResult => {
-  const [userDecks, setUserDecks] = useState<Deck[] | null>(null);
+  const [userDecks, setUserDecks] = useState<DeckEntity[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

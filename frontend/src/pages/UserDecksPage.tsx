@@ -60,9 +60,9 @@ const UserDecksPage: React.FC = () => {
             <DeckItem
               key={deck.id}
               id={deck.id}
-              deck_name={deck.deck_name}
-              card_count={deck.card_count}
-              user_id={deck.user_id}
+              deckName={deck.deck_name}
+              cardCount={deck.card_count}
+              userId={deck.user_id}
             />
           ))
         )}
