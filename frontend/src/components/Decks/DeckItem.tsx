@@ -12,7 +12,7 @@ const DeckItem = ({ id, deckName, cardCount, userId }: Deck) => {
   };
 
   return (
-    <div className="w-72 border border-black rounded-[35px] bg-white hover:shadow-lg">
+    <div className="w-72 border border-black rounded-[35px] bg-white hover:shadow-lg gap-2 ">
       <div className="w-full h-20 bg-[#03c04a] rounded-t-[35px] flex items-center justify-end px-5">
         <button
           className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 truncate"
@@ -25,9 +25,14 @@ const DeckItem = ({ id, deckName, cardCount, userId }: Deck) => {
       <Link
         to={`/flashcards/${id}`}
         state={{ deckName }}
-        className="p-6 flex flex-col items-start justify-center space-y-2 hover:bg-gray-100 rounded-b-[35px]"
+        className="p-6 flex flex-col items-start justify-center space-y-2 hover:bg-gray-100 rounded-b-[35px] "
       >
-        <div className="text-3xl font-secondaryRegular">{deckName}</div>
+        <div
+          id="deckName"
+          className="text-3xl block font-secondaryRegular max-w-64 truncate"
+        >
+          {deckName}
+        </div>
         <div className="text-gray-500 text-lg font-primaryRegular">
           {cardCount === 0
             ? "No cards"

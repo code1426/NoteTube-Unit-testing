@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { MdOutlineNoteAdd } from "react-icons/md"; // upload notes
 import { TbCards } from "react-icons/tb"; // my decks
 import { RiHistoryLine } from "react-icons/ri"; // history
@@ -16,6 +17,7 @@ const SideBar = ({ setAuth }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [currentMenu, setCurrentMenu] = useState("Upload Notes");
+  const location = useLocation();
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -38,6 +40,19 @@ const SideBar = ({ setAuth }: Props) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    const routeToMenuMap: Record<string, string> = {
+      "/home": "Upload Notes",
+      "/decks": "My Decks",
+      "/history": "History",
+      "/generated-videos": "Generated Videos",
+    };
+    const newMenu = routeToMenuMap[location.pathname];
+    if (newMenu) {
+      setCurrentMenu(newMenu);
+    }
+  }, [location]);
 
   return (
     <div className="border-r-2 border-white border-solid max-h-screen relative">
