@@ -59,32 +59,5 @@ const applySortingAndFilteringToDecks = (array: Deck[], options: options) => {
 
   return sortedFilteredarray
 }
-const testOptions: options = {
-  sortByNames: "",
-  sortByDate: '',
-  searchByName: 'ad'
-}
 
-const testDeckArray: Deck[] = [
-  {
-    "id": '17098600-64c0-412c-a9b3-b7dba9f13157',
-    "deckName": 'cdeck2',
-    "userId": '1000e3b7-dcbf-4db8-aba4-4ae25f4a2a13',
-    "createdAt": '2024-11-26T04:24:09.183Z'
-  },
-  {
-    "id": '17098600-64c0-412c-a9b3-b7dba9f13157',
-    "deckName": 'bdeck',
-    "userId": '1000e3b7-dcbf-4db8-aba4-4ae25f4a2a13',
-    "createdAt": '2024-10-26T04:24:09.183Z'
-  },
-  {
-    "id": '17098600-64c0-412c-a9b3-b7dba9f13157',
-    "deckName": 'adeck2',
-    "userId": '1000e3b7-dcbf-4db8-aba4-4ae25f4a2a13',
-    "createdAt": '2024-12-26T04:24:09.183Z'
-  }
-]
-
-console.log(applySortingAndFilteringToDecks(testDeckArray, testOptions))
 export default applySortingAndFilteringToDecks
