@@ -9,7 +9,7 @@ import flashcardRoutes from "./routes/flashcard";
 
 dotenv.config({ path: "../.env" });
 
-export const app = express();
+const app = express();
 
 // initialize the database connection
 export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
