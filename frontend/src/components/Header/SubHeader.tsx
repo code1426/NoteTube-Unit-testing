@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  PiDotsThreeCircle,
   PiCards,
   PiPlus,
   PiMagnifyingGlass,
@@ -8,6 +7,7 @@ import {
   PiX,
 } from "react-icons/pi";
 import FilterCardModal from "../Flashcards/FilterFlashcardModal";
+import { Link } from "react-router-dom";
 
 interface SubHeaderProps {
   isFlashCardsPage: boolean;
@@ -15,6 +15,7 @@ interface SubHeaderProps {
   sectionTitle: string;
   hasAddButton: boolean;
   onAdd?: () => void;
+  deckId?: string;
 }
 
 const SubHeader: React.FC<SubHeaderProps> = ({
@@ -23,6 +24,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
   sectionTitle,
   hasAddButton,
   onAdd,
+  deckId,
 }) => {
   const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
@@ -43,27 +45,17 @@ const SubHeader: React.FC<SubHeaderProps> = ({
       <div className="subheader px-20 py-10 flex justify-between items-center select-none">
         <div className="text-black text-2xl md:text-5xl lg:text-5xl flex gap-3 font-secondaryRegular align-middle items-center">
           {sectionTitle}
-
-          {!isSectionTitleOnly && (
-            <button
-              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200"
-              onClick={() => console.log("manage button")} // placeholder
-            >
-              <PiDotsThreeCircle size={50} />
-            </button>
-          )}
         </div>
 
         {!isSectionTitleOnly && (
           <div className="flex text-3xl font-secondaryRegular space-x-5 justify-center items-center">
             {isFlashCardsPage && (
               <div>
-                <button
-                  className="flex py-5 px-16 border-2 border-black bg-[#03c04a] rounded-[50px] gap-2 hover:bg-gray-200"
-                  onClick={() => console.log("quiz clicked")} // Placeholder
-                >
-                  <PiCards size={30} /> Quiz
-                </button>
+                <Link to={`/quiz/${deckId}`}>
+                  <button className="flex py-5 px-16 border-2 border-black bg-[#03c04a] rounded-[50px] gap-2 hover:bg-gray-200">
+                    <PiCards size={30} /> Quiz
+                  </button>
+                </Link>
               </div>
             )}
             {hasAddButton && (
@@ -105,7 +97,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
             <div className="relative">
               <button
                 className="flex items-center hover:underline gap-2"
-                onClick={openFilter} // Placeholder
+                onClick={openFilter}
               >
                 <PiFunnel size={40} /> Filter
               </button>

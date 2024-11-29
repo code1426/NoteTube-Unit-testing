@@ -10,7 +10,7 @@ export default {
         flip: {
           "0%": { transform: "rotateY(60deg)" },
           "75%": { transform: "rotateY(120deg)" },
-          "100%": { transform: "rotateY(1800deg)" },
+          "100%": { transform: "rotateY(180deg)" },
         },
         bounceIn: {
           "0%": { transform: "translateY(50px)", opacity: "0" },
