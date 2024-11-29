@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { Note } from "../../types/note.types";
 import { Link } from "react-router-dom";
 
-const NotesHistoryCard = ({ id, topic, summary, createdAt, userId }: Note) => {
+const NotesHistoryCard = ({ id, topic, createdAt }: Note) => {
   return (
     <div
       className={`flex flex-col border-[6px] border-green border-solid rounded-3xl w-4/6 h-32 p-3 font-secondaryRegular cursor-pointer transition-transform duration-100 "bg-green text-white" : "bg-white"

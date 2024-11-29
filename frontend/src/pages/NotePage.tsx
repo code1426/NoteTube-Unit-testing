@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import React from "react";
+// import { useParams, useLocation } from "react-router-dom";
 import Header from "../components/Header/Header";
 import SubHeader from "../components/Header/SubHeader";
 
 const NotePage: React.FC = () => {
-  const { noteId } = useParams<{ noteId: string }>();
+  //   const { noteId } = useParams<{ noteId: string }>();
   const sample_title = "5yfh5cf4-0w";
 
   return (
