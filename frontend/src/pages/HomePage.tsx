@@ -4,6 +4,7 @@ import SubHeader from "../components/Header/SubHeader";
 import LoadingScreen from "../components/LoadingScreen";
 
 import UseUser from "../hooks/useUser";
+import generateAIResponse from "../utils/generateAIResponse";
 
 const HomePage = () => {
   const { user, loading } = UseUser();
@@ -21,7 +22,8 @@ const HomePage = () => {
         hasAddButton={false}
         sectionTitle="Upload Notes"
       />
-      <TextInputSection />
+      {/* for debugging only, TO DO: Change onsubmit funciton to useCreateNote */}
+      <TextInputSection onSubmit={generateAIResponse} />
     </div>
   );
 };
