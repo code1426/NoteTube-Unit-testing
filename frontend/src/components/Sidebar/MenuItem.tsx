@@ -28,7 +28,7 @@ const MenuItem = ({
         <div className="flex flex-row">
           <div className="icon flex item-center justify-center rounded-full w-14 h-14 relative">
             <Icon
-              className={`text-4xl m-auto transition-colors duration-100
+              className={`text-2xl sm:text-2xl sm-md:3xl md:text-4xl m-auto transition-colors duration-100
                 ${
                   isExpanded
                     ? currentMenu === label

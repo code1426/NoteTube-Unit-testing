@@ -58,7 +58,7 @@ const SideBar = ({ setAuth }: Props) => {
     <div className="border-r-2 border-white border-solid max-h-screen relative">
       <div
         ref={sidebarRef}
-        className={`container flex flex-col ${isExpanded ? "w-64" : "w-24"} h-screen px-3 bg-green transition-all ease-linear duration-250 -z-50 `}
+        className={`container flex flex-col ${isExpanded ? "w-64" : "w-24 sm:w-[5rem] md:w-20 md-lg:24"} h-screen px-3 sm:px-2 xs:px-1 bg-green transition-all ease-linear duration-250 -z-50 `}
       >
         <div className="flex h-24 items-center justify-start border-b-2 border-white">
           <Logo isExpanded={isExpanded} setIsExpanded={setIsExpanded}></Logo>

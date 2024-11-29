@@ -13,25 +13,31 @@ const Header = ({ isHomePage, username }: HeaderProps) => {
   };
 
   return (
-    <div className="px-3 h-24 flex w-full z-20 top-0 sticky select-none">
-      <div className="flex flex-row px-10 w-full border-b-2  border-green bg-white items-center justify-between">
-        <div className="text-black text-4xl font-primaryBold">
+    <div
+      id="supporting-container"
+      className="px-3 flex w-full z-20 top-0 sticky select-none 4k:h-24 xl:h-24 lg:h-20 md:h-16 h-12"
+    >
+      <div
+        id="main-container"
+        className="flex flex-row px-10 w-full border-b-2  border-green bg-white items-center justify-between"
+      >
+        <div className="text-black text-responsive font-primaryBold flex items-center justify-center">
           {isHomePage ? (
             `Welcome ${username}!`
           ) : (
             <button
-              className="hover:bg-gray-200 rounded-full"
+              className="hover:bg-gray-200 rounded-full text-responsive"
               onClick={handleBack}
             >
-              <PiArrowCircleLeftBold size={60} />
+              <PiArrowCircleLeftBold className="text-5xl sm:text-5xl sm-md:6xl md:text-6xl " />
             </button>
           )}
         </div>
 
-        <div>
+        <div className="text-responsive">
           <Link to="/profile">
-            <button className="hover:bg-gray-200 rounded-full">
-              <PiUserCircleFill size={60} />
+            <button className="hover:bg-gray-200 rounded-full text-responsive flex m-auto">
+              <PiUserCircleFill className="text-5xl sm:text-5xl sm-md:6xl md:text-6xl " />
             </button>
           </Link>
         </div>
