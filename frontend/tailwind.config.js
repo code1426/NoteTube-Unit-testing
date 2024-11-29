@@ -6,6 +6,28 @@ export default {
   },
   theme: {
     extend: {
+      // height: {
+      //   24: "6rem",
+      //   20: "5rem",
+      //   16: "4rem",
+      //   12: "3rem",
+      //   8: "2rem",
+      // },
+      screens: {
+        xs: "480px", // Extra small screens, mobile devices (portrait)
+        sm: "640px", // Small screens, like larger smartphones
+        "sm-md": "700px", // Small-to-medium range (new custom breakpoint)
+        md: "768px", // Medium screens, tablets in portrait mode
+        "md-lg": "900px", // Medium-to-large range (new custom breakpoint)
+        lg: "1024px", // Large screens, tablets in landscape mode, small desktops
+        "lg-xl": "1100px", // Large-to-extra large range (new custom breakpoint)
+        xl: "1280px", // Extra large screens, typical desktops and laptops
+        "2xl": "1536px", // Very large screens, high-res displays, larger desktops
+        "3xl": "1920px", // Custom 3xl breakpoint
+        "4xl": "2560px", // Custom 4xl breakpoint
+        "4k": "3840px", // 4K screens, ultra-high-definition screens
+        xxl: "5000px", // Extreme custom breakpoint (example)
+      },
       keyframes: {
         flip: {
           "0%": { transform: "rotateY(60deg)" },
@@ -24,6 +46,7 @@ export default {
       },
       colors: {
         green: "#03C04A",
+        green_dark: "#gegege",
         green_hover: "#009A3A",
         green_active: "#007A2E",
         white: "#fcfcfc",
@@ -39,6 +62,17 @@ export default {
     },
   },
   plugins: [
+    function ({ addComponents }) {
+      addComponents({
+        ".text-responsive": {
+          "@apply text-sm xs:text-base sm:text-xl sm-md:text-xl md:text-2xl lg:text-3xl xl:text-4xl 4k:text-5xl":
+            {},
+        },
+        ".height-responsive": {
+          "@apply h-8 sm:h-12 md:h-16 lg:h-24 xl:h-32 4k:h-48": {},
+        },
+      });
+    },
     function ({ addUtilities }) {
       addUtilities({
         ".scrollbar-custom": {
