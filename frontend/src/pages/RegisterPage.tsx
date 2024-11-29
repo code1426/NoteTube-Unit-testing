@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { Spinner } from "react-activity";
+import "react-activity/dist/Spinner.css";
 
 import { RegisterData } from "../types/user.types";
 import useAuth from "../hooks/useAuth";
