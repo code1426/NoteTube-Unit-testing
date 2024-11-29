@@ -47,7 +47,7 @@ const useFetchFlashcards = (deckId: string): FetchFlashcardsResult => {
       }
     };
     fetchFlashcards();
-  });
+  }, [deckId]);
 
   return { flashcards, loading, error };
 };
