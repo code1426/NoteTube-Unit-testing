@@ -17,6 +17,14 @@ const NotesHistoryPage = () => {
       createdAt: "mm/mm/mm",
       userId: "0",
     },
+    {
+      id: "1234-5678-90",
+      content: "note content",
+      topic: "topic title",
+      summary: "summary hahaha",
+      createdAt: "mm/mm/mm",
+      userId: "0",
+    },
   ];
 
   if (loading || !user) {
