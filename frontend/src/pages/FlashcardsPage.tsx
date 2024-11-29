@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Header from "../components/Header/Header";
 import SubHeader from "../components/Header/SubHeader";
 import Card from "../components/Flashcards/Flashcard";
@@ -9,12 +9,11 @@ import AddCardModal from "../components/Flashcards/AddFlashcardModal";
 import useFetchFlashcards from "../hooks/Flashcards/useFetchFlashcards";
 
 const FlashcardsPage: React.FC = () => {
-  const { deckId, deckName } = useParams<{
-    deckId: string;
-    deckName: string;
-  }>();
-
+  const { deckId } = useParams<{ deckId: string }>();
   const { flashcards, loading } = useFetchFlashcards(deckId!);
+  const location = useLocation();
+  const deckName = location.state?.deckName || "Untitled Deck";
+
   const [isAddFormVisible, setAddFormVisible] = useState(false);
 
   const toggleAddForm = () => {
@@ -23,19 +22,20 @@ const FlashcardsPage: React.FC = () => {
 
   const handleFormSuccess = () => {
     setAddFormVisible(false);
-    window.location.reload(); // Reload to fetch the updated cards
+    window.location.reload();
   };
 
   if (loading) return <LoadingScreen message="Loading cards..." />;
 
   return (
-    <div className="">
+    <div className="bg-white relative">
       <Header isHomePage={false} />
       <SubHeader
         isFlashCardsPage={true}
         isSectionTitleOnly={false}
-        sectionTitle={deckName || "Untitled Deck"}
+        sectionTitle={deckName}
         onAdd={toggleAddForm}
+        hasAddButton={true}
       />
       <div className="px-20">
         <div className="pb-20 text-black text-2xl md:text-5xl lg:text-5xl flex gap-3 font-secondaryRegular align-middle items-center">
@@ -56,6 +56,7 @@ const FlashcardsPage: React.FC = () => {
           ) : (
             flashcards!.map((flashcard: Flashcard) => (
               <Card
+                key={flashcard.id}
                 id={flashcard.id}
                 front={flashcard.front}
                 back={flashcard.back}

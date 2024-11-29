@@ -13,11 +13,13 @@ const UseUser = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const API_URL = "http://localhost:3000"; // to be replaced with the real API URL (e.g. process.env.**)
-        const response = await fetch(`${API_URL}/home`, {
-          method: "GET",
-          headers: { token: localStorage.token },
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_API_URL}/home`,
+          {
+            method: "GET",
+            headers: { token: localStorage.token },
+          },
+        );
 
         if (!response.ok) {
           const errorDetails: ErrorDetails = await response.json();

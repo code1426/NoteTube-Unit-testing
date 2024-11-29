@@ -12,14 +12,17 @@ const useAuth = (type: "register" | "login") => {
 
   const submitData = async (data: RegisterData | LoginData) => {
     setLoading(true);
-    const API_URL = "http://localhost:3000" // to be replaced with the real API URL (e.g. process.env.**)
-    const response = await fetch(`${API_URL}/auth/${type}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
+
+    const response = await fetch(
+      `${import.meta.env.VITE_BASE_API_URL}/auth/${type}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(data),
       },
-      body: JSON.stringify(data),
-    });
+    );
 
     if (!response.ok) {
       const errorDetails: ErrorDetails = await response.json();

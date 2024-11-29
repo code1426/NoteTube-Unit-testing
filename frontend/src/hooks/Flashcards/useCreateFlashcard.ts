@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Flashcard } from "../../types/flashcard.types";
 
-const API_URL = "http://localhost:3000";
-
 interface CreateFlashcardResult {
   success: boolean;
   flashcard?: Flashcard;
@@ -21,7 +19,7 @@ const useCreateFlashcard = () => {
 
     try {
       const response = await fetch(
-        `${API_URL}/decks/${flashcardData.deckId}/flashcards`,
+        `${import.meta.env.VITE_BASE_API_URL}/decks/${flashcardData.deckId}/flashcards`,
         {
           method: "POST",
           headers: {

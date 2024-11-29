@@ -7,11 +7,13 @@ const useUserVerification = () => {
 
   useEffect(() => {
     const checkAuthenticated = async () => {
-      const API_URL = "http://localhost:3000"; // to be replaced with the real API URL (e.g. process.env.**)
-      const result = await fetch(`${API_URL}/auth/verify`, {
-        method: "GET",
-        headers: { token: localStorage.token },
-      });
+      const result = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/auth/verify`,
+        {
+          method: "GET",
+          headers: { token: localStorage.token },
+        },
+      );
 
       if (!result.ok) {
         setError("Failed to verify authentication");

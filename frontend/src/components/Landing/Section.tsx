@@ -20,7 +20,7 @@ const Section = ({
 
   return (
     <div
-      className={`flex ${order} ${bgColor} ${position} bg-opacity-85 p-16 sm:p-44`}
+      className={`flex ${order} ${bgColor} ${position} bg-opacity-85 p-16 sm:p-44 select-none`}
     >
       <div className="flex flex-[2] flex-col  gap-12">
         <div

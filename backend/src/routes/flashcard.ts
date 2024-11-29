@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import { pool } from "..";
 import errorHandler from "../middleware/errorHandler";
-import validateCard from "../middleware/validateCard";
+import validateFlashcardInfo from "../middleware/validateFlashcardInfo";
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ const router = express.Router();
 // Create a card
 router.post(
   "/decks/:deckId/flashcards",
-  validateCard,
+  validateFlashcardInfo,
   async (request: Request, response: Response, next: NextFunction) => {
     const { deckId } = request.params;
     const { front, back } = request.body;
@@ -48,24 +48,6 @@ router.get(
     }
   },
 );
-
-//GET details for a specific card
-// router.get(
-//   "/cards/:cardId",
-//   async (request: Request, response: Response, next: NextFunction) => {
-//     const { cardId } = request.params;
-
-//     try {
-//       const result = await pool.query(
-//         "SELECT * FROM Cards WHERE id = $1 LIMIT 1",
-//         [cardId],
-//       );
-//       response.status(200).json(result.rows);
-//     } catch (error) {
-//       next(error);
-//     }
-//   },
-// );
 
 //UPDATE FUNCTIONALITY
 // update a specific card

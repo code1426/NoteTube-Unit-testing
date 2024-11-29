@@ -6,16 +6,16 @@ interface Props {
 }
 const Logo = ({ setIsExpanded, isExpanded }: Props) => {
   return (
-    <div className=" flex flex-row gap-2 items-center justify-center p-2">
+    <div className=" flex flex-row gap-2 items-center justify-center p-2 select-none">
       <div
         onClick={() => {
           setIsExpanded(!isExpanded);
         }}
-        className="group icon flex rounded-full w-14 h-14 relative border-2 border-black border-solid"
+        className="group icon flex rounded-full w-14 h-14 relative border-2 border-white border-solid"
       >
-        <FcVideoFile className="text-4xl text-black m-auto" />
+        <FcVideoFile className="text-4xl text-white m-auto" />
         <span
-          className={`flex item-center absolute w-auto left-full ml-4 p-2 rounded-md shadow-md text-white bg-green text-xs font-bold z-50 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-100 ease-in-out ${isExpanded ? "opacity-0 invisible" : "opacity-100"}`}
+          className={`flex item-center absolute w-auto left-full ml-6 p-2 rounded-md shadow-md text-white bg-green text-xs font-bold z-50 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-100 ease-in-out ${isExpanded ? "opacity-0 invisible" : "opacity-100"}`}
         >
           Notetube
         </span>
@@ -29,7 +29,7 @@ const Logo = ({ setIsExpanded, isExpanded }: Props) => {
         }`}
       >
         <div
-          className={`text-green font-secondaryRegular text-3xl whitespace-nowrap ml-4 transition-all duration-300 ease-in-out transform ${isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"}`}
+          className={`text-white font-secondaryRegular text-3xl whitespace-nowrap ml-4 transition-all duration-200 ease-in-out transform ${isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"}`}
         >
           NoteTube
         </div>

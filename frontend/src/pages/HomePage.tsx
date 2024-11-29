@@ -13,11 +13,12 @@ const HomePage = () => {
   }
 
   return (
-    <div className="relative w-full h-auto min-h-screen p-4 bg-white">
+    <div className="relative w-full min-h-screen bg-white overflow-auto scrollbar-custom h-screen">
       <Header isHomePage={true} username={user.username} />
       <SubHeader
         isFlashCardsPage={false}
         isSectionTitleOnly={true}
+        hasAddButton={false}
         sectionTitle="Upload Notes"
       />
       <TextInputSection />

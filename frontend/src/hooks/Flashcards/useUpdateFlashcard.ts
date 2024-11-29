@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Flashcard } from "../../types/flashcard.types";
 
-const API_URL = "http://localhost:3000";
-
 interface UpdateFlashcardResult {
   success: boolean;
   flashcard?: Flashcard;
@@ -16,17 +14,17 @@ const useUpdateFlashcard = (flashcardId: string) => {
   const updateFlashcard = async (
     flashcardData: Flashcard,
   ): Promise<UpdateFlashcardResult> => {
-    setLoading(true);
-    setError(null);
-
     try {
-      const response = await fetch(`${API_URL}/flashcards/${flashcardId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/flashcards/${flashcardId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(flashcardData),
         },
-        body: JSON.stringify(flashcardData),
-      });
+      );
 
       if (!response.ok) {
         const errorData = await response.json();

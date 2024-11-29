@@ -13,6 +13,7 @@ interface SubHeaderProps {
   isFlashCardsPage: boolean;
   isSectionTitleOnly: boolean;
   sectionTitle: string;
+  hasAddButton: boolean;
   onAdd?: () => void;
 }
 
@@ -20,6 +21,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
   isFlashCardsPage,
   isSectionTitleOnly,
   sectionTitle,
+  hasAddButton,
   onAdd,
 }) => {
   const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
@@ -38,9 +40,9 @@ const SubHeader: React.FC<SubHeaderProps> = ({
   };
   return (
     <div>
-      <div className="subheader px-20 py-10 flex justify-between items-center">
+      <div className="subheader px-20 py-10 flex justify-between items-center select-none">
         <div className="text-black text-2xl md:text-5xl lg:text-5xl flex gap-3 font-secondaryRegular align-middle items-center">
-          <div>{sectionTitle}</div>
+          {sectionTitle}
 
           {!isSectionTitleOnly && (
             <button
@@ -64,14 +66,16 @@ const SubHeader: React.FC<SubHeaderProps> = ({
                 </button>
               </div>
             )}
-            <div>
-              <button
-                className="flex py-5 px-16 border-2 border-[#03c04a] rounded-[50px] gap-2 hover:bg-gray-200"
-                onClick={onAdd}
-              >
-                <PiPlus size={30} /> Add
-              </button>
-            </div>
+            {hasAddButton && (
+              <div>
+                <button
+                  className="flex py-5 px-16 border-2 border-[#03c04a] rounded-[50px] gap-2 hover:bg-gray-200"
+                  onClick={onAdd}
+                >
+                  <PiPlus size={30} /> Add
+                </button>
+              </div>
+            )}
             <div>
               {isSearchActive ? (
                 <div className="flex items-center gap-2 border-2 border-[#03c04a] rounded-full px-4 py-2">

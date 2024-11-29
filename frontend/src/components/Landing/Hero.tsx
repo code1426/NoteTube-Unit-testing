@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className="flex flex-grow flex-col min-h-screen p-8 items-center justify-center gap-12 bg-white bg-opacity-70">
+    <div className="flex flex-grow flex-col min-h-screen p-8 items-center justify-center gap-12 bg-white bg-opacity-70 select-none">
       <div className="text-green font-secondaryRegular text-center">
         <div className="text-8xl">NoteTube</div>
         <div className="text-xl">Your AI-Powered Study Companion</div>

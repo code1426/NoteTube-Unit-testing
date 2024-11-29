@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-const useDeleteFlashcard = (flashcardId: string) => {
+const useDeleteDeck = (deckId: string) => {
   const [error, setError] = useState<string | null>(null);
 
-  const deleteFlashcard = async (): Promise<{
+  const deleteDeck = async (): Promise<{
     success: boolean;
     error: string | null;
   }> => {
@@ -11,7 +11,7 @@ const useDeleteFlashcard = (flashcardId: string) => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BASE_API_URL}/flashcards/${flashcardId}`,
+        `${import.meta.env.VITE_BASE_API_URL}/decks/${deckId}`,
         {
           method: "DELETE",
         },
@@ -21,23 +21,23 @@ const useDeleteFlashcard = (flashcardId: string) => {
         const errorData = await response.json();
         console.log(errorData);
         setError(
-          `Request to delete flashcard failed with status: ${response.status}`,
+          `Request to delete deck failed with status: ${response.status}`,
         );
         return {
           success: false,
-          error: `Request to delete flashcard failed with status: ${response.status}`,
+          error: `Request to delete deck failed with status: ${response.status}`,
         };
       }
 
       return { success: true, error: null };
     } catch (error) {
       console.error(error);
-      setError("Failed to delete flashcard");
-      return { success: false, error: "Failed to delete flashcard" };
+      setError("Failed to delete deck");
+      return { success: false, error: "Failed to delete deck" };
     }
   };
 
-  return { deleteFlashcard, error };
+  return { deleteDeck, error };
 };
 
-export default useDeleteFlashcard;
+export default useDeleteDeck;

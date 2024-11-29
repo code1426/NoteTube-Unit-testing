@@ -23,7 +23,7 @@ const FlashcardsQuizPage = () => {
     setIsFlipped(false);
   };
   return (
-    <div>
+    <div className="bg-white relative">
       <div
         className={` w-full md:w-full lg:w-full h-screen flex-grow bg-white grid grid-cols-3  place-items-center`}
       >

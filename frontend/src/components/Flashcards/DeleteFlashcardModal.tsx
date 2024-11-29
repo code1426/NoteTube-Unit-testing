@@ -19,15 +19,15 @@ const DeleteCardModal = ({
         <div className="flex justify-between">
           <button
             className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-            onClick={onConfirmDelete} // Trigger delete when "Yes" is clicked
+            onClick={onConfirmDelete}
           >
-            Yes
+            Confirm
           </button>
           <button
             className="bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400"
-            onClick={onClose} // Close the modal when "No" is clicked
+            onClick={onClose}
           >
-            No
+            Cancel
           </button>
         </div>
       </div>
