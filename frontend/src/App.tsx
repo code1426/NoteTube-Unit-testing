@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import NotePage from "./pages/NotePage";
 import FlashcardsPage from "./pages/FlashcardsPage";
+import FlashcardsQuizPage from "./pages/FlashcardsQuizPage";
 import UserDecksPage from "./pages/UserDecksPage";
 import ProfilePage from "./pages/ProfilePage";
 import LoadingScreen from "./components/LoadingScreen";
@@ -49,6 +50,12 @@ const App = () => {
               path="/flashcards/:deckId"
               element={
                 isAuthenticated ? <FlashcardsPage /> : <Navigate to="/" />
+              }
+            />
+            <Route
+              path="/quiz/:deckId"
+              element={
+                isAuthenticated ? <FlashcardsQuizPage /> : <Navigate to="/" />
               }
             />
             <Route
