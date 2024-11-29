@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import NotePage from "./pages/NotePage";
 import FlashcardsPage from "./pages/FlashcardsPage";
 import UserDecksPage from "./pages/UserDecksPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -33,6 +34,10 @@ const App = () => {
             <Route
               path="/home"
               element={isAuthenticated ? <HomePage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/notes/:noteId"
+              element={isAuthenticated ? <NotePage /> : <Navigate to="/" />}
             />
             <Route
               path="/decks"
