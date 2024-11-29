@@ -36,9 +36,10 @@ const FlashcardsPage: React.FC = () => {
         sectionTitle={deckName}
         onAdd={toggleAddForm}
         hasAddButton={true}
+        deckId={deckId}
       />
       <div className="px-20">
-        <div className="pb-20 text-black text-2xl md:text-5xl lg:text-5xl flex gap-3 font-secondaryRegular align-middle items-center">
+        <div className="pb-20 text-black text-2xl md:text-5xl lg:text-4xl flex gap-3 font-secondaryRegular align-middle items-center">
           Cards
         </div>
         {isAddFormVisible && (
