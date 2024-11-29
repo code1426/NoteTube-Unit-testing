@@ -2,12 +2,6 @@ import React, { useState } from "react";
 
 const NotesHistoryCard: React.FC = () => {
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
-  const items = [
-    { date: "mm/mm/mm", name: "Placeholder" },
-    { date: "mm/mm/mm", name: "Placeholder" },
-    { date: "mm/mm/mm", name: "Placeholder" },
-    { date: "mm/mm/mm", name: "Placeholder" },
-  ];
 
   const handleClick = (index: number) => {
     setClickedIndex(index);
@@ -18,9 +12,7 @@ const NotesHistoryCard: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen w-full justify-center items-center mb-8 gap-8 p-4 select-none">
-      <div></div>
-      {items.map((item, index) => (
-        <div
+      {/* <div
           key={index}
           id="history-contents"
           className={`flex flex-col border-[6px] border-green border-solid rounded-3xl w-4/6 h-32 p-3 font-secondaryRegular cursor-pointer transition-transform duration-100 ${
@@ -41,8 +33,7 @@ const NotesHistoryCard: React.FC = () => {
           >
             {item.name}
           </div>
-        </div>
-      ))}
+        </div> */}
     </div>
   );
 };

@@ -7,6 +7,13 @@ import LoadingScreen from "../components/LoadingScreen";
 const NotesHistoryPage = () => {
   const { user, loading } = UseUser();
 
+  const items = [
+    { date: "mm/mm/mm", name: "Placeholder" },
+    { date: "mm/mm/mm", name: "Placeholder" },
+    { date: "mm/mm/mm", name: "Placeholder" },
+    { date: "mm/mm/mm", name: "Placeholder" },
+  ];
+
   if (loading || !user) {
     return <LoadingScreen />;
   }
@@ -21,6 +28,13 @@ const NotesHistoryPage = () => {
         sectionTitle="Notes History"
       />
       <NotesHistoryCard />
+      <div>
+        {items!.length === 0 ? (
+          <p>NO NOTES DETECTED.</p>
+        ) : (
+          items!.map((note) => <NotesHistoryCard />)
+        )}
+      </div>
     </div>
   );
 };
