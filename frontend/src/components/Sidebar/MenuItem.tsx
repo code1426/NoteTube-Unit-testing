@@ -23,12 +23,24 @@ const MenuItem = ({
       <div
         onClick={() => setCurrentMenu(label)}
         id="background"
-        className={`group flex flex-row items-center p-2 transition rounded-xl ${isExpanded ? "hover:bg-white" : ""} ${currentMenu === label ? "bg-white" : ""}`}
+        className={`group flex flex-row items-center
+          h-14
+          md:h-16
+          lg:h-20
+          p-2
+          sm:px-1 
+          md:p-3 md:px-1.5 
+          transition rounded-xl ${isExpanded ? "hover:bg-white" : ""} ${currentMenu === label ? "bg-white" : ""}`}
       >
         <div className="flex flex-row">
           <div className="icon flex item-center justify-center rounded-full w-14 h-14 relative">
             <Icon
-              className={`text-2xl sm:text-2xl sm-md:3xl md:text-4xl m-auto transition-colors duration-100
+              className={`
+                text-2xl 
+                sm:text-3xl 
+                md:text-3xl 
+                lg:text-4xl
+                m-auto transition-colors duration-100
                 ${
                   isExpanded
                     ? currentMenu === label
@@ -51,7 +63,9 @@ const MenuItem = ({
             }`}
           >
             <div
-              className={` font-secondaryRegular text-xl whitespace-nowrap transition-all duration-200 ease-in-out transform
+              className={` font-secondaryRegular whitespace-nowrap transition-all duration-200 ease-in-out transform
+                text-lg 
+                sm:text-xl 
                     ${
                       isExpanded
                         ? currentMenu === label

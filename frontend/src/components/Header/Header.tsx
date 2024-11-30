@@ -15,7 +15,13 @@ const Header = ({ isHomePage, username }: HeaderProps) => {
   return (
     <div
       id="supporting-container"
-      className="px-3 flex w-full z-20 top-0 sticky select-none 4k:h-24 xl:h-24 lg:h-20 md:h-16 h-12"
+      className="px-3 flex w-full z-20 top-0 sticky select-none 
+      4k:h-24  md:
+      xl:h-24  
+      lg:h-24
+      md:h-16 
+      h-12 
+      bg-white "
     >
       <div
         id="main-container"
@@ -26,10 +32,17 @@ const Header = ({ isHomePage, username }: HeaderProps) => {
             `Welcome ${username}!`
           ) : (
             <button
-              className="hover:bg-gray-200 rounded-full text-responsive"
+              className="hover:bg-gray-200 rounded-full text-responsive m-auto"
               onClick={handleBack}
             >
-              <PiArrowCircleLeftBold className="text-5xl sm:text-5xl sm-md:6xl md:text-6xl " />
+              <PiArrowCircleLeftBold
+                className="m-auto
+              text-4xl 
+              sm:text-4xl
+              sm-md:5xl 
+              md:text-5xl
+              lg:text-6xl"
+              />
             </button>
           )}
         </div>
@@ -37,7 +50,14 @@ const Header = ({ isHomePage, username }: HeaderProps) => {
         <div className="text-responsive">
           <Link to="/profile">
             <button className="hover:bg-gray-200 rounded-full text-responsive flex m-auto">
-              <PiUserCircleFill className="text-5xl sm:text-5xl sm-md:6xl md:text-6xl " />
+              <PiUserCircleFill
+                className="
+              text-4xl 
+              sm:text-4xl
+              sm-md:5xl 
+              md:text-5xl
+              lg:text-6xl "
+              />
             </button>
           </Link>
         </div>
