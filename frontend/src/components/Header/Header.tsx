@@ -21,7 +21,7 @@ const Header = ({ isHomePage, username }: HeaderProps) => {
         id="main-container"
         className="flex flex-row px-10 w-full border-b-2  border-green bg-white items-center justify-between"
       >
-        <div className="text-black text-responsive font-primaryBold flex items-center justify-center">
+        <div className="text-black text-responsive_header font-primaryBold flex items-center justify-center">
           {isHomePage ? (
             `Welcome ${username}!`
           ) : (

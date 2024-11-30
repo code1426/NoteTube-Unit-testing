@@ -46,7 +46,7 @@ export default {
       },
       colors: {
         green: "#03C04A",
-        green_dark: "#gegege",
+        green_dark: "#029239",
         green_hover: "#009A3A",
         green_active: "#007A2E",
         white: "#fcfcfc",
@@ -65,7 +65,11 @@ export default {
     function ({ addComponents }) {
       addComponents({
         ".text-responsive": {
-          "@apply text-sm xs:text-base sm:text-xl sm-md:text-xl md:text-2xl lg:text-3xl xl:text-4xl 4k:text-5xl":
+          "@apply text-sm xs:text-base sm:text-xl sm-md:text-xl md:text-xl lg:text-xl xl:text-2xl 4k:text-3xl":
+            {},
+        },
+        ".text-responsive_header": {
+          "@apply text-xl xs:text-base sm:text-xl sm-md:text-2xl md:text-2xl lg:text-3xl xl:text-4xl 4k:text-5xl":
             {},
         },
         ".height-responsive": {

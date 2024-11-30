@@ -42,9 +42,9 @@ const SubHeader: React.FC<SubHeaderProps> = ({
   };
   return (
     <div>
-      <div className="subheader px-20 py-10 flex justify-between items-center select-none flex-col max-h-36 md:flex-row">
+      <div className="subheader py-8 px-20 flex justify-between items-center select-none flex-col max-h-36 md:flex-row">
         <div className="text-black flex gap-3 font-secondaryRegular align-middle items-center text-responsive">
-          <div className="block truncate max-w-96 text-responsive">
+          <div className="block truncate max-w-96 text-responsive_header">
             {sectionTitle}
           </div>
         </div>
@@ -54,7 +54,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
             {isFlashCardsPage && (
               <div>
                 <Link to={`/quiz/${deckId}`}>
-                  <button className="flex py-5 px-16 border-2 border-black bg-[#03c04a] rounded-[50px] gap-2 hover:bg-gray-200">
+                  <button className="flex py-1.5 px-8 border-2 border-black items-center justify-center bg-green rounded-[50px] gap-2 hover:bg-green_hover">
                     <PiCards className="text-responsive" /> Quiz
                   </button>
                 </Link>
@@ -63,7 +63,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
             {hasAddButton && (
               <div>
                 <button
-                  className="flex py-2 px-8 border-2 border-[#03c04a] rounded-full gap-2 hover:bg-gray-200 items-center justify-evenly"
+                  className="flex py-2 px-8 border-2 border-[#03c04a] rounded-full gap-2 hover:bg-gray-200 items-center justify-center"
                   onClick={onAdd}
                 >
                   <PiPlus className="text-responsive" />{" "}
@@ -73,7 +73,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
             )}
             <div>
               {isSearchActive ? (
-                <div className="flex items-center gap-2 border-2 border-[#03c04a] rounded-full px-4 py-2">
+                <div className="flex items-center gap-2 border-2 border-[#03c04a] rounded-full px-4 py-1.5">
                   <button
                     onClick={handleSearch}
                     className="text-black hover:bg-gray-200 rounded-full p-1"
