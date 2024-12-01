@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth";
 import homeRoutes from "./routes/home";
 import deckRoutes from "./routes/deck";
 import flashcardRoutes from "./routes/flashcard";
+import videoRoutes from "./routes/video";
 
 dotenv.config({ path: "../.env" });
 
@@ -21,6 +22,7 @@ app.use("/auth", authRoutes);
 app.use("/home", homeRoutes);
 app.use("/decks", deckRoutes);
 app.use("/", flashcardRoutes);
+app.use("/videos", videoRoutes);
 
 const PORT = 3000;
 

@@ -6,6 +6,9 @@ export default {
   },
   theme: {
     extend: {
+      cursor: {
+        chillguy: "url(assets/images/chillguy.png), auto",
+      },
       // height: {
       //   24: "6rem",
       //   20: "5rem",
