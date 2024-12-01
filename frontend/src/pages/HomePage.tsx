@@ -5,18 +5,40 @@ import NoteInputField from "../components/Notes/NoteInputField";
 import SubHeader from "../components/Header/SubHeader";
 import LoadingScreen from "../components/LoadingScreen";
 
-import useUser from "../hooks/auth/useUser";
-import generateAIResponse from "../utils/generateAIResponse";
-
 import type {
   GenerateAIResponseProps,
   GenerateSummaryResponse,
 } from "../types/ai.types";
+
+import useUser from "../hooks/auth/useUser";
 import useCreateNote from "../hooks/Notes/useCreateNote";
+import useCreateVideos from "../hooks/Videos/useCreateVideo";
+
+import generateAIResponse from "../utils/generateAIResponse";
+import getVideoSuggestions from "../utils/getVideoSuggestions";
+import { Video } from "../types/video.types";
 
 const HomePage = () => {
   const { user, loading: loadingUser } = useUser();
   const { createNote } = useCreateNote();
+  const { insertVideos } = useCreateVideos();
+
+  const handleAddVideos = async (noteId: string | null, videoList: Video[]) => {
+    try {
+      if (!user?.id) {
+        throw new Error("No user ID found");
+      }
+
+      if (!noteId) {
+        throw new Error("No note ID found");
+      }
+
+      await insertVideos(user.id, noteId, videoList);
+    } catch (error) {
+      toast.error("Error adding videos: " + error);
+      return;
+    }
+  };
 
   const handleAddNote = async (
     note: GenerateAIResponseProps,
@@ -25,8 +47,7 @@ const HomePage = () => {
 
     try {
       if (!user?.id) {
-        toast.error("No user ID found");
-        return;
+        throw new Error("No user ID found");
       }
 
       loadingToast = toast.loading("Generating summary...");
@@ -39,6 +60,14 @@ const HomePage = () => {
       }
       toast.dismiss(loadingToast);
 
+      loadingToast = toast.loading("Getting video suggestions...");
+      const suggestedVideos = await getVideoSuggestions(summaryResponse.title);
+
+      if (!suggestedVideos) {
+        throw new Error("Failed to get video suggestions");
+      }
+      toast.dismiss(loadingToast);
+
       loadingToast = toast.loading("Creating note...");
       const result = await createNote({ ...summaryResponse, userId: user.id });
 
@@ -46,12 +75,14 @@ const HomePage = () => {
         throw new Error(result.error);
       }
 
-      toast.dismiss(loadingToast);
-      toast.success("Note created successfully");
+      handleAddVideos(result.note?.id || null, suggestedVideos);
     } catch (error) {
       toast.dismiss();
       toast.error("Error creating note: " + error);
       return;
+    } finally {
+      toast.dismiss();
+      toast.success("Note created successfully");
     }
   };
 
