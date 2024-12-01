@@ -4,7 +4,7 @@ import SubHeader from "../components/Header/SubHeader";
 import LoadingScreen from "../components/LoadingScreen";
 import { Toaster } from "react-hot-toast";
 
-import UseUser from "../hooks/useUser";
+import UseUser from "../hooks/auth/useUser";
 import generateAIResponse from "../utils/generateAIResponse";
 
 const HomePage = () => {

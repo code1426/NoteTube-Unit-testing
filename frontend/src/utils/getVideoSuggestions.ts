@@ -17,9 +17,8 @@ const getVideoSuggestion = async (query: string) => {
     );
 
     return response.data.items.map((item) => ({
-      id: item.id.videoId,
-      title: item.snippet.title,
-      thumbnail: item.snippet.thumbnails.default,
+      videoId: item.id.videoId,
+      thumbnailUrl: item.snippet.thumbnails.default.url,
     }));
   } catch (error: unknown) {
     console.error(error);

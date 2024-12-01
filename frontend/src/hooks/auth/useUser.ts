@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { User } from "../types/user.types";
+import type { User } from "../../types/user.types";
 
 interface ErrorDetails {
   message: string;

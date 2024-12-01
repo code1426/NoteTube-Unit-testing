@@ -1,4 +1,4 @@
-import UseUser from "../hooks/useUser";
+import UseUser from "../hooks/auth/useUser";
 import NotesHistoryCard from "../components/History/HistoryCard";
 import Header from "../components/Header/Header";
 import SubHeader from "../components/Header/SubHeader";
