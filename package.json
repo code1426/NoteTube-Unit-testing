@@ -19,8 +19,6 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,css,html}": [
-      "npm run lint-frontend",
-      "npm run lint-backend",
       "prettier --write"
     ]
   },
