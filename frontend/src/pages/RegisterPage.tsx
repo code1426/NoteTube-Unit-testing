@@ -63,8 +63,15 @@ const RegisterPage = ({ setAuth }: Props) => {
       confirmPassword: "",
     };
 
+    // Check if password and confirm password match
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match";
+      hasErrors = true;
+    }
+
+    // Check if any of the fields are empty
     Object.keys(formData).forEach((key) => {
-      if (formData[key as keyof typeof formData] === "") {
+      if (formData[key as keyof RegisterData] === "") {
         newErrors[key as keyof RegisterData] = `Please fill out the ${(
           key[0].toUpperCase() + key.slice(1)
         ).replace(/([A-Z])/g, " $1")}.`;
@@ -74,19 +81,19 @@ const RegisterPage = ({ setAuth }: Props) => {
 
     setErrors(newErrors);
 
-    if (!hasErrors) {
-      submitData(formData)
-        .then(() => {
-          toast.success("Registration successful!");
-          setFormData(formInitialvalues);
-          setTimeout(() => {
-            setAuth(true);
-          }, 1000);
-        })
-        .catch((error) => {
-          toast.error(error.message);
-        });
-    }
+    if (hasErrors) return;
+
+    submitData(formData)
+      .then(() => {
+        toast.success("Registration successful!");
+        setFormData(formInitialvalues);
+        setTimeout(() => {
+          setAuth(true);
+        }, 1000);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (
