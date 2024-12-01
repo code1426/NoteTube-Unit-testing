@@ -121,13 +121,13 @@ const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
         </div>
       </div>
       <div className="p-5 flex justify-between items-center gap-4">
-        <label className="shadow-md shadow-gray-400 px-6 py-3 flex items-center bg-green hover:bg-green_hover text-white rounded-lg text-responsive font-secondaryRegular cursor-pointer">
+        <label className="shadow-md shadow-gray-400 px-6 py-3 flex items-center bg-green hover:bg-green_hover text-white rounded-lg text-responsive font-secondaryRegular cursor-pointer transition-all active:bg-green_hover">
           <PiPaperclip size={30} />
           <span className="ml-2">Attach Files</span>
           <input type="file" className="hidden" onChange={handleFileUpload} />
         </label>
         <button
-          className="shadow-md shadow-gray-400 px-6 py-3 flex gap-2 border-2 border-green hover:bg-gray-200 text-black rounded-lg text-responsive font-secondaryRegular"
+          className="shadow-md shadow-gray-400 px-6 py-3 flex gap-2 border-2 border-green hover:bg-gray-200 text-black rounded-lg text-responsive font-secondaryRegular transition-all active:bg-gray-200"
           onClick={handleNoteUpload}
         >
           <PiUpload size={30} />

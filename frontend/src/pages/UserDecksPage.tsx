@@ -3,7 +3,7 @@ import Header from "../components/Header/Header";
 import SubHeader from "../components/Header/SubHeader";
 import DeckItem from "../components/Decks/DeckItem";
 import LoadingScreen from "../components/LoadingScreen";
-import UseUser from "../hooks/useUser";
+import UseUser from "../hooks/auth/useUser";
 import useFetchUserDecks from "../hooks/Decks/useFetchUserDecks";
 import AddDeckModal from "../components/Decks/AddDeckModal";
 import { toast, Toaster } from "react-hot-toast";
