@@ -7,13 +7,14 @@ import {
   PiUpload,
 } from "react-icons/pi";
 import toast from "react-hot-toast";
-import { generateAIInput } from "../utils/generateAIResponse";
 
-interface TextInputSectionProps {
-  onSubmit: (props: generateAIInput) => void;
+import { AIOutputOptions, GenerateAIResponseProps } from "../../types/ai.types";
+
+interface NoteInputFieldProps {
+  onSubmit: (props: GenerateAIResponseProps) => void;
 }
 
-const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
+const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
   const [noteText, setNoteText] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -28,7 +29,7 @@ const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
     console.log(selectedFile);
     if (file) {
       console.log(file.name);
-      onSubmit({ input: file, outputType: "summary" });
+      onSubmit({ input: file, outputOption: AIOutputOptions.SUMMARY });
       setSelectedFile(null);
     }
   };
@@ -39,7 +40,7 @@ const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
       return;
     }
     console.log(noteText);
-    onSubmit({ input: noteText, outputType: "summary" });
+    onSubmit({ input: noteText, outputOption: AIOutputOptions.SUMMARY });
     setNoteText("");
   };
 
@@ -141,4 +142,4 @@ const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
   );
 };
 
-export default TextInputSection;
+export default NoteInputField;

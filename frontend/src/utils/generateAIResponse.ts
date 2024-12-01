@@ -3,10 +3,11 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import generateSummary from "./outputSchemas/generateSummary";
 import generateFlashcards from "./outputSchemas/generateFlashcards";
 
-export interface generateAIInput {
-  input: File | string;
-  outputType: "summary" | "flashcards";
-}
+import {
+  AIOutputOptions,
+  AIResponse,
+  GenerateAIResponseProps,
+} from "../types/ai.types";
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
@@ -17,23 +18,41 @@ const model = genAI.getGenerativeModel({
   },
 });
 
-const generateAIResponse = async ({ input, outputType }: generateAIInput) => {
-  if (outputType === "summary") {
-    model.generationConfig.responseSchema = generateSummary;
+const generateAIResponse = async <T extends AIResponse>({
+  input,
+  outputOption,
+}: GenerateAIResponseProps): Promise<T | null> => {
+  try {
+    if (outputOption === AIOutputOptions.SUMMARY) {
+      model.generationConfig.responseSchema = generateSummary;
 
-    const result = await model.generateContent(
-      "Make a summary of the following text: " + input,
-    );
-    console.log(result.response.text());
-  }
+      const result = await model.generateContent(
+        "You are a professional teacher with a specialization in summarization. Make a summary of the following notes: " +
+          input,
+      );
 
-  if (outputType === "flashcards") {
-    model.generationConfig.responseSchema = generateFlashcards;
+      const parsedSummary: T = JSON.parse(result.response.text());
 
-    const result = await model.generateContent(
-      "Make flashcards of the following text: " + input,
-    );
-    console.log(result.response.text());
+      return parsedSummary;
+    }
+
+    if (outputOption === AIOutputOptions.FLASHCARDS) {
+      model.generationConfig.responseSchema = generateFlashcards;
+
+      const result = await model.generateContent(
+        "You are a professional teacher with a specialization in flashcards. Make flashcards of the following notes: " +
+          input,
+      );
+
+      const parsedFlashcards: T = JSON.parse(result.response.text());
+
+      return parsedFlashcards;
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error generating AI response:", error);
+    return null;
   }
 };
 

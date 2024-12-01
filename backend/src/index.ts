@@ -7,6 +7,7 @@ import homeRoutes from "./routes/home";
 import deckRoutes from "./routes/deck";
 import flashcardRoutes from "./routes/flashcard";
 import videoRoutes from "./routes/video";
+import notesRoutes from "./routes/note";
 
 dotenv.config({ path: "../.env" });
 
@@ -21,6 +22,7 @@ app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/home", homeRoutes);
 app.use("/decks", deckRoutes);
+app.use("/notes", notesRoutes);
 app.use("/", flashcardRoutes);
 app.use("/videos", videoRoutes);
 
