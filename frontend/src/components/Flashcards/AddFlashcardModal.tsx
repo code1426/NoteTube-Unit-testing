@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PiList, PiListNumbers, PiTrash, PiX } from "react-icons/pi";
 import useCreateFlashcard from "../../hooks/Flashcards/useCreateFlashcard";
 import { Spinner } from "react-activity";
+import toast from "react-hot-toast";
 
 interface AddFlashcardModalProps {
   deckId: string;
@@ -24,7 +25,7 @@ const AddFlashcardModal = ({
     const isEmpty: boolean = !flashcardFront.trim() || !flashcardBack.trim();
 
     if (isEmpty) {
-      alert("Both front and back text are required.");
+      toast.error("Both front and back text are required.");
       return;
     }
 
@@ -36,11 +37,12 @@ const AddFlashcardModal = ({
     });
 
     if (res.error) {
-      alert("Failed to create flashcard. Please try again.");
+      toast.error("Failed to create flashcard. Please try again.");
       return;
     }
 
     if (res.success) {
+      toast.success("Flashcard created sucessfully.");
       setFlashcardFront("");
       setFlashcardBack("");
       onSuccess();

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { VideoQueryResult } from "../types/video.types";
 
-const getVideosSuggestion = async (query: string) => {
+const getVideoSuggestion = async (query: string) => {
   try {
     const response = await axios.get<VideoQueryResult>(
       import.meta.env.VITE_YOUTUBE_SEARCH_API_URL,
@@ -26,4 +26,4 @@ const getVideosSuggestion = async (query: string) => {
   }
 };
 
-export default getVideosSuggestion;
+export default getVideoSuggestion;

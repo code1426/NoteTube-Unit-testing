@@ -1,5 +1,9 @@
 import React from "react";
 
+//change username
+//change profile picture
+//change cover picture
+//change bio
 interface OverlayProps {
   onClose: () => void;
 }

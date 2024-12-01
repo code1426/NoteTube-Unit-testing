@@ -13,8 +13,7 @@ router.post(
   validateInfo,
   async (request: Request, response: Response) => {
     try {
-      const { username, email, password, confirmPassword } =
-        request.body as User;
+      const { username, email, password } = request.body as User;
 
       const existingUsername = await pool.query(
         "SELECT * FROM Users WHERE username = $1",
@@ -37,15 +36,6 @@ router.post(
         response.status(401).json({
           field: "email",
           message: "This email is already in use. Please use a different one.",
-        });
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        console.log("Passwords do not match");
-        response.status(401).json({
-          field: "password",
-          message: "Oops! The passwords don't match. Please try again.",
         });
         return;
       }

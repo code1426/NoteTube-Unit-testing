@@ -80,3 +80,10 @@
   opacity: 1;
   transform: translateX(0);
 }
+
+@layer base {
+  html,
+  body {
+    @apply bg-white; /* Example: Set background color and text color */
+  }
+}
