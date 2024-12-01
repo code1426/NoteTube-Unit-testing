@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PiTrash, PiX } from "react-icons/pi";
 import { Spinner } from "react-activity";
 import useCreateDeck from "../../hooks/Decks/useCreateDeck";
+import toast from "react-hot-toast";
 
 interface AddDeckModalProps {
   userId: string;
@@ -15,7 +16,7 @@ const AddDeckModal = ({ userId, onClose, onSuccess }: AddDeckModalProps) => {
 
   const handleCreateDeck = async () => {
     if (!deckName) {
-      alert("Deck Name is required");
+      toast.error("Deck Name is required.");
       return;
     }
 
@@ -26,11 +27,12 @@ const AddDeckModal = ({ userId, onClose, onSuccess }: AddDeckModalProps) => {
     });
 
     if (result.error) {
-      alert("Failed to create deck. Please try again.");
+      toast.error("Failed to create deck. Please try again.");
       return;
     }
 
     if (result.success) {
+      toast.success("Deck added successfully.");
       setDeckName("");
       onSuccess();
       onClose();

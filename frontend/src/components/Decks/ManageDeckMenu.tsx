@@ -4,6 +4,7 @@ import DeleteDeckModal from "./DeleteDeckModal";
 import { useState } from "react";
 import useDeleteDeck from "../../hooks/Decks/useDeleteDeck";
 import { Deck } from "../../types/deck.types";
+import toast from "react-hot-toast";
 
 interface ManageDeckMenuProps extends Deck {
   onClose: () => void;
@@ -22,10 +23,12 @@ const ManageDeckMenu = ({
 
   const handleConfirmDelete = async () => {
     const result = await deleteDeck();
-    if (result) {
+    if (result.success) {
+      toast.success("Deck deleted successfully.");
       window.location.reload();
     } else {
       console.error("Error deleting deck:", error);
+      toast.error("Error deleting deck.");
     }
     setIsDeleteModalOpen(false);
   };
