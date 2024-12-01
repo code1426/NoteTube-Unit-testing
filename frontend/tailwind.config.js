@@ -64,42 +64,4 @@ export default {
       },
     },
   },
-  plugins: [
-    function ({ addComponents }) {
-      addComponents({
-        ".text-responsive": {
-          "@apply text-sm xs:text-base sm:text-xl sm-md:text-xl md:text-xl lg:text-xl xl:text-2xl 4k:text-3xl":
-            {},
-        },
-        ".text-responsive_header": {
-          "@apply text-xl xs:text-base sm:text-xl sm-md:text-2xl md:text-2xl lg:text-3xl xl:text-4xl 4k:text-5xl":
-            {},
-        },
-        ".height-responsive": {
-          "@apply h-8 sm:h-12 md:h-16 lg:h-24 xl:h-32 4k:h-48": {},
-        },
-      });
-    },
-    function ({ addUtilities }) {
-      addUtilities({
-        ".scrollbar-custom": {
-          "&::-webkit-scrollbar": {
-            height: "0.5rem",
-            width: "0.5rem",
-          },
-          "&::-webkit-scrollbar-track": {
-            boxShadow: "inset 0 0 5px grey",
-            borderRadius: "10px",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            background: "#03C04A",
-            borderRadius: "10px",
-          },
-          "&::-webkit-scrollbar-thumb:hover": {
-            background: "#009A3A",
-          },
-        },
-      });
-    },
-  ],
 };

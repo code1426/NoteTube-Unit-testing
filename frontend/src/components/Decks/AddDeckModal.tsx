@@ -11,7 +11,7 @@ interface AddDeckModalProps {
 }
 
 const AddDeckModal = ({ userId, onClose, onSuccess }: AddDeckModalProps) => {
-  const { createDeck, loading } = useCreateDeck(userId);
+  const { createDeck, loading } = useCreateDeck();
   const [deckName, setDeckName] = useState("");
 
   const handleCreateDeck = async () => {
