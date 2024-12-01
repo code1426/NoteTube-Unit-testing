@@ -11,7 +11,7 @@ import notesRoutes from "./routes/note";
 
 dotenv.config({ path: "../.env" });
 
-const app = express();
+export const app = express();
 
 // initialize the database connection
 export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
@@ -25,9 +25,3 @@ app.use("/decks", deckRoutes);
 app.use("/notes", notesRoutes);
 app.use("/", flashcardRoutes);
 app.use("/videos", videoRoutes);
-
-const PORT = 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
