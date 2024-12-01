@@ -88,11 +88,14 @@ const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
   };
 
   return (
-    <div className="textInputSection w-[85%] self-center select-none">
-      <div className="rounded-lg border-4 border-green flex flex-col shadow-md shadow-gray-400">
+    <div className="textInputSection w-[87%]  self-center select-none pb-8">
+      <div
+        className="rounded-lg border-4 border-green flex flex-col 
+      shadow-[-6px_9px_6px_6px_rgba(0,0,0,0.2)]"
+      >
         <textarea
           ref={textareaRef}
-          className="textBox h-80 p-3 rounded border-2 outline-green_dark border-green text-black justify-left text-responsive font-primaryRegular overflow-hidden overflow-y-scroll resize-none scrollbar-hidden"
+          className="textBox h-80 p-3 rounded border-2 outline-green_dark border-green text-black justify-left text-responsive font-primaryRegular overflow-y-scroll resize-none scrollbar-custom"
           placeholder="Input text here"
           value={noteText}
           onChange={handleTextChange}
