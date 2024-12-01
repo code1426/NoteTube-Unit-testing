@@ -3,6 +3,7 @@ import { PiList, PiListNumbers, PiTrash, PiX } from "react-icons/pi";
 import { Spinner } from "react-activity";
 import useUpdateFlashcard from "../../hooks/Flashcards/useUpdateFlashcard";
 import { Flashcard } from "../../types/flashcard.types";
+import toast from "react-hot-toast";
 
 interface EditCardModalProps extends Flashcard {
   onClose: () => void;
@@ -26,7 +27,7 @@ const EditCardModal: React.FC<EditCardModalProps> = ({
     const isEmpty: boolean = !newFront.trim() || !newBack.trim();
 
     if (isEmpty) {
-      alert("Card front and back cannot be empty!");
+      toast.error("Card front and back cannot be empty!");
       return;
     }
 
@@ -42,10 +43,11 @@ const EditCardModal: React.FC<EditCardModalProps> = ({
 
     if (res.error) {
       console.error("Failed to update card:", error);
-      alert("Failed to update card. Please try again.");
+      toast.error("Failed to update card. Please try again.");
     }
 
     if (res.success) {
+      toast.success("Flashcard updated successfully.");
       onClose();
     }
   };

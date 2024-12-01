@@ -4,6 +4,7 @@ import DeleteCardModal from "./DeleteFlashcardModal";
 import EditCardModal from "./EditFlashcardModal";
 import { Flashcard } from "../../types/flashcard.types";
 import useDeleteFlashcard from "../../hooks/Flashcards/useDeleteFlashcard";
+import toast from "react-hot-toast";
 
 const Card = ({ id, front, back, deckId }: Flashcard) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -21,9 +22,11 @@ const Card = ({ id, front, back, deckId }: Flashcard) => {
 
   const handleConfirmDelete = async () => {
     const result = await deleteFlashcard();
-    if (result) {
+    if (result.success) {
+      toast.success("Flashcard deleted successfully.");
       window.location.reload();
     } else {
+      toast.error("Error deleting flashcard. Please try again.");
       console.error("Error deleting flashcard:", error);
     }
     setIsDeleteModalOpen(false);
