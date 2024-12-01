@@ -9,20 +9,20 @@ interface FilterCardModalProps {
 }
 
 const FilterCardModal = ({ onClose, onApply }: FilterCardModalProps) => {
-  const [sortOption, setSortOption] = useState("Latest");
-  const [nameSortDirection, setNameSortDirection] = useState("ascending");
+  const [sortOption, setSortOption] = useState("latest");
+  const [nameSortDirection, setNameSortDirection] = useState("");
+  const [searchName, setSearchName] = useState("");
 
   const ClearAll = () => {
-    setSortOption("Latest");
-    setNameSortDirection("ascending");
+    setSortOption("latest");
+    setNameSortDirection("");
   };
 
   const handleApply = () => {
-    console.log("Applying filter", { sortOption, nameSortDirection });
     const newOptions: options = {
-      sortByDate: sortOption,
-      sortByNames: nameSortDirection,
-      searchByName: "",
+      sortByDate: sortOption.toLowerCase(),
+      sortByNames: nameSortDirection.toLowerCase(),
+      searchByName: searchName,
     };
     onApply(newOptions);
     onClose();
@@ -69,10 +69,18 @@ const FilterCardModal = ({ onClose, onApply }: FilterCardModalProps) => {
             name="dropdown"
             className="text-xl border-2 border-black"
             value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
+            onChange={(e) => {
+              setSortOption(e.target.value);
+              setNameSortDirection("");
+              setSearchName("");
+            }}
           >
-            <option className="text-xl">Latest</option>
-            <option className="text-xl">Oldest</option>
+            <option value="latest" className="text-xl">
+              Latest
+            </option>
+            <option value="oldest" className="text-xl">
+              Oldest
+            </option>
           </select>
         </div>
       </div>

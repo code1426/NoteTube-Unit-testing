@@ -1,13 +1,14 @@
 import { useState } from "react";
 import {
-  PiDotsThreeCircle,
   PiCards,
   PiPlus,
   PiMagnifyingGlass,
   PiFunnel,
   PiX,
+  PiDotsThreeCircle,
 } from "react-icons/pi";
 import FilterCardModal from "../Flashcards/FilterFlashcardModal";
+import { Link } from "react-router-dom";
 import { options } from "../../types/options.types";
 
 interface SubHeaderProps {
@@ -16,7 +17,9 @@ interface SubHeaderProps {
   sectionTitle: string;
   hasAddButton: boolean;
   onAdd?: () => void;
+  deckId?: string;
   onApplyOptions?: (options: options) => void;
+  onSearch?: (searchText: string) => void;
 }
 
 const SubHeader: React.FC<SubHeaderProps> = ({
@@ -25,7 +28,9 @@ const SubHeader: React.FC<SubHeaderProps> = ({
   sectionTitle,
   hasAddButton,
   onAdd,
+  deckId,
   onApplyOptions,
+  onSearch,
 }) => {
   const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
@@ -36,23 +41,17 @@ const SubHeader: React.FC<SubHeaderProps> = ({
     setSearchText("");
   };
 
-  // Open filter modal
   const openFilter = () => {
     setIsFilterOpen(true);
   };
 
-  // Close filter modal
   const closeFilter = () => {
     setIsFilterOpen(false);
   };
 
-  // Safe handling of the apply options prop
   const handleApplyOptions = (selectedOptions: options) => {
-    console.log("Options applied:", selectedOptions);
     if (onApplyOptions) {
-      onApplyOptions(selectedOptions); // Call the function if it exists
-    } else {
-      console.log("onApplyOptions function not passed");
+      onApplyOptions(selectedOptions);
     }
   };
 
@@ -77,12 +76,11 @@ const SubHeader: React.FC<SubHeaderProps> = ({
           <div className="flex text-3xl font-secondaryRegular space-x-5 justify-center items-center">
             {isFlashCardsPage && (
               <div>
-                <button
-                  className="flex py-5 px-16 border-2 border-black bg-[#03c04a] rounded-[50px] gap-2 hover:bg-gray-200"
-                  onClick={() => console.log("quiz clicked")} // Placeholder
-                >
-                  <PiCards size={30} /> Quiz
-                </button>
+                <Link to={`/quiz/${deckId}`}>
+                  <button className="flex py-5 px-16 border-2 border-black bg-[#03c04a] rounded-[50px] gap-2 hover:bg-gray-200">
+                    <PiCards size={30} /> Quiz
+                  </button>
+                </Link>
               </div>
             )}
             {hasAddButton && (
@@ -111,7 +109,13 @@ const SubHeader: React.FC<SubHeaderProps> = ({
                     placeholder="Search..."
                     className="flex-1 focus:outline-none"
                     autoFocus
-                    onChange={(e) => setSearchText(e.target.value)} // Handle input change
+                    onChange={(e) => {
+                      const newSearchtext = e.target.value;
+                      setSearchText(newSearchtext);
+                      if (onSearch) {
+                        onSearch(newSearchtext);
+                      }
+                    }}
                   />
                 </div>
               ) : (
@@ -136,7 +140,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
               {isFilterOpen && (
                 <FilterCardModal
                   onClose={closeFilter}
-                  onApply={handleApplyOptions} // Pass the handler to the modal
+                  onApply={handleApplyOptions}
                 />
               )}
             </div>

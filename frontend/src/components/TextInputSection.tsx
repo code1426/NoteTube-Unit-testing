@@ -6,8 +6,13 @@ import {
   PiTrash,
   PiUpload,
 } from "react-icons/pi";
+import { generateAIInput } from "../utils/generateAIResponse";
 
-const TextInputSection = () => {
+interface TextInputSectionProps {
+  onSubmit: (props: generateAIInput) => void;
+}
+
+const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
   const [noteText, setNoteText] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -22,6 +27,7 @@ const TextInputSection = () => {
     console.log(selectedFile);
     if (file) {
       console.log(file.name);
+      onSubmit({ input: file, outputType: "summary" });
       setSelectedFile(null);
     }
   };
@@ -32,6 +38,7 @@ const TextInputSection = () => {
       return;
     }
     console.log(noteText);
+    onSubmit({ input: noteText, outputType: "summary" });
     setNoteText("");
   };
 

@@ -14,10 +14,10 @@
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.14.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
-    "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.9.0",
     "@types/pg": "^8.11.10",
     "dbmate": "^2.23.0",

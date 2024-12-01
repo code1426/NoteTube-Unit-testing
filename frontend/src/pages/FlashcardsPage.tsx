@@ -16,42 +16,39 @@ const FlashcardsPage: React.FC = () => {
   const location = useLocation();
   const deckName = location.state?.deckName || "Untitled Deck";
 
-  // State to handle add card modal visibility
   const [isAddFormVisible, setAddFormVisible] = useState(false);
 
-  // Handling Filter options
   const [filterOptions, setFilterOptions] = useState<options>({
-    sortByNames: "ascending", // Default sorting
-    sortByDate: "", // Default order
+    sortByNames: "",
+    sortByDate: "latest", // Default order
     searchByName: "",
   });
 
-  // Memoize filtered flashcards to prevent unnecessary recalculations
-  const { filteredFlashcards } = useFilterFlashcards(flashcards, filterOptions);
+  const { filteredFlashcards, setOptions } = useFilterFlashcards(
+    flashcards,
+    filterOptions,
+  );
 
-  // Toggle Add Card Form
   const toggleAddForm = () => {
     setAddFormVisible((prev) => !prev);
   };
 
-  // Callback for when a form is successfully submitted
   const handleFormSuccess = () => {
     setAddFormVisible(false);
-    // Instead of reloading the page, refetch data or update state if necessary
+    window.location.reload();
   };
 
   const handleApplyFilters = (newOptions: options) => {
-    setFilterOptions((prevOptions) => {
-      // Only update if the new options are different from the current ones
-      if (
-        newOptions.sortByNames !== prevOptions.sortByNames ||
-        newOptions.sortByDate !== prevOptions.sortByDate ||
-        newOptions.searchByName !== prevOptions.searchByName
-      ) {
-        return newOptions;
-      }
-      return prevOptions; // Return the previous state if no change
-    });
+    setFilterOptions(newOptions);
+    setOptions(newOptions);
+  };
+
+  const handleSearch = (searchText: string) => {
+    console.log("search", searchText);
+    setOptions((prev) => ({
+      ...prev,
+      searchByName: searchText,
+    }));
   };
 
   if (loading) return <LoadingScreen message="Loading cards..." />;
@@ -65,10 +62,12 @@ const FlashcardsPage: React.FC = () => {
         sectionTitle={deckName}
         onAdd={toggleAddForm}
         hasAddButton={true}
+        deckId={deckId}
         onApplyOptions={handleApplyFilters}
+        onSearch={handleSearch}
       />
       <div className="px-20">
-        <div className="pb-20 text-black text-2xl md:text-5xl lg:text-5xl flex gap-3 font-secondaryRegular align-middle items-center">
+        <div className="pb-20 text-black text-2xl md:text-5xl lg:text-4xl flex gap-3 font-secondaryRegular align-middle items-center">
           Cards
         </div>
         {isAddFormVisible && (
@@ -91,6 +90,7 @@ const FlashcardsPage: React.FC = () => {
                 front={flashcard.front}
                 back={flashcard.back}
                 deckId={flashcard.deckId}
+                created_at={flashcard.created_at!}
               />
             ))
           )}

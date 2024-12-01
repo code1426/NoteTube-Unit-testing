@@ -5,7 +5,7 @@ import { options } from "../../types/options.types";
 
 interface UseFilteredFlashcardsResult {
   filteredFlashcards: Flashcard[];
-  setOptions: (newOptions: options) => void;
+  setOptions: React.Dispatch<React.SetStateAction<options>>;
 }
 
 const useFilterFlashcards = (
@@ -16,19 +16,23 @@ const useFilterFlashcards = (
   const [options, setOptions] = useState<options>(initialOptions);
 
   useEffect(() => {
+    // Only filter if flashcards exist
     if (flashcards && flashcards.length > 0) {
-      // Apply sorting and filtering logic to flashcards
+      console.log("Filtering flashcards:", flashcards);
+      console.log("Options for filtering:", options);
+
       const sortedAndFiltered = applySortingAndFilteringToFlashcards(
         flashcards,
         options,
       );
+
       setFilteredFlashcards(sortedAndFiltered);
+    } else {
+      setFilteredFlashcards([]);
     }
   }, [flashcards, options]);
 
-  console.log(filteredFlashcards);
-  console.log(options);
-  return { filteredFlashcards, setOptions }; // Return setOptions directly
+  return { filteredFlashcards, setOptions };
 };
 
 export default useFilterFlashcards;

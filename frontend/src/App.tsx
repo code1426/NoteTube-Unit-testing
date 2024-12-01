@@ -5,7 +5,9 @@ import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import NotePage from "./pages/NotePage";
 import FlashcardsPage from "./pages/FlashcardsPage";
+import FlashcardsQuizPage from "./pages/FlashcardsQuizPage";
 import UserDecksPage from "./pages/UserDecksPage";
 import ProfilePage from "./pages/ProfilePage";
 import LoadingScreen from "./components/LoadingScreen";
@@ -35,6 +37,10 @@ const App = () => {
               element={isAuthenticated ? <HomePage /> : <Navigate to="/" />}
             />
             <Route
+              path="/notes/:noteId"
+              element={isAuthenticated ? <NotePage /> : <Navigate to="/" />}
+            />
+            <Route
               path="/decks"
               element={
                 isAuthenticated ? <UserDecksPage /> : <Navigate to="/" />
@@ -44,6 +50,12 @@ const App = () => {
               path="/flashcards/:deckId"
               element={
                 isAuthenticated ? <FlashcardsPage /> : <Navigate to="/" />
+              }
+            />
+            <Route
+              path="/quiz/:deckId"
+              element={
+                isAuthenticated ? <FlashcardsQuizPage /> : <Navigate to="/" />
               }
             />
             <Route
