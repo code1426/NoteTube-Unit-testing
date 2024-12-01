@@ -45,8 +45,10 @@ const useCreateVideos = () => {
           await createVideo(userId, noteId, videoData);
         }),
       );
+      return videodataList;
     } catch (error) {
       console.error(error);
+      return null;
     } finally {
       setLoading(false);
     }

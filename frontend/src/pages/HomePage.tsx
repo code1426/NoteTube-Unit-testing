@@ -33,7 +33,13 @@ const HomePage = () => {
         throw new Error("No note ID found");
       }
 
-      await insertVideos(user.id, noteId, videoList);
+      const result = await insertVideos(user.id, noteId, videoList);
+
+      result?.map((video, index) =>
+        console.log(
+          `LINK ${index}: https://www.youtube.com/watch?v=${video.videoId}`,
+        ),
+      );
     } catch (error) {
       toast.error("Error adding videos: " + error);
       return;
