@@ -7,6 +7,12 @@ import "react-activity/dist/Spinner.css";
 import { RegisterData } from "../types/user.types";
 import useAuth from "../hooks/auth/useAuth";
 
+// shadcn ui
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+
+import EyeButton from "@/components/EyeButton";
+
 interface Props {
   setAuth: (value: boolean) => void;
 }
@@ -33,6 +39,10 @@ const RegisterPage = ({ setAuth }: Props) => {
     password: "",
     confirmPassword: "",
   });
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -115,15 +125,15 @@ const RegisterPage = ({ setAuth }: Props) => {
           Register
         </h1>
         <form className=" flex flex-col gap-2 w-[92%]" onSubmit={handleSubmit}>
-          <div className="username-container flex flex-col gap-1 text-xl">
-            <div className=" text-black">Username</div>
+          <div className="username-container flex flex-col gap-1 text-lg">
+            <Label className="text-black text-lg">Username</Label>
             <input
-              className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
+              className={`px-4 py-2 rounded-lg border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
                 errors.username || registerError?.field === "username"
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
-              placeholder="Username"
+              placeholder="Enter your username"
               name="username"
               value={formData.username}
               onChange={handleChange}
@@ -133,16 +143,16 @@ const RegisterPage = ({ setAuth }: Props) => {
             )}
           </div>
 
-          <div className="email-container flex flex-col gap-1 text-xl">
-            <div className=" text-black">Email</div>
+          <div className="email-container flex flex-col gap-1 text-lg">
+            <Label className=" text-black text-lg">Email</Label>
             <input
-              className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
+              className={`px-4 py-2 rounded-lg border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
                 errors.email || registerError?.field === "email"
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
               type="text"
-              placeholder="Email"
+              placeholder="Enter your email address"
               name="email"
               value={formData.email}
               onChange={handleChange}
@@ -152,39 +162,62 @@ const RegisterPage = ({ setAuth }: Props) => {
             )}
           </div>
 
-          <div className="password-container flex flex-col gap-1 text-xl">
-            <div className=" text-black">Password</div>
-            <input
-              className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
+          <div className="password-container flex flex-col gap-1 text-lg">
+            <Label className=" text-black text-lg">Password</Label>
+            <div
+              tabIndex={0}
+              className={`flex flex-row px-4 py-2 rounded-lg border-2 bg-white focus-within:outline-none focus-within:ring-1 focus-within:ring-green  ${
                 errors.password || registerError?.field === "password"
-                  ? "border-red-500 focus:ring-red-500"
+                  ? "border-red-500 focus-within:ring-red-500"
                   : "border-green"
               }`}
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password}</p>
-            )}
+            >
+              <input
+                type={`${isPasswordVisible || "password"}`}
+                className="outline-none flex flex-1"
+                placeholder="Must be 8 characters long"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <EyeButton
+                isVisible={isPasswordVisible}
+                setIsVisible={() => setIsPasswordVisible(!isPasswordVisible)}
+              />
+            </div>
+            <p
+              className={`text-red-500 text-sm ${errors.password || "hidden"}`}
+            >
+              {errors.password}
+            </p>
           </div>
 
-          <div className="confirm-container flex flex-col gap-1 text-xl">
-            <div className=" text-black">Confirm password</div>
-            <input
-              type="password"
-              className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
+          <div className="confirm-container flex flex-col gap-1 text-lg">
+            <Label className=" text-black text-lg">Confirm Password</Label>
+            <div
+              tabIndex={0}
+              className={`flex flex-row px-4 py-2 rounded-lg border-2 bg-white focus-within:outline-none focus-within:ring-1 focus-within:ring-green  ${
                 errors.confirmPassword || registerError?.field === "password"
-                  ? "border-red-500 focus:ring-red-500"
+                  ? "border-red-500 focus-within:ring-red-500"
                   : "border-green"
               }`}
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-            />
+            >
+              <input
+                type={`${isConfirmPasswordVisible || "password"}`}
+                className="outline-none flex flex-1"
+                placeholder="Re-enter your password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+              <EyeButton
+                isVisible={isConfirmPasswordVisible}
+                setIsVisible={() =>
+                  setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
+                }
+              />
+            </div>
+
             <p
               className={`text-red-500 text-sm ${errors.confirmPassword || "hidden"}`}
             >
@@ -192,22 +225,24 @@ const RegisterPage = ({ setAuth }: Props) => {
             </p>
           </div>
 
-          <button
+          <Button
             type="submit"
-            className="Submit-button flex bg-green rounded-full min-w-full h-14 py-4 text-center items-center justify-center text-xl text-black transition-all hover:bg-green_hover active:scale-[0.98] mt-6"
+            className="Submit-button flex bg-green rounded-full min-w-full h-14 py-4 text-center items-center justify-center text-lg transition-all hover:bg-green_hover active:scale-[0.98] mt-6 text-white"
           >
             {loading ? (
               <Spinner size={12} color="#fff" animating={true} />
             ) : (
               "Sign Up"
             )}
-          </button>
+          </Button>
         </form>
 
         <div className="flex items-center justify-center mb-8">
           Already Have an account?
           <Link to="/login">
-            <span className="text-green px-2 cursor-pointer">Log in</span>
+            <span className="text-green px-2 cursor-pointer hover:underline-offset-4 hover:underline">
+              Log in
+            </span>
           </Link>
         </div>
       </div>
