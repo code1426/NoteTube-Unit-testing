@@ -7,6 +7,10 @@ import "react-activity/dist/Spinner.css";
 import { LoginData } from "../types/user.types";
 import useAuth from "../hooks/auth/useAuth";
 
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import EyeButton from "@/components/EyeButton";
+
 interface Props {
   setAuth: (auth: boolean) => void;
 }
@@ -29,6 +33,8 @@ const LoginPage = ({ setAuth }: Props) => {
     usernameEmail: "",
     password: "",
   });
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -102,16 +108,16 @@ const LoginPage = ({ setAuth }: Props) => {
           Welcome Back!
         </h1>
         <form className=" flex flex-col gap-3 w-[92%]" onSubmit={handleSubmit}>
-          <div className="email-container flex flex-col gap-2 text-xl">
-            <div className=" text-black">Username/Email</div>
+          <div className="email-container flex flex-col gap-2 text-lg">
+            <Label className=" text-black text-lg">Username or Email</Label>
             <input
-              className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
+              className={`px-4 py-2 rounded-lg border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
                 errors.usernameEmail || loginError?.field === "both"
                   ? "border-red-500 focus:ring-red-500"
                   : "border-green"
               }`}
               type="text"
-              placeholder="Username or Email"
+              placeholder="Enter your username or email"
               name="usernameEmail"
               value={formData.usernameEmail}
               onChange={handleChange}
@@ -121,54 +127,52 @@ const LoginPage = ({ setAuth }: Props) => {
             )}
           </div>
 
-          <div className="password-container flex flex-col gap-2 text-xl">
-            <div className=" text-black">Password</div>
-            <input
-              className={`px-4 py-2 rounded-md border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
+          <div className="password-container flex flex-col gap-2 text-lg">
+            <Label className=" text-black text-lg">Password</Label>
+            <div
+              tabIndex={0}
+              className={`flex flex-row px-4 py-2 rounded-lg border-2 bg-white focus-within:outline-none focus-within:ring-1 focus-within:ring-green  ${
                 errors.password || loginError?.field === "both"
-                  ? "border-red-500 focus:ring-red-500"
+                  ? "border-red-500 focus-within:ring-red-500"
                   : "border-green"
               }`}
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
+            >
+              <input
+                type={`${isPasswordVisible || "password"}`}
+                className="outline-none flex flex-1"
+                placeholder="Enter your password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <EyeButton
+                isVisible={isPasswordVisible}
+                setIsVisible={() => setIsPasswordVisible(!isPasswordVisible)}
+              />
+            </div>
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password}</p>
             )}
-
-            {/* <div className="flex flex-row justify-between">
-              <div className="remember-me flex">
-                <input className="accent-green w-5" type="checkbox" />
-                <label className="ml-2 text-black ">Remember me</label>
-              </div>
-
-              <div className="">
-                <span className="text-green cursor-pointer">
-                  Forgot Password?
-                </span>
-              </div>
-            </div> */}
           </div>
 
-          <button
+          <Button
             type="submit"
-            className="Submit-button flex bg-green rounded-full min-w-full h-14 items-center py-4 text-center justify-center text-xl text-black transition-all hover:bg-green_hover mt-8"
+            className="Submit-button flex bg-green rounded-full min-w-full h-14 items-center py-4 text-center justify-center text-xl text-white transition-all hover:bg-green_hover mt-8"
           >
             {loading ? (
               <Spinner size={12} color="#fff" animating={true} />
             ) : (
               "Log in"
             )}
-          </button>
+          </Button>
         </form>
 
         <div className="flex items-center justify-center">
           Not yet registered?
           <Link to="/register">
-            <span className="text-green px-2 cursor-pointer">Sign Up</span>
+            <span className="text-green px-2 cursor-pointer hover:underline-offset-4 hover:underline">
+              Sign Up
+            </span>
           </Link>
         </div>
       </div>
