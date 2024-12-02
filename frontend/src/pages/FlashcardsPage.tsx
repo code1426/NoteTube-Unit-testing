@@ -9,6 +9,8 @@ import AddCardModal from "../components/Flashcards/AddFlashcardModal";
 import useFetchFlashcards from "../hooks/Flashcards/useFetchFlashcards";
 import { toast, Toaster } from "react-hot-toast";
 import NoItemsContainerBox from "../components/NoItemsContainerBox";
+import useFilterFlashcards from "../hooks/Flashcards/useFilterFlashcards";
+import { options } from "../types/options.types";
 
 const FlashcardsPage: React.FC = () => {
   const { deckId } = useParams<{ deckId: string }>();
@@ -18,6 +20,17 @@ const FlashcardsPage: React.FC = () => {
 
   const [isAddFormVisible, setAddFormVisible] = useState(false);
 
+  const [filterOptions, setFilterOptions] = useState<options>({
+    sortByNames: "",
+    sortByDate: "latest", // Default order
+    searchByName: "",
+  });
+
+  const { filteredFlashcards, setOptions } = useFilterFlashcards(
+    flashcards,
+    filterOptions,
+  );
+
   const toggleAddForm = () => {
     setAddFormVisible((prev) => !prev);
   };
@@ -25,6 +38,19 @@ const FlashcardsPage: React.FC = () => {
   const handleFormSuccess = () => {
     setAddFormVisible(false);
     window.location.reload();
+  };
+
+  const handleApplyFilters = (newOptions: options) => {
+    setFilterOptions(newOptions);
+    setOptions(newOptions);
+  };
+
+  const handleSearch = (searchText: string) => {
+    console.log("search", searchText);
+    setOptions((prev) => ({
+      ...prev,
+      searchByName: searchText,
+    }));
   };
 
   if (loading) return <LoadingScreen message="Loading cards..." />;
@@ -46,6 +72,8 @@ const FlashcardsPage: React.FC = () => {
           onAdd={toggleAddForm}
           hasAddButton={true}
           deckId={deckId}
+          onApplyOptions={handleApplyFilters}
+          onSearch={handleSearch}
         />
         <div className="px-20">
           <div className="pb-20 text-black text-2xl md:text-3xl lg:text-2xl flex gap-3 font-secondaryRegular align-middle items-center">
@@ -59,7 +87,7 @@ const FlashcardsPage: React.FC = () => {
             />
           )}
           <div className="space-y-5">
-            {flashcards!.length === 0 ? (
+            {filteredFlashcards.length === 0 ? (
               <NoItemsContainerBox
                 mainText="No cards available."
                 subText="Add a card to the selected deck using the + Add Card button."
@@ -67,13 +95,14 @@ const FlashcardsPage: React.FC = () => {
                 altText="No Cards Available"
               />
             ) : (
-              flashcards!.map((flashcard: Flashcard) => (
+              filteredFlashcards.map((flashcard: Flashcard) => (
                 <Card
                   key={flashcard.id}
                   id={flashcard.id}
                   front={flashcard.front}
                   back={flashcard.back}
                   deckId={flashcard.deckId}
+                  created_at={flashcard.created_at!}
                 />
               ))
             )}
