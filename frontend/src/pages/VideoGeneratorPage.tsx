@@ -2,6 +2,8 @@ import Header from "../components/Header/Header";
 import SubHeader from "../components/Header/SubHeader";
 
 const VideoGeneratorPage = () => {
+  const noteTitle = "Note Title Sample";
+
   return (
     <div
       id="main-of-the-mains"
@@ -11,7 +13,7 @@ const VideoGeneratorPage = () => {
       <SubHeader
         isFlashCardsPage={false}
         isSectionTitleOnly={true}
-        sectionTitle="Video Generator"
+        sectionTitle="Generated Videos"
         hasAddButton={false}
       />
       <div
@@ -29,7 +31,7 @@ const VideoGeneratorPage = () => {
             id="generated-videos-name"
             className="border-4 border-red-700 font-secondaryRegular text-green text-3xl p-2"
           >
-            Generated Videos
+            {noteTitle}
           </div>
           <div
             id="videos"

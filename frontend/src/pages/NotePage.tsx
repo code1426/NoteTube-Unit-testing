@@ -43,7 +43,7 @@ const NotePage: React.FC = () => {
   ];
 
   return (
-    <div className="bg-white relative font-secondaryRegular">
+    <div className="bg-white relative font-secondaryRegular select-none">
       <Header isHomePage={false} />
       <SubHeader
         isFlashCardsPage={false}
@@ -61,6 +61,7 @@ const NotePage: React.FC = () => {
         <div className="w-full flex flex-col justify-center items-center gap-4">
           {sample_generated_videos!.map((generatedVideo) => (
             <GeneratedVideoCard
+              key={generatedVideo.id}
               url={generatedVideo.url}
               videoTitle={generatedVideo.title}
               id={generatedVideo.id}
