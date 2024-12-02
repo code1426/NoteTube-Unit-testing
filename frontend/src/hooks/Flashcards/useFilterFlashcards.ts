@@ -18,9 +18,6 @@ const useFilterFlashcards = (
   useEffect(() => {
     // Only filter if flashcards exist
     if (flashcards && flashcards.length > 0) {
-      console.log("Filtering flashcards:", flashcards);
-      console.log("Options for filtering:", options);
-
       const sortedAndFiltered = applySortingAndFilteringToFlashcards(
         flashcards,
         options,

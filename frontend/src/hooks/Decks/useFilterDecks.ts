@@ -16,11 +16,8 @@ const useFilterDecks = (
   const [options, setOptions] = useState<options>(initialOptions);
 
   useEffect(() => {
-    // Only filter if flashcards exist
+    // Only filter if decks exist
     if (decks && decks.length > 0) {
-      console.log("Filtering decks:", decks);
-      console.log("Options for decks filtering:", options);
-
       const sortedAndFiltered = applySortingAndFilteringToDecks(decks, options);
 
       setFilteredDecks(sortedAndFiltered);

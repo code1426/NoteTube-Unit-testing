@@ -8,7 +8,7 @@ const applySortingAndFilteringToFlashcards = (
   let sortedFilteredarray: Flashcard[] = [...array];
 
   if (options.sortByDate === "latest") {
-    console.log("(flashcards) default sortByDate latest");
+    console.log("(flashcards) sortByDate latest");
     sortedFilteredarray = sortedFilteredarray.sort((a, b) => {
       const dateA = new Date(a["created_at"] || "").getTime() || 0;
       const dateB = new Date(b["created_at"] || "").getTime() || 0;
@@ -19,7 +19,6 @@ const applySortingAndFilteringToFlashcards = (
   if (options.sortByDate === "oldest") {
     console.log("(flashcards) using sortByDate oldest");
     sortedFilteredarray = sortedFilteredarray.sort((a, b) => {
-      console.log("aaaaaaaaaaa", a["created_at"]!);
       const dateA = new Date(a["created_at"] || "").getTime() || 0;
       const dateB = new Date(b["created_at"] || "").getTime() || 0;
       return dateA - dateB;
@@ -63,7 +62,6 @@ const applySortingAndFilteringToFlashcards = (
     });
   }
 
-  console.log("logic", sortedFilteredarray, options);
   return sortedFilteredarray;
 };
 export default applySortingAndFilteringToFlashcards;

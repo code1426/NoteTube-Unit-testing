@@ -11,11 +11,8 @@ const applySortingAndFilteringToDecks = (
   if (options.sortByDate === "latest") {
     console.log("(decks) sortByDate latest");
     sortedFilteredarray = sortedFilteredarray.sort((a, b) => {
-      console.log(a["created_at"]);
-      console.log(b["created_at"]);
       const dateA = new Date(a["created_at"]!).getTime() || 0;
       const dateB = new Date(b["created_at"]!).getTime() || 0;
-      console.log(dateA, dateB);
       return dateA - dateB;
     });
   }
@@ -25,7 +22,6 @@ const applySortingAndFilteringToDecks = (
     sortedFilteredarray = sortedFilteredarray.sort((a, b) => {
       const dateA = new Date(a["created_at"]!).getTime() || 0;
       const dateB = new Date(b["created_at"]!).getTime() || 0;
-      console.log(dateA, dateB);
       return dateB - dateA;
     });
   }
