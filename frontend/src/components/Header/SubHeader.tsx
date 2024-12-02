@@ -5,9 +5,11 @@ import {
   PiMagnifyingGlass,
   PiFunnel,
   PiX,
+  PiDotsThreeCircle,
 } from "react-icons/pi";
 import FilterCardModal from "../Flashcards/FilterFlashcardModal";
 import { Link } from "react-router-dom";
+import { options } from "../../types/options.types";
 
 interface SubHeaderProps {
   isFlashCardsPage: boolean;
@@ -16,6 +18,8 @@ interface SubHeaderProps {
   hasAddButton: boolean;
   onAdd?: () => void;
   deckId?: string;
+  onApplyOptions?: (options: options) => void;
+  onSearch?: (searchText: string) => void;
 }
 
 const SubHeader: React.FC<SubHeaderProps> = ({
@@ -25,6 +29,8 @@ const SubHeader: React.FC<SubHeaderProps> = ({
   hasAddButton,
   onAdd,
   deckId,
+  onApplyOptions,
+  onSearch,
 }) => {
   const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
@@ -34,12 +40,21 @@ const SubHeader: React.FC<SubHeaderProps> = ({
     setIsSearchActive(!isSearchActive);
     setSearchText("");
   };
+
   const openFilter = () => {
     setIsFilterOpen(true);
   };
+
   const closeFilter = () => {
     setIsFilterOpen(false);
   };
+
+  const handleApplyOptions = (selectedOptions: options) => {
+    if (onApplyOptions) {
+      onApplyOptions(selectedOptions);
+    }
+  };
+
   return (
     <div className="px-6 sticky top-0">
       <div className="subheader py-4  px-16 flex justify-between items-center select-none flex-col max-h-36 md:flex-row rounded-b-xl bg-white border-b-2 border-x-2  border-green mb-8 shadow-[0_12px_8px_-5px_rgba(0,0,0,0.2)]">
@@ -47,6 +62,16 @@ const SubHeader: React.FC<SubHeaderProps> = ({
           <div className="block truncate max-w-96 text-responsive_header">
             {sectionTitle}
           </div>
+
+          {/* Optional button for manage options */}
+          {!isSectionTitleOnly && (
+            <button
+              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200"
+              onClick={() => console.log("manage button")} // placeholder
+            >
+              <PiDotsThreeCircle size={50} />
+            </button>
+          )}
         </div>
 
         {!isSectionTitleOnly && (
@@ -72,6 +97,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
               </div>
             )}
             <div>
+              {/* Search bar toggle */}
               {isSearchActive ? (
                 <div className="flex items-center gap-2 border-2 border-[#03c04a] rounded-full px-4 py-1.5">
                   <button
@@ -86,6 +112,13 @@ const SubHeader: React.FC<SubHeaderProps> = ({
                     placeholder="Search..."
                     className="flex-1 focus:outline-none"
                     autoFocus
+                    onChange={(e) => {
+                      const newSearchtext = e.target.value;
+                      setSearchText(newSearchtext);
+                      if (onSearch) {
+                        onSearch(newSearchtext);
+                      }
+                    }}
                   />
                 </div>
               ) : (
@@ -98,6 +131,8 @@ const SubHeader: React.FC<SubHeaderProps> = ({
                 </button>
               )}
             </div>
+
+            {/* Filter button */}
             <div className="relative">
               <button
                 className="flex items-center hover:underline gap-2"
@@ -106,7 +141,13 @@ const SubHeader: React.FC<SubHeaderProps> = ({
                 <PiFunnel className="text-responsive" />{" "}
                 <p className="text-responsive">Filter</p>
               </button>
-              {isFilterOpen && <FilterCardModal onClose={closeFilter} />}
+              {/* Render FilterCardModal conditionally */}
+              {isFilterOpen && (
+                <FilterCardModal
+                  onClose={closeFilter}
+                  onApply={handleApplyOptions}
+                />
+              )}
             </div>
           </div>
         )}

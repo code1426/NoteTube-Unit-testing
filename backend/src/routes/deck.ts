@@ -38,7 +38,7 @@ router.get(
     try {
       const { userId } = request.query;
       const result = await pool.query(
-        `SELECT d.id, d.deck_name, COUNT(c.id) AS card_count
+        `SELECT d.*, COUNT(c.id) AS card_count
          FROM Decks d
          LEFT JOIN Flashcards c ON c.deck_id = d.id
          WHERE d.user_id = $1
