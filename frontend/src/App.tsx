@@ -15,7 +15,7 @@ import SideBarLayout from "./components/Sidebar/Layout";
 import NotesHistoryPage from "./pages/NotesHistoryPage";
 import VideoGeneratorPage from "./pages/VideoGeneratorPage";
 
-import useUserVerification from "./hooks/useUserVerification";
+import useUserVerification from "./hooks/auth/useUserVerification";
 
 const App = () => {
   const {

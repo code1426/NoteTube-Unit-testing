@@ -58,13 +58,27 @@ const SideBar = ({ setAuth }: Props) => {
     <div className="border-r-2 border-white border-solid max-h-screen relative">
       <div
         ref={sidebarRef}
-        className={`container flex flex-col ${isExpanded ? "w-64" : "w-24"} h-screen px-3 bg-green transition-all ease-linear duration-250 -z-50 `}
+        className={`container flex flex-col 
+          ${isExpanded ? "w-64" : "w-24 xs:w-20 sm:w-22 lg:w-24"} 
+          h-screen 
+          px-3 
+          sm:px-2 
+          xs:px-1 
+          lg:px-4
+          bg-green transition-all ease-linear duration-250 -z-50 `}
       >
-        <div className="flex h-24 items-center justify-start border-b-2 border-white">
+        <div
+          className="flex items-center justify-start border-b-2 border-white 
+        h-12
+        md:h-16
+        lg:h-24"
+        >
           <Logo isExpanded={isExpanded} setIsExpanded={setIsExpanded}></Logo>
         </div>
 
-        <div className={`flex h-80 flex-col items-start justify-evenly`}>
+        <div
+          className={`flex h-64 md:h-80 lg:h-96 flex-col items-start justify-evenly`}
+        >
           <MenuItem
             route="/home"
             label="Upload Notes"

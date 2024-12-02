@@ -3,6 +3,7 @@ import { PiTrash, PiX } from "react-icons/pi";
 import { Spinner } from "react-activity";
 import useUpdateDeck from "../../hooks/Decks/useUpdateDeck";
 import { Deck } from "../../types/deck.types";
+import toast from "react-hot-toast";
 
 interface EditDeckModalProps extends Deck {
   onClose: () => void;
@@ -23,7 +24,7 @@ const EditDeckModal: React.FC<EditDeckModalProps> = ({
     const isEmpty: boolean = !newDeckName.trim();
 
     if (isEmpty) {
-      alert("Deck name cannot be empty!");
+      toast.error("Deck name cannot be empty!");
       return;
     }
 
@@ -34,12 +35,13 @@ const EditDeckModal: React.FC<EditDeckModalProps> = ({
     });
 
     if (res.success) {
+      toast.success("Deck updated successfully.");
       onEdit();
       onClose();
       window.location.reload();
     } else {
       console.error("Failed to update deck:", error);
-      alert("Failed to update deck. Please try again.");
+      toast.error("Failed to update deck. Please try again.");
     }
   };
 

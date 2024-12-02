@@ -35,7 +35,7 @@ const QuizFlashcard: React.FC<QuizFlashcardProps> = ({ front, back }) => {
     >
       <div className="w-[57vh] h-[72vh] bg-white rounded-[50px] border-7 border-[#03c04a] grid place-items-center">
         <div className="w-[54vh] h-[69vh] bg-green rounded-[35px] border-1 border-[#03c04a] grid place-items-center">
-          <div className="text-center flex flex-col text-white text-3xl p-4 items-center font-bold">
+          <div className="text-center flex flex-col text-white text-3xl p-4 items-center font-bold font-secondaryRegular">
             {isFlipped ? (
               <PiExclamationMarkBold size={50} />
             ) : (

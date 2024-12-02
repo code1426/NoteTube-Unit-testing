@@ -1,7 +1,7 @@
 import axios from "axios";
-import { VideoQueryResult } from "../types/video.types";
+import { Video, VideoQueryResult } from "../types/video.types";
 
-const getVideosSuggestion = async (query: string) => {
+const getVideoSuggestions = async (query: string): Promise<Video[] | null> => {
   try {
     const response = await axios.get<VideoQueryResult>(
       import.meta.env.VITE_YOUTUBE_SEARCH_API_URL,
@@ -17,13 +17,13 @@ const getVideosSuggestion = async (query: string) => {
     );
 
     return response.data.items.map((item) => ({
-      id: item.id.videoId,
-      title: item.snippet.title,
-      thumbnail: item.snippet.thumbnails.default,
+      videoId: item.id.videoId,
+      thumbnailUrl: item.snippet.thumbnails.default.url,
     }));
   } catch (error: unknown) {
     console.error(error);
+    return null;
   }
 };
 
-export default getVideosSuggestion;
+export default getVideoSuggestions;

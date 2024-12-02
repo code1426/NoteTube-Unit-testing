@@ -6,13 +6,15 @@ import {
   PiTrash,
   PiUpload,
 } from "react-icons/pi";
-import { generateAIInput } from "../utils/generateAIResponse";
+import toast from "react-hot-toast";
 
-interface TextInputSectionProps {
-  onSubmit: (props: generateAIInput) => void;
+import { AIOutputOptions, GenerateAIResponseProps } from "../../types/ai.types";
+
+interface NoteInputFieldProps {
+  onSubmit: (props: GenerateAIResponseProps) => void;
 }
 
-const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
+const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
   const [noteText, setNoteText] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -27,18 +29,18 @@ const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
     console.log(selectedFile);
     if (file) {
       console.log(file.name);
-      onSubmit({ input: file, outputType: "summary" });
+      onSubmit({ input: file, outputOption: AIOutputOptions.SUMMARY });
       setSelectedFile(null);
     }
   };
 
   const handleNoteUpload = () => {
     if (!noteText.trim()) {
-      alert("Please enter some text before uploading.");
+      toast.error("Please enter some text before uploading.");
       return;
     }
     console.log(noteText);
-    onSubmit({ input: noteText, outputType: "summary" });
+    onSubmit({ input: noteText, outputOption: AIOutputOptions.SUMMARY });
     setNoteText("");
   };
 
@@ -87,11 +89,14 @@ const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
   };
 
   return (
-    <div className="textInputSection py-10 px-20 select-none">
-      <div className="rounded-lg border-4 border-[#03c04a] flex flex-col">
+    <div className="textInputSection w-[87%]  self-center select-none pb-8">
+      <div
+        className="rounded-lg border-4 border-green flex flex-col 
+      shadow-[-6px_9px_6px_6px_rgba(0,0,0,0.2)]"
+      >
         <textarea
           ref={textareaRef}
-          className="textBox h-80 p-3 rounded-lg border-2 border-[#03c04a] text-black justify-left text-3xl font-primaryRegular overflow-hidden overflow-y-scroll resize-none scrollbar-hidden"
+          className="textBox h-80 p-3 rounded border-2 outline-green_dark border-green text-black justify-left text-responsive font-primaryRegular overflow-y-scroll resize-none scrollbar-custom"
           placeholder="Input text here"
           value={noteText}
           onChange={handleTextChange}
@@ -120,13 +125,13 @@ const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
         </div>
       </div>
       <div className="p-5 flex justify-between items-center gap-4">
-        <label className="px-6 py-3 flex items-center bg-[#03c04a] text-white rounded-lg text-2xl font-secondaryRegular cursor-pointer">
+        <label className="shadow-md shadow-gray-400 px-6 py-3 flex items-center bg-green hover:bg-green_hover text-white rounded-lg text-responsive font-secondaryRegular cursor-pointer transition-all active:bg-green_hover">
           <PiPaperclip size={30} />
           <span className="ml-2">Attach Files</span>
           <input type="file" className="hidden" onChange={handleFileUpload} />
         </label>
         <button
-          className="px-6 py-3 flex gap-2 border-2 border-[#03c04a] text-black rounded-lg text-2xl font-secondaryRegular"
+          className="shadow-md shadow-gray-400 px-6 py-3 flex gap-2 border-2 border-green hover:bg-gray-200 text-black rounded-lg text-responsive font-secondaryRegular transition-all active:bg-gray-200"
           onClick={handleNoteUpload}
         >
           <PiUpload size={30} />
@@ -137,4 +142,4 @@ const TextInputSection = ({ onSubmit }: TextInputSectionProps) => {
   );
 };
 
-export default TextInputSection;
+export default NoteInputField;

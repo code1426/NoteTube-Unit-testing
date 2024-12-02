@@ -6,10 +6,12 @@ import authRoutes from "./routes/auth";
 import homeRoutes from "./routes/home";
 import deckRoutes from "./routes/deck";
 import flashcardRoutes from "./routes/flashcard";
+import videoRoutes from "./routes/video";
+import notesRoutes from "./routes/note";
 
 dotenv.config({ path: "../.env" });
 
-const app = express();
+export const app = express();
 
 // initialize the database connection
 export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
@@ -20,10 +22,6 @@ app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/home", homeRoutes);
 app.use("/decks", deckRoutes);
+app.use("/notes", notesRoutes);
 app.use("/", flashcardRoutes);
-
-const PORT = 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+app.use("/videos", videoRoutes);

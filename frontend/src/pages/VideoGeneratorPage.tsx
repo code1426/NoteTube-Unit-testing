@@ -3,7 +3,10 @@ import SubHeader from "../components/Header/SubHeader";
 
 const VideoGeneratorPage = () => {
   return (
-    <div id="main-of-the-mains" className="relative bg-white select-none">
+    <div
+      id="main-of-the-mains"
+      className="relative bg-white select-none scrollbar-custom h-screen overflow-auto"
+    >
       <Header isHomePage={false} />
       <SubHeader
         isFlashCardsPage={false}

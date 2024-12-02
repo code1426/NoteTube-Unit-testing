@@ -7,23 +7,23 @@ interface CreateDeckResult {
   error?: string | null;
 }
 
-const useCreateDeck = (userId: string) => {
+const useCreateDeck = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const createDeck = async (DeckData: Deck): Promise<CreateDeckResult> => {
+  const createDeck = async (deckData: Deck): Promise<CreateDeckResult> => {
     setLoading(true);
     setError(null);
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BASE_API_URL}/decks/${userId}`,
+        `${import.meta.env.VITE_BASE_API_URL}/decks/${deckData.userId}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(DeckData),
+          body: JSON.stringify(deckData),
         },
       );
 

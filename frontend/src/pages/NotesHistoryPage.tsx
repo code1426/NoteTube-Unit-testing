@@ -1,4 +1,4 @@
-import UseUser from "../hooks/useUser";
+import UseUser from "../hooks/auth/useUser";
 import NotesHistoryCard from "../components/History/HistoryCard";
 import Header from "../components/Header/Header";
 import SubHeader from "../components/Header/SubHeader";
@@ -11,9 +11,16 @@ const NotesHistoryPage = () => {
   const items = [
     {
       id: "1234-5678-90",
+      title: "note title",
       content: "note content",
       topic: "topic title",
-      summary: "summary hahaha",
+      createdAt: "mm/mm/mm",
+      userId: "0",
+    },
+    {
+      id: "1234-567811-90",
+      content: "note content",
+      title: "topic title",
       createdAt: "mm/mm/mm",
       userId: "0",
     },
@@ -38,10 +45,10 @@ const NotesHistoryPage = () => {
         ) : (
           items!.map((note: Note) => (
             <NotesHistoryCard
+              key={note.id}
               id={note.id}
               content={note.content}
-              topic={note.topic}
-              summary={note.summary}
+              title={note.title}
               createdAt={note.createdAt}
               userId={note.userId}
             />
