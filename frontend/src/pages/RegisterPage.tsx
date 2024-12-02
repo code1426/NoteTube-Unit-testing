@@ -175,7 +175,7 @@ const RegisterPage = ({ setAuth }: Props) => {
               <input
                 type={`${isPasswordVisible || "password"}`}
                 className="outline-none flex flex-1"
-                placeholder="Must be 8 characters long"
+                placeholder="Must be at least 8 characters"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}

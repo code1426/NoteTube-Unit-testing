@@ -8,6 +8,7 @@ import { GoVideo } from "react-icons/go"; // generated videos
 import MenuItem from "./MenuItem";
 import Logout from "./Logout";
 import Logo from "./AppLogo";
+import LogoutConfirmation from "../LogoutConfirmation";
 
 interface Props {
   setAuth: (value: boolean) => void;
@@ -116,7 +117,10 @@ const SideBar = ({ setAuth }: Props) => {
         <div
           className={`flex flex-1 flex-col items-start justify-start pt-6 border-t-2 border-white`}
         >
-          <Logout isExpanded={isExpanded} logout={logout} />
+          <LogoutConfirmation
+            logout={logout}
+            logoutComponent={<Logout isExpanded={isExpanded} />}
+          ></LogoutConfirmation>
         </div>
       </div>
     </div>
