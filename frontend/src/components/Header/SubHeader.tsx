@@ -41,8 +41,8 @@ const SubHeader: React.FC<SubHeaderProps> = ({
     setIsFilterOpen(false);
   };
   return (
-    <div>
-      <div className="subheader py-8 px-20 flex justify-between items-center select-none flex-col max-h-36 md:flex-row">
+    <div className="px-6 sticky top-0">
+      <div className="subheader py-4  px-16 flex justify-between items-center select-none flex-col max-h-36 md:flex-row rounded-b-xl bg-white border-b-2 border-x-2  border-green mb-8 shadow-[0_12px_8px_-5px_rgba(0,0,0,0.2)]">
         <div className="text-black flex gap-3 font-secondaryRegular align-middle items-center text-responsive">
           <div className="block truncate max-w-96 text-responsive_header">
             {sectionTitle}

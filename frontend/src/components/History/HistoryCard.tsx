@@ -3,19 +3,19 @@ import { Note } from "../../types/note.types";
 import { Link } from "react-router-dom";
 import HistoryGeneratedVideoThumbnail from "./GeneratedVideoThumbnail";
 
-const NotesHistoryCard = ({ id, topic, createdAt }: Note) => {
+const NotesHistoryCard = ({ id, title, createdAt }: Note) => {
   // const sample_title = "5yfh5cf4-0w";
 
   const generatedVideosThumbnail = [
     {
       url: "https://static-cse.canva.com/blob/1396717/1600w-wK95f3XNRaM.jpg",
       title: "Calculus 1 - Derivatives",
-      id: "",
+      id: "ddddd",
     },
     {
       url: "https://static-cse.canva.com/blob/1396717/1600w-wK95f3XNRaM.jpg",
       title: "Calculus 1 - Derivatives",
-      id: "",
+      id: "ddddddd",
     },
   ];
 
@@ -33,12 +33,13 @@ const NotesHistoryCard = ({ id, topic, createdAt }: Note) => {
         <Link to={`/notes/${id}`}>
           {/* The div below is for the note topic title */}
           <div>
-            <p>{topic}</p>
+            <p>{title}</p>
           </div>
           {/* The div is for the generated videos */}
           <div className="flex flex-row justify-start gap-3">
             {generatedVideosThumbnail!.map((generatedVideo) => (
               <HistoryGeneratedVideoThumbnail
+                key={generatedVideo.id}
                 url={generatedVideo.url}
                 videoTitle={generatedVideo.title}
                 id={generatedVideo.id}

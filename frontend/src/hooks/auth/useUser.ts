@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import type { User } from "../types/user.types";
+import type { User } from "../../types/user.types";
 
 interface ErrorDetails {
   message: string;
 }
 
-const UseUser = () => {
+const useUser = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -42,4 +42,4 @@ const UseUser = () => {
   return { user, setUser, loading, error };
 };
 
-export default UseUser;
+export default useUser;

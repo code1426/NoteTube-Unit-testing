@@ -5,7 +5,7 @@ import { Spinner } from "react-activity";
 import "react-activity/dist/Spinner.css";
 
 import { LoginData } from "../types/user.types";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/auth/useAuth";
 
 interface Props {
   setAuth: (auth: boolean) => void;

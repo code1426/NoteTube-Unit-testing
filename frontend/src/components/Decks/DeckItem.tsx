@@ -12,7 +12,7 @@ const DeckItem = ({ id, deckName, cardCount, userId }: Deck) => {
   };
 
   return (
-    <div className="w-64 max-w-72 border border-black rounded-3xl bg-white hover:shadow-lg min-h-50">
+    <div className="w-64 max-w-72 border-2 border-gray-200 rounded-3xl bg-white hover:shadow-xl min-h-50">
       <div className="w-full h-20 bg-[#03c04a] rounded-t-3xl flex items-center justify-end px-5">
         <button
           className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200"

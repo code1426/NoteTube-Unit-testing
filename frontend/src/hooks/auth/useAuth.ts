@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RegisterData, LoginData } from "../types/user.types";
+import { RegisterData, LoginData } from "../../types/user.types";
 
 interface ErrorDetails {
   field: string;

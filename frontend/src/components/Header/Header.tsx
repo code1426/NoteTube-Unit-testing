@@ -15,8 +15,8 @@ const Header = ({ isHomePage, username }: HeaderProps) => {
   return (
     <div
       id="supporting-container"
-      className="px-3 flex w-full z-20 top-0 sticky select-none 
-      4k:h-24  md:
+      className="px-3 flex w-full z-20 -top-24 sticky select-none 
+      4k:h-24
       xl:h-24  
       lg:h-24
       md:h-16 
@@ -25,7 +25,13 @@ const Header = ({ isHomePage, username }: HeaderProps) => {
     >
       <div
         id="main-container"
-        className="flex flex-row px-10 w-full border-b-2  border-green bg-white items-center justify-between"
+        className="flex flex-row px-10 w-full border-b-2 rounded-xl border-green bg-white items-center justify-between
+        4k:h-24
+      xl:h-24  
+      lg:h-24
+      md:h-16 
+      h-12 
+      shadow-[0_12px_8px_-5px_rgba(0,0,0,0.2)]"
       >
         <div className="text-black text-responsive_header font-primaryBold flex items-center justify-center">
           {isHomePage ? (

@@ -1,29 +1,32 @@
 import { useState } from "react";
-import { Deck } from "../../types/deck.types";
 
-interface CreateDeckResult {
+import type { CreateNoteData, Note } from "../../types/note.types";
+
+interface CreateNoteResult {
   success: boolean;
-  deck?: Deck;
+  note?: Note;
   error?: string | null;
 }
 
-const useCreateDeck = () => {
+const useCreateNote = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const createDeck = async (deckData: Deck): Promise<CreateDeckResult> => {
+  const createNote = async (
+    noteData: CreateNoteData,
+  ): Promise<CreateNoteResult> => {
     setLoading(true);
     setError(null);
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BASE_API_URL}/decks/${deckData.userId}`,
+        `${import.meta.env.VITE_BASE_API_URL}/notes/${noteData.userId}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(deckData),
+          body: JSON.stringify(noteData),
         },
       );
 
@@ -31,21 +34,21 @@ const useCreateDeck = () => {
         const errorData = await response.json();
         console.log(errorData);
         setError(
-          "Request to create deck failed with status: " + response.status,
+          "Request to create note failed with status: " + response.status,
         );
         return { success: false, error: error };
-      } else {
-        const deck: Deck = await response.json();
-        return { success: true, deck };
       }
-    } catch (error) {
-      return { success: false, error: "Failed to create deck" };
+
+      const note: Note = await response.json();
+      return { success: true, note: note };
+    } catch (_error) {
+      return { success: false, error: error };
     } finally {
       setLoading(false);
     }
   };
 
-  return { createDeck, loading };
+  return { createNote, loading };
 };
 
-export default useCreateDeck;
+export default useCreateNote;
