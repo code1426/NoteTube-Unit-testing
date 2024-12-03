@@ -37,7 +37,7 @@ const HomePage = () => {
 
       result?.map((video, index) =>
         console.log(
-          `LINK ${index}: https://www.youtube.com/watch?v=${video.videoId}`,
+          `LINK ${index + 1}: https://www.youtube.com/watch?v=${video.videoId}`,
         ),
       );
     } catch (error) {
@@ -67,7 +67,9 @@ const HomePage = () => {
       toast.dismiss(loadingToast);
 
       loadingToast = toast.loading("Getting video suggestions...");
-      const suggestedVideos = await getVideoSuggestions(summaryResponse.title);
+      const suggestedVideos = await getVideoSuggestions(
+        summaryResponse.content,
+      ).then((videos) => videos?.slice(0, 5));
 
       if (!suggestedVideos) {
         throw new Error("Failed to get video suggestions");

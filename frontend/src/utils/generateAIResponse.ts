@@ -1,7 +1,8 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+// import { GoogleAIFileManager } from "@google/generative-ai/server";
 
-import generateSummary from "./outputSchemas/generateSummary";
-import generateFlashcards from "./outputSchemas/generateFlashcards";
+import generateSummary from "@/utils/outputSchemas/generateSummary";
+import generateFlashcards from "@/utils/outputSchemas/generateFlashcards";
 
 import {
   AIOutputOptions,
@@ -10,6 +11,7 @@ import {
 } from "../types/ai.types";
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+// const fileManager = new GoogleAIFileManager(import.meta.env.API_KEY);
 
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash",
@@ -23,6 +25,31 @@ const generateAIResponse = async <T extends AIResponse>({
   outputOption,
 }: GenerateAIResponseProps): Promise<T | null> => {
   try {
+    // if (input instanceof File) {
+    //   const uploadResponse = await fileManager.uploadFile(
+    //     input.webkitRelativePath,
+    //     {
+    //       mimeType: input.type,
+    //       displayName: input.name,
+    //     },
+    //   );
+
+    //   console.log(
+    //     `Uploaded file ${uploadResponse.file.displayName} as: ${uploadResponse.file.uri}`,
+    //   );
+    //   const result = await model.generateContent([
+    //     {
+    //       fileData: {
+    //         mimeType: uploadResponse.file.mimeType,
+    //         fileUri: uploadResponse.file.uri,
+    //       },
+    //     },
+    //     { text: "Can you summarize this document as a bulleted list?" },
+    //   ]);
+
+    //   console.log(result.response.text());
+    // }
+
     if (outputOption === AIOutputOptions.SUMMARY) {
       model.generationConfig.responseSchema = generateSummary;
 
@@ -32,7 +59,6 @@ const generateAIResponse = async <T extends AIResponse>({
       );
 
       const parsedSummary: T = JSON.parse(result.response.text());
-
       return parsedSummary;
     }
 
@@ -45,14 +71,12 @@ const generateAIResponse = async <T extends AIResponse>({
       );
 
       const parsedFlashcards: T = JSON.parse(result.response.text());
-
       return parsedFlashcards;
     }
 
     return null;
   } catch (error) {
-    console.error("Error generating AI response:", error);
-    return null;
+    throw new Error("Error generating AI response: " + error);
   }
 };
 
