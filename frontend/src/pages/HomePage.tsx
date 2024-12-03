@@ -58,12 +58,17 @@ const HomePage = () => {
 
       loadingToast = toast.loading("Generating summary...");
 
-      const summaryResponse =
-        await generateAIResponse<GenerateSummaryResponse>(note);
+      const summaryResponse = await generateAIResponse<GenerateSummaryResponse>(
+        note,
+      ).catch((error) => {
+        console.error(error);
+        throw new Error(error.message);
+      });
 
       if (!summaryResponse) {
         throw new Error("Failed to generate summary");
       }
+
       toast.dismiss(loadingToast);
 
       loadingToast = toast.loading("Getting video suggestions...");
@@ -83,14 +88,17 @@ const HomePage = () => {
         throw new Error(result.error);
       }
 
+      toast.dismiss(loadingToast);
+
       handleAddVideos(result.note?.id || null, suggestedVideos);
+      toast.success("Note created successfully");
     } catch (error) {
       toast.dismiss();
-      toast.error("Error creating note: " + error);
+      toast.error(
+        "Error creating note: " +
+          (error instanceof Error ? error.message : "Unknown error"),
+      );
       return;
-    } finally {
-      toast.dismiss();
-      toast.success("Note created successfully");
     }
   };
 

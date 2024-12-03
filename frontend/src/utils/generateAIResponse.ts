@@ -25,30 +25,29 @@ const generateAIResponse = async <T extends AIResponse>({
   outputOption,
 }: GenerateAIResponseProps): Promise<T | null> => {
   try {
-    // if (input instanceof File) {
-    //   const uploadResponse = await fileManager.uploadFile(
-    //     input.webkitRelativePath,
-    //     {
-    //       mimeType: input.type,
-    //       displayName: input.name,
-    //     },
-    //   );
-
-    //   console.log(
-    //     `Uploaded file ${uploadResponse.file.displayName} as: ${uploadResponse.file.uri}`,
-    //   );
-    //   const result = await model.generateContent([
-    //     {
-    //       fileData: {
-    //         mimeType: uploadResponse.file.mimeType,
-    //         fileUri: uploadResponse.file.uri,
-    //       },
-    //     },
-    //     { text: "Can you summarize this document as a bulleted list?" },
-    //   ]);
-
-    //   console.log(result.response.text());
-    // }
+    if (input instanceof File) {
+      throw new Error("File input not supported yet");
+      // const uploadResponse = await fileManager.uploadFile(
+      //   input.webkitRelativePath,
+      //   {
+      //     mimeType: input.type,
+      //     displayName: input.name,
+      //   },
+      // );
+      // console.log(
+      //   `Uploaded file ${uploadResponse.file.displayName} as: ${uploadResponse.file.uri}`,
+      // );
+      // const result = await model.generateContent([
+      //   {
+      //     fileData: {
+      //       mimeType: uploadResponse.file.mimeType,
+      //       fileUri: uploadResponse.file.uri,
+      //     },
+      //   },
+      //   { text: "Can you summarize this document as a bulleted list?" },
+      // ]);
+      // console.log(result.response.text());
+    }
 
     if (outputOption === AIOutputOptions.SUMMARY) {
       model.generationConfig.responseSchema = generateSummary;
@@ -76,7 +75,11 @@ const generateAIResponse = async <T extends AIResponse>({
 
     return null;
   } catch (error) {
-    throw new Error("Error generating AI response: " + error);
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("An unknown error occurred");
+    }
   }
 };
 
