@@ -1,7 +1,4 @@
-import { useState } from "react";
 import { MdPhotoCamera } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
-import { BiEdit } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 import AccountSettings from "../components/Settings/AccountSettings";
 import EditProfile from "../components/Settings/EditProfile";
