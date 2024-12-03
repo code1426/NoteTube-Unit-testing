@@ -8,6 +8,7 @@ import deckRoutes from "./routes/deck";
 import flashcardRoutes from "./routes/flashcard";
 import videoRoutes from "./routes/video";
 import notesRoutes from "./routes/note";
+import profileRoutes from "./routes/profile";
 
 dotenv.config({ path: "../.env" });
 
@@ -25,3 +26,4 @@ app.use("/decks", deckRoutes);
 app.use("/notes", notesRoutes);
 app.use("/", flashcardRoutes);
 app.use("/videos", videoRoutes);
+app.use("/profile", profileRoutes);

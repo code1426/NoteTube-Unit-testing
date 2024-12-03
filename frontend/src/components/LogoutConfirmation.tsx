@@ -33,7 +33,7 @@ const LogoutConfirmation = ({ logoutComponent, logout }: Props) => {
             className="bg-red-500 hover:bg-red-600"
             onClick={logout}
           >
-            Logout
+            Log out
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
