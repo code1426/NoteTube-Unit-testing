@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import Header from "../components/Header/Header";
-import SubHeader from "../components/Header/SubHeader";
+import SubHeader from "../components/Header/Header";
 import Card from "../components/Flashcards/Flashcard";
 import type { Flashcard } from "../types/flashcard.types";
 import LoadingScreen from "../components/LoadingScreen";
@@ -64,7 +63,6 @@ const FlashcardsPage: React.FC = () => {
     <>
       <Toaster />
       <div className="bg-white relative">
-        <Header isHomePage={false} />
         <SubHeader
           isFlashCardsPage={true}
           isSectionTitleOnly={false}

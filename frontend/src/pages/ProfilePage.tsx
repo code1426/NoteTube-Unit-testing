@@ -7,22 +7,22 @@ import AccountSettings from "../components/Settings/AccountSettings";
 import EditProfile from "../components/Settings/EditProfile";
 
 const ProfilePage = () => {
-  const [activeOverlay, setActiveOverlay] = useState<
-    "EditProfile" | "AccountSettings" | null
-  >(null);
+  // const [activeOverlay, setActiveOverlay] = useState<
+  //   "EditProfile" | "AccountSettings" | null
+  // >(null);
 
-  const closeOverlay = () => {
-    setActiveOverlay(null);
-  };
+  // const closeOverlay = () => {
+  //   setActiveOverlay(null);
+  // };
 
   return (
     <div className="relative bg-white select-none overflow-auto scrollbar-custom h-screen">
-      {activeOverlay === "EditProfile" && (
+      {/* {activeOverlay === "EditProfile" && (
         <EditProfile onClose={closeOverlay} />
       )}
       {activeOverlay === "AccountSettings" && (
         <AccountSettings onClose={closeOverlay} />
-      )}
+      )} */}
       <div className="w-full mt-2 absolute h-64 px-6 z-0">
         <div
           id="background"
@@ -61,7 +61,7 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
-        <div
+        {/* <div
           id="settings"
           className="flex h-auto w-52 justify-center items-center absolute rounded-xl p-2 self-center mt-28 flex-col gap-2"
         >
@@ -79,28 +79,38 @@ const ProfilePage = () => {
             <IoSettingsOutline size={25} />
             Account Settings
           </div>
-        </div>
+        </div> */}
       </div>
       <div
         id="sub-profile"
-        className="min-h-64 mx-6 p-6 border-t-2 border-green"
+        className="h-64 mx-6 p-6 border-2 border-green flex flex-row mb-4"
       >
-        <div id="decks" className="h-auto overflow-x-auto scrollbar-custom">
-          <div className="h-10 p-4 text-2xl text-green font-secondaryRegular flex items-center">
-            My Decks
+        <div
+          id="edit-profile"
+          className="w-1/2 border-2 h-full border-blue-700"
+        >
+          <div className="font-secondaryRegular text-green p-2 text-3xl">
+            Edit Profile
           </div>
-          <div className="flex flex-row gap-4 p-4 h-auto ">
-            {/* remove this until... */}
-            <div
-              id="cards"
-              className="border-2 border-black h-40 min-w-60 rounded-xl"
-            >
-              PlaceHolder
+          <div className="mx-2">
+            <div>
+              <EditProfile />
             </div>
-            {/* hereee */}
           </div>
         </div>
-        <div id="somethings"></div>
+        <div
+          id="account-settings"
+          className="w-1/2 border-2 h-full border-red-700"
+        >
+          <div className="font-secondaryRegular text-green p-2 text-3xl">
+            Account Settings
+          </div>
+          <div>
+            <div className="flex items-center">
+              <AccountSettings />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

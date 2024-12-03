@@ -29,7 +29,7 @@ const DeckItem = ({ id, deckName, cardCount, userId }: Deck) => {
       >
         <div
           id="deckName"
-          className="text-3xl block font-secondaryRegular max-w-64 truncate"
+          className="text-3xl block font-secondaryRegular max-w-52 truncate"
         >
           {deckName}
         </div>
