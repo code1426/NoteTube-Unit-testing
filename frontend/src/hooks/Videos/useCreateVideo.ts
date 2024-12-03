@@ -5,14 +5,10 @@ const useCreateVideos = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const createVideo = async (
-    userId: string,
-    noteId: string,
-    videodata: Video,
-  ) => {
+  const createVideo = async (noteId: string, videodata: Video) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BASE_API_URL}/videos/${userId}`,
+        `${import.meta.env.VITE_BASE_API_URL}/videos`,
         {
           method: "POST",
           headers: {
@@ -33,19 +29,15 @@ const useCreateVideos = () => {
     }
   };
 
-  const insertVideos = async (
-    userId: string,
-    noteId: string,
-    videodataList: Video[],
-  ) => {
+  const insertVideos = async (noteId: string, videoDataList: Video[]) => {
     try {
       setLoading(true);
       await Promise.all(
-        videodataList.map(async (videoData) => {
-          await createVideo(userId, noteId, videoData);
+        videoDataList.map(async (videoData) => {
+          await createVideo(noteId, videoData);
         }),
       );
-      return videodataList;
+      return videoDataList;
     } catch (error) {
       console.error(error);
       return null;

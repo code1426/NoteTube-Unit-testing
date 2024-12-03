@@ -7,11 +7,11 @@ const getVideoSuggestions = async (query: string): Promise<Video[] | null> => {
       import.meta.env.VITE_YOUTUBE_SEARCH_API_URL,
       {
         params: {
+          key: import.meta.env.VITE_YOUTUBE_API_KEY,
           part: "snippet",
           q: query,
           type: "videos",
           maxResults: 25,
-          key: import.meta.env.VITE_YOUTUBE_API_KEY,
         },
       },
     );
