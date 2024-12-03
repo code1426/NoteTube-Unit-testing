@@ -33,7 +33,7 @@ const HomePage = () => {
         throw new Error("No note ID found");
       }
 
-      const result = await insertVideos(user.id, noteId, videoList);
+      const result = await insertVideos(noteId, videoList);
 
       result?.map((video, index) =>
         console.log(
