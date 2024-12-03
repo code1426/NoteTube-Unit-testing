@@ -10,7 +10,7 @@ const DeleteDeckModal = ({
 }: DeleteDeckModalProps) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white border-2 border-[#03c04a] w-[95%] max-w-[400px] rounded-lg p-6 shadow-lg">
+      <div className="bg-white border-2 w-[95%] max-w-[400px] rounded-lg p-6 shadow-lg">
         <h2 className="text-xl font-bold font-secondaryRegular mb-4">
           Confirm Delete
         </h2>
