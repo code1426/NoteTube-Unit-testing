@@ -37,8 +37,12 @@ const SubHeader: React.FC<SubHeaderProps> = ({
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   const handleSearch = () => {
-    setIsSearchActive(!isSearchActive);
-    setSearchText("");
+    const toggledSearchState = !isSearchActive;
+    setIsSearchActive(toggledSearchState);
+    if (!toggledSearchState) {
+      setSearchText("");
+      onSearch!("");
+    }
   };
 
   const openFilter = () => {

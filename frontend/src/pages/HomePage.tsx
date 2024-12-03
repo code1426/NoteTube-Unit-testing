@@ -37,7 +37,7 @@ const HomePage = () => {
 
       result?.map((video, index) =>
         console.log(
-          `LINK ${index}: https://www.youtube.com/watch?v=${video.videoId}`,
+          `LINK ${index + 1}: https://www.youtube.com/watch?v=${video.videoId}`,
         ),
       );
     } catch (error) {
@@ -58,16 +58,23 @@ const HomePage = () => {
 
       loadingToast = toast.loading("Generating summary...");
 
-      const summaryResponse =
-        await generateAIResponse<GenerateSummaryResponse>(note);
+      const summaryResponse = await generateAIResponse<GenerateSummaryResponse>(
+        note,
+      ).catch((error) => {
+        console.error(error);
+        throw new Error(error.message);
+      });
 
       if (!summaryResponse) {
         throw new Error("Failed to generate summary");
       }
+
       toast.dismiss(loadingToast);
 
       loadingToast = toast.loading("Getting video suggestions...");
-      const suggestedVideos = await getVideoSuggestions(summaryResponse.title);
+      const suggestedVideos = await getVideoSuggestions(
+        summaryResponse.content,
+      ).then((videos) => videos?.slice(0, 5));
 
       if (!suggestedVideos) {
         throw new Error("Failed to get video suggestions");
@@ -81,14 +88,17 @@ const HomePage = () => {
         throw new Error(result.error);
       }
 
+      toast.dismiss(loadingToast);
+
       handleAddVideos(result.note?.id || null, suggestedVideos);
+      toast.success("Note created successfully");
     } catch (error) {
       toast.dismiss();
-      toast.error("Error creating note: " + error);
+      toast.error(
+        "Error creating note: " +
+          (error instanceof Error ? error.message : "Unknown error"),
+      );
       return;
-    } finally {
-      toast.dismiss();
-      toast.success("Note created successfully");
     }
   };
 

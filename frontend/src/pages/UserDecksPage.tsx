@@ -54,7 +54,6 @@ const UserDecksPage: React.FC = () => {
   };
 
   const handleSearch = (searchText: string) => {
-    console.log("search", searchText);
     setOptions((prev) => ({
       ...prev,
       searchByName: searchText,
