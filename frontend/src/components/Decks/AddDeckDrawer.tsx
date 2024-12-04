@@ -10,6 +10,7 @@ import {
   DrawerFooter,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import pastelColors from "./deckColors";
 
 interface AddDeckDrawerProps {
   userId: string;
@@ -28,10 +29,14 @@ const AddDeckDrawer = ({ userId, onClose, onSuccess }: AddDeckDrawerProps) => {
       return;
     }
 
+    const selectedColor =
+      pastelColors[Math.floor(Math.random() * pastelColors.length)];
+
     const result = await createDeck({
       id: "",
       deckName: deckName.trim(),
       userId: userId,
+      color: selectedColor,
     });
 
     if (result.error) {

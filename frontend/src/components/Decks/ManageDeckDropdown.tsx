@@ -11,19 +11,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PiDotsThreeCircle } from "react-icons/pi";
 import useDeleteDeck from "../../hooks/Decks/useDeleteDeck";
-import EditDeckDialog from "./EditDeckDialog";
+import RenameDeckDialog from "./RenameDeckDialog";
+import ChangeDeckColorDialog from "./ChangeDeckColorDialog";
 import DeleteDeckConfirmation from "./DeleteDeckConfirmation";
 
 interface ManageDeckDropdownProps {
   id: string;
   deckName: string;
   userId: string;
+  color: string;
 }
 
 const ManageDeckDropdown = ({
   id,
   deckName,
-  userId,
+  color,
 }: ManageDeckDropdownProps) => {
   const { deleteDeck, error } = useDeleteDeck(id);
 
@@ -40,11 +42,8 @@ const ManageDeckDropdown = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button
-          aria-label="Manage deck options"
-          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200"
-        >
+      <DropdownMenuTrigger>
+        <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200">
           <PiDotsThreeCircle size={30} color="white" />
         </button>
       </DropdownMenuTrigger>
@@ -56,8 +55,12 @@ const ManageDeckDropdown = ({
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem asChild>
-              <EditDeckDialog id={id} deckName={deckName} userId={userId} />
+              <RenameDeckDialog id={id} deckName={deckName} />
             </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <ChangeDeckColorDialog id={id} color={color!} />
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <DeleteDeckConfirmation id={id} onDelete={handleConfirmDelete} />
             </DropdownMenuItem>

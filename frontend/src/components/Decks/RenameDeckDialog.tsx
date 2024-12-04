@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PiTrash, PiPencil } from "react-icons/pi";
 import { Spinner } from "react-activity";
-import useUpdateDeck from "../../hooks/Decks/useUpdateDeck";
+import useRenameDeck from "@/hooks/Decks/useRenameDeck";
 import { Deck } from "../../types/deck.types";
 import toast from "react-hot-toast";
 import {
@@ -14,33 +14,32 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const EditDeckDialog: React.FC<Deck> = ({ id, deckName, userId }) => {
-  const { updateDeck, loading, error } = useUpdateDeck(id);
-  const [newDeckName, setNewDeckName] = useState(deckName);
+const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
+  const { renameDeck, loading, error } = useRenameDeck();
+  const [newDeckName, setNewDeckName] = useState(deckName!);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const resetDeckName = () => {
-    setNewDeckName(deckName);
+    setNewDeckName(deckName!);
   };
 
-  const handleEditDeck = async () => {
+  const handleRenameDeck = async () => {
     if (!newDeckName.trim()) {
       toast.error("Deck name cannot be empty!");
       return;
     }
 
-    const res = await updateDeck({
+    const res = await renameDeck({
       id: id,
       deckName: newDeckName,
-      userId,
     });
 
     if (res.success) {
-      toast.success("Deck updated successfully.");
+      toast.success("Renamed deck successfully.");
       window.location.reload();
     } else {
-      console.error("Failed to update deck:", error);
-      toast.error("Failed to update deck. Please try again.");
+      console.error("Failed to rename deck:", error);
+      toast.error("Failed to rename deck. Please try again.");
     }
   };
 
@@ -50,15 +49,15 @@ const EditDeckDialog: React.FC<Deck> = ({ id, deckName, userId }) => {
     <Dialog onOpenChange={resetDeckName}>
       <DialogTrigger>
         <div className="flex items-center justify-left p-2 w-40 hover:bg-gray-200">
-          <PiPencil size={20} className="mr-2" />{" "}
-          <span className="text-sm">Edit Deck</span>
+          <PiPencil size={20} className="mr-2" />
+          <span className="text-sm">Rename Deck</span>
         </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white p-6 rounded-lg shadow-lg">
         <DialogHeader>
-          <DialogTitle>Edit Deck</DialogTitle>
+          <DialogTitle>Rename Deck</DialogTitle>
           <DialogDescription>
-            Update the name of your deck here. Click save when you are done.
+            Rename your deck here. Click save when you are done.
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 mb-4 space-y-1">
@@ -108,7 +107,7 @@ const EditDeckDialog: React.FC<Deck> = ({ id, deckName, userId }) => {
                 ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} 
                 text-white rounded-lg text-xl font-semibold 
                 transition-colors disabled:opacity-50 gap-2`}
-            onClick={handleEditDeck}
+            onClick={handleRenameDeck}
             disabled={loading || !newDeckName.trim()}
           >
             {loading ? (
@@ -123,4 +122,4 @@ const EditDeckDialog: React.FC<Deck> = ({ id, deckName, userId }) => {
   );
 };
 
-export default EditDeckDialog;
+export default RenameDeckDialog;
