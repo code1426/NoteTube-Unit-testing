@@ -22,9 +22,6 @@ const directoryPath = process.env.MEMORY_STORAGE_FOLDER!;
 
 if (!fs.existsSync(directoryPath)) {
   fs.mkdirSync(directoryPath);
-  console.log(`Directory '${directoryPath}' created.`);
-} else {
-  console.log(`Directory '${directoryPath}' already exists.`);
 }
 
 // initialize the database connection
