@@ -1,6 +1,6 @@
 import UseUser from "../hooks/auth/useUser";
 import NotesHistoryCard from "../components/History/HistoryCard";
-import SubHeader from "../components/Header/Header";
+import Header from "../components/Header/Header";
 import LoadingScreen from "../components/LoadingScreen";
 import { Note } from "../types/note.types";
 
@@ -31,7 +31,7 @@ const NotesHistoryPage = () => {
 
   return (
     <div className="relative bg-white select-none overflow-auto scrollbar-custom h-screen">
-      <SubHeader
+      <Header
         isFlashCardsPage={false}
         isSectionTitleOnly={false}
         hasAddButton={false}
