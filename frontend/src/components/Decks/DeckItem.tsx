@@ -1,25 +1,12 @@
-import { useState } from "react";
-import { PiDotsThreeCircle } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import type { Deck } from "../../types/deck.types";
-import ManageDeckMenu from "./ManageDeckMenu";
+import ManageDeckDropdown from "./ManageDeckDropdown";
 
 const DeckItem = ({ id, deckName, cardCount, userId }: Deck) => {
-  const [isManageMenuOpen, setIsManageMenuOpen] = useState(false);
-
-  const manageDeck = () => {
-    setIsManageMenuOpen(true);
-  };
-
   return (
     <div className="w-64 max-w-72 border-2 border-gray-200 rounded-3xl bg-white hover:shadow-xl min-h-50">
       <div className="w-full h-20 bg-[#03c04a] rounded-t-3xl flex items-center justify-end px-5">
-        <button
-          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200"
-          onClick={manageDeck}
-        >
-          <PiDotsThreeCircle size={30} color="white" />
-        </button>
+        <ManageDeckDropdown id={id} deckName={deckName} userId={userId} />
       </div>
 
       <Link
@@ -39,15 +26,6 @@ const DeckItem = ({ id, deckName, cardCount, userId }: Deck) => {
             : `${cardCount} card${cardCount !== 1 ? "s" : ""}`}
         </div>
       </Link>
-
-      {isManageMenuOpen && (
-        <ManageDeckMenu
-          id={id}
-          deckName={deckName}
-          userId={userId}
-          onClose={() => setIsManageMenuOpen(false)}
-        />
-      )}
     </div>
   );
 };

@@ -20,8 +20,9 @@ const DeleteDeckConfirmation = ({ onDelete }: DeleteDeckModalProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <div className="flex items-center justify-center px-4 py-2 border rounded">
-          <PiTrash size={20} className="mr-2" /> Delete Deck
+        <div className="flex items-center justify-left p-2 w-40 hover:bg-gray-200">
+          <PiTrash size={20} className="mr-2" />{" "}
+          <span className="text-sm">Delete Deck</span>
         </div>
       </AlertDialogTrigger>
       <AlertDialogContent>

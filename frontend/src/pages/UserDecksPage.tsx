@@ -11,6 +11,8 @@ import { options } from "../types/options.types";
 import { DeckEntity } from "../types/deck.types";
 import AddDeckDrawer from "../components/Decks/AddDeckDrawer";
 import { Drawer } from "@/components/ui/drawer";
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import HoverDeckCard from "@/components/Decks/HoverDeckCard";
 
 const UserDecksPage: React.FC = () => {
   const { user, loading: userLoading } = UseUser();
@@ -93,14 +95,19 @@ const UserDecksPage: React.FC = () => {
             />
           ) : (
             filteredDecks!.map((deck: DeckEntity) => (
-              <DeckItem
-                key={deck.id}
-                id={deck.id}
-                deckName={deck.deck_name}
-                cardCount={deck.card_count}
-                userId={deck.user_id}
-                createdAt={deck.created_at}
-              />
+              <HoverCard>
+                <HoverCardTrigger>
+                  <DeckItem
+                    key={deck.id}
+                    id={deck.id}
+                    deckName={deck.deck_name}
+                    cardCount={deck.card_count}
+                    userId={deck.user_id}
+                    createdAt={deck.created_at!}
+                  />
+                </HoverCardTrigger>
+                <HoverDeckCard createdAt={deck.created_at!} />
+              </HoverCard>
             ))
           )}
         </div>
