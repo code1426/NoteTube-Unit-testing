@@ -4,20 +4,21 @@ import SubHeader from "../components/Header/Header";
 import Card from "../components/Flashcards/Flashcard";
 import type { Flashcard } from "../types/flashcard.types";
 import LoadingScreen from "../components/LoadingScreen";
-import AddCardModal from "../components/Flashcards/AddFlashcardModal";
 import useFetchFlashcards from "../hooks/Flashcards/useFetchFlashcards";
 import { toast, Toaster } from "react-hot-toast";
 import NoItemsContainerBox from "../components/NoItemsContainerBox";
 import useFilterFlashcards from "../hooks/Flashcards/useFilterFlashcards";
 import { options } from "../types/options.types";
+import { Drawer } from "@/components/ui/drawer";
+import AddFlashcardDrawer from "@/components/Flashcards/AddFlashcardDrawer";
 
 const FlashcardsPage: React.FC = () => {
   const { deckId } = useParams<{ deckId: string }>();
   const { flashcards, loading, error } = useFetchFlashcards(deckId!);
   const location = useLocation();
   const deckName = location.state?.deckName || "Untitled Deck";
-
-  const [isAddFormVisible, setAddFormVisible] = useState(false);
+  const [isAddFlashcardDrawerOpen, setIsAddFlashcardDrawerOpen] =
+    useState(false);
 
   const [filterOptions, setFilterOptions] = useState<options>({
     sortByNames: "",
@@ -30,12 +31,12 @@ const FlashcardsPage: React.FC = () => {
     filterOptions,
   );
 
-  const toggleAddForm = () => {
-    setAddFormVisible((prev) => !prev);
+  const toggleAddFlashcardDrawer = () => {
+    setIsAddFlashcardDrawerOpen((prev) => !prev);
   };
 
   const handleFormSuccess = () => {
-    setAddFormVisible(false);
+    setIsAddFlashcardDrawerOpen(false);
     window.location.reload();
   };
 
@@ -67,7 +68,7 @@ const FlashcardsPage: React.FC = () => {
           isFlashCardsPage={true}
           isSectionTitleOnly={false}
           sectionTitle={deckName}
-          onAdd={toggleAddForm}
+          onAdd={toggleAddFlashcardDrawer}
           hasAddButton={true}
           deckId={deckId}
           onApplyOptions={handleApplyFilters}
@@ -77,13 +78,16 @@ const FlashcardsPage: React.FC = () => {
           <div className="pb-20 text-black text-2xl md:text-3xl lg:text-2xl flex gap-3 font-secondaryRegular align-middle items-center">
             Cards
           </div>
-          {isAddFormVisible && (
-            <AddCardModal
+          <Drawer
+            open={isAddFlashcardDrawerOpen}
+            onOpenChange={setIsAddFlashcardDrawerOpen}
+          >
+            <AddFlashcardDrawer
               deckId={deckId!}
-              onClose={toggleAddForm}
+              onClose={toggleAddFlashcardDrawer}
               onSuccess={handleFormSuccess}
             />
-          )}
+          </Drawer>
           <div className="space-y-5">
             {filteredFlashcards.length === 0 ? (
               <NoItemsContainerBox

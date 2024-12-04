@@ -8,6 +8,7 @@ import { GoVideo } from "react-icons/go"; // generated videos
 import MenuItem from "./MenuItem";
 import Logout from "./Logout";
 import Logo from "./AppLogo";
+import LogoutConfirmation from "../LogoutConfirmation";
 import ProfileButton from "./ProfileButton";
 
 interface Props {
@@ -56,10 +57,7 @@ const SideBar = ({ setAuth }: Props) => {
   }, [location]);
 
   return (
-    <div
-      id="coating"
-      className="border-r-2 border-white border-solid max-h-screen relative"
-    >
+    <div className="border-r-2 border-white border-solid max-h-screen relative">
       <div
         id="main-container"
         ref={sidebarRef}
@@ -123,12 +121,13 @@ const SideBar = ({ setAuth }: Props) => {
           id="logout-button"
           className={`flex items-center flex-col pt-2 border-t-2  h-96 justify-between`}
         >
-          <div className="flex self-start justify-self-end">
-            <Logout isExpanded={isExpanded} logout={logout} />
-          </div>
-          <div className="self-start justify-self-end flex">
-            <ProfileButton isExpanded={isExpanded} />
-          </div>
+          <LogoutConfirmation
+            logout={logout}
+            logoutComponent={<Logout isExpanded={isExpanded} />}
+          ></LogoutConfirmation>
+        </div>
+        <div className="self-start justify-self-end flex">
+          <ProfileButton isExpanded={isExpanded} />
         </div>
       </div>
     </div>

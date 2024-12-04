@@ -7,20 +7,27 @@ const getVideoSuggestions = async (query: string): Promise<Video[] | null> => {
       import.meta.env.VITE_YOUTUBE_SEARCH_API_URL,
       {
         params: {
+          key: import.meta.env.VITE_YOUTUBE_API_KEY,
           part: "snippet",
           q: query,
           type: "videos",
-          maxResults: 5,
-          key: import.meta.env.VITE_YOUTUBE_API_KEY,
+          maxResults: 25,
         },
       },
     );
 
-    return response.data.items.map((item) => ({
-      videoId: item.id.videoId,
-      thumbnailUrl: item.snippet.thumbnails.default.url,
-    }));
-  } catch (error: unknown) {
+    return response.data.items
+      .map((item) => {
+        if (item.id.videoId) {
+          return {
+            videoId: item.id.videoId,
+            thumbnailUrl: item.snippet.thumbnails.default.url,
+          };
+        }
+        return null;
+      })
+      .filter((item) => item !== null);
+  } catch (error) {
     console.error(error);
     return null;
   }

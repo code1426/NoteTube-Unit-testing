@@ -1,19 +1,15 @@
 import { RiLogoutBoxLine } from "react-icons/ri"; //logout
 
 interface Props {
-  logout: () => void;
   isExpanded?: boolean;
 }
 
-const Logout = ({ logout, isExpanded }: Props) => {
+const Logout = ({ isExpanded }: Props) => {
   return (
     <div
       className={`group flex flex-row m-auto gap-2 w-[95%] items-center justify-center transition rounded-xl ${isExpanded ? "hover:bg-red-500" : ""}`}
     >
-      <div
-        onClick={logout}
-        className="icon flex rounded-full min-w-14 min-h-14 relative"
-      >
+      <div className="icon flex rounded-full min-w-14 min-h-14 relative">
         <RiLogoutBoxLine
           className={`text-red-600 text-2xl sm:text-2xl sm-md:3xl md:text-4xl m-auto   duration-100 ${isExpanded ? "group-hover:text-white" : "opacity-100"}`}
         />
@@ -24,7 +20,6 @@ const Logout = ({ logout, isExpanded }: Props) => {
         </span>
       </div>
       <div
-        onClick={logout}
         className={`wrapper grid transition-all duration-200 ease-in-out w-36 ${
           isExpanded ? "grid-rows-1" : "grid-rows-[0fr]"
         }`}

@@ -7,9 +7,8 @@ import {
   PiX,
   PiDotsThreeCircle,
 } from "react-icons/pi";
-import { PiArrowCircleLeftBold } from "react-icons/pi";
 import FilterCardModal from "../Flashcards/FilterFlashcardModal";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { options } from "../../types/options.types";
 
 interface SubHeaderProps {
@@ -59,29 +58,12 @@ const SubHeader: React.FC<SubHeaderProps> = ({
       onApplyOptions(selectedOptions);
     }
   };
-  const navigate = useNavigate();
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   return (
-    <div className="px-6 sticky top-0 z-30">
-      <div className="subheader py-4 px-4 flex justify-between items-center select-none flex-col max-h-36 md:flex-row rounded-b-xl bg-white border-b-2 border-x-2  border-green mb-8 shadow-lg shadow-zinc-400">
+    <div className="px-6 sticky top-0">
+      <div className="subheader py-4  px-16 flex justify-between items-center select-none flex-col max-h-36 md:flex-row rounded-b-xl bg-white border-b-2 border-x-2  border-green mb-8 shadow-[0_12px_8px_-5px_rgba(0,0,0,0.2)]">
         <div className="text-black flex gap-3 font-secondaryRegular align-middle items-center text-responsive">
-          <button
-            className="hover:bg-gray-200 rounded-full text-responsive m-auto"
-            onClick={handleBack}
-          >
-            <PiArrowCircleLeftBold
-              className="m-auto
-              text-3xl 
-              sm:text-3xl
-              sm-md:4xl 
-              md:text-4xl
-              lg:text-5xl"
-            />
-          </button>
-          <div className="block truncate max-w-72 text-responsive_header">
+          <div className="block truncate max-w-96 text-responsive_header">
             {sectionTitle}
           </div>
 

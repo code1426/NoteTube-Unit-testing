@@ -3,6 +3,5 @@ export interface Video {
   videoId: string;
   noteId: string;
   thumbnailUrl: string;
-  userId: string;
   createdAt?: string;
 }

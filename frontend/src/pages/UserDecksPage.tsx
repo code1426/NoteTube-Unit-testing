@@ -4,12 +4,13 @@ import DeckItem from "../components/Decks/DeckItem";
 import LoadingScreen from "../components/LoadingScreen";
 import UseUser from "../hooks/auth/useUser";
 import useFetchUserDecks from "../hooks/Decks/useFetchUserDecks";
-import AddDeckModal from "../components/Decks/AddDeckModal";
 import { toast, Toaster } from "react-hot-toast";
 import NoItemsContainerBox from "../components/NoItemsContainerBox";
 import useFilterDecks from "../hooks/Decks/useFilterDecks";
 import { options } from "../types/options.types";
 import { DeckEntity } from "../types/deck.types";
+import AddDeckDrawer from "../components/Decks/AddDeckDrawer";
+import { Drawer } from "@/components/ui/drawer";
 
 const UserDecksPage: React.FC = () => {
   const { user, loading: userLoading } = UseUser();
@@ -18,7 +19,7 @@ const UserDecksPage: React.FC = () => {
     loading: decksLoading,
     error,
   } = useFetchUserDecks(user?.id || "");
-  const [isAddFormVisible, setAddFormVisible] = useState(false);
+  const [isAddDeckDrawerOpen, setIsAddDeckDrawerOpen] = useState(false);
   const [filterOptions, setFilterOptions] = useState<options>({
     sortByNames: "",
     sortByDate: "latest", // Default order
@@ -38,12 +39,12 @@ const UserDecksPage: React.FC = () => {
     toast.error("Error fetching user decks.");
   }
 
-  const toggleAddDeckModal = () => {
-    setAddFormVisible((prev) => !prev);
+  const toggleAddDeckDrawer = () => {
+    setIsAddDeckDrawerOpen((prev) => !prev);
   };
 
   const handleFormSuccess = () => {
-    setAddFormVisible(false);
+    setIsAddDeckDrawerOpen(false);
     window.location.reload();
   };
 
@@ -53,7 +54,6 @@ const UserDecksPage: React.FC = () => {
   };
 
   const handleSearch = (searchText: string) => {
-    console.log("search", searchText);
     setOptions((prev) => ({
       ...prev,
       searchByName: searchText,
@@ -69,18 +69,21 @@ const UserDecksPage: React.FC = () => {
           isSectionTitleOnly={false}
           hasAddButton={true}
           sectionTitle="My Decks"
-          onAdd={toggleAddDeckModal}
+          onAdd={toggleAddDeckDrawer}
           onApplyOptions={handleApplyFilters}
           onSearch={handleSearch}
         />
         <div className="px-3 xs:px-5 sm:px-10 md:px-14 lg:px-20 gap-5 grid xs:grid-cols-1 sm:grid-cols-1 sm-md:grid-cols-1 md:grid-cols-2 md-lg:grid-cols-2 lg:grid-cols-2 lg-xl:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 4xl:grid-cols-8 4k:grid-cols-10 xxl:grid-cols-12 auto-cols-auto">
-          {isAddFormVisible && (
-            <AddDeckModal
+          <Drawer
+            open={isAddDeckDrawerOpen}
+            onOpenChange={setIsAddDeckDrawerOpen}
+          >
+            <AddDeckDrawer
               userId={user.id!}
-              onClose={toggleAddDeckModal}
+              onClose={() => setIsAddDeckDrawerOpen(false)}
               onSuccess={handleFormSuccess}
             />
-          )}
+          </Drawer>
           {filteredDecks?.length === 0 ? (
             <NoItemsContainerBox
               mainText="No decks available"
