@@ -9,15 +9,15 @@ import LoadingScreen from "../components/LoadingScreen";
 import type {
   GenerateAIResponseProps,
   GenerateSummaryResponse,
-} from "../types/ai.types";
+} from "@/types/ai.types";
+import { Video } from "@/types/video.types";
 
-import useUser from "../hooks/auth/useUser";
-import useCreateNote from "../hooks/Notes/useCreateNote";
-import useCreateVideos from "../hooks/Videos/useCreateVideo";
+import useUser from "@/hooks/auth/useUser";
+import useCreateNote from "@/hooks/Notes/useCreateNote";
+import useCreateVideos from "@/hooks/Videos/useCreateVideo";
 
-import generateAIResponse from "../utils/generateAIResponse";
-import getVideoSuggestions from "../utils/getVideoSuggestions";
-import { Video } from "../types/video.types";
+import getVideoSuggestions from "@/utils/getVideoSuggestions";
+import fetchAIResponse from "@/utils/fetchAIResponse";
 
 const HomePage = () => {
   const { user, loading: loadingUser } = useUser();
@@ -69,23 +69,20 @@ const HomePage = () => {
 
       loadingToast = toast.loading("Generating summary...");
 
-      const summaryResponse = await generateAIResponse<GenerateSummaryResponse>(
+      const summaryResponse = (await fetchAIResponse(
         note,
-      ).catch((error) => {
-        console.error(error);
-        throw new Error(error.message);
-      });
+      )) as GenerateSummaryResponse;
 
       if (!summaryResponse) {
         throw new Error("Failed to generate summary");
       }
-
+      console.log(summaryResponse);
       toast.dismiss(loadingToast);
 
       loadingToast = toast.loading("Getting video suggestions...");
       const suggestedVideos = await getVideoSuggestions(
         summaryResponse.content,
-      ).then((videos) => videos?.slice(0, 5));
+      ).then((videos) => videos?.slice(0, 5)); // get 5 videos
 
       if (!suggestedVideos) {
         throw new Error("Failed to get video suggestions");

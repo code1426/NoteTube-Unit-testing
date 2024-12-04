@@ -9,6 +9,7 @@ import flashcardRoutes from "./routes/flashcard";
 import videoRoutes from "./routes/video";
 import notesRoutes from "./routes/note";
 import profileRoutes from "./routes/profile";
+import aiRoutes from "./routes/ai";
 
 dotenv.config({ path: "../.env" });
 
@@ -20,6 +21,8 @@ export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 // MIDDLEWARE
 app.use(express.json()); // use express.json to allow to parse JSON requests
 app.use(cors());
+
+// ROUTES
 app.use("/auth", authRoutes);
 app.use("/home", homeRoutes);
 app.use("/decks", deckRoutes);
@@ -27,3 +30,4 @@ app.use("/notes", notesRoutes);
 app.use("/", flashcardRoutes);
 app.use("/videos", videoRoutes);
 app.use("/profile", profileRoutes);
+app.use("/ai", aiRoutes);

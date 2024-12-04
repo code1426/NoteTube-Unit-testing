@@ -1,15 +1,12 @@
 export type AIOutputOption = "summary" | "flashcards";
 
-// export type SupportedFileType =
-//   | "application/pdf"
-//   | "plain/text"
-//   | "image/jpeg"
-//   | "image/png";
+export interface GenerateFromTextProps {
+  input: string;
+  outputOption: AIOutputOption;
+}
 
-// export type AIInputType = "text" | SupportedFileType;
-
-export interface GenerateAIResponseProps {
-  input: File | string;
+export interface GenerateFromFilesProps {
+  files: Express.Multer.File[];
   outputOption: AIOutputOption;
 }
 
