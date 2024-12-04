@@ -13,12 +13,12 @@ dotenv.config();
 const config = {
   summary: {
     prompt:
-      "You are a professional teacher with a specialization in summarization. Make a summary of the following notes: ",
+      "You are a professional teacher with a specialization in summarization. Make a summary of the provided notes. ",
     schema: generateSummary,
   },
   flashcards: {
     prompt:
-      "You are a professional teacher with a specialization in flashcards. Make flashcards of the following notes: ",
+      "You are a professional teacher with a specialization in flashcards. Make flashcards of the provided notes. ",
     schema: generateFlashcards,
   },
 };
@@ -51,7 +51,7 @@ const uploadFile = async (file: Express.Multer.File): Promise<Part | null> => {
     formData.append("file", fileBlob, file.originalname);
 
     const uploadResponse = await fileManager.uploadFile(
-      `${file.originalname}`,
+      `${process.env.MEMORY_STORAGE_FOLDER}${file.originalname}`,
       {
         mimeType: file.mimetype,
         displayName: file.originalname,
@@ -98,6 +98,7 @@ const generateFromFiles = async ({
       }),
     );
 
+    // console.log("uploadedFiles:", uploadedFiles);
     // genenenrate content based on input files and output option
     const result = await model.generateContent([
       ...uploadedFiles.filter((file) => file !== null),
@@ -105,6 +106,7 @@ const generateFromFiles = async ({
     ]);
 
     const parsedResult = JSON.parse(result.response.text());
+    // console.log("parsedResult:", parsedResult);
     return parsedResult;
   } catch (error) {
     // console.error("Error generating AI response:", error);
