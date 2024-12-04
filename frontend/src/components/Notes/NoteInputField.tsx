@@ -29,8 +29,8 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
       const supportedFileTypes = [
         "application/pdf",
         "text/plain",
-        "image/jpeg",
-        "image/png",
+        // "image/jpeg",
+        // "image/png",
       ];
 
       if (!supportedFileTypes.includes(file.type)) {
@@ -192,7 +192,7 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
             type="file"
             className="hidden"
             onChange={handleChangeFile}
-            accept=".pdf,.txt,.jpeg,.jpg,.png"
+            accept=".pdf,.txt"
           />
         </label>
         <button
