@@ -10,6 +10,14 @@ import useAuth from "../hooks/auth/useAuth";
 // shadcn ui
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 import EyeButton from "@/components/EyeButton";
 
@@ -107,144 +115,154 @@ const RegisterPage = ({ setAuth }: Props) => {
   };
 
   return (
-    <div className="main flex w-screen h-screen p-8 gap-8">
+    <div className="main min-h-screen w-screen flex flex-col justify-center items-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat">
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="section1 bg-green hidden flex-1 flex-col rounded-lg items-center justify-center gap-2 p-12 md:felx lg:flex xl-flex">
-        <span className="text-white text-6xl font-semibold">NoteTube</span>
-        <div className="text-black text-justify w-full text-lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et
-          aliquam lectus. Integer at tellus consequat, egestas elit ac, eleifend
-          erat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-          et aliquam lectus. Integer at tellus consequat, egestas elit ac,
-          eleifend erat.
-        </div>
-      </div>
-
-      <div className="form flex flex-1 flex-col gap-2 py-5 justify-between">
-        <h1 className="register font-primaryRegular flex text-start text-green text-5xl font-semibold w-[92%]">
-          Register
-        </h1>
-        <form className=" flex flex-col gap-2 w-[92%]" onSubmit={handleSubmit}>
-          <div className="username-container flex flex-col gap-1 text-lg">
-            <Label className="text-black text-lg">Username</Label>
-            <input
-              className={`px-4 py-2 rounded-lg border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
-                errors.username || registerError?.field === "username"
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-green"
-              }`}
-              placeholder="Enter your username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-            />
-            {errors.username && (
-              <p className="text-red-500 text-sm">{errors.username}</p>
-            )}
-          </div>
-
-          <div className="email-container flex flex-col gap-1 text-lg">
-            <Label className=" text-black text-lg">Email</Label>
-            <input
-              className={`px-4 py-2 rounded-lg border-2 bg-white focus:outline-none focus:ring-1 focus:ring-green  ${
-                errors.email || registerError?.field === "email"
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-green"
-              }`}
-              type="text"
-              placeholder="Enter your email address"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email}</p>
-            )}
-          </div>
-
-          <div className="password-container flex flex-col gap-1 text-lg">
-            <Label className=" text-black text-lg">Password</Label>
-            <div
-              tabIndex={0}
-              className={`flex flex-row px-4 py-2 rounded-lg border-2 bg-white focus-within:outline-none focus-within:ring-1 focus-within:ring-green  ${
-                errors.password || registerError?.field === "password"
-                  ? "border-red-500 focus-within:ring-red-500"
-                  : "border-green"
-              }`}
+      <div className="main min-h-screen w-screen flex flex-col justify-center blur-sm items-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat" />
+      <div className="bg-gray-300 fixed top-0 right-0 left-0 bottom-0 opacity-40" />
+      <div className="min-h-screen w-screen flex flex-col fixed top-0 right-0 left-0 bottom-0 justify-center items-center bg-opacity-70">
+        <Card className="flex items-center justify-center flex-col min-w-80 w-5/6 max-w-[450px] shadow-md">
+          <CardHeader className="flex self-start px-9">
+            <CardTitle className="text-3xl text-green">Register</CardTitle>
+          </CardHeader>
+          <CardContent className="flex justify-center w-full px-9">
+            <form
+              className=" flex flex-col gap-2 w-full"
+              onSubmit={handleSubmit}
             >
-              <input
-                type={`${isPasswordVisible || "password"}`}
-                className="outline-none flex flex-1"
-                placeholder="Must be at least 8 characters"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-              />
-              <EyeButton
-                isVisible={isPasswordVisible}
-                setIsVisible={() => setIsPasswordVisible(!isPasswordVisible)}
-              />
+              <div className="username-container flex flex-col gap-1 text-lg">
+                <Label className="text-black text-base select-none">
+                  Username
+                </Label>
+                <Input
+                  className={`px-2.5 py-1.5 rounded-lg border bg-white focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all ${
+                    errors.username || registerError?.field === "username"
+                      ? "border-red-300 focus:ring-red-500 hover:ring-red-500"
+                      : "border-gray-300"
+                  }`}
+                  placeholder="Enter your username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                />
+                {errors.username && (
+                  <p className="text-red-500 text-sm">{errors.username}</p>
+                )}
+              </div>
+
+              <div className="email-container flex flex-col gap-1 text-lg">
+                <Label className=" text-black text-base select-none">
+                  Email
+                </Label>
+                <Input
+                  className={`px-2.5 py-1.5 rounded-lg border bg-whit focus:outline-none focus:ring-1 focus:ring-green focus:ring-offset-2 hover:outline-none hover:ring-green hover:ring-1 hover:ring-offset-2 transition-all  ${
+                    errors.email || registerError?.field === "email"
+                      ? "border-red-300 focus:ring-red-500 hover:ring-red-500"
+                      : "border-gray-300"
+                  }`}
+                  type="text"
+                  placeholder="Enter your email address"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm">{errors.email}</p>
+                )}
+              </div>
+
+              <div className="password-container flex flex-col gap-1 text-lg">
+                <Label className=" text-black text-base select-none">
+                  Password
+                </Label>
+                <div
+                  tabIndex={0}
+                  className={`flex flex-row justify-center items-center pr-2 rounded-lg border bg-white focus-within:ring-offset-2 focus-within:outline-none focus-within:ring-1 focus-within:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all ${
+                    errors.password || registerError?.field === "password"
+                      ? "border-red-300 focus-within:ring-red-500 hover:ring-red-500"
+                      : "border-gray-300"
+                  }`}
+                >
+                  <Input
+                    type={`${isPasswordVisible || "password"}`}
+                    className="outline-none flex flex-1"
+                    placeholder="Must be at least 8 characters"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <EyeButton
+                    isVisible={isPasswordVisible}
+                    setIsVisible={() =>
+                      setIsPasswordVisible(!isPasswordVisible)
+                    }
+                  />
+                </div>
+                <p
+                  className={`text-red-500 text-sm ${errors.password || "hidden"}`}
+                >
+                  {errors.password}
+                </p>
+              </div>
+
+              <div className="confirm-container flex flex-col gap-1 text-lg">
+                <Label className=" text-black text-base select-none">
+                  Confirm Password
+                </Label>
+                <div
+                  tabIndex={0}
+                  className={`flex flex-row justify-center items-center rounded-lg border pr-2 focus-within:ring-offset-2 bg-white focus-within:outline-none focus-within:ring-1 focus-within:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all  ${
+                    errors.confirmPassword ||
+                    registerError?.field === "password"
+                      ? "border-red-300 focus-within:ring-red-500 hover:ring-red-500"
+                      : "border-gray-300"
+                  }`}
+                >
+                  <Input
+                    type={`${isConfirmPasswordVisible || "password"}`}
+                    className="outline-none flex"
+                    placeholder="Re-enter your password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                  />
+                  <EyeButton
+                    isVisible={isConfirmPasswordVisible}
+                    setIsVisible={() =>
+                      setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
+                    }
+                  />
+                </div>
+
+                <p
+                  className={`text-red-500 text-sm ${errors.confirmPassword || "hidden"}`}
+                >
+                  {errors.confirmPassword}
+                </p>
+              </div>
+
+              <Button
+                type="submit"
+                className="Submit-button flex bg-green rounded-full min-w-full h-11 py-4 text-center items-center justify-center text-base transition-all hover:bg-green_hover active:scale-[0.98] mt-6 text-white"
+              >
+                {loading ? (
+                  <Spinner size={12} color="#fff" animating={true} />
+                ) : (
+                  "Sign Up"
+                )}
+              </Button>
+            </form>
+          </CardContent>
+          <CardFooter>
+            <div className="flex items-center justify-center text-base">
+              Already have an account?
+              <Link to="/login">
+                <span className="text-green px-2 cursor-pointer hover:underline-offset-4 hover:underline text-base">
+                  Log in
+                </span>
+              </Link>
             </div>
-            <p
-              className={`text-red-500 text-sm ${errors.password || "hidden"}`}
-            >
-              {errors.password}
-            </p>
-          </div>
-
-          <div className="confirm-container flex flex-col gap-1 text-lg">
-            <Label className=" text-black text-lg">Confirm Password</Label>
-            <div
-              tabIndex={0}
-              className={`flex flex-row px-4 py-2 rounded-lg border-2 bg-white focus-within:outline-none focus-within:ring-1 focus-within:ring-green  ${
-                errors.confirmPassword || registerError?.field === "password"
-                  ? "border-red-500 focus-within:ring-red-500"
-                  : "border-green"
-              }`}
-            >
-              <input
-                type={`${isConfirmPasswordVisible || "password"}`}
-                className="outline-none flex flex-1"
-                placeholder="Re-enter your password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
-              <EyeButton
-                isVisible={isConfirmPasswordVisible}
-                setIsVisible={() =>
-                  setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
-                }
-              />
-            </div>
-
-            <p
-              className={`text-red-500 text-sm ${errors.confirmPassword || "hidden"}`}
-            >
-              {errors.confirmPassword}
-            </p>
-          </div>
-
-          <Button
-            type="submit"
-            className="Submit-button flex bg-green rounded-full min-w-full h-14 py-4 text-center items-center justify-center text-lg transition-all hover:bg-green_hover active:scale-[0.98] mt-6 text-white"
-          >
-            {loading ? (
-              <Spinner size={12} color="#fff" animating={true} />
-            ) : (
-              "Sign Up"
-            )}
-          </Button>
-        </form>
-
-        <div className="flex items-center justify-center mb-8">
-          Already Have an account?
-          <Link to="/login">
-            <span className="text-green px-2 cursor-pointer hover:underline-offset-4 hover:underline">
-              Log in
-            </span>
-          </Link>
-        </div>
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );
