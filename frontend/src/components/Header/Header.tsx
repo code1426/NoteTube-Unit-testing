@@ -5,14 +5,13 @@ import {
   PiMagnifyingGlass,
   PiFunnel,
   PiX,
-  PiDotsThreeCircle,
 } from "react-icons/pi";
 import { PiArrowCircleLeftBold } from "react-icons/pi";
 import FilterCardModal from "../Flashcards/FilterFlashcardModal";
 import { Link, useNavigate } from "react-router-dom";
 import { options } from "../../types/options.types";
 
-interface SubHeaderProps {
+interface HeaderProps {
   isFlashCardsPage: boolean;
   isSectionTitleOnly: boolean;
   sectionTitle: string;
@@ -23,7 +22,7 @@ interface SubHeaderProps {
   onSearch?: (searchText: string) => void;
 }
 
-const SubHeader: React.FC<SubHeaderProps> = ({
+const Header: React.FC<HeaderProps> = ({
   isFlashCardsPage,
   isSectionTitleOnly,
   sectionTitle,
@@ -84,16 +83,6 @@ const SubHeader: React.FC<SubHeaderProps> = ({
           <div className="block truncate max-w-72 text-responsive_header">
             {sectionTitle}
           </div>
-
-          {/* Optional button for manage options */}
-          {!isSectionTitleOnly && (
-            <button
-              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200"
-              onClick={() => console.log("manage button")} // placeholder
-            >
-              <PiDotsThreeCircle size={50} />
-            </button>
-          )}
         </div>
 
         {!isSectionTitleOnly && (
@@ -178,4 +167,4 @@ const SubHeader: React.FC<SubHeaderProps> = ({
   );
 };
 
-export default SubHeader;
+export default Header;

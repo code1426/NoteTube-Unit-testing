@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SubHeader from "../components/Header/Header";
+import Header from "../components/Header/Header";
 import DeckItem from "../components/Decks/DeckItem";
 import LoadingScreen from "../components/LoadingScreen";
 import UseUser from "../hooks/auth/useUser";
@@ -66,7 +66,7 @@ const UserDecksPage: React.FC = () => {
     <>
       <Toaster />
       <div className="overflow-auto scrollbar-custom h-screen relative bg-white">
-        <SubHeader
+        <Header
           isFlashCardsPage={false}
           isSectionTitleOnly={false}
           hasAddButton={true}

@@ -3,7 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 import GreetingsBanner from "@/components/Header/GreetingsBanner";
 import NoteInputField from "../components/Notes/NoteInputField";
-import SubHeader from "@/components/Header/Header";
+import Header from "@/components/Header/Header";
 import LoadingScreen from "../components/LoadingScreen";
 
 import type {
@@ -129,7 +129,7 @@ const HomePage = () => {
             />
           </div>
         )}
-        <SubHeader
+        <Header
           isFlashCardsPage={false}
           isSectionTitleOnly={true}
           hasAddButton={false}

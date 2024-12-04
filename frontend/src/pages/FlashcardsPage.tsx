@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import SubHeader from "../components/Header/Header";
+import Header from "../components/Header/Header";
 import type { Flashcard } from "../types/flashcard.types";
 import LoadingScreen from "../components/LoadingScreen";
 import useFetchFlashcards from "../hooks/Flashcards/useFetchFlashcards";
@@ -66,7 +66,7 @@ const FlashcardsPage: React.FC = () => {
     <>
       <Toaster />
       <div className="bg-white relative">
-        <SubHeader
+        <Header
           isFlashCardsPage={true}
           isSectionTitleOnly={false}
           sectionTitle={deckName}
