@@ -1,5 +1,4 @@
-import Header from "../components/Header/Header";
-import SubHeader from "../components/Header/SubHeader";
+import SubHeader from "../components/Header/Header";
 
 const VideoGeneratorPage = () => {
   return (
@@ -7,11 +6,10 @@ const VideoGeneratorPage = () => {
       id="main-of-the-mains"
       className="relative bg-white select-none scrollbar-custom h-screen overflow-auto"
     >
-      <Header isHomePage={false} />
       <SubHeader
         isFlashCardsPage={false}
         isSectionTitleOnly={true}
-        sectionTitle="Video Generator"
+        sectionTitle="Generate Videos"
         hasAddButton={false}
       />
       <div

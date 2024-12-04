@@ -9,6 +9,7 @@ import MenuItem from "./MenuItem";
 import Logout from "./Logout";
 import Logo from "./AppLogo";
 import LogoutConfirmation from "../LogoutConfirmation";
+import ProfileButton from "./ProfileButton";
 
 interface Props {
   setAuth: (value: boolean) => void;
@@ -58,9 +59,10 @@ const SideBar = ({ setAuth }: Props) => {
   return (
     <div className="border-r-2 border-white border-solid max-h-screen relative">
       <div
+        id="main-container"
         ref={sidebarRef}
-        className={`container flex flex-col 
-          ${isExpanded ? "w-64" : "w-24 xs:w-20 sm:w-22 lg:w-24"} 
+        className={`container flex flex-col
+          ${isExpanded ? "w-64 xs:w-52 sm:w-56 lg:w-60" : "w-24 xs:w-20 sm:w-22 lg:w-24"} 
           h-screen 
           px-3 
           sm:px-2 
@@ -69,6 +71,7 @@ const SideBar = ({ setAuth }: Props) => {
           bg-green transition-all ease-linear duration-250 -z-50 `}
       >
         <div
+          id="logo-container"
           className="flex items-center justify-start border-b-2 border-white 
         h-12
         md:h-16
@@ -78,7 +81,8 @@ const SideBar = ({ setAuth }: Props) => {
         </div>
 
         <div
-          className={`flex h-64 md:h-80 lg:h-96 flex-col items-start justify-evenly`}
+          id="pages"
+          className={`flex my-2 h-60 md:h-72 lg:h-80 flex-col items-start justify-evenly`}
         >
           <MenuItem
             route="/home"
@@ -113,14 +117,17 @@ const SideBar = ({ setAuth }: Props) => {
             currentMenu={currentMenu}
           />
         </div>
-
         <div
-          className={`flex flex-1 flex-col items-start justify-start pt-6 border-t-2 border-white`}
+          id="logout-button"
+          className={`flex items-center flex-col pt-2 border-t-2  h-96 justify-between`}
         >
           <LogoutConfirmation
             logout={logout}
             logoutComponent={<Logout isExpanded={isExpanded} />}
           ></LogoutConfirmation>
+        </div>
+        <div className="self-start justify-self-end flex">
+          <ProfileButton isExpanded={isExpanded} />
         </div>
       </div>
     </div>

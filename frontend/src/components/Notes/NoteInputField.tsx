@@ -126,7 +126,7 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
     <div className="textInputSection w-[87%]  self-center select-none pb-8">
       <div
         className="rounded-lg border-4 border-green flex flex-col 
-      shadow-[-6px_9px_6px_6px_rgba(0,0,0,0.2)]"
+      shadow-xl shadow-gray-400"
       >
         {" "}
         {!selectedFile ? (

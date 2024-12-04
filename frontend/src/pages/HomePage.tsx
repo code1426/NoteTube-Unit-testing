@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-import Header from "../components/Header/Header";
+import GreetingsBanner from "@/components/Header/GreetingsBanner";
 import NoteInputField from "../components/Notes/NoteInputField";
-import SubHeader from "../components/Header/SubHeader";
+import SubHeader from "@/components/Header/Header";
 import LoadingScreen from "../components/LoadingScreen";
 
 import type {
@@ -22,6 +23,16 @@ const HomePage = () => {
   const { user, loading: loadingUser } = useUser();
   const { createNote } = useCreateNote();
   const { insertVideos } = useCreateVideos();
+
+  const [showBanner, setShowBanner] = useState(false);
+
+  useEffect(() => {
+    if (!loadingUser && user) {
+      setShowBanner(true);
+      const timer = setTimeout(() => setShowBanner(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [loadingUser, user]);
 
   const handleAddVideos = async (noteId: string | null, videoList: Video[]) => {
     try {
@@ -110,7 +121,14 @@ const HomePage = () => {
     <>
       <Toaster />
       <div className="relative w-full min-h-screen bg-white overflow-auto flex flex-col scrollbar-custom h-screen">
-        <Header isHomePage={true} username={user.username} />
+        {showBanner && (
+          <div className="fixed top-4 right-11 z-50">
+            <GreetingsBanner
+              isHomePage={true}
+              username={user.username || "Guest"}
+            />
+          </div>
+        )}
         <SubHeader
           isFlashCardsPage={false}
           isSectionTitleOnly={true}
