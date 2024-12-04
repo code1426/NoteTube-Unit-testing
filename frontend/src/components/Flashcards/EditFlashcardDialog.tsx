@@ -84,7 +84,7 @@ const EditFlashcardDialog: React.FC<Flashcard> = ({
     <Dialog onOpenChange={resetContent}>
       <DialogTrigger>
         <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200">
-          <PiPencil size={30} />
+          <PiPencil size={16} />
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg-white p-6 rounded-lg shadow-lg">

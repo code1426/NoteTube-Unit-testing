@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import SubHeader from "../components/Header/Header";
-import Card from "../components/Flashcards/Flashcard";
 import type { Flashcard } from "../types/flashcard.types";
 import LoadingScreen from "../components/LoadingScreen";
 import useFetchFlashcards from "../hooks/Flashcards/useFetchFlashcards";
@@ -11,6 +10,9 @@ import useFilterFlashcards from "../hooks/Flashcards/useFilterFlashcards";
 import { options } from "../types/options.types";
 import { Drawer } from "@/components/ui/drawer";
 import AddFlashcardDrawer from "@/components/Flashcards/AddFlashcardDrawer";
+import FlashcardItem from "@/components/Flashcards/FlashcardItem";
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import HoverFlashcardCard from "@/components/Flashcards/HoverFlashcardCard";
 
 const FlashcardsPage: React.FC = () => {
   const { deckId } = useParams<{ deckId: string }>();
@@ -88,7 +90,7 @@ const FlashcardsPage: React.FC = () => {
               onSuccess={handleFormSuccess}
             />
           </Drawer>
-          <div className="space-y-5">
+          <div className="flex flex-col gap-5">
             {filteredFlashcards.length === 0 ? (
               <NoItemsContainerBox
                 mainText="No cards available."
@@ -98,14 +100,22 @@ const FlashcardsPage: React.FC = () => {
               />
             ) : (
               filteredFlashcards.map((flashcard: Flashcard) => (
-                <Card
-                  key={flashcard.id}
-                  id={flashcard.id}
-                  front={flashcard.front}
-                  back={flashcard.back}
-                  deckId={flashcard.deckId}
-                  created_at={flashcard.created_at!}
-                />
+                <HoverCard>
+                  <HoverCardTrigger className="">
+                    <FlashcardItem
+                      key={flashcard.id}
+                      id={flashcard.id}
+                      front={flashcard.front}
+                      back={flashcard.back}
+                      deckId={flashcard.deckId}
+                      created_at={flashcard.created_at!}
+                    />
+                  </HoverCardTrigger>
+                  <HoverFlashcardCard
+                    key={flashcard.id}
+                    created_at={flashcard.created_at!}
+                  />
+                </HoverCard>
               ))
             )}
           </div>

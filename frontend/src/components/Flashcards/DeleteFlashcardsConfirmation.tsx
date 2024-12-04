@@ -23,7 +23,7 @@ const DeleteFlashcardsConfirmation = ({
     <AlertDialog>
       <AlertDialogTrigger>
         <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200">
-          <PiTrash size={30} />
+          <PiTrash size={16} />
         </button>
       </AlertDialogTrigger>
       <AlertDialogContent>

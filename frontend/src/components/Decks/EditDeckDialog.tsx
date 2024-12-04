@@ -49,8 +49,9 @@ const EditDeckDialog: React.FC<Deck> = ({ id, deckName, userId }) => {
   return (
     <Dialog onOpenChange={resetDeckName}>
       <DialogTrigger>
-        <div className="flex items-center justify-center px-4 py-2 border rounded">
-          <PiPencil size={20} className="mr-2" /> Edit Deck
+        <div className="flex items-center justify-left p-2 w-40 hover:bg-gray-200">
+          <PiPencil size={20} className="mr-2" />{" "}
+          <span className="text-sm">Edit Deck</span>
         </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white p-6 rounded-lg shadow-lg">
