@@ -1,35 +1,28 @@
+import { useState } from "react";
 import { MdPhotoCamera } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
 import AccountSettings from "../components/Settings/AccountSettings";
 import EditProfile from "../components/Settings/EditProfile";
 
 const ProfilePage = () => {
-  // const [activeOverlay, setActiveOverlay] = useState<
-  //   "EditProfile" | "AccountSettings" | null
-  // >(null);
-
-  // const closeOverlay = () => {
-  //   setActiveOverlay(null);
-  // };
+  const [isEditProfileOpen, setEditProfileOpen] = useState(false);
+  const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
 
   return (
     <div className="relative bg-white select-none overflow-auto scrollbar-custom h-screen">
-      {/* {activeOverlay === "EditProfile" && (
-        <EditProfile onClose={closeOverlay} />
-      )}
-      {activeOverlay === "AccountSettings" && (
-        <AccountSettings onClose={closeOverlay} />
-      )} */}
-      <div className="w-full mt-2 absolute h-64 px-6 z-0">
+      {/* Background Cover */}
+      <div className="w-full absolute h-64 px-6 z-0">
         <div
           id="background"
-          className=" h-full bg-gray-300 flex flex-row-reverse"
+          className="h-full bg-gray-300 flex flex-row-reverse"
         >
           <div className="flex self-end rounded-full bg-white w-12 h-12 justify-center items-center bg-opacity-75 m-2 hover:cursor-pointer">
             <MdPhotoCamera size={30} />
           </div>
         </div>
       </div>
+
+      {/* Profile Section */}
       <div
         id="main-profile"
         className="min-h-40 h-auto p-6 pt-36 mx-6 flex flex-row-reverse justify-between z-10 mb-10"
@@ -58,54 +51,36 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
-        {/* <div
-          id="settings"
-          className="flex h-auto w-52 justify-center items-center absolute rounded-xl p-2 self-center mt-28 flex-col gap-2"
-        >
-          <div
-            className="flex w-48 h-auto border-2 border-green rounded-xl p-2 hover:cursor-pointer gap-2"
-            onClick={() => setActiveOverlay("EditProfile")}
-          >
-            <BiEdit size={25} />
-            Edit Profile
-          </div>
-          <div
-            className="flex w-48 h-auto border-2 border-green rounded-xl p-2 hover:cursor-pointer gap-2"
-            onClick={() => setActiveOverlay("AccountSettings")}
-          >
-            <IoSettingsOutline size={25} />
-            Account Settings
-          </div>
-        </div> */}
       </div>
+
+      {/* Sub Profile Section */}
       <div
         id="sub-profile"
-        className="h-64 mx-6 p-6 border-2 border-green flex flex-row mb-4"
+        className="h-auto mx-6 flex flex-row mb-4 justify-center"
       >
-        <div
-          id="edit-profile"
-          className="w-1/2 border-2 h-full border-blue-700"
-        >
-          <div className="font-secondaryRegular text-green p-2 text-3xl">
-            Edit Profile
+        {/* Edit Profile */}
+        <div id="settings" className="w-1/2 h-full flex justify-evenly">
+          <div className="mx-2">
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+              onClick={() => setEditProfileOpen(true)}
+            >
+              Edit Profile
+            </button>
+            {isEditProfileOpen && (
+              <EditProfile onClose={() => setEditProfileOpen(false)} />
+            )}
           </div>
           <div className="mx-2">
-            <div>
-              <EditProfile />
-            </div>
-          </div>
-        </div>
-        <div
-          id="account-settings"
-          className="w-1/2 border-2 h-full border-red-700"
-        >
-          <div className="font-secondaryRegular text-green p-2 text-3xl">
-            Account Settings
-          </div>
-          <div>
-            <div className="flex items-center">
-              <AccountSettings />
-            </div>
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+              onClick={() => setAccountSettingsOpen(true)}
+            >
+              Account Settings
+            </button>
+            {isAccountSettingsOpen && (
+              <AccountSettings onClose={() => setAccountSettingsOpen(false)} />
+            )}
           </div>
         </div>
       </div>

@@ -130,6 +130,7 @@ const HomePage = () => {
           </div>
         )}
         <Header
+          isHomepage={true}
           isFlashCardsPage={false}
           isSectionTitleOnly={true}
           hasAddButton={false}

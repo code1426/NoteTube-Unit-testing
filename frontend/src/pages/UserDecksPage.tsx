@@ -67,6 +67,7 @@ const UserDecksPage: React.FC = () => {
       <Toaster />
       <div className="overflow-auto scrollbar-custom h-screen relative bg-white">
         <Header
+          isHomepage={false}
           isFlashCardsPage={false}
           isSectionTitleOnly={false}
           hasAddButton={true}

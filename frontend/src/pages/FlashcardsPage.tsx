@@ -67,6 +67,7 @@ const FlashcardsPage: React.FC = () => {
       <Toaster />
       <div className="bg-white relative">
         <Header
+          isHomepage={false}
           isFlashCardsPage={true}
           isSectionTitleOnly={false}
           sectionTitle={deckName}
