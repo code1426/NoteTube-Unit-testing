@@ -2,11 +2,19 @@ import { Link } from "react-router-dom";
 import type { Deck } from "../../types/deck.types";
 import ManageDeckDropdown from "./ManageDeckDropdown";
 
-const DeckItem = ({ id, deckName, cardCount, userId }: Deck) => {
+const DeckItem = ({ id, deckName, cardCount, userId, color }: Deck) => {
   return (
     <div className="w-64 max-w-72 border-2 border-gray-200 rounded-3xl bg-white hover:shadow-xl min-h-50">
-      <div className="w-full h-20 bg-[#03c04a] rounded-t-3xl flex items-center justify-end px-5">
-        <ManageDeckDropdown id={id} deckName={deckName} userId={userId} />
+      <div
+        className="w-full h-20 rounded-t-3xl flex items-center justify-end px-5"
+        style={{ backgroundColor: color }}
+      >
+        <ManageDeckDropdown
+          id={id}
+          deckName={deckName}
+          userId={userId}
+          color={color}
+        />
       </div>
 
       <Link

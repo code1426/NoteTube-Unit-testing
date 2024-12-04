@@ -1,21 +1,23 @@
 import { useState } from "react";
 import { Deck } from "../../types/deck.types";
 
-interface UpdateDeckResult {
+interface ChangeDeckColorResult {
   success: boolean;
   deck?: Deck;
   error?: string | null;
 }
 
-const useUpdateDeck = (deckId: string) => {
+const useChangeDeckColor = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const updateDeck = async (deckData: Deck): Promise<UpdateDeckResult> => {
+  const changeDeckColor = async (
+    deckData: Deck,
+  ): Promise<ChangeDeckColorResult> => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BASE_API_URL}/decks/${deckId}`,
+        `${import.meta.env.VITE_BASE_API_URL}/decks/${deckData.id}/color`,
         {
           method: "PUT",
           headers: {
@@ -43,7 +45,7 @@ const useUpdateDeck = (deckId: string) => {
     }
   };
 
-  return { updateDeck, loading, error };
+  return { changeDeckColor, loading, error };
 };
 
-export default useUpdateDeck;
+export default useChangeDeckColor;
