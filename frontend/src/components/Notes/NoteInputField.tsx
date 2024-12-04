@@ -29,13 +29,13 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
       const supportedFileTypes = [
         "application/pdf",
         "text/plain",
-        // "image/jpeg",
-        // "image/png",
+        "image/jpeg",
+        "image/png",
       ];
 
       if (!supportedFileTypes.includes(file.type)) {
         toast.error(
-          "Unsupported file type. Please upload a PDF, JPEG, PNG, or text file.",
+          "Unsupported file type. Please upload a PDF, JPEG, JPG, PNG, or text file.",
         );
         return;
       }
@@ -192,7 +192,7 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
             type="file"
             className="hidden"
             onChange={handleChangeFile}
-            accept=".pdf,.txt"
+            accept=".pdf,.txt,.jpeg,.png,.jpg"
           />
         </label>
         <button
