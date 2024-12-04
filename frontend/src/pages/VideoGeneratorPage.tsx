@@ -7,6 +7,7 @@ const VideoGeneratorPage = () => {
       className="relative bg-white select-none scrollbar-custom h-screen overflow-auto"
     >
       <Header
+        isHomepage={false}
         isFlashCardsPage={false}
         isSectionTitleOnly={true}
         sectionTitle="Generate Videos"

@@ -11,7 +11,8 @@ import FilterCardModal from "../Flashcards/FilterFlashcardModal";
 import { Link, useNavigate } from "react-router-dom";
 import { options } from "../../types/options.types";
 
-interface HeaderProps {
+interface SubHeaderProps {
+  isHomepage: boolean;
   isFlashCardsPage: boolean;
   isSectionTitleOnly: boolean;
   sectionTitle: string;
@@ -22,7 +23,8 @@ interface HeaderProps {
   onSearch?: (searchText: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({
+const Header: React.FC<SubHeaderProps> = ({
+  isHomepage,
   isFlashCardsPage,
   isSectionTitleOnly,
   sectionTitle,
@@ -65,21 +67,17 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <div className="px-6 sticky top-0 z-30">
-      <div className="subheader py-4 px-4 flex justify-between items-center select-none flex-col max-h-36 md:flex-row rounded-b-xl bg-white border-b-2 border-x-2  border-green mb-8 shadow-lg shadow-zinc-400">
+      <div className="subheader py-4 px-4 flex justify-between items-center select-none flex-col max-h-36 md:flex-row rounded-b-xl bg-white border-b-2  border-green mb-8 shadow-lg shadow-zinc-400">
         <div className="text-black flex gap-3 font-secondaryRegular align-middle items-center text-responsive">
-          <button
-            className="hover:bg-gray-200 rounded-full text-responsive m-auto"
-            onClick={handleBack}
-          >
-            <PiArrowCircleLeftBold
-              className="m-auto
-              text-3xl 
-              sm:text-3xl
-              sm-md:4xl 
-              md:text-4xl
-              lg:text-5xl"
-            />
-          </button>
+          {!isHomepage && (
+            <button
+              className="hover:bg-gray-200 rounded-full text-responsive m-auto"
+              onClick={handleBack}
+            >
+              <PiArrowCircleLeftBold className="m-auto text-3xl sm:text-3xl sm-md:4xl md:text-4xl lg:text-5xl" />
+            </button>
+          )}
+
           <div className="block truncate max-w-72 text-responsive_header">
             {sectionTitle}
           </div>

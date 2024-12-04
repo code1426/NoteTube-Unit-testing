@@ -44,6 +44,7 @@ const NotePage: React.FC = () => {
   return (
     <div className="bg-white relative font-secondaryRegular">
       <Header
+        isHomepage={false}
         isFlashCardsPage={false}
         isSectionTitleOnly={true}
         sectionTitle={"Note Title"}
