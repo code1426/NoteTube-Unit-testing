@@ -11,9 +11,9 @@ const DeckItem = ({ id, deckName, cardCount, userId, color }: Deck) => {
       >
         <ManageDeckDropdown
           id={id}
-          deckName={deckName}
-          userId={userId}
-          color={color}
+          deckName={deckName!}
+          userId={userId!}
+          color={color!}
         />
       </div>
 
