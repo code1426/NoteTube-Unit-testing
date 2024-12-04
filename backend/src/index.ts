@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
 import { Pool } from "pg";
+import fs from "fs";
 import * as dotenv from "dotenv";
+
 import authRoutes from "./routes/auth";
 import homeRoutes from "./routes/home";
 import deckRoutes from "./routes/deck";
@@ -14,6 +16,13 @@ import aiRoutes from "./routes/ai";
 dotenv.config({ path: "../.env" });
 
 export const app = express();
+
+// create the memory storage folder
+const directoryPath = process.env.MEMORY_STORAGE_FOLDER!;
+
+if (!fs.existsSync(directoryPath)) {
+  fs.mkdirSync(directoryPath);
+}
 
 // initialize the database connection
 export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
