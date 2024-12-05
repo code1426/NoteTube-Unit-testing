@@ -31,7 +31,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           {/* routes with sidebar */}
-          <Route element={<SideBarLayout setAuth={setIsAuthenticated} />}>
+          <Route element={<SideBarLayout />}>
             <Route
               path="/home"
               element={isAuthenticated ? <HomePage /> : <Navigate to="/" />}

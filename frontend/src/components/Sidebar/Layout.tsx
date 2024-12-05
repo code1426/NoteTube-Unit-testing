@@ -1,19 +1,17 @@
-import SideBar from "./SideBar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import AppSidebar from "@/components/Sidebar/AppSidebar";
 
 import { Outlet } from "react-router-dom";
 
-interface LayoutProps {
-  setAuth: (value: boolean) => void;
-}
-
-const Layout = ({ setAuth }: LayoutProps) => {
+const Layout = () => {
   return (
-    <div className="flex h-screen">
-      <SideBar setAuth={setAuth} />
-      <main className="flex-1 overflow-auto">
+    <SidebarProvider defaultOpen={false}>
+      <AppSidebar />
+      <main className="flex">
+        <SidebarTrigger className="my-4 mx-2" />
         <Outlet />
       </main>
-    </div>
+    </SidebarProvider>
   );
 };
 

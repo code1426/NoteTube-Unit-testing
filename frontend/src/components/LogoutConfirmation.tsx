@@ -9,21 +9,25 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
+import { Auth } from "@/context/AuthProvider";
 
 interface Props {
-  logoutComponent: ReactNode;
-  logout: () => void;
+  children: ReactNode;
 }
 
-const LogoutConfirmation = ({ logoutComponent, logout }: Props) => {
+const LogoutConfirmation = ({ children }: Props) => {
+  const { setIsAuthenticated } = useContext(Auth);
+
   const handleLogout = () => {
     localStorage.removeItem("hasShownBanner");
-    logout();
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
   };
+
   return (
     <AlertDialog>
-      <AlertDialogTrigger>{logoutComponent}</AlertDialogTrigger>
+      <AlertDialogTrigger>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure you want to log out?</AlertDialogTitle>
@@ -34,8 +38,8 @@ const LogoutConfirmation = ({ logoutComponent, logout }: Props) => {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            className="bg-red-500 hover:bg-red-600"
             onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-600"
           >
             Log out
           </AlertDialogAction>
