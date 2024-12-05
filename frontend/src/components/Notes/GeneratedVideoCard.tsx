@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TestGeneratedVideo } from "../History/GeneratedVideoThumbnail";
 
-const GeneratedVideoCard = ({ id, videoTitle }: TestGeneratedVideo) => {
+const GeneratedVideoCard = ({ id }: TestGeneratedVideo) => {
   const [videoPanelOpened, setVideoPanelState] = useState(false);
 
   return (
@@ -11,7 +11,7 @@ const GeneratedVideoCard = ({ id, videoTitle }: TestGeneratedVideo) => {
         onClick={() => setVideoPanelState(!videoPanelOpened)}
         className="w-full h-full flex flex-row justify-center"
       >
-        <div className="h-12 flex flex-col justify-center">{videoTitle}</div>
+        <div className="h-12 flex flex-col justify-center">{"No Title"}</div>
       </div>
       {/* the div below is for the video */}
       {videoPanelOpened ? (

@@ -1,6 +1,8 @@
 import Header from "../components/Header/Header";
 
-const VideoGeneratorPage = () => {
+const GeneratedVideosPage = () => {
+  const noteTitle = "Note Title Sample";
+
   return (
     <div
       id="main-of-the-mains"
@@ -10,7 +12,7 @@ const VideoGeneratorPage = () => {
         isHomepage={false}
         isFlashCardsPage={false}
         isSectionTitleOnly={true}
-        sectionTitle="Generate Videos"
+        sectionTitle="Generated Videos"
         hasAddButton={false}
       />
       <div
@@ -28,7 +30,7 @@ const VideoGeneratorPage = () => {
             id="generated-videos-name"
             className="border-4 border-red-700 font-secondaryRegular text-green text-3xl p-2"
           >
-            Generated Videos
+            {noteTitle}
           </div>
           <div
             id="videos"
@@ -71,4 +73,4 @@ const VideoGeneratorPage = () => {
   );
 };
 
-export default VideoGeneratorPage;
+export default GeneratedVideosPage;
