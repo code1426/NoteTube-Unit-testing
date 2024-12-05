@@ -1,72 +1,165 @@
-import { PiArrowCircleLeftBold, PiUserCircleFill } from "react-icons/pi";
+import { useState } from "react";
+import {
+  PiCards,
+  PiPlus,
+  PiMagnifyingGlass,
+  PiFunnel,
+  PiX,
+} from "react-icons/pi";
+import { PiArrowCircleLeftBold } from "react-icons/pi";
+import FilterCardModal from "../Flashcards/FilterFlashcardModal";
 import { Link, useNavigate } from "react-router-dom";
+import { options } from "../../types/options.types";
 
-interface HeaderProps {
-  isHomePage: boolean;
-  username?: string | undefined;
+interface SubHeaderProps {
+  isHomepage: boolean;
+  isFlashCardsPage: boolean;
+  isSectionTitleOnly: boolean;
+  sectionTitle: string;
+  hasAddButton: boolean;
+  onAdd?: () => void;
+  deckId?: string;
+  onApplyOptions?: (options: options) => void;
+  onSearch?: (searchText: string) => void;
 }
 
-const Header = ({ isHomePage, username }: HeaderProps) => {
+const Header: React.FC<SubHeaderProps> = ({
+  isHomepage,
+  isFlashCardsPage,
+  isSectionTitleOnly,
+  sectionTitle,
+  hasAddButton,
+  onAdd,
+  deckId,
+  onApplyOptions,
+  onSearch,
+}) => {
+  const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
+  const [searchText, setSearchText] = useState<string>("");
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+
+  const handleSearch = () => {
+    const toggledSearchState = !isSearchActive;
+    setIsSearchActive(toggledSearchState);
+    if (!toggledSearchState) {
+      setSearchText("");
+      onSearch!("");
+    }
+  };
+
+  const openFilter = () => {
+    setIsFilterOpen(true);
+  };
+
+  const closeFilter = () => {
+    setIsFilterOpen(false);
+  };
+
+  const handleApplyOptions = (selectedOptions: options) => {
+    if (onApplyOptions) {
+      onApplyOptions(selectedOptions);
+    }
+  };
   const navigate = useNavigate();
   const handleBack = () => {
     navigate(-1);
   };
 
   return (
-    <div
-      id="supporting-container"
-      className="px-3 flex w-full z-20 -top-24 sticky select-none 
-      4k:h-24
-      xl:h-24  
-      lg:h-24
-      md:h-16 
-      h-12 
-      bg-white "
-    >
-      <div
-        id="main-container"
-        className="flex flex-row px-10 w-full border-b-2 rounded-xl border-green bg-white items-center justify-between
-        4k:h-24
-      xl:h-24  
-      lg:h-24
-      md:h-16 
-      h-12 
-      shadow-[0_12px_8px_-5px_rgba(0,0,0,0.2)]"
-      >
-        <div className="text-black text-responsive_header font-primaryBold flex items-center justify-center">
-          {isHomePage ? (
-            `Welcome ${username}!`
-          ) : (
+    <div className="px-6 sticky top-0 z-30">
+      <div className="subheader py-4 px-4 flex justify-between items-center select-none flex-col max-h-36 md:flex-row rounded-b-xl bg-white border-b-2  border-green mb-8 shadow-lg shadow-zinc-400">
+        <div className="text-black flex gap-3 font-secondaryRegular align-middle items-center text-responsive">
+          {!isHomepage && (
             <button
               className="hover:bg-gray-200 rounded-full text-responsive m-auto"
               onClick={handleBack}
             >
-              <PiArrowCircleLeftBold
-                className="m-auto
-              text-4xl 
-              sm:text-4xl
-              sm-md:5xl 
-              md:text-5xl
-              lg:text-6xl"
-              />
+              <PiArrowCircleLeftBold className="m-auto text-3xl sm:text-3xl sm-md:4xl md:text-4xl lg:text-5xl" />
             </button>
           )}
+
+          <div className="block truncate max-w-72 text-responsive_header">
+            {sectionTitle}
+          </div>
         </div>
 
-        <div className="text-responsive">
-          <Link to="/profile">
-            <button className="hover:bg-gray-200 rounded-full text-responsive flex m-auto">
-              <PiUserCircleFill
-                className="
-              text-4xl 
-              sm:text-4xl
-              sm-md:5xl 
-              md:text-5xl
-              lg:text-6xl "
-              />
-            </button>
-          </Link>
-        </div>
+        {!isSectionTitleOnly && (
+          <div className="flex text-3xl font-secondaryRegular space-x-5 justify-center items-center px-4">
+            {isFlashCardsPage && (
+              <div>
+                <Link to={`/quiz/${deckId}`}>
+                  <button className="flex py-1.5 px-8 border-2 border-black items-center justify-center bg-green rounded-[50px] gap-2 hover:bg-green_hover">
+                    <PiCards className="text-responsive" /> Quiz
+                  </button>
+                </Link>
+              </div>
+            )}
+            {hasAddButton && (
+              <div>
+                <button
+                  className="flex py-2 px-8 border-2 border-[#03c04a] rounded-full gap-2 hover:bg-gray-200 items-center justify-center"
+                  onClick={onAdd}
+                >
+                  <PiPlus className="text-responsive" />{" "}
+                  <p className="text-responsive">Add</p>
+                </button>
+              </div>
+            )}
+            <div>
+              {/* Search bar toggle */}
+              {isSearchActive ? (
+                <div className="flex items-center gap-2 border-2 border-[#03c04a] rounded-full px-4 py-1.5">
+                  <button
+                    onClick={handleSearch}
+                    className="text-black hover:bg-gray-200 rounded-full p-1"
+                  >
+                    <PiX className="text-responsive" />
+                  </button>
+                  <input
+                    type="text"
+                    value={searchText}
+                    placeholder="Search..."
+                    className="flex-1 focus:outline-none"
+                    autoFocus
+                    onChange={(e) => {
+                      const newSearchtext = e.target.value;
+                      setSearchText(newSearchtext);
+                      if (onSearch) {
+                        onSearch(newSearchtext);
+                      }
+                    }}
+                  />
+                </div>
+              ) : (
+                <button
+                  className="flex items-center hover:underline gap-2"
+                  onClick={handleSearch}
+                >
+                  <PiMagnifyingGlass className="text-responsive" />{" "}
+                  <p className="text-responsive">Search</p>
+                </button>
+              )}
+            </div>
+
+            {/* Filter button */}
+            <div className="relative">
+              <button
+                className="flex items-center hover:underline gap-2"
+                onClick={openFilter}
+              >
+                <PiFunnel className="text-responsive" />{" "}
+                <p className="text-responsive">Filter</p>
+              </button>
+              {/* Render FilterCardModal conditionally */}
+              {isFilterOpen && (
+                <FilterCardModal
+                  onClose={closeFilter}
+                  onApply={handleApplyOptions}
+                />
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

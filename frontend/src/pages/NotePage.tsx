@@ -1,7 +1,6 @@
 import React from "react";
 // import { useParams, useLocation } from "react-router-dom";
 import Header from "../components/Header/Header";
-import SubHeader from "../components/Header/SubHeader";
 import GeneratedVideoCard from "../components/Notes/GeneratedVideoCard";
 
 const NotePage: React.FC = () => {
@@ -43,9 +42,9 @@ const NotePage: React.FC = () => {
   ];
 
   return (
-    <div className="bg-white relative font-secondaryRegular select-none">
-      <Header isHomePage={false} />
-      <SubHeader
+    <div className="bg-white relative font-secondaryRegular">
+      <Header
+        isHomepage={false}
         isFlashCardsPage={false}
         isSectionTitleOnly={true}
         sectionTitle={"Note Title"}

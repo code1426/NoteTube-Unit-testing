@@ -1,27 +1,38 @@
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-import Header from "../components/Header/Header";
+import GreetingsBanner from "@/components/Header/GreetingsBanner";
 import NoteInputField from "../components/Notes/NoteInputField";
-import SubHeader from "../components/Header/SubHeader";
+import Header from "@/components/Header/Header";
 import LoadingScreen from "../components/LoadingScreen";
 
 import type {
   GenerateAIResponseProps,
   GenerateSummaryResponse,
-} from "../types/ai.types";
+} from "@/types/ai.types";
+import { Video } from "@/types/video.types";
 
-import useUser from "../hooks/auth/useUser";
-import useCreateNote from "../hooks/Notes/useCreateNote";
-import useCreateVideos from "../hooks/Videos/useCreateVideo";
+import useUser from "@/hooks/auth/useUser";
+import useCreateNote from "@/hooks/Notes/useCreateNote";
+import useCreateVideos from "@/hooks/Videos/useCreateVideo";
 
-import generateAIResponse from "../utils/generateAIResponse";
-import getVideoSuggestions from "../utils/getVideoSuggestions";
-import { Video } from "../types/video.types";
+import getVideoSuggestions from "@/utils/getVideoSuggestions";
+import fetchAIResponse from "@/utils/fetchAIResponse";
 
 const HomePage = () => {
   const { user, loading: loadingUser } = useUser();
   const { createNote } = useCreateNote();
   const { insertVideos } = useCreateVideos();
+
+  const [showBanner, setShowBanner] = useState(false);
+
+  useEffect(() => {
+    if (!loadingUser && user) {
+      setShowBanner(true);
+      const timer = setTimeout(() => setShowBanner(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [loadingUser, user]);
 
   const handleAddVideos = async (noteId: string | null, videoList: Video[]) => {
     try {
@@ -33,7 +44,7 @@ const HomePage = () => {
         throw new Error("No note ID found");
       }
 
-      const result = await insertVideos(user.id, noteId, videoList);
+      const result = await insertVideos(noteId, videoList);
 
       result?.map((video, index) =>
         console.log(
@@ -58,23 +69,20 @@ const HomePage = () => {
 
       loadingToast = toast.loading("Generating summary...");
 
-      const summaryResponse = await generateAIResponse<GenerateSummaryResponse>(
+      const summaryResponse = (await fetchAIResponse(
         note,
-      ).catch((error) => {
-        console.error(error);
-        throw new Error(error.message);
-      });
+      )) as GenerateSummaryResponse;
 
       if (!summaryResponse) {
         throw new Error("Failed to generate summary");
       }
-
+      console.log(summaryResponse);
       toast.dismiss(loadingToast);
 
       loadingToast = toast.loading("Getting video suggestions...");
       const suggestedVideos = await getVideoSuggestions(
         summaryResponse.content,
-      ).then((videos) => videos?.slice(0, 5));
+      ).then((videos) => videos?.slice(0, 5)); // get 5 videos
 
       if (!suggestedVideos) {
         throw new Error("Failed to get video suggestions");
@@ -110,8 +118,16 @@ const HomePage = () => {
     <>
       <Toaster />
       <div className="relative w-full min-h-screen bg-white overflow-auto flex flex-col scrollbar-custom h-screen">
-        <Header isHomePage={true} username={user.username} />
-        <SubHeader
+        {showBanner && (
+          <div className="fixed top-4 right-11 z-50">
+            <GreetingsBanner
+              isHomePage={true}
+              username={user.username || "Guest"}
+            />
+          </div>
+        )}
+        <Header
+          isHomepage={true}
           isFlashCardsPage={false}
           isSectionTitleOnly={true}
           hasAddButton={false}

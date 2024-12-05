@@ -26,7 +26,7 @@ const MenuItem = ({
         className={`group flex flex-row items-center
           h-14
           md:h-16
-          lg:h-20
+          lg:h-18
           p-2
           sm:px-1 
           md:p-3 md:px-1.5 
@@ -73,7 +73,7 @@ const MenuItem = ({
                           : "text-white opacity-100 translate-x-0 group-hover:text-green"
                         : currentMenu === label
                           ? "opacity-0 pointer-events-none"
-                          : "opacity-0 -translate-x-3 pointer-events-none"
+                          : "opacity-0 -translate-x-3 text-green pointer-events-none"
                     }`}
             >
               {label}

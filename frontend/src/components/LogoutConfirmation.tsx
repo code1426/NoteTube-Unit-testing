@@ -17,6 +17,10 @@ interface Props {
 }
 
 const LogoutConfirmation = ({ logoutComponent, logout }: Props) => {
+  const handleLogout = () => {
+    localStorage.removeItem("hasShownBanner");
+    logout();
+  };
   return (
     <AlertDialog>
       <AlertDialogTrigger>{logoutComponent}</AlertDialogTrigger>
@@ -31,9 +35,9 @@ const LogoutConfirmation = ({ logoutComponent, logout }: Props) => {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             className="bg-red-500 hover:bg-red-600"
-            onClick={logout}
+            onClick={handleLogout}
           >
-            Logout
+            Log out
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

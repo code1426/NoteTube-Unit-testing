@@ -1,11 +1,8 @@
-export enum AIOutputOptions {
-  SUMMARY = "summary",
-  FLASHCARDS = "flashcards",
-}
+export type AIOutputOption = "summary" | "flashcards";
 
 export interface GenerateAIResponseProps {
   input: File | string;
-  outputOption: AIOutputOptions.SUMMARY | AIOutputOptions.FLASHCARDS;
+  outputOption: AIOutputOption;
 }
 
 export interface GenerateSummaryResponse {

@@ -46,7 +46,7 @@ const Logo = ({ setIsExpanded, isExpanded }: Props) => {
         }`}
       >
         <div
-          className={`text-white font-secondaryRegular text-3xl whitespace-nowrap ml-4 transition-all duration-200 ease-in-out transform ${isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"}`}
+          className={`text-white font-secondaryRegular text-3xl whitespace-nowrap ml-2 transition-all duration-200 ease-in-out transform ${isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"}`}
         >
           NoteTube
         </div>

@@ -13,7 +13,7 @@ const authorization = (
     const jwtToken = request.header("token");
 
     if (!jwtToken) {
-      console.log("no token");
+      // console.log("no token");
       response.status(401).json({ field: "", message: "Unauthorized" });
       return;
     }

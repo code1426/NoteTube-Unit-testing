@@ -1,5 +1,4 @@
 import Header from "../components/Header/Header";
-import SubHeader from "../components/Header/SubHeader";
 
 const VideoGeneratorPage = () => {
   const noteTitle = "Note Title Sample";
@@ -9,8 +8,8 @@ const VideoGeneratorPage = () => {
       id="main-of-the-mains"
       className="relative bg-white select-none scrollbar-custom h-screen overflow-auto"
     >
-      <Header isHomePage={false} />
-      <SubHeader
+      <Header
+        isHomepage={false}
         isFlashCardsPage={false}
         isSectionTitleOnly={true}
         sectionTitle="Generated Videos"

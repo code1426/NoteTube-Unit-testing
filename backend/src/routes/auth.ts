@@ -53,10 +53,10 @@ router.post(
 
       // Generate JWT token
       const token = jwtGenerator(user.rows[0].id);
-      console.log("token: ", token);
+      // console.log("token: ", token);
       response.status(201).json(token);
     } catch (error) {
-      console.log("error: ", error);
+      // console.log("error: ", error);
       response.status(500).json({ message: error });
     }
   },
@@ -93,7 +93,7 @@ router.post("/login", async (request: Request, response: Response) => {
 
     // Generate JWT token
     const token = jwtGenerator(user.rows[0].id);
-    console.log(user.rows[0].id);
+    // console.log(user.rows[0].id);
     response.json(token);
   } catch (error) {
     response.status(500).json({ message: error });

@@ -26,6 +26,14 @@ export default {
         xxl: "5000px",
       },
       keyframes: {
+        slideIn: {
+          "0%": { transform: "translateX(100%)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
+        },
+        slideOut: {
+          "0%": { transform: "translateX(0)", opacity: "1" },
+          "100%": { transform: "translateX(100%)", opacity: "0" },
+        },
         flip: {
           "0%": {
             transform: "rotateY(60deg)",
@@ -54,6 +62,8 @@ export default {
       animation: {
         flip: "flip 200ms ease-in-out",
         bounceIn: "bounceIn 1000ms ease",
+        slideIn: "slideIn 0.5s ease-out forwards",
+        slideOut: "slideOut 0.5s ease-out forwards",
       },
       colors: {
         green: "#03C04A",

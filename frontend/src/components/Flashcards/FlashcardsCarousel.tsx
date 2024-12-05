@@ -16,7 +16,10 @@ const FlashcardCarousel: React.FC<FlashcardsCarouselProps> = ({
   quizCards,
 }) => {
   return (
-    <Carousel className="w-[26.5rem]">
+    <Carousel
+      className="p-7 w-[30rem] select-none"
+      opts={{ loop: true, align: "start" }}
+    >
       <CarouselContent>
         {quizCards.map((_, currentIndex) => (
           <CarouselItem key={currentIndex}>

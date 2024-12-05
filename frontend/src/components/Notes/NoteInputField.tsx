@@ -8,7 +8,7 @@ import {
 } from "react-icons/pi";
 import toast from "react-hot-toast";
 
-import { AIOutputOptions, GenerateAIResponseProps } from "../../types/ai.types";
+import { GenerateAIResponseProps } from "../../types/ai.types";
 
 interface NoteInputFieldProps {
   onSubmit: (props: GenerateAIResponseProps) => void;
@@ -26,13 +26,21 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
-      const allowedTypes = ["application/pdf", "text/plain"];
-      if (!allowedTypes.includes(file.type)) {
-        toast.error("Unsupported file type. Please upload a PDF or text file.");
+      const supportedFileTypes = [
+        "application/pdf",
+        "text/plain",
+        "image/jpeg",
+        "image/png",
+      ];
+
+      if (!supportedFileTypes.includes(file.type)) {
+        toast.error(
+          "Unsupported file type. Please upload a PDF, JPEG, JPG, PNG, or text file.",
+        );
         return;
       }
-      if (file.size > 5 * 1024 ** 2) {
-        toast.error("File size exceeds 5MB. Please upload a smaller file.");
+      if (file.size > 10 * 1024 ** 2) {
+        toast.error("File size exceeds 10MB. Please upload a smaller file.");
         return;
       }
       setSelectedFile(file);
@@ -46,22 +54,28 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
       toast.error("Please enter at least 50 characters before uploading.");
       return;
     }
-    onSubmit({ input: trimmedText, outputOption: AIOutputOptions.SUMMARY });
+    onSubmit({
+      input: trimmedText,
+      outputOption: "summary",
+    });
     setText("");
   };
 
-  const handleUploadFile = () => {
-    if (!selectedFile) {
-      toast.error("Please select a file to upload.");
-      return;
-    }
+  const handleUploadFile = async () => {
+    try {
+      if (!selectedFile) {
+        throw new Error("Please select a file to upload.");
+      }
 
-    console.log(selectedFile);
-    onSubmit({
-      input: selectedFile,
-      outputOption: AIOutputOptions.SUMMARY,
-    });
-    setSelectedFile(null);
+      onSubmit({
+        input: selectedFile,
+        outputOption: "summary",
+      });
+
+      setSelectedFile(null);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unknown error");
+    }
   };
 
   const handleUploadNote = () => {
@@ -126,7 +140,7 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
     <div className="textInputSection w-[87%]  self-center select-none pb-8">
       <div
         className="rounded-lg border-4 border-green flex flex-col 
-      shadow-[-6px_9px_6px_6px_rgba(0,0,0,0.2)]"
+      shadow-xl shadow-gray-400"
       >
         {" "}
         {!selectedFile ? (
@@ -178,7 +192,7 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
             type="file"
             className="hidden"
             onChange={handleChangeFile}
-            accept=".pdf,.txt"
+            accept=".pdf,.txt,.jpeg,.png,.jpg"
           />
         </label>
         <button

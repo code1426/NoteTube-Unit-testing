@@ -11,17 +11,17 @@ router.post(
   "/:userId",
   validateDeckInfo,
   async (request: Request, response: Response, next: NextFunction) => {
-    const { deckName } = request.body;
     const { userId } = request.params;
+    const { deckName, color } = request.body;
 
     try {
       const result = await pool.query(
         `
-        INSERT INTO Decks (deck_name, user_id, created_at)
-        VALUES ($1, $2, NOW())
+        INSERT INTO Decks (deck_name, user_id, color, created_at)
+        VALUES ($1, $2, $3, NOW())
         RETURNING *
         `,
-        [deckName, userId],
+        [deckName, userId, color],
       );
       response.status(201).json(result.rows[0]);
     } catch (error) {
@@ -77,8 +77,10 @@ router.get(
 
 //UPDATE FUNCTIONALITY
 //update a specific deck
+
+//rename deck
 router.put(
-  "/:id",
+  "/:id/name",
   async (request: Request, response: Response, next: NextFunction) => {
     try {
       const { id } = request.params;
@@ -92,6 +94,30 @@ router.put(
         RETURNING *
          `,
         [deckName, id],
+      );
+      response.status(200).json(result.rows[0]);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+//change deck color
+router.put(
+  "/:id/color",
+  async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const { id } = request.params;
+      const { color } = request.body;
+
+      const result = await pool.query(
+        `
+        UPDATE Decks
+        SET color = $1
+        WHERE id = $2
+        RETURNING *
+         `,
+        [color, id],
       );
       response.status(200).json(result.rows[0]);
     } catch (error) {
