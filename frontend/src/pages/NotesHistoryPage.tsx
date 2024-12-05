@@ -2,7 +2,7 @@ import UseUser from "../hooks/auth/useUser";
 import NotesHistoryCard from "../components/History/HistoryCard";
 import Header from "../components/Header/Header";
 import LoadingScreen from "../components/LoadingScreen";
-import { FetchedNotesFormat, FullNoteContent, Note } from "../types/note.types";
+import { FullNoteContent } from "../types/note.types";
 import useFetchNotes from "@/hooks/Notes/useFetchNotes";
 import NoItemsContainerBox from "@/components/NoItemsContainerBox";
 import { toast } from "react-hot-toast";

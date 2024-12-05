@@ -1,9 +1,7 @@
 // import React, { useState } from "react";
-import { FullNoteContent, Note } from "../../types/note.types";
+import { FullNoteContent } from "../../types/note.types";
 import { Link } from "react-router-dom";
 import HistoryGeneratedVideoThumbnail from "./GeneratedVideoThumbnail";
-import { Video } from "lucide-react";
-import { useEffect } from "react";
 
 const NotesHistoryCard = ({
   id,
