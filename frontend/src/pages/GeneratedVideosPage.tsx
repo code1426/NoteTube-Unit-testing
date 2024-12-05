@@ -1,6 +1,6 @@
 import Header from "../components/Header/Header";
 
-const VideoGeneratorPage = () => {
+const GeneratedVideosPage = () => {
   const noteTitle = "Note Title Sample";
 
   return (
@@ -73,4 +73,4 @@ const VideoGeneratorPage = () => {
   );
 };
 
-export default VideoGeneratorPage;
+export default GeneratedVideosPage;
