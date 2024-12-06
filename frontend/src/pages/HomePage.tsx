@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 import GreetingsBanner from "@/components/Header/GreetingsBanner";
@@ -29,16 +28,6 @@ const HomePage = () => {
   const { insertVideos } = useCreateVideos();
   const { createDeck } = useCreateDeck();
   const { createFlashcard } = useCreateFlashcard();
-
-  const [showBanner, setShowBanner] = useState(false);
-
-  useEffect(() => {
-    if (!loadingUser && user) {
-      setShowBanner(true);
-      const timer = setTimeout(() => setShowBanner(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [loadingUser, user]);
 
   const handleAddFlashcards = async (
     deckId: string,
@@ -195,14 +184,10 @@ const HomePage = () => {
     <>
       <Toaster />
       <div className="relative w-full min-h-screen bg-white overflow-auto flex flex-col scrollbar-custom h-screen">
-        {showBanner && (
-          <div className="fixed top-4 right-11 z-50">
-            <GreetingsBanner
-              isHomePage={true}
-              username={user.username || "Guest"}
-            />
-          </div>
-        )}
+        <GreetingsBanner
+          isHomePage={true}
+          username={user.username || "Guest"}
+        />
         <Header
           isHomepage={true}
           isFlashCardsPage={false}
