@@ -28,6 +28,7 @@ jobs:
           touch .env
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
           echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+          echo "MEMORY_STORAGE_FOLDER=${{ secrets.MEMORY_STORAGE_FOLDER }}" >> .env
 
       - name: Install dependencies
         run: |
