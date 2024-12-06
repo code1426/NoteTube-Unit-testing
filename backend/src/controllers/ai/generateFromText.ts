@@ -1,60 +1,22 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { GoogleAIFileManager } from "@google/generative-ai/server";
-import * as dotenv from "dotenv";
+import { AIResponse } from "../../types/ai.types";
 
-import generateSummary from "../../utils/outputSchemas/generateSummary";
-import generateFlashcards from "../../utils/outputSchemas/generateFlashcards";
-import { GenerateFromTextProps } from "../../types/ai.types";
+import generateAIResponse from "../../utils/gemini/generateAIResponse";
 
-dotenv.config();
-
-const config = {
-  summary: {
-    prompt:
-      "You are a professional teacher with a specialization in summarization. Make a summary of the following notes: ",
-    schema: generateSummary,
-  },
-  flashcards: {
-    prompt:
-      "You are a professional teacher with a specialization in flashcards. Make flashcards of the following notes: ",
-    schema: generateFlashcards,
-  },
-};
-
-const apiKey = process.env.GEMINI_API_KEY;
-if (!apiKey) {
-  throw new Error("GEMINI_API_KEY is not defined in the environment variables");
-}
-
-const genAI = new GoogleGenerativeAI(apiKey);
-
-const generateFromText = async ({
-  input,
-  outputOption,
-}: GenerateFromTextProps) => {
+const generateFromText = async (input: string): Promise<AIResponse> => {
   try {
-    const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-      generationConfig: {
-        responseMimeType: "application/json",
-      },
-    });
-
-    model.generationConfig.responseSchema = config[outputOption].schema;
-
-    const result = await model.generateContent(
-      config[outputOption].prompt + input,
+    const summaryResult = await generateAIResponse(input, "summary").then(
+      (result) => JSON.parse(result),
     );
 
-    const parsedResult = JSON.parse(result.response.text());
-    return parsedResult;
+    const flashcardsResult = await generateAIResponse(input, "flashcards").then(
+      (result) => JSON.parse(result),
+    );
+
+    return { summary: summaryResult, flashcards: flashcardsResult };
   } catch (error) {
-    // console.error("Error generating AI response:", error);
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    } else {
-      throw new Error("An unknown error occurred");
-    }
+    throw new Error(
+      error instanceof Error ? error.message : "An unknown error occurred",
+    );
   }
 };
 

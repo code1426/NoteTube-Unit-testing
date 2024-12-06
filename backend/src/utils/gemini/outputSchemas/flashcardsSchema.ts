@@ -3,7 +3,7 @@ import { Schema, SchemaType } from "@google/generative-ai";
 const generateFlashcards: Schema = {
   type: SchemaType.OBJECT,
   properties: {
-    flashcards: {
+    items: {
       description: "A list of flashcards about the given notes.",
       type: SchemaType.ARRAY,
       items: {
@@ -27,7 +27,7 @@ const generateFlashcards: Schema = {
       },
     },
   },
-  required: ["flashcards"],
+  required: ["items"],
 };
 
 export default generateFlashcards;

@@ -1,13 +1,17 @@
+import { Part } from "@google/generative-ai";
+
+export type AIInputType = Part[] | string;
+
 export type AIOutputOption = "summary" | "flashcards";
 
-export interface GenerateFromTextProps {
-  input: string;
+export interface AIInput {
+  input: AIInputType;
   outputOption: AIOutputOption;
 }
 
-export interface GenerateFromFilesProps {
-  files: Express.Multer.File[];
-  outputOption: AIOutputOption;
+export interface AIResponse {
+  summary: GenerateSummaryResponse;
+  flashcards: GenerateFlashcardsResponse;
 }
 
 export interface GenerateSummaryResponse {
@@ -23,8 +27,3 @@ export interface GeneratedFlashcard {
 export interface GenerateFlashcardsResponse {
   flashcards: Array<GeneratedFlashcard>;
 }
-
-export type AIResponse =
-  | null
-  | GenerateSummaryResponse
-  | GenerateFlashcardsResponse;
