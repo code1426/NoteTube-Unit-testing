@@ -1,3 +1,4 @@
+import { GoogleGenerativeAIError } from "@google/generative-ai";
 import { AIInputType, AIOutputOption } from "../../types/ai.types";
 import { config, model } from "./initializeGemini";
 
@@ -14,7 +15,7 @@ const generateAIResponse = async (
         .generateContent(config[outputOption].prompt + input)
         .catch((error) => {
           throw new Error(
-            error instanceof Error
+            error instanceof GoogleGenerativeAIError
               ? error.message
               : "Unknown error on generating summary",
           );
@@ -27,11 +28,11 @@ const generateAIResponse = async (
       const result = await model
         .generateContent([
           ...input.filter((file) => file !== null),
-          { text: config["flashcards"].prompt },
+          { text: config[outputOption].prompt },
         ])
         .catch((error) => {
           throw new Error(
-            error instanceof Error
+            error instanceof GoogleGenerativeAIError
               ? error.message
               : "Unknown error on generating flashcards",
           );

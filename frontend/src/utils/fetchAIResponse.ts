@@ -16,9 +16,7 @@ const fetchAIResponse = async (props: GenerateAIResponseProps) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(
-          errorData instanceof Error ? errorData.message : "Unknown error",
-        );
+        throw new Error(errorData.message);
       }
       const result = (await response.json()) as AIResponse;
       console.log(result);
@@ -41,9 +39,7 @@ const fetchAIResponse = async (props: GenerateAIResponseProps) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(
-          errorData instanceof Error ? errorData.message : "Unknown error",
-        );
+        throw new Error(errorData.message);
       }
       const result = (await response.json()) as AIResponse;
       console.log(result);
