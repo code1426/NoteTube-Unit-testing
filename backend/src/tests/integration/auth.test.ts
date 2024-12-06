@@ -10,7 +10,7 @@ describe("The user registration endpoint", () => {
     password: "passwordKo12345",
   };
   const duplicateUsername = {
-    username: "shish",
+    username: "dupe",
     email: "testing@test.com",
     password: "passwordKo123456",
   };
@@ -53,7 +53,7 @@ describe("The user registration endpoint", () => {
   it("should return an error if the username is already taken", async () => {
     await pool.query(
       "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3)",
-      [testUser.username, testUser.email, testUser.password],
+      [duplicateUsername.username, testUser.email, testUser.password],
     );
     const response = await request(app).post(baseRoute).send(duplicateUsername);
 
@@ -68,7 +68,7 @@ describe("The user registration endpoint", () => {
   it("should return an error if the email is already in use", async () => {
     await pool.query(
       "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3)",
-      [testUser.username, testUser.email, testUser.password],
+      [testUser.username, duplicateEmail.email, testUser.password],
     );
     const response = await request(app).post(baseRoute).send(duplicateEmail);
 
