@@ -82,7 +82,11 @@ const App = () => {
           <Route
             path="/"
             element={
-              !isAuthenticated ? <LandingPage /> : <Navigate to="/home" />
+              !isAuthenticated ? (
+                <LandingPage />
+              ) : (
+                <Navigate to="/upload-notes" />
+              )
             }
           />
           <Route
@@ -91,7 +95,7 @@ const App = () => {
               !isAuthenticated ? (
                 <LoginPage setAuth={setIsAuthenticated} />
               ) : (
-                <Navigate to="/home" />
+                <Navigate to="/upload-notes" />
               )
             }
           />
@@ -101,7 +105,7 @@ const App = () => {
               !isAuthenticated ? (
                 <RegisterPage setAuth={setIsAuthenticated} />
               ) : (
-                <Navigate to="/home" />
+                <Navigate to="/upload-notes" />
               )
             }
           />
