@@ -13,7 +13,7 @@ const applySortingAndFilteringToDecks = (
     sortedFilteredarray = sortedFilteredarray.sort((a, b) => {
       const dateA = new Date(a["created_at"]!).getTime() || 0;
       const dateB = new Date(b["created_at"]!).getTime() || 0;
-      return dateA - dateB;
+      return dateB - dateA;
     });
   }
 
@@ -22,7 +22,7 @@ const applySortingAndFilteringToDecks = (
     sortedFilteredarray = sortedFilteredarray.sort((a, b) => {
       const dateA = new Date(a["created_at"]!).getTime() || 0;
       const dateB = new Date(b["created_at"]!).getTime() || 0;
-      return dateB - dateA;
+      return dateA - dateB;
     });
   }
 

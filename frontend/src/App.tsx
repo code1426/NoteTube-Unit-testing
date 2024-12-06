@@ -13,7 +13,7 @@ import ProfilePage from "./pages/ProfilePage";
 import LoadingScreen from "./components/LoadingScreen";
 import SideBarLayout from "./components/Sidebar/Layout";
 import NotesHistoryPage from "./pages/NotesHistoryPage";
-import VideoGeneratorPage from "./pages/VideoGeneratorPage";
+import GeneratedVideosPage from "./pages/GeneratedVideosPage";
 
 import useUserVerification from "./hooks/auth/useUserVerification";
 
@@ -71,7 +71,7 @@ const App = () => {
             <Route
               path="/video-generator"
               element={
-                isAuthenticated ? <VideoGeneratorPage /> : <Navigate to="/" />
+                isAuthenticated ? <GeneratedVideosPage /> : <Navigate to="/" />
               }
             />
           </Route>
