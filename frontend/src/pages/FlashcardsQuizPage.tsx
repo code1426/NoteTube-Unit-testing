@@ -32,8 +32,8 @@ const FlashcardsQuizPage = () => {
   return (
     <>
       <Toaster />
-      <div>
-        <div className="bg-white h-screen flex flex-col justify-center items-center p-5">
+      <div className="w-full">
+        <div className="bg-white w-full h-screen flex flex-col justify-center items-center p-5">
           <div className="absolute top-5 right-5">
             <ReturnButton />
           </div>

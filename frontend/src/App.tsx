@@ -16,6 +16,7 @@ import NotesHistoryPage from "./pages/NotesHistoryPage";
 import GeneratedVideosPage from "./pages/GeneratedVideosPage";
 
 import useUserVerification from "./hooks/auth/useUserVerification";
+import useUser from "./hooks/auth/useUser";
 
 const App = () => {
   const {
@@ -23,8 +24,9 @@ const App = () => {
     setIsAuthenticated,
     loading: loadingVerification,
   } = useUserVerification();
+  const { loading: loadingUser } = useUser();
 
-  return loadingVerification ? (
+  return loadingVerification || loadingUser ? (
     <LoadingScreen />
   ) : (
     <StrictMode>
@@ -33,7 +35,7 @@ const App = () => {
           {/* routes with sidebar */}
           <Route element={<SideBarLayout />}>
             <Route
-              path="/home"
+              path="/upload-notes"
               element={isAuthenticated ? <HomePage /> : <Navigate to="/" />}
             />
             <Route
@@ -63,13 +65,13 @@ const App = () => {
               element={isAuthenticated ? <ProfilePage /> : <Navigate to="/" />}
             />
             <Route
-              path="/history"
+              path="/notes-history"
               element={
                 isAuthenticated ? <NotesHistoryPage /> : <Navigate to="/" />
               }
             />
             <Route
-              path="/video-generator"
+              path="/generated-videos"
               element={
                 isAuthenticated ? <GeneratedVideosPage /> : <Navigate to="/" />
               }
