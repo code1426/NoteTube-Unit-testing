@@ -23,10 +23,11 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: |
-          npm ci
-          cd frontend && npm ci
-          cd ../backend && npm ci
+        run:
+          npm run install-all
+
+          # cd frontend && npm ci
+          # cd ../backend && npm ci
 
       - name: Lint project
         run: |
