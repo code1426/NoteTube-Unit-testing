@@ -21,14 +21,14 @@ const fetchAIResponse = async (props: GenerateAIResponseProps) => {
       const result = (await response.json()) as AIResponse;
       console.log(result);
       return result;
-    } else if (props.input instanceof File) {
-      const blob = new Blob([props.input], { type: props.input.type });
+    } else if (props.input instanceof FileList) {
       const formData = new FormData();
 
-      formData.append("files", blob, props.input.name);
-      formData.append("outputOption", props.outputOption);
+      [...props.input].map((file) => {
+        const blob = new Blob([file], { type: file.type });
+        formData.append("files", blob, file.name);
+      });
 
-      console.log("FormData:", Array.from(formData.entries()));
       const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}/ai/file`,
         {
