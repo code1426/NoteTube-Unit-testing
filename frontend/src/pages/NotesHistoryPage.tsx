@@ -34,7 +34,7 @@ const NotesHistoryPage = () => {
   }
 
   return (
-    <div className="relative bg-white select-none overflow-auto scrollbar-custom h-screen">
+    <div className="relative w-full bg-white select-none overflow-auto scrollbar-custom h-screen">
       <Header
         isHomepage={false}
         isFlashCardsPage={false}

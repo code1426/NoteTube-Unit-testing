@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", authorization, async (request: Request, response: Response) => {
   try {
     const user = await pool.query(
-      "SELECT id, username FROM Users WHERE id = $1",
+      "SELECT id, username, email FROM Users WHERE id = $1",
       [request.user],
     );
 

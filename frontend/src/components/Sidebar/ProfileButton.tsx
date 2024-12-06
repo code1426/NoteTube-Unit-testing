@@ -1,37 +1,52 @@
-import { PiUserCircleFill } from "react-icons/pi";
-import { Link } from "react-router-dom";
 import useUser from "@/hooks/auth/useUser";
+import { SidebarMenuButton } from "../ui/sidebar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Label } from "../ui/label";
+import unfold from "@/assets/images/unfold.png";
 
-interface ProfileButtonProps {
-  isExpanded?: boolean;
+interface Props {
+  state: "expanded" | "collapsed";
+  isChild?: boolean;
 }
 
-const ProfileButton = ({ isExpanded }: ProfileButtonProps) => {
+const ProfileButton = ({ state, isChild = false }: Props) => {
   const { user } = useUser();
   const username = user?.username || "Guest";
+  const email = user?.email || "user@example.com";
+
+  const getAbbreviation = (name: string) => {
+    return name
+      .split(" ")
+      .map((name) => name[0].toUpperCase())
+      .join("");
+  };
+
+  if (!user) {
+    return <div className="flex flex-1 h-12 w-48"></div>;
+  }
 
   return (
-    <div className={`group mt-4 mb-4 ${isExpanded ? "w-auto" : "w-12"}`}>
-      <Link to="/profile" className="flex items-center">
-        <button
-          className={`hover:bg-green_hover w-auto h-auto rounded-full text-responsive flex items-center px-4 sm:px-2 md:px-1`}
-        >
-          <PiUserCircleFill className="text-white text-6xl sm:text-5xl sm-md:5xl md:text-6xl" />
-        </button>
+    <SidebarMenuButton
+      className={`outline-none cursor-pointer min-h-12 w-52 transition-all flex items-center ${isChild && "hover:bg-white active:bg-white p-0"}`}
+      variant="footer"
+      size="sm"
+    >
+      <Avatar className="border border-gray-200">
+        <AvatarFallback className="text-lg">
+          {getAbbreviation(username)}
+        </AvatarFallback>
+      </Avatar>
+
+      <div className="flex flex-row flex-1 justify-between items-center">
         <div
-          className={`text-white transition-all duration-200 ease-in-out transform whitespace-nowrap ${
-            isExpanded
-              ? "opacity-100 translate-x-3 pointer-events-auto"
-              : "opacity-0 -translate-x-3 pointer-events-none"
-          }`}
+          className={`flex flex-col items-start justify-center min-h-12 flex-shrink-0 ${state === "collapsed" && "transition-all"}`}
         >
-          <div className="font-secondaryRegular text-xl block truncate max-w-28">
-            {username}
-            {/* {userEmail} */}
-          </div>
+          <Label className="text-sm">{username}</Label>
+          <Label className="text-xs">{email}</Label>
         </div>
-      </Link>
-    </div>
+        {isChild || <img className="w-4 h-5" src={unfold} alt="" />}
+      </div>
+    </SidebarMenuButton>
   );
 };
 

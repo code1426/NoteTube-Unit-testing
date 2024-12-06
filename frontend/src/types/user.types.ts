@@ -13,4 +13,5 @@ export interface LoginData {
 export interface User {
   id: string;
   username: string;
+  email: string;
 }

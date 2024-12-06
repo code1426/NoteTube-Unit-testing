@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { Auth } from "@/context/AuthProvider";
 
 const useUserVerification = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { isAuthenticated, setIsAuthenticated } = useContext(Auth);
 
   useEffect(() => {
     const checkAuthenticated = async () => {
@@ -27,7 +30,7 @@ const useUserVerification = () => {
     checkAuthenticated().then(() => {
       setLoading(false);
     });
-  }, []);
+  }, [setIsAuthenticated]);
 
   return {
     isAuthenticated,
