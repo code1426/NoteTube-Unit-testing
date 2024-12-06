@@ -20,6 +20,14 @@ describe("The user registration endpoint", () => {
     password: "passwordKo1234567",
   };
 
+  beforeEach(async () => {
+    await pool.query("DELETE FROM Users WHERE username in ($1, $2)", [
+      // cleanup users table before testing each
+      testUser.username,
+      duplicateEmail.username,
+    ]);
+  });
+
   afterEach(async () => {
     await pool.query("DELETE FROM Users WHERE username in ($1, $2)", [
       // cleanup users table after testing each
