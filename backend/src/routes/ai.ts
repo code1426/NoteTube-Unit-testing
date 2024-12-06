@@ -1,10 +1,5 @@
 import express, { Request, Response } from "express";
 
-import {
-  GenerateFromFilesProps,
-  GenerateFromTextProps,
-} from "../types/ai.types";
-
 import generateFromFiles from "../controllers/ai/generateFromFiles";
 import generateFromText from "../controllers/ai/generateFromText";
 
@@ -28,10 +23,10 @@ const upload = multer({ storage: storage });
 
 router.post("/text", async (request: Request, response: Response) => {
   try {
-    const { input, outputOption } = request.body as GenerateFromTextProps;
+    const { text } = request.body as { text: string };
 
     // console.log("input: ", input);
-    const result = await generateFromText({ input, outputOption });
+    const result = await generateFromText(text);
     response.status(200).json(result);
   } catch (error) {
     response.status(400).json({
@@ -53,12 +48,7 @@ router.post(
         throw new Error("File is missing in formData");
       }
 
-      const { outputOption } = request.body;
-
-      const result = await generateFromFiles({
-        files,
-        outputOption,
-      });
+      const result = await generateFromFiles(files);
       response.status(200).json(result);
     } catch (error) {
       response.status(400).json({

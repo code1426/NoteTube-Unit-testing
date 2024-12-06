@@ -8,21 +8,27 @@ import LoadingScreen from "../components/LoadingScreen";
 
 import type {
   GenerateAIResponseProps,
-  GenerateSummaryResponse,
+  GeneratedFlashcard,
 } from "@/types/ai.types";
 import { Video } from "@/types/video.types";
+import { Deck } from "@/types/deck.types";
 
 import useUser from "@/hooks/auth/useUser";
 import useCreateNote from "@/hooks/Notes/useCreateNote";
 import useCreateVideos from "@/hooks/Videos/useCreateVideo";
+import useCreateDeck from "@/hooks/Decks/useCreateDeck";
+import useCreateFlashcard from "@/hooks/Flashcards/useCreateFlashcard";
 
 import getVideoSuggestions from "@/utils/getVideoSuggestions";
 import fetchAIResponse from "@/utils/fetchAIResponse";
+import { Flashcard } from "@/types/flashcard.types";
 
 const HomePage = () => {
   const { user, loading: loadingUser } = useUser();
   const { createNote } = useCreateNote();
   const { insertVideos } = useCreateVideos();
+  const { createDeck } = useCreateDeck();
+  const { createFlashcard } = useCreateFlashcard();
 
   const [showBanner, setShowBanner] = useState(false);
 
@@ -34,19 +40,57 @@ const HomePage = () => {
     }
   }, [loadingUser, user]);
 
-  const handleAddVideos = async (noteId: string | null, videoList: Video[]) => {
+  const handleAddFlashcards = async (
+    deckId: string,
+    generatedFlashcards: GeneratedFlashcard[],
+  ) => {
     try {
-      if (!user?.id) {
-        throw new Error("No user ID found");
+      console.log(generatedFlashcards);
+      const flashcards = generatedFlashcards.map((item) => ({
+        id: "",
+        ...item,
+        deckId,
+      }));
+
+      flashcards.map(async (flashcard: Flashcard) => {
+        const result = await createFlashcard(flashcard);
+
+        if (result.error) {
+          throw new Error(result.error);
+        }
+      });
+    } catch (error) {
+      toast.error("Error creating flashcards: " + error);
+      return;
+    }
+  };
+
+  const handleCreateDeck = async (deckData: Deck) => {
+    try {
+      const result = await createDeck({ ...deckData });
+
+      if (result.error) {
+        throw new Error(result.error);
       }
 
+      return result.deck;
+    } catch (error) {
+      toast.error("Error creating deck: " + error);
+      return;
+    }
+  };
+
+  const handleAddVideos = async (noteId: string | null, videoList: Video[]) => {
+    try {
       if (!noteId) {
         throw new Error("No note ID found");
       }
 
-      const result = await insertVideos(noteId, videoList);
+      const result = await insertVideos(noteId, videoList).catch((error) => {
+        throw new Error("Failed to add videos: " + error);
+      });
 
-      result?.map((video, index) =>
+      result.map((video, index) =>
         console.log(
           `LINK ${index + 1}: https://www.youtube.com/watch?v=${video.videoId}`,
         ),
@@ -67,30 +111,62 @@ const HomePage = () => {
         throw new Error("No user ID found");
       }
 
-      loadingToast = toast.loading("Generating summary...");
+      // generate summary
+      loadingToast = toast.loading("Generating AI response...");
 
-      const summaryResponse = (await fetchAIResponse(
-        note,
-      )) as GenerateSummaryResponse;
+      const AIresponse = await fetchAIResponse(note).catch((error) => {
+        throw new Error("Failed to fetch AI response: " + error);
+      });
 
-      if (!summaryResponse) {
+      if (!AIresponse?.summary) {
         throw new Error("Failed to generate summary");
       }
-      console.log(summaryResponse);
+
+      if (!AIresponse?.flashcards) {
+        throw new Error("Failed to generate flashcards");
+      }
+
+      const summary = AIresponse.summary;
+
+      console.log(summary);
       toast.dismiss(loadingToast);
 
+      // get video suggestions
       loadingToast = toast.loading("Getting video suggestions...");
-      const suggestedVideos = await getVideoSuggestions(
-        summaryResponse.content,
-      ).then((videos) => videos?.slice(0, 5)); // get 5 videos
+      const suggestedVideos = await getVideoSuggestions(summary.content).then(
+        (videos) => videos?.slice(0, 5),
+      ); // get 5 videos
 
       if (!suggestedVideos) {
         throw new Error("Failed to get video suggestions");
       }
       toast.dismiss(loadingToast);
 
+      // create deck from note
+      loadingToast = toast.loading("Creating deck ...");
+      const deckData: Deck = {
+        id: "",
+        deckName: summary.title,
+        color: "green",
+        userId: user.id,
+      };
+      const createdDeck = await handleCreateDeck(deckData);
+
+      if (!createdDeck) {
+        throw new Error("Failed to create deck");
+      }
+
+      toast.dismiss(loadingToast);
+
+      // create flashcards to created deck
+      loadingToast = toast.loading("Creating flashcards...");
+
+      handleAddFlashcards(createdDeck.id, AIresponse.flashcards.items);
+
+      toast.dismiss(loadingToast);
+
       loadingToast = toast.loading("Creating note...");
-      const result = await createNote({ ...summaryResponse, userId: user.id });
+      const result = await createNote({ ...summary, userId: user.id });
 
       if (result.error) {
         throw new Error(result.error);
@@ -98,6 +174,7 @@ const HomePage = () => {
 
       toast.dismiss(loadingToast);
 
+      // add videos to note
       handleAddVideos(result.note?.id || null, suggestedVideos);
       toast.success("Note created successfully");
     } catch (error) {
