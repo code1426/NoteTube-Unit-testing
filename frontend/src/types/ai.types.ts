@@ -5,6 +5,11 @@ export interface GenerateAIResponseProps {
   outputOption: AIOutputOption;
 }
 
+export interface AIResponse {
+  summary: GenerateSummaryResponse;
+  flashcards: GenerateFlashcardsResponse;
+}
+
 export interface GenerateSummaryResponse {
   title: string;
   content: string;
@@ -16,10 +21,5 @@ export interface GeneratedFlashcard {
 }
 
 export interface GenerateFlashcardsResponse {
-  flashcards: Array<GeneratedFlashcard>;
+  items: Array<GeneratedFlashcard>;
 }
-
-export type AIResponse =
-  | null
-  | GenerateSummaryResponse
-  | GenerateFlashcardsResponse;

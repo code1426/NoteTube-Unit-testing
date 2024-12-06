@@ -39,8 +39,7 @@ const useCreateVideos = () => {
       );
       return videoDataList;
     } catch (error) {
-      console.error(error);
-      return null;
+      throw new Error(error instanceof Error ? error.message : "Unknown error");
     } finally {
       setLoading(false);
     }
