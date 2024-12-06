@@ -20,12 +20,15 @@ describe("The user registration endpoint", () => {
     password: "passwordKo1234567",
   };
 
-  afterAll(async () => {
-    await pool.query("DELETE FROM Users WHERE username IN ($1, $2)", [
-      // cleanup users table after testing all
+  afterEach(async () => {
+    await pool.query("DELETE FROM Users WHERE username in ($1, $2)", [
+      // cleanup users table after testing each
       testUser.username,
       duplicateEmail.username,
     ]);
+  });
+
+  afterAll(async () => {
     await pool.end(); // close the db connection after testing all
   });
 
@@ -40,6 +43,10 @@ describe("The user registration endpoint", () => {
 
   // ADDING A NEW USER WITH THE SAME USERNAME
   it("should return an error if the username is already taken", async () => {
+    await pool.query(
+      "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3)",
+      [testUser.username, testUser.email, testUser.password],
+    );
     const response = await request(app).post(baseRoute).send(duplicateUsername);
 
     expect(response.status).toBe(401);
@@ -51,6 +58,10 @@ describe("The user registration endpoint", () => {
 
   // ADDING A NEW USER WITH THE SAME EMAIL
   it("should return an error if the email is already in use", async () => {
+    await pool.query(
+      "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3)",
+      [testUser.username, testUser.email, testUser.password],
+    );
     const response = await request(app).post(baseRoute).send(duplicateEmail);
 
     expect(response.status).toBe(401);
