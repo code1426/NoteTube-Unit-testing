@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
-        env:
+        secrets:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
