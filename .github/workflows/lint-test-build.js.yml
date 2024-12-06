@@ -22,16 +22,31 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
+      - name: Create backend .env file
+        run: |
+          cd backend
+          touch .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+          echo "MEMORY_STORAGE_FOLDER=${{ secrets.MEMORY_STORAGE_FOLDER }}" >> .env
+
       - name: Install dependencies
         run: |
           npm ci
           cd frontend && npm ci
           cd ../backend && npm ci
 
-      - name: Lint project
-        run: |
-          npm run lint-frontend
-          npm run lint-backend
+      - name: Lint frontend
+        run: npm run lint-frontend
+
+      - name: Lint backend
+        run: npm run lint-backend
+
+      - name: Test backend
+        run: npm run test-backend
 
       - name: Build frontend
         run: npm run build-frontend
+
+      - name: Build backend
+        run: npm run build-backend
