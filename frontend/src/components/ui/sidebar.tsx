@@ -522,7 +522,7 @@ const sidebarMenuButtonVariants = cva(
   {
     variants: {
       variant: {
-        header: "bg-green",
+        header: "hover:bg-white active:bg-white active:text-bg-green",
         footer: "[collapsible=icon]:!p-1",
         default: "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
         outline:

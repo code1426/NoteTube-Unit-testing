@@ -65,7 +65,7 @@ const FlashcardsPage: React.FC = () => {
   return (
     <>
       <Toaster />
-      <div className="bg-white relative">
+      <div className="bg-white relative w-full">
         <Header
           isHomepage={false}
           isFlashCardsPage={true}

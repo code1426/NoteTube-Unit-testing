@@ -7,8 +7,8 @@ const Layout = () => {
   return (
     <SidebarProvider defaultOpen={false}>
       <AppSidebar />
-      <main className="flex">
-        <SidebarTrigger className="my-4 mx-2" />
+      <main className="flex flox-col w-full">
+        <SidebarTrigger className="my-4 mx-2 border border-gray-100 shadow shadow-gray-300 p-4" />
         <Outlet />
       </main>
     </SidebarProvider>

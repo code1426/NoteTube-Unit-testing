@@ -34,7 +34,7 @@ const NotePage: React.FC = () => {
   console.log("Videos: ", noteVideos);
 
   return (
-    <div className="bg-white relative font-secondaryRegular">
+    <div className="bg-white relative font-secondaryRegular w-full">
       <Header
         isHomepage={false}
         isFlashCardsPage={false}
