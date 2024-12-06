@@ -24,12 +24,14 @@ jobs:
 
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
       - name: Create backend .env file
         run: |
           cd backend
           touch .env
           echo "DATABASE_URL=$DATABASE_URL" >> .env
+          echo "GEMINI_API_KEY=$GEMINI_API_KEY" >> .env
 
       - name: Install dependencies
         run: |
