@@ -27,24 +27,6 @@ const EditProfile: React.FC<OverlayProps> = ({ onClose }) => {
           >
             Change Username
           </div>
-          <div
-            id="change-profile-picture"
-            className="border-4 border-green rounded-lg p-3 cursor-pointer hover:bg-green-100"
-          >
-            Change Profile Picture
-          </div>
-          <div
-            id="change-cover-picture"
-            className="border-4 border-green rounded-lg p-3 cursor-pointer hover:bg-green-100"
-          >
-            Change Cover Picture
-          </div>
-          <div
-            id="change-bio"
-            className="border-4 border-green rounded-lg p-3 cursor-pointer hover:bg-green-100"
-          >
-            Change Bio
-          </div>
         </div>
 
         {/* Close Button */}
