@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from "react";
-import { Auth } from "@/context/AuthProvider";
+import { AuthContext } from "@/context/Contexts";
 
 const useUserVerification = () => {
   // const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const { isAuthenticated, setIsAuthenticated } = useContext(Auth);
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     const checkAuthenticated = async () => {
