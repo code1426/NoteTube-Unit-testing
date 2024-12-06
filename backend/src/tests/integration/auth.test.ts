@@ -21,19 +21,16 @@ describe("The user registration endpoint", () => {
   };
 
   beforeEach(async () => {
-    await pool.query("DELETE FROM Users WHERE username in ($1, $2)", [
-      // cleanup users table before testing each
+    await pool.query("BEGIN");
+    await pool.query("DELETE FROM Users WHERE username IN ($1, $2, $3)", [
       testUser.username,
+      duplicateUsername.username,
       duplicateEmail.username,
     ]);
   });
 
   afterEach(async () => {
-    await pool.query("DELETE FROM Users WHERE username in ($1, $2)", [
-      // cleanup users table after testing each
-      testUser.username,
-      duplicateEmail.username,
-    ]);
+    await pool.query("ROLLBACK");
   });
 
   afterAll(async () => {
