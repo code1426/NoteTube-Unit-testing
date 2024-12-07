@@ -66,8 +66,8 @@ const Header: React.FC<SubHeaderProps> = ({
   };
 
   return (
-    <div className="px-6 sticky top-0 z-30">
-      <div className="subheader py-4 px-4 flex justify-between items-center select-none flex-col max-h-36 md:flex-row rounded-b-xl bg-white border-b-2  border-green mb-8 shadow-lg shadow-zinc-400">
+    <div className="sticky top-0 mt-16 mb-4">
+      <div className="subheader h-16 px-10 flex flex-row justify-between items-center select-none ">
         <div className="text-black flex gap-3 font-secondaryRegular align-middle items-center text-responsive">
           {!isHomepage && (
             <button

@@ -28,7 +28,7 @@ const LogoutConfirmation = ({ children }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>{children}</AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent title="log out">
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure you want to log out?</AlertDialogTitle>
           <AlertDialogDescription>

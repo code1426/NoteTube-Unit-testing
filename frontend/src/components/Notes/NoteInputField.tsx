@@ -9,6 +9,7 @@ import {
 import toast from "react-hot-toast";
 
 import { GenerateAIResponseProps } from "../../types/ai.types";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface NoteInputFieldProps {
   onSubmit: (props: GenerateAIResponseProps) => void;
@@ -146,17 +147,19 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
     }
   };
 
+  const isMobile = useIsMobile();
+
   return (
-    <div className="textInputSection w-[87%]  self-center select-none pb-8">
+    <div className="textInputSection w-5/6 h-3/4 self-center select-none">
       <div
         className="rounded-lg border-4 border-green flex flex-col 
-      shadow-xl shadow-gray-400"
+      shadow-md shadow-gray-400"
       >
         {" "}
         {!selectedFiles ? (
           <textarea
             ref={textareaRef}
-            className="textBox h-80 p-3 rounded border-2 outline-green_dark border-green text-black justify-left text-responsive font-primaryRegular overflow-y-scroll resize-none scrollbar-custom"
+            className="textBox h-[50vh] p-3 rounded border-2 outline-green_dark border-green text-black justify-left text-responsive font-primaryRegular overflow-y-scroll resize-none"
             placeholder="Input text here"
             value={text}
             disabled={!!selectedFiles}
@@ -171,51 +174,52 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
             ))}
           </div>
         )}
-        <div className="editText text-gray-400 text-sm mt-2 flex justify-between">
-          <div className="flex gap-2">
+        <div className="editText text-gray-400 text-sm flex justify-between p-2">
+          <div className="flex gap-1">
+            <label className="p-2 text-black hover:bg-gray-200 rounded flex">
+              <PiPaperclip size={32} />
+              {/* <span className="ml-2">Attach Files</span> */}
+              <input
+                type="file"
+                className="hidden"
+                onChange={handleChangeFiles}
+                accept=".pdf,.txt,.jpeg,.png,.jpg"
+                multiple
+                max={4}
+              />
+            </label>
+
             <button
               className="p-2 text-black hover:bg-gray-200 rounded"
               onClick={createBulletedList}
               disabled={selectedFiles !== null}
             >
-              <PiListBold size={40} />
+              <PiListBold size={32} />
             </button>
             <button
               className="p-2 text-black hover:bg-gray-200 rounded"
               onClick={createNumberedList}
               disabled={selectedFiles !== null}
             >
-              <PiListNumbersBold size={40} />
+              <PiListNumbersBold size={32} />
+            </button>
+
+            <button
+              className={`p-2 text-black hover:bg-gray-200 rounded ${text === "" && "hidden"}`}
+              onClick={clearField}
+            >
+              <PiTrash size={32} />
             </button>
           </div>
+
           <button
-            className="p-2 text-black hover:bg-gray-200 rounded"
-            onClick={clearField}
+            className="px-4 py-2 flex flex-row items-center justify-center gap-2 bg-green text-white hover:bg-green_hover rounded-lg text-xl font-secondaryRegular transition-all active:bg-gray-200"
+            onClick={handleUploadNote}
           >
-            <PiTrash size={40} />
+            <PiUpload size={32} />
+            {isMobile || "Upload"}
           </button>
         </div>
-      </div>
-      <div className="p-5 flex justify-between items-center gap-4">
-        <label className="shadow-md shadow-gray-400 px-6 py-3 flex items-center bg-green hover:bg-green_hover text-white rounded-lg text-responsive font-secondaryRegular cursor-pointer transition-all active:bg-green_hover">
-          <PiPaperclip size={30} />
-          <span className="ml-2">Attach Files</span>
-          <input
-            type="file"
-            className="hidden"
-            onChange={handleChangeFiles}
-            accept=".pdf,.txt,.jpeg,.png,.jpg"
-            multiple
-            max={4}
-          />
-        </label>
-        <button
-          className="shadow-md shadow-gray-400 px-6 py-3 flex gap-2 border-2 border-green hover:bg-gray-200 text-black rounded-lg text-responsive font-secondaryRegular transition-all active:bg-gray-200"
-          onClick={handleUploadNote}
-        >
-          <PiUpload size={30} />
-          Upload
-        </button>
       </div>
     </div>
   );

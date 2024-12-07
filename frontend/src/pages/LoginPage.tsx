@@ -175,7 +175,7 @@ const LoginPage = ({ setAuth }: Props) => {
                 {loading ? (
                   <Spinner size={12} color="#fff" animating={true} />
                 ) : (
-                  "Sign Up"
+                  "Log in"
                 )}
               </Button>
             </form>
