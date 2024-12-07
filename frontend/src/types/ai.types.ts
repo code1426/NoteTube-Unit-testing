@@ -2,7 +2,6 @@ export type AIOutputOption = "summary" | "flashcards";
 
 export interface GenerateAIResponseProps {
   input: FileList | string;
-  outputOption: AIOutputOption;
 }
 
 export interface AIResponse {

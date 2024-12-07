@@ -11,7 +11,6 @@ const generateAIResponse = async (
 
     // if input is text
     if (typeof input === "string") {
-      console.log("Generating summary");
       const result = await model
         .generateContent(config[outputOption].prompt + input)
         .catch((error) => {
