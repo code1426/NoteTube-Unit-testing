@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "@/context/Contexts";
 import type { User } from "../../types/user.types";
 
 interface ErrorDetails {
@@ -6,7 +7,8 @@ interface ErrorDetails {
 }
 
 const useUser = () => {
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
+  const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,7 +39,7 @@ const useUser = () => {
     };
 
     getUser();
-  }, []);
+  }, [setUser]);
 
   return { user, setUser, loading, error };
 };

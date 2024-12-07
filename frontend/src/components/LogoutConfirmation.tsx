@@ -10,14 +10,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { ReactNode, useContext } from "react";
-import { Auth } from "@/context/AuthProvider";
+import { AuthContext } from "@/context/Contexts";
 
 interface Props {
   children: ReactNode;
 }
 
 const LogoutConfirmation = ({ children }: Props) => {
-  const { setIsAuthenticated } = useContext(Auth);
+  const { setIsAuthenticated } = useContext(AuthContext);
 
   const handleLogout = () => {
     localStorage.removeItem("hasShownBanner");

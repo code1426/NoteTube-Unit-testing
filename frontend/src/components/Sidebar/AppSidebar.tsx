@@ -12,6 +12,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import ProfileButton from "./ProfileButton";
 import LogoutConfirmation from "../LogoutConfirmation";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import {
   Sidebar,
@@ -40,7 +41,7 @@ import {
 const items = [
   {
     title: "Upload notes",
-    url: "/home",
+    url: "/upload-notes",
     icon: upload,
   },
   {
@@ -50,22 +51,23 @@ const items = [
   },
   {
     title: "Notes",
-    url: "/history",
+    url: "/notes-history",
     icon: notes,
   },
   {
     title: "Generated Videos",
-    url: "/video-generator",
+    url: "/generated-videos",
     icon: videos,
   },
 ];
 
 const AppSidebar = () => {
   const { toggleSidebar, state } = useSidebar();
+  const isMobile = useIsMobile();
   const location = useLocation();
 
   return (
-    <Sidebar variant="floating" collapsible="icon">
+    <Sidebar variant="sidebar" collapsible="icon">
       <SidebarHeader>
         <SidebarMenuButton
           variant="header"
@@ -122,10 +124,9 @@ const AppSidebar = () => {
             <ProfileButton state={state} />
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            side="right"
+            side={`${isMobile ? "top" : "right"}`}
             sideOffset={12}
-            align="start"
-            alignOffset={12}
+            align="center"
             avoidCollisions={true}
             className="mb-2"
           >

@@ -1,10 +1,9 @@
 import express, { Request, Response } from "express";
+import multer from "multer";
+import * as dotenv from "dotenv";
 
 import generateFromFiles from "../controllers/ai/generateFromFiles";
 import generateFromText from "../controllers/ai/generateFromText";
-
-import multer from "multer";
-import * as dotenv from "dotenv";
 
 dotenv.config();
 const router = express.Router();

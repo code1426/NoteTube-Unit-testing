@@ -16,16 +16,21 @@ interface NoteInputFieldProps {
 
 const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
   const [text, setText] = useState("");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
 
-  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    if (file) {
+  const handleChangeFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files ? e.target.files : null;
+    if (files) {
+      if (files.length > 4) {
+        toast.error("Please upload up to 4 files at a time.");
+        return;
+      }
+
       const supportedFileTypes = [
         "application/pdf",
         "text/plain",
@@ -33,17 +38,22 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
         "image/png",
       ];
 
-      if (!supportedFileTypes.includes(file.type)) {
-        toast.error(
-          "Unsupported file type. Please upload a PDF, JPEG, JPG, PNG, or text file.",
-        );
-        return;
-      }
-      if (file.size > 10 * 1024 ** 2) {
-        toast.error("File size exceeds 10MB. Please upload a smaller file.");
-        return;
-      }
-      setSelectedFile(file);
+      [...files].map((file) => {
+        if (!supportedFileTypes.includes(file.type)) {
+          toast.error(
+            `${file.name} has an unsupported file type. Please upload a PDF, JPEG, JPG, PNG, or text file.`,
+          );
+          return;
+        }
+        if (file.size > 10 * 1024 ** 2) {
+          toast.error(
+            `${file.name} exceeds 10MB. Please upload a smaller file.`,
+          );
+          return;
+        }
+      });
+
+      setSelectedFiles(files);
       setText("");
     }
   };
@@ -63,28 +73,28 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
 
   const handleUploadFile = async () => {
     try {
-      if (!selectedFile) {
-        throw new Error("Please select a file to upload.");
+      if (!selectedFiles) {
+        throw new Error("Please select files to upload.");
       }
 
       onSubmit({
-        input: selectedFile,
+        input: selectedFiles,
         outputOption: "summary",
       });
 
-      setSelectedFile(null);
+      setSelectedFiles(null);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Unknown error");
     }
   };
 
   const handleUploadNote = () => {
-    if (!text && !selectedFile) {
+    if (!text && !selectedFiles) {
       toast.error("Please enter some text or upload a file.");
       return;
     }
 
-    if (selectedFile) {
+    if (selectedFiles) {
       handleUploadFile();
     } else {
       handleUploadText();
@@ -93,7 +103,7 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
 
   const clearField = () => {
     setText("");
-    setSelectedFile(null);
+    setSelectedFiles(null);
   };
 
   const createBulletedList = () => {
@@ -143,20 +153,22 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
       shadow-xl shadow-gray-400"
       >
         {" "}
-        {!selectedFile ? (
+        {!selectedFiles ? (
           <textarea
             ref={textareaRef}
             className="textBox h-80 p-3 rounded border-2 outline-green_dark border-green text-black justify-left text-responsive font-primaryRegular overflow-y-scroll resize-none scrollbar-custom"
             placeholder="Input text here"
             value={text}
-            disabled={!!selectedFile}
+            disabled={!!selectedFiles}
             onChange={handleChangeText}
           />
         ) : (
           <div className="flex justify-center items-center h-80">
-            <p className="text-black text-lg">
-              {selectedFile.name} - {selectedFile.size / 1000} KB
-            </p>
+            {[...selectedFiles].map((file, index) => (
+              <p key={index} className="text-black text-lg">
+                {file.name} - {file.size / 1000} KB
+              </p>
+            ))}
           </div>
         )}
         <div className="editText text-gray-400 text-sm mt-2 flex justify-between">
@@ -164,14 +176,14 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
             <button
               className="p-2 text-black hover:bg-gray-200 rounded"
               onClick={createBulletedList}
-              disabled={selectedFile !== null}
+              disabled={selectedFiles !== null}
             >
               <PiListBold size={40} />
             </button>
             <button
               className="p-2 text-black hover:bg-gray-200 rounded"
               onClick={createNumberedList}
-              disabled={selectedFile !== null}
+              disabled={selectedFiles !== null}
             >
               <PiListNumbersBold size={40} />
             </button>
@@ -191,8 +203,10 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
           <input
             type="file"
             className="hidden"
-            onChange={handleChangeFile}
+            onChange={handleChangeFiles}
             accept=".pdf,.txt,.jpeg,.png,.jpg"
+            multiple
+            max={4}
           />
         </label>
         <button

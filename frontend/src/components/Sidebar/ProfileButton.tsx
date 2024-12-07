@@ -1,8 +1,10 @@
-import useUser from "@/hooks/auth/useUser";
 import { SidebarMenuButton } from "../ui/sidebar";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Label } from "../ui/label";
 import unfold from "@/assets/images/unfold.png";
+
+import { UserContext } from "@/context/Contexts";
+import { useContext } from "react";
 
 interface Props {
   state: "expanded" | "collapsed";
@@ -10,9 +12,7 @@ interface Props {
 }
 
 const ProfileButton = ({ state, isChild = false }: Props) => {
-  const { user } = useUser();
-  const username = user?.username || "Guest";
-  const email = user?.email || "user@example.com";
+  const { user } = useContext(UserContext);
 
   const getAbbreviation = (name: string) => {
     return name
@@ -21,19 +21,15 @@ const ProfileButton = ({ state, isChild = false }: Props) => {
       .join("");
   };
 
-  if (!user) {
-    return <div className="flex flex-1 h-12 w-48"></div>;
-  }
-
   return (
     <SidebarMenuButton
-      className={`outline-none cursor-pointer min-h-12 w-52 transition-all flex items-center ${isChild && "hover:bg-white active:bg-white p-0"}`}
+      className={`outline-none cursor-pointer mr-2   min-h-12 transition-all flex items-center ${isChild && "hover:bg-white active:bg-white p-0"}`}
       variant="footer"
       size="sm"
     >
       <Avatar className="border border-gray-200">
         <AvatarFallback className="text-lg">
-          {getAbbreviation(username)}
+          {getAbbreviation(user!.username)}
         </AvatarFallback>
       </Avatar>
 
@@ -41,8 +37,8 @@ const ProfileButton = ({ state, isChild = false }: Props) => {
         <div
           className={`flex flex-col items-start justify-center min-h-12 flex-shrink-0 ${state === "collapsed" && "transition-all"}`}
         >
-          <Label className="text-sm">{username}</Label>
-          <Label className="text-xs">{email}</Label>
+          <Label className="text-sm">{user?.username}</Label>
+          <Label className="text-xs">{user?.email}</Label>
         </div>
         {isChild || <img className="w-4 h-5" src={unfold} alt="" />}
       </div>
