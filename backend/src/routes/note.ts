@@ -65,4 +65,25 @@ router.get(
 //   },
 // );
 
+router.delete(
+  "/:id",
+  async (request: Request, response: Response, next: NextFunction) => {
+    const { id } = request.params;
+
+    try {
+      const result = await pool.query(
+        `
+        DELETE FROM Notes 
+        WHERE id = $1
+        RETURNING *`,
+        [id],
+      );
+
+      response.status(200).json(result.rows[0]);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
 export default router;
