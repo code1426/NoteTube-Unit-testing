@@ -3,16 +3,25 @@ import { BiSolidVideos } from "react-icons/bi";
 import { PiCardsBold } from "react-icons/pi";
 import { useRef, useEffect } from "react";
 
-import Header from "../components/Landing/LandingHeader";
+import LandingHeader from "../components/Landing/LandingHeader";
 import Hero from "../components/Landing/Hero";
 import Section from "../components/Landing/Section";
+import FAQs from "@/components/Landing/FAQs";
+import Footer from "@/components/Landing/Footer";
 
 const LandingPage = () => {
   const aboutRef = useRef<HTMLDivElement>(null);
-  const featuresRef = useRef<HTMLDivElement>(null);
+  const feature1Ref = useRef<HTMLDivElement>(null);
+  const feature2Ref = useRef<HTMLDivElement>(null);
+  const feature3Ref = useRef<HTMLDivElement>(null);
+  const faqsRef = useRef<HTMLDivElement>(null);
 
-  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
+  const refs = {
+    aboutRef,
+    feature1Ref,
+    feature2Ref,
+    feature3Ref,
+    faqsRef,
   };
 
   useEffect(() => {
@@ -43,21 +52,8 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-screen flex flex-col justify-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat">
-      <Header>
-        <button
-          className="text-green text-xl font-secondaryRegular hover:text-green_hover hover:cursor-pointer transition-all duration-300"
-          onClick={() => scrollToSection(aboutRef)}
-        >
-          About
-        </button>
-        <button
-          className="text-green text-xl font-secondaryRegular hover:text-green_hover hover:cursor-pointer transition-all duration-300"
-          onClick={() => scrollToSection(featuresRef)}
-        >
-          Features
-        </button>
-      </Header>
+    <div className="min-h-screen flex flex-col justify-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat">
+      <LandingHeader refs={refs} />
       <Hero />
       <div
         ref={aboutRef}
@@ -65,43 +61,53 @@ const LandingPage = () => {
       >
         <Section
           title="What is NoteTube?"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quidem delectus quasi modi tempore voluptatem ipsam aspernatur laudantium. Cum similique iusto nobis itaque officiis delectus odit molestiae temporibus. Accusantium, earum."
+          description="NoteTube is a smart tool designed to transform your notes into effective learning resources by summarizing content, suggesting relevant videos, and creating interactive flashcards."
           reverse
         />
       </div>
       <div
-        ref={featuresRef}
+        ref={feature1Ref}
         className="section opacity-0 transform translate-y-24 transition-all duration-500"
       >
         <Section
           title="Upload Notes"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quidem delectus quasi modi tempore voluptatem ipsam aspernatur laudantium. Cum similique iusto nobis itaque officiis delectus odit molestiae temporibus. Accusantium, earum.f"
+          description="Easily upload your notes in various formats and let NoteTube process and enhance your content for better learning."
           reverse={false}
           Icon={
             <CgNotes className="right-icon opacity-0 transform translate-x-24 transition-all duration-500" />
           }
         />
       </div>
-      <div className="section opacity-0 transform translate-y-24 transition-all duration-500">
+      <div
+        ref={feature2Ref}
+        className="section opacity-0 transform translate-y-24 transition-all duration-500"
+      >
         <Section
           title="Get Related Videos"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quidem delectus quasi modi tempore voluptatem ipsam aspernatur laudantium. Cum similique iusto nobis itaque officiis delectus odit molestiae temporibus. Accusantium, earum."
+          description="Receive curated video recommendations that align with your uploaded notes, helping you dive deeper into your topics."
           reverse
           Icon={
             <BiSolidVideos className="left-icon opacity-0 transform -translate-x-24 transition-all duration-500" />
           }
         />
       </div>
-      <div className="section opacity-0 transform translate-y-24 transition-all duration-500">
+      <div
+        ref={feature3Ref}
+        className="section opacity-0 transform translate-y-24 transition-all duration-500"
+      >
         <Section
           title="Use Generated Flashcards"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quidem delectus quasi modi tempore voluptatem ipsam aspernatur laudantium. Cum similique iusto nobis itaque officiis delectus odit molestiae temporibus. Accusantium, earum."
+          description="Access auto-generated flashcards based on your notes, designed to help you retain key concepts more effectively."
           reverse={false}
           Icon={
             <PiCardsBold className="right-icon opacity-0 transform translate-x-24 transition-all duration-500" />
           }
         />
       </div>
+      <div className="section" ref={faqsRef}>
+        <FAQs />
+      </div>
+      <Footer />
     </div>
   );
 };

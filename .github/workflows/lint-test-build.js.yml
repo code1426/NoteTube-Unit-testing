@@ -31,10 +31,11 @@ jobs:
           echo "MEMORY_STORAGE_FOLDER=${{ secrets.MEMORY_STORAGE_FOLDER }}" >> .env
 
       - name: Install dependencies
-        run: |
-          npm ci
-          cd frontend && npm ci
-          cd ../backend && npm ci
+        run:
+          npm run install-all
+
+          # cd frontend && npm ci
+          # cd ../backend && npm ci
 
       - name: Lint frontend
         run: npm run lint-frontend
