@@ -31,7 +31,8 @@ jobs:
           echo "MEMORY_STORAGE_FOLDER=${{ secrets.MEMORY_STORAGE_FOLDER }}" >> .env
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
           cd frontend && npm ci
           cd ../backend && npm ci
 
