@@ -11,13 +11,14 @@ const generateAIResponse = async (
 
     // if input is text
     if (typeof input === "string") {
+      console.log("Generating summary");
       const result = await model
         .generateContent(config[outputOption].prompt + input)
         .catch((error) => {
           throw new Error(
             error instanceof GoogleGenerativeAIError
               ? error.message
-              : "Unknown error on generating summary",
+              : `Unknown error on generating ${outputOption}`,
           );
         });
 
@@ -34,7 +35,7 @@ const generateAIResponse = async (
           throw new Error(
             error instanceof GoogleGenerativeAIError
               ? error.message
-              : "Unknown error on generating flashcards",
+              : `Unknown error on generating ${outputOption}`,
           );
         });
 
