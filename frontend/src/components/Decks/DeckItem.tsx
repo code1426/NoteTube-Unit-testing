@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import type { Deck } from "../../types/deck.types";
 import ManageDeckDropdown from "./ManageDeckDropdown";
+// import { Label } from "@radix-ui/react-select";
+import { Label } from "../ui/label";
 
 const DeckItem = ({ id, deckName, cardCount, userId, color }: Deck) => {
   return (
-    <div className="w-64 max-w-72 border-2 border-gray-200 rounded-3xl bg-white hover:shadow-xl min-h-50">
+    <div className="w-full border border-gray-300 rounded-3xl bg-white hover:shadow-md shadow-gray-500 min-h-50">
       <div
-        className="w-full h-20 rounded-t-3xl flex items-center justify-end px-5"
+        className="w-full h-16 rounded-t-3xl flex items-center justify-end px-4"
         style={{ backgroundColor: color }}
       >
         <ManageDeckDropdown
@@ -20,14 +22,9 @@ const DeckItem = ({ id, deckName, cardCount, userId, color }: Deck) => {
       <Link
         to={`/flashcards/${id}`}
         state={{ deckName }}
-        className="p-6 flex flex-col items-start justify-center space-y-2 hover:bg-gray-100 rounded-b-[35px] "
+        className="p-4 flex flex-col items-start justify-center space-y-2 rounded-b-[35px] "
       >
-        <div
-          id="deckName"
-          className="text-3xl block font-secondaryRegular max-w-52 truncate"
-        >
-          {deckName}
-        </div>
+        <Label className="text-2xl block w-full truncate">{deckName}</Label>
         <div className="text-gray-500 text-lg font-primaryRegular">
           {cardCount === 0
             ? "No cards"

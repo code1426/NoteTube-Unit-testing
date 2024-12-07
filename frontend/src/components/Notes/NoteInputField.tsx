@@ -166,7 +166,7 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
             onChange={handleChangeText}
           />
         ) : (
-          <div className="flex justify-center items-center h-80">
+          <div className="flex justify-center items-center h-[50vh]">
             {[...selectedFiles].map((file, index) => (
               <p key={index} className="text-black text-lg">
                 {file.name} - {file.size / 1000} KB
@@ -176,7 +176,7 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
         )}
         <div className="editText text-gray-400 text-sm flex justify-between p-2">
           <div className="flex gap-1">
-            <label className="p-2 text-black hover:bg-gray-200 rounded flex">
+            <label className="p-2 text-black hover:bg-gray-200 rounded transition-all">
               <PiPaperclip size={32} />
               {/* <span className="ml-2">Attach Files</span> */}
               <input
@@ -190,14 +190,14 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
             </label>
 
             <button
-              className="p-2 text-black hover:bg-gray-200 rounded"
+              className="p-2 text-black hover:bg-gray-200 rounded transition-all"
               onClick={createBulletedList}
               disabled={selectedFiles !== null}
             >
               <PiListBold size={32} />
             </button>
             <button
-              className="p-2 text-black hover:bg-gray-200 rounded"
+              className="p-2 text-black hover:bg-gray-200 rounded transition-all"
               onClick={createNumberedList}
               disabled={selectedFiles !== null}
             >
@@ -205,7 +205,7 @@ const NoteInputField = ({ onSubmit }: NoteInputFieldProps) => {
             </button>
 
             <button
-              className={`p-2 text-black hover:bg-gray-200 rounded ${text === "" && "hidden"}`}
+              className={`p-2 text-black hover:bg-gray-200 rounded transition-all ${text === "" && "hidden"}`}
               onClick={clearField}
             >
               <PiTrash size={32} />

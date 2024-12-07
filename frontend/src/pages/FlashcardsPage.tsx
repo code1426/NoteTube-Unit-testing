@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
 import Header from "../components/Header/Header";
 import type { Flashcard } from "../types/flashcard.types";
 import LoadingScreen from "../components/LoadingScreen";
@@ -13,6 +13,9 @@ import AddFlashcardDrawer from "@/components/Flashcards/AddFlashcardDrawer";
 import FlashcardItem from "@/components/Flashcards/FlashcardItem";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import HoverFlashcardCard from "@/components/Flashcards/HoverFlashcardCard";
+import { PiCards } from "react-icons/pi";
+
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const FlashcardsPage: React.FC = () => {
   const { deckId } = useParams<{ deckId: string }>();
@@ -21,6 +24,7 @@ const FlashcardsPage: React.FC = () => {
   const deckName = location.state?.deckName || "Untitled Deck";
   const [isAddFlashcardDrawerOpen, setIsAddFlashcardDrawerOpen] =
     useState(false);
+  const isMobile = useIsMobile();
 
   const [filterOptions, setFilterOptions] = useState<options>({
     sortByNames: "",
@@ -55,7 +59,8 @@ const FlashcardsPage: React.FC = () => {
     }));
   };
 
-  if (loading) return <LoadingScreen message="Loading cards..." />;
+  if (loading || !flashcards)
+    return <LoadingScreen message="Loading cards..." />;
 
   if (error) {
     console.error(error);
@@ -65,7 +70,7 @@ const FlashcardsPage: React.FC = () => {
   return (
     <>
       <Toaster />
-      <div className="bg-white relative w-full">
+      <div className="bg-white relative w-full px- flex flex-col items-center">
         <Header
           isHomepage={false}
           isFlashCardsPage={true}
@@ -77,8 +82,8 @@ const FlashcardsPage: React.FC = () => {
           onApplyOptions={handleApplyFilters}
           onSearch={handleSearch}
         />
-        <div className="px-20">
-          <div className="pb-20 text-black text-2xl md:text-3xl lg:text-2xl flex gap-3 font-secondaryRegular align-middle items-center">
+        <div className="w-[90%]">
+          <div className="pb-10 text-black text-2xl md:text-3xl lg:text-2xl flex gap-3 font-secondaryRegular align-middle items-center">
             Cards
           </div>
           <Drawer
@@ -91,7 +96,7 @@ const FlashcardsPage: React.FC = () => {
               onSuccess={handleFormSuccess}
             />
           </Drawer>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4 scroll-auto">
             {filteredFlashcards.length === 0 ? (
               <NoItemsContainerBox
                 mainText="No cards available."
@@ -119,6 +124,18 @@ const FlashcardsPage: React.FC = () => {
                 </HoverCard>
               ))
             )}
+            <div>
+              <Link
+                to={`/quiz/${deckId}`}
+                className="flex px-8 py-2 fixed bottom-0 left-0 right-0 bg-white"
+              >
+                <button
+                  className={` ${isMobile || "hidden"} flex flex-row w-full h-12 items-center justify-center bg-green rounded-full text-white text-xl gap-4 active:bg-green_hover`}
+                >
+                  <PiCards size={30} /> Quiz
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
