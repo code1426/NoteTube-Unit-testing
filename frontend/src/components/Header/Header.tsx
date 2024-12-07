@@ -73,10 +73,10 @@ const Header: React.FC<SubHeaderProps> = ({
         <div className="text-black flex font-secondaryRegular items-center text-responsive">
           {!isHomepage && (
             <button
-              className="hover:bg-gray-200 rounded-full text-responsive m-auto"
+              className="hover:bg-gray-200 ml-4 rounded-full text-responsive m-auto"
               onClick={handleBack}
             >
-              <PiArrowCircleLeftBold className="m-auto ml-4 text-3xl sm:text-3xl sm-md:4xl md:text-4xl lg:text-5xl" />
+              <PiArrowCircleLeftBold className="m-auto text-3xl sm:text-3xl sm-md:4xl md:text-4xl lg:text-5xl" />
             </button>
           )}
 
@@ -88,7 +88,7 @@ const Header: React.FC<SubHeaderProps> = ({
         </div>
 
         {!isSectionTitleOnly && (
-          <div className="flex text-2xl font-secondaryRegular space-x-4 justify-end items-center mr-4">
+          <div className="flex text-2xl font-secondaryRegular space-x-4 justify-end items-center mr-6">
             {isFlashCardsPage && (
               <div>
                 <Link to={`/quiz/${deckId}`}>
