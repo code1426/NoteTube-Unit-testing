@@ -22,10 +22,9 @@ const upload = multer({ storage: storage });
 
 router.post("/text", async (request: Request, response: Response) => {
   try {
-    const { text } = request.body as { text: string };
+    const { input } = request.body as { input: string };
 
-    // console.log("input: ", input);
-    const result = await generateFromText(text);
+    const result = await generateFromText(input);
     response.status(200).json(result);
   } catch (error) {
     response.status(400).json({
