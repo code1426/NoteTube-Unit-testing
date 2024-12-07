@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Header from "../components/Header/Header";
 import DeckItem from "../components/Decks/DeckItem";
 import LoadingScreen from "../components/LoadingScreen";
-import UseUser from "../hooks/auth/useUser";
 import useFetchUserDecks from "../hooks/Decks/useFetchUserDecks";
 import { toast, Toaster } from "react-hot-toast";
 import NoItemsContainerBox from "../components/NoItemsContainerBox";
@@ -13,9 +12,10 @@ import AddDeckDrawer from "../components/Decks/AddDeckDrawer";
 import { Drawer } from "@/components/ui/drawer";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import HoverDeckCard from "@/components/Decks/HoverDeckCard";
+import { UserContext } from "@/context/Contexts";
 
 const UserDecksPage: React.FC = () => {
-  const { user, loading: userLoading } = UseUser();
+  const { user } = useContext(UserContext);
   const {
     userDecks,
     loading: decksLoading,
@@ -32,7 +32,7 @@ const UserDecksPage: React.FC = () => {
     filterOptions,
   );
 
-  if (userLoading || !user || decksLoading) {
+  if (!user || decksLoading) {
     return <LoadingScreen message="Loading decks..." />;
   }
 
@@ -65,7 +65,7 @@ const UserDecksPage: React.FC = () => {
   return (
     <>
       <Toaster />
-      <div className="overflow-auto scrollbar-custom h-screen w-full relative bg-white">
+      <div className="overflow-auto pb-4 scrollbar-custom h-screen w-full relative bg-white flex flex-col items-center">
         <Header
           isHomepage={false}
           isFlashCardsPage={false}
@@ -98,7 +98,9 @@ const UserDecksPage: React.FC = () => {
             />
           </div>
         ) : (
-          <div className="px-3 xs:px-5 sm:px-10 md:px-14 lg:px-20 gap-5 grid xs:grid-cols-1 sm:grid-cols-1 sm-md:grid-cols-1 md:grid-cols-2 md-lg:grid-cols-2 lg:grid-cols-2 lg-xl:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 4xl:grid-cols-8 4k:grid-cols-10 xxl:grid-cols-12 auto-cols-auto">
+          <div
+            className={`w-[90%] gap-4 pb-4 flex flex-col md:grid xs:grid-cols-1 sm:grid-cols-1 sm-md:grid-cols-1 md:grid-cols-2 md-lg:grid-cols-3 lg:grid-cols-3 lg-xl:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-5 4k:grid-cols-5 xxl:grid-cols-5 auto-cols-auto`}
+          >
             {filteredDecks.map((deck: DeckEntity) => (
               <HoverCard key={deck.id}>
                 <HoverCardTrigger>

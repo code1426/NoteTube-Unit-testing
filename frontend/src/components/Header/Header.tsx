@@ -10,6 +10,7 @@ import { PiArrowCircleLeftBold } from "react-icons/pi";
 import FilterCardModal from "../Flashcards/FilterFlashcardModal";
 import { Link, useNavigate } from "react-router-dom";
 import { options } from "../../types/options.types";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface SubHeaderProps {
   isHomepage: boolean;
@@ -37,6 +38,7 @@ const Header: React.FC<SubHeaderProps> = ({
   const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+  const isMobile = useIsMobile();
 
   const handleSearch = () => {
     const toggledSearchState = !isSearchActive;
@@ -66,30 +68,34 @@ const Header: React.FC<SubHeaderProps> = ({
   };
 
   return (
-    <div className="sticky top-0 mt-16 mb-4">
-      <div className="subheader h-16 px-10 flex flex-row justify-between items-center select-none ">
-        <div className="text-black flex gap-3 font-secondaryRegular align-middle items-center text-responsive">
+    <div className="sticky top-0 mt-16 mb-4 w-full">
+      <div className="subheader h-16 w-full flex flex-row justify-between items-center select-none">
+        <div className="text-black flex font-secondaryRegular items-center text-responsive">
           {!isHomepage && (
             <button
               className="hover:bg-gray-200 rounded-full text-responsive m-auto"
               onClick={handleBack}
             >
-              <PiArrowCircleLeftBold className="m-auto text-3xl sm:text-3xl sm-md:4xl md:text-4xl lg:text-5xl" />
+              <PiArrowCircleLeftBold className="m-auto ml-4 text-3xl sm:text-3xl sm-md:4xl md:text-4xl lg:text-5xl" />
             </button>
           )}
 
-          <div className="block truncate max-w-72 text-responsive_header">
+          <div
+            className={`${isMobile && "max-w-32"} block truncate ml-4 w-full text-responsive_header`}
+          >
             {sectionTitle}
           </div>
         </div>
 
         {!isSectionTitleOnly && (
-          <div className="flex text-3xl font-secondaryRegular space-x-5 justify-center items-center px-4">
+          <div className="flex text-2xl font-secondaryRegular space-x-4 justify-end items-center mr-4">
             {isFlashCardsPage && (
               <div>
                 <Link to={`/quiz/${deckId}`}>
-                  <button className="flex py-1.5 px-8 border-2 border-black items-center justify-center bg-green rounded-[50px] gap-2 hover:bg-green_hover">
-                    <PiCards className="text-responsive" /> Quiz
+                  <button
+                    className={` ${isMobile && "hidden"} flex py-2 px-8 text-white items-center justify-center bg-green rounded-[50px] gap-2 hover:bg-green_hover`}
+                  >
+                    <PiCards /> Quiz
                   </button>
                 </Link>
               </div>
@@ -97,11 +103,13 @@ const Header: React.FC<SubHeaderProps> = ({
             {hasAddButton && (
               <div>
                 <button
-                  className="flex py-2 px-8 border-2 border-[#03c04a] rounded-full gap-2 hover:bg-gray-200 items-center justify-center"
+                  className={`flex py-2 ${isMobile ? "px-2" : "px-6"} border-2 border-[#03c04a] rounded-full gap-2 hover:bg-gray-200 items-center justify-center`}
                   onClick={onAdd}
                 >
-                  <PiPlus className="text-responsive" />{" "}
-                  <p className="text-responsive">Add</p>
+                  <PiPlus />{" "}
+                  <p className={`text-responsive ${isMobile && "hidden"}`}>
+                    Add
+                  </p>
                 </button>
               </div>
             )}
@@ -135,8 +143,10 @@ const Header: React.FC<SubHeaderProps> = ({
                   className="flex items-center hover:underline gap-2"
                   onClick={handleSearch}
                 >
-                  <PiMagnifyingGlass className="text-responsive" />{" "}
-                  <p className="text-responsive">Search</p>
+                  <PiMagnifyingGlass />{" "}
+                  <p className={`text-responsive ${isMobile && "hidden"}`}>
+                    Search
+                  </p>
                 </button>
               )}
             </div>
@@ -147,8 +157,10 @@ const Header: React.FC<SubHeaderProps> = ({
                 className="flex items-center hover:underline gap-2"
                 onClick={openFilter}
               >
-                <PiFunnel className="text-responsive" />{" "}
-                <p className="text-responsive">Filter</p>
+                <PiFunnel />{" "}
+                <p className={`text-responsive ${isMobile && "hidden"}`}>
+                  Filter
+                </p>
               </button>
               {/* Render FilterCardModal conditionally */}
               {isFilterOpen && (
