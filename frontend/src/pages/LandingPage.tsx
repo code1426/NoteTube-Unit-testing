@@ -104,7 +104,7 @@ const LandingPage = () => {
           }
         />
       </div>
-      <div ref={faqsRef}>
+      <div className="section" ref={faqsRef}>
         <FAQs />
       </div>
       <Footer />
