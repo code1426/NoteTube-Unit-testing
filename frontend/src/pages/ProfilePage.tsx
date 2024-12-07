@@ -1,12 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdPhotoCamera } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
 import AccountSettings from "../components/Settings/AccountSettings";
 import EditProfile from "../components/Settings/EditProfile";
+import useUser from "@/hooks/auth/useUser";
+import useUpdateUsername from "@/hooks/User/useUpdateUsername";
 
 const ProfilePage = () => {
   const [isEditProfileOpen, setEditProfileOpen] = useState(false);
   const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
+  const { user } = useUser();
+  const { newUsername } = useUpdateUsername();
+  const [username, setUsername] = useState(user?.username || "");
+
+  const handleUpdateUsername = async () => {
+    console.log("click");
+    const result = await newUsername(user!);
+
+    if (result.success) {
+      setUsername(result.user!.username);
+      console.log("newname", result.user!.username);
+    } else {
+      console.error("Failed to update username:", result.error);
+    }
+  };
+
+  useEffect(() => {
+    if (user && !username) {
+      setUsername(user.username);
+    }
+  }, [user, username]);
 
   return (
     <div className="relative bg-white select-none overflow-auto scrollbar-custom h-screen">
@@ -43,10 +66,14 @@ const ProfilePage = () => {
             id="profile-name-container"
             className="h-auto w-96 px-2 pt-6 flex justify-center flex-col items-center"
           >
-            <div className="h-auto w-auto font-secondaryRegular text-green text-5xl">
-              Joshua Samenian
+            <div
+              className="h-auto w-auto font-secondaryRegular text-green text-5xl"
+              onClick={handleUpdateUsername}
+            >
+              {username || "Loading..."}{" "}
+              {/* Display "Loading..." if username isn't set */}
             </div>
-            <div className="h-auto w-autofont-secondaryRegular text-green">
+            <div className="h-auto w-auto font-secondaryRegular text-green">
               Joshua Mojica Samenian at gmail.com
             </div>
           </div>

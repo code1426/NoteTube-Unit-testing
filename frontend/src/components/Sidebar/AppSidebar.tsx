@@ -7,7 +7,7 @@ import { BiNotification } from "react-icons/bi";
 import { Edit2Icon } from "lucide-react";
 import { LogOutIcon } from "lucide-react";
 import { Settings } from "lucide-react";
-
+// import UpdatePasswordForm from "../Settings/UpdatePasswordForm";
 import { Link, useLocation } from "react-router-dom";
 
 import ProfileButton from "./ProfileButton";
@@ -36,6 +36,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import UpdateUsernameForm from "../Settings/UpdateUsernameForm";
 
 // Menu items.
 const items = [
@@ -136,7 +137,14 @@ const AppSidebar = () => {
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <Edit2Icon />
-              <span>Edit Profile</span>
+              <div
+                className="flex items-center gap-2"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                <UpdateUsernameForm />
+              </div>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Settings />
