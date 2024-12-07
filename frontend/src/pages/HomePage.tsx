@@ -1,7 +1,6 @@
 import toast, { Toaster } from "react-hot-toast";
 
 import GreetingsBanner from "@/components/Header/GreetingsBanner";
-import NoteInputField from "../components/Notes/NoteInputField";
 import Header from "@/components/Header/Header";
 import LoadingScreen from "../components/LoadingScreen";
 
@@ -21,6 +20,7 @@ import useCreateFlashcard from "@/hooks/Flashcards/useCreateFlashcard";
 import getVideoSuggestions from "@/utils/getVideoSuggestions";
 import fetchAIResponse from "@/utils/fetchAIResponse";
 import { Flashcard } from "@/types/flashcard.types";
+import NoteInputForm from "../components/Notes/NoteInputForm";
 
 const HomePage = () => {
   const { user, loading: loadingUser } = useUser();
@@ -195,7 +195,8 @@ const HomePage = () => {
           hasAddButton={false}
           sectionTitle="Upload Notes"
         />
-        <NoteInputField onSubmit={handleAddNote} />
+        <NoteInputForm onSubmit={handleAddNote} />
+        {/* <NoteInputField onSubmit={handleAddNote} /> */}
       </div>
     </>
   );
