@@ -1,13 +1,10 @@
-import { SidebarMenuButton } from "../ui/sidebar";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Label } from "../ui/label";
-import unfold from "@/assets/images/unfold.png";
 
 import { UserContext } from "@/context/Contexts";
 import { useContext } from "react";
 
 interface Props {
-  // state: "expanded" | "collapsed";
   isDropdown?: boolean;
 }
 
@@ -39,7 +36,6 @@ const ProfileButton = ({ isDropdown = false }: Props) => {
             <Label className="text-sm">{user?.username}</Label>
             <Label className="text-xs">{user?.email}</Label>
           </div>
-          {/* <img className="w-4 h-5" src={unfold} alt="" /> */}
         </div>
       )}
     </div>

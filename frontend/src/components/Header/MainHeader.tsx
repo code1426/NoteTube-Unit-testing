@@ -1,5 +1,4 @@
 import { SidebarTrigger } from "../ui/sidebar";
-import { FcVideoFile as AppLogo } from "react-icons/fc"; //placeholder of app
 import { useSidebar } from "../ui/sidebar";
 import ProfileDropdown from "./ProfileDropdown";
 
