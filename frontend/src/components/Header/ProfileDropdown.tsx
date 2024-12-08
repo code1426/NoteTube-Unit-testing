@@ -125,7 +125,7 @@ const ProfileDropdown = () => {
             <Separator className="my-4 bg-gray-400" />
             <div className="mt-6 px-4">
               <h1 className="text-xl font-semibold text-black">
-                Account Settings
+                Account Settings:
               </h1>
               <AccountSettings />
             </div>
