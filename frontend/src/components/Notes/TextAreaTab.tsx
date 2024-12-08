@@ -1,25 +1,52 @@
+import { UseFormReturn } from "react-hook-form";
+
 import { TabsContent } from "../ui/tabs";
-import { Toaster } from "../ui/toaster";
 import { AutosizeTextarea } from "../ui/autosize-textarea";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "../ui/form";
 
 interface TextAreaTabProps {
-  value: string;
+  form: UseFormReturn<{
+    input: string;
+  }>;
   onChange: (value: string) => void;
 }
 
-const TextAreaTab = ({ value, onChange }: TextAreaTabProps) => {
+const TextAreaTab = ({ form, onChange }: TextAreaTabProps) => {
   return (
-    <TabsContent value="text" className="w-full space-y-6">
-      <Toaster />
-      <AutosizeTextarea
-        value={value}
-        placeholder="Write your notes here..."
-        minHeight={100}
-        maxHeight={400}
-        onChange={(e) => {
-          onChange(e.target.value);
-        }}
-      />
+    <TabsContent
+      onChange={() => onChange(form.getValues().input)}
+      value="text"
+      className="w-full space-y-6"
+    >
+      <Form {...form}>
+        <form>
+          <FormField
+            control={form.control}
+            name="input"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <AutosizeTextarea
+                    placeholder="Write your notes here..."
+                    minHeight={100}
+                    maxHeight={400}
+                    onChange={(e) => {
+                      field.onChange(e);
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
     </TabsContent>
   );
 };
