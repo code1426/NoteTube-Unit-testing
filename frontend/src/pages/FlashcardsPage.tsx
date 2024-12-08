@@ -15,8 +15,6 @@ import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import HoverFlashcardCard from "@/components/Flashcards/HoverFlashcardCard";
 import { PiCards } from "react-icons/pi";
 
-import { useIsMobile } from "@/hooks/use-mobile";
-
 const FlashcardsPage: React.FC = () => {
   const { deckId } = useParams<{ deckId: string }>();
   const { flashcards, loading, error } = useFetchFlashcards(deckId!);
@@ -24,7 +22,6 @@ const FlashcardsPage: React.FC = () => {
   const deckName = location.state?.deckName || "Untitled Deck";
   const [isAddFlashcardDrawerOpen, setIsAddFlashcardDrawerOpen] =
     useState(false);
-  const isMobile = useIsMobile();
 
   const [filterOptions, setFilterOptions] = useState<options>({
     sortByNames: "",
@@ -52,7 +49,6 @@ const FlashcardsPage: React.FC = () => {
   };
 
   const handleSearch = (searchText: string) => {
-    console.log("search", searchText);
     setOptions((prev) => ({
       ...prev,
       searchByName: searchText,
@@ -70,7 +66,7 @@ const FlashcardsPage: React.FC = () => {
   return (
     <>
       <Toaster />
-      <div className="bg-white relative w-full px- flex flex-col items-center">
+      <div className="bg-white relative w-full px- flex flex-col items-center pb-14">
         <Header
           isHomepage={false}
           isFlashCardsPage={true}
@@ -127,10 +123,10 @@ const FlashcardsPage: React.FC = () => {
             <div>
               <Link
                 to={`/quiz/${deckId}`}
-                className="flex px-8 py-2 fixed bottom-0 left-0 right-0 bg-white"
+                className="flex px-8 py-2 fixed items-center justify-center bottom-0 left-0 right-0 bg-white"
               >
                 <button
-                  className={` ${isMobile || "hidden"} flex flex-row w-full h-12 items-center justify-center bg-green rounded-full text-white text-xl gap-4 active:bg-green_hover`}
+                  className={`flex md:hidden lg:hidden xl:hidden max-w-96 flex-row w-full h-12 items-center justify-center bg-green rounded-full text-white text-xl gap-4 active:bg-green_hover`}
                 >
                   <PiCards size={30} /> Quiz
                 </button>

@@ -21,7 +21,7 @@ const SearchCardModal = ({ onClose, onSearch }: SearchCardModalProps) => {
   };
 
   return (
-    <Card className="flex-grow absolute top-12 right-0 z-50 bg-white p-2 rounded-lg shadow-lg w-[20rem] border border-gray-300">
+    <Card className="flex-grow absolute top-12 right-0 z-50 bg-white p-2 rounded-lg shadow-lg w-[20rem] border border-gray-300 mr-7">
       {/* Header */}
       <CardHeader className="grid grid-cols-2">
         <h2 className="self-start">Search</h2>
