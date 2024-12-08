@@ -63,7 +63,7 @@ const items = [
 ];
 
 const AppSidebar = () => {
-  const { toggleSidebar, state } = useSidebar();
+  const { toggleSidebar } = useSidebar();
   const isMobile = useIsMobile();
   const location = useLocation();
 
