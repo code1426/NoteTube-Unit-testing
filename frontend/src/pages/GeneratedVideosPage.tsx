@@ -7,32 +7,7 @@ import NoItemsContainerBox from "@/components/NoItemsContainerBox";
 import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import separateNotesWithVideos from "@/utils/notesFormatter";
-
-interface GeneratedVideo {
-  videoId: string;
-  thumbnailUrl: string;
-  onClickFunction: (videoId: string) => void;
-}
-
-const VideoCard = ({
-  videoId,
-  thumbnailUrl,
-  onClickFunction,
-}: GeneratedVideo) => {
-  return (
-    <div
-      id="video-card"
-      className="border-2 border-black h-32 w-48 rounded-2xl bg-black"
-      onClick={() => onClickFunction(videoId)}
-    >
-      <img
-        src={thumbnailUrl}
-        alt={"No Thumbnail Found"}
-        className="object-scale-down"
-      ></img>
-    </div>
-  );
-};
+import VideoCard from "@/components/Videos/GeneratedVideo";
 
 const GeneratedVideosPage = () => {
   const { user, loading: userLoading } = UseUser();
