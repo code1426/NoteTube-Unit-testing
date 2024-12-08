@@ -1,14 +1,11 @@
-export interface TestGeneratedVideo {
-  url: string;
-  id: string;
-}
+import { Video } from "@/types/video.types";
 
-const HistoryGeneratedVideoThumbnail = ({ url }: TestGeneratedVideo) => {
+const HistoryGeneratedVideoThumbnail = ({ thumbnailUrl }: Video) => {
   return (
     <div className="bg-black border-[4px] border-gray-500 border-solid rounded-3xl overflow-hidden">
       <div className="h-24 w-40 flex justify-center">
         <img
-          src={`${url}`}
+          src={thumbnailUrl}
           alt={"No Thumbnail Found"}
           className="object-scale-down"
         />

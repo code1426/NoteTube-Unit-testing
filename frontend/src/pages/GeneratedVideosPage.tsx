@@ -1,12 +1,89 @@
 import Header from "../components/Header/Header";
+import UseUser from "../hooks/auth/useUser";
+import LoadingScreen from "../components/LoadingScreen";
+import { FullNoteContent } from "../types/note.types";
+import useFetchNotes from "@/hooks/Notes/useFetchNotes";
+import NoItemsContainerBox from "@/components/NoItemsContainerBox";
+import { toast } from "react-hot-toast";
+import { useEffect, useState } from "react";
+import separateNotesWithVideos from "@/utils/notesFormatter";
+
+interface GeneratedVideo {
+  videoId: string;
+  thumbnailUrl: string;
+  onClickFunction: (videoId: string) => void;
+}
+
+const VideoCard = ({
+  videoId,
+  thumbnailUrl,
+  onClickFunction,
+}: GeneratedVideo) => {
+  return (
+    <div
+      id="video-card"
+      className="border-2 border-black h-32 w-48 rounded-2xl bg-black"
+      onClick={() => onClickFunction(videoId)}
+    >
+      <img
+        src={thumbnailUrl}
+        alt={"No Thumbnail Found"}
+        className="object-scale-down"
+      ></img>
+    </div>
+  );
+};
 
 const GeneratedVideosPage = () => {
-  const noteTitle = "Note Title Sample";
+  const { user, loading: userLoading } = UseUser();
+  const [displayedNote, setDisplayedNote] = useState<FullNoteContent | null>(
+    null,
+  );
+  const [loadingNote, setLoadingNote] = useState(true);
+  const { notes, loading, error } = useFetchNotes(user?.id || "");
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+
+  const HandleVideoSelect = (videoId: string) => {
+    setSelectedVideo(videoId);
+  };
+
+  if (error) {
+    console.error(error);
+    toast.error("Error fetching user notes.");
+  }
+
+  useEffect(() => {
+    if (notes) {
+      setDisplayedNote(separateNotesWithVideos(notes)[0]);
+      setLoadingNote(false);
+      if (displayedNote) {
+        setSelectedVideo(displayedNote!.videos[0].videoId);
+      }
+      console.log(displayedNote);
+    }
+  }, [notes]);
+
+  if (userLoading || !user || loading || loadingNote) {
+    return <LoadingScreen message="Loading notes..." />;
+  }
+
+  if (!displayedNote) {
+    return (
+      <div className=" h-screen w-full flex justify-center items-center">
+        <NoItemsContainerBox
+          mainText="No Videos From Notes Available"
+          subText="Add a note by uploading on the upload page."
+          imageSrc="/src/assets/images/chillguy.png"
+          altText="No Video From Notes Available"
+        />
+      </div>
+    );
+  }
 
   return (
     <div
       id="main-of-the-mains"
-      className="relative bg-white select-none scrollbar-custom h-screen overflow-auto"
+      className="bg-white relative font-secondaryRegular w-full"
     >
       <Header
         isHomepage={false}
@@ -17,55 +94,35 @@ const GeneratedVideosPage = () => {
       />
       <div
         id="ai-generated-notes"
-        className="border-2 border-red-700 p-4 h-auto w-full"
+        className=" p-4 h-auto w-full flex justify-center flex-col"
       >
-        <div className="border-4 h-96 mx-52 rounded-2xl"></div>
+        <div className="flex justify-center">
+          <div className="border-4 h-[36rem] w-[52rem] rounded-2xl">
+            <iframe
+              className="w-[98%] h-[100%]"
+              src={`https://www.youtube.com/embed/${selectedVideo}`}
+              allowFullScreen={true}
+            ></iframe>
+          </div>
+        </div>
       </div>
-      <div
-        id="ai-generated-videos"
-        className="border-2 border-blue-700 my-12 p-4 h-auto w-full"
-      >
-        <div className="border-4 h-auto w-full">
+      <div id="ai-generated-videos" className=" my-2 p-4 h-auto w-full">
+        <div className="border-4 border-gray-300 h-auto w-full">
           <div
             id="generated-videos-name"
-            className="border-4 border-red-700 font-secondaryRegular text-green text-3xl p-2"
+            className=" font-secondaryRegular text-green text-3xl p-2"
           >
-            {noteTitle}
+            Videos From: {displayedNote!.title}
           </div>
-          <div
-            id="videos"
-            className="border-2 border-blue-700 p-2 gap-4 flex flex-row justify-center"
-          >
-            <div
-              id="video-card"
-              className="border-2 border-black h-48 w-80 rounded-2xl "
-            >
-              Video
-            </div>
-            <div
-              id="video-card"
-              className="border-2 border-black h-48 w-80 rounded-2xl "
-            >
-              Video
-            </div>
-            <div
-              id="video-card"
-              className="border-2 border-black h-48 w-80 rounded-2xl "
-            >
-              Video
-            </div>
-            <div
-              id="video-card"
-              className="border-2 border-black h-48 w-80 rounded-2xl "
-            >
-              Video
-            </div>
-            <div
-              id="video-card"
-              className="border-2 border-black h-48 w-80 rounded-2xl "
-            >
-              Video
-            </div>
+          <div id="videos" className=" p-2 gap-8 flex flex-row justify-center">
+            {displayedNote.videos.map((video, index) => (
+              <VideoCard
+                key={index}
+                videoId={video.videoId}
+                thumbnailUrl={video.thumbnailUrl}
+                onClickFunction={HandleVideoSelect}
+              />
+            ))}
           </div>
         </div>
       </div>

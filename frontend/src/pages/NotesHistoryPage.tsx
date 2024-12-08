@@ -26,10 +26,9 @@ const NotesHistoryPage = () => {
     if (notes) {
       setDisplayedNotes(separateNotesWithVideos(notes));
       setLoadingNotes(false);
+      console.log(displayedNotes);
     }
   }, [notes]);
-
-  useEffect(() => console.log(displayedNotes));
 
   if (userLoading || !user || loading || loadingNotes) {
     return <LoadingScreen message="Loading notes..." />;

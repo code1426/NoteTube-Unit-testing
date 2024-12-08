@@ -19,6 +19,7 @@ export interface FetchedNotesFormat {
   title: string;
   content: string;
   created_at: string;
+  video_title: string;
   video_id: string;
   thumbnail_url: string;
 }
