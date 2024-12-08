@@ -1,89 +1,88 @@
-import { useState } from "react";
 import { MdPhotoCamera } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
 import AccountSettings from "../components/Settings/AccountSettings";
 import EditProfile from "../components/Settings/EditProfile";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const ProfilePage = () => {
-  const [isEditProfileOpen, setEditProfileOpen] = useState(false);
-  const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
-
   return (
     <div className="relative bg-white select-none overflow-auto scrollbar-custom h-screen">
-      {/* Background Cover */}
-      <div className="w-full absolute h-64 px-6 z-0">
-        <div
-          id="background"
-          className="h-full bg-gray-300 flex flex-row-reverse"
-        >
-          <div className="flex self-end rounded-full bg-white w-12 h-12 justify-center items-center bg-opacity-75 m-2 hover:cursor-pointer">
-            <MdPhotoCamera size={30} />
-          </div>
-        </div>
-      </div>
-
-      {/* Profile Section */}
-      <div
-        id="main-profile"
-        className="min-h-40 h-auto p-6 pt-36 mx-6 flex flex-row-reverse justify-between z-10 mb-10"
-      >
-        <div className="flex flex-col w-auto h-auto relative m-auto">
-          <div
-            id="profile-image"
-            className="h-44 w-44 bg-green border-4 border-gray-300 rounded-full flex m-auto flex-row-reverse overflow-hidden"
-          >
-            <div className="flex self-end rounded-full bg-white w-16 h-16 justify-center items-center bg-opacity-75 absolute hover:cursor-pointer">
-              <MdPhotoCamera size={40} />
-            </div>
-            <div className="flex self-center justify-self-center m-auto overflow-hidden text-gray-300">
-              <AiOutlineUser size={200} />
-            </div>
-          </div>
-          <div
-            id="profile-name-container"
-            className="h-auto w-96 px-2 pt-6 flex justify-center flex-col items-center"
-          >
-            <div className="h-auto w-auto font-secondaryRegular text-green text-5xl">
-              Joshua Samenian
-            </div>
-            <div className="h-auto w-autofont-secondaryRegular text-green">
-              Joshua Mojica Samenian at gmail.com
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Sub Profile Section */}
-      <div
-        id="sub-profile"
-        className="h-auto mx-6 flex flex-row mb-4 justify-center"
-      >
-        {/* Edit Profile */}
-        <div id="settings" className="w-1/2 h-full flex justify-evenly">
-          <div className="mx-2">
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-              onClick={() => setEditProfileOpen(true)}
+      {/* Profile Sheet */}
+      <Sheet>
+        <SheetTrigger asChild>
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-10 ml-10">
+            Open Profile
+          </button>
+        </SheetTrigger>
+        <SheetContent side="right" className="w-full sm:w-[450px]">
+          <SheetHeader>
+            <SheetTitle>Profile</SheetTitle>
+            <SheetDescription>
+              View and manage your profile settings here.
+            </SheetDescription>
+          </SheetHeader>
+          {/* Profile Content */}
+          <div className="p-6 flex flex-col items-center">
+            {/* Profile Image */}
+            <div
+              id="profile-image"
+              className="h-44 w-44 bg-green-500 border-4 border-gray-300 rounded-full flex relative overflow-hidden"
             >
-              Edit Profile
-            </button>
-            {isEditProfileOpen && (
-              <EditProfile onClose={() => setEditProfileOpen(false)} />
-            )}
-          </div>
-          <div className="mx-2">
-            <button
-              className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-              onClick={() => setAccountSettingsOpen(true)}
+              <div className="flex self-end rounded-full bg-white w-16 h-16 justify-center items-center bg-opacity-75 absolute hover:cursor-pointer">
+                <MdPhotoCamera size={40} />
+              </div>
+              <div className="flex self-center justify-self-center m-auto overflow-hidden text-gray-300">
+                <AiOutlineUser size={200} />
+              </div>
+            </div>
+            {/* Profile Name */}
+            <div
+              id="profile-name-container"
+              className="w-full px-2 pt-6 flex flex-col items-center"
             >
-              Account Settings
-            </button>
-            {isAccountSettingsOpen && (
-              <AccountSettings onClose={() => setAccountSettingsOpen(false)} />
-            )}
+              <div className="font-secondaryRegular text-green-700 text-5xl">
+                Joshua Samenian
+              </div>
+              <div className="font-secondaryRegular text-green-500 text-lg">
+                Joshua Mojica Samenian at gmail.com
+              </div>
+            </div>
+            {/* Edit Profile Button */}
+            <div className="mt-4">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                    Edit Profile
+                  </button>
+                </SheetTrigger>
+                <SheetContent side="bottom" className="h-3/4">
+                  <EditProfile />
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
-        </div>
-      </div>
+          {/* Account Settings */}
+          <div className="w-full flex justify-center mt-8">
+            <Sheet>
+              <SheetTrigger asChild>
+                <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                  Account Settings
+                </button>
+              </SheetTrigger>
+              <SheetContent side="bottom" className="h-3/4">
+                <AccountSettings />
+              </SheetContent>
+            </Sheet>
+          </div>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
