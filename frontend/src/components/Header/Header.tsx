@@ -93,9 +93,7 @@ const Header: React.FC<SubHeaderProps> = ({
           )}
 
           <div
-            className={`${
-              isMobile && "max-w-32"
-            } block truncate ml-4 w-full text-responsive_header`}
+            className={`max-w-36 ${!isSearchActive ? "md:max-w-[660px] lg:max-w-[660px] xl:max-w-[660px]" : "md:max-w-[412px] lg:max-w-[412px] xl:max-w-[412px]"} block truncate ml-4 w-full text-responsive_header`}
           >
             {sectionTitle}
           </div>
@@ -107,9 +105,7 @@ const Header: React.FC<SubHeaderProps> = ({
               <div>
                 <Link to={`/quiz/${deckId}`}>
                   <button
-                    className={` ${
-                      isMobile && "hidden"
-                    } flex py-2 px-8 text-white items-center justify-center bg-green rounded-[50px] gap-2 hover:bg-green_hover`}
+                    className={`hidden md:flex lg:flex xl:flex py-2 px-8 text-white items-center justify-center bg-green rounded-[50px] gap-2 hover:bg-green_hover`}
                   >
                     <PiCards /> Quiz
                   </button>
@@ -119,13 +115,13 @@ const Header: React.FC<SubHeaderProps> = ({
             {hasAddButton && (
               <div>
                 <button
-                  className={`flex py-2 ${
-                    isMobile ? "px-2" : "px-6"
-                  } border-2 border-[#03c04a] rounded-full gap-2 hover:bg-gray-200 items-center justify-center`}
+                  className={`flex py-2 px-2 md:px-6 lg:px-6 xl:px-6 border-2 border-[#03c04a] rounded-full gap-2 hover:bg-gray-200 items-center justify-center`}
                   onClick={onAdd}
                 >
                   <PiPlus />{" "}
-                  <p className={`text-responsive ${isMobile && "hidden"}`}>
+                  <p
+                    className={`text-responsive hidden md:flex lg:flex xl:flex`}
+                  >
                     Add
                   </p>
                 </button>
@@ -169,7 +165,9 @@ const Header: React.FC<SubHeaderProps> = ({
                   onClick={handleSearch}
                 >
                   <PiMagnifyingGlass />{" "}
-                  <p className={`text-responsive ${isMobile && "hidden"}`}>
+                  <p
+                    className={`text-responsive hidden md:flex lg:flex xl:flex`}
+                  >
                     Search
                   </p>
                 </button>
@@ -183,7 +181,7 @@ const Header: React.FC<SubHeaderProps> = ({
                 onClick={openFilter}
               >
                 <PiFunnel />{" "}
-                <p className={`text-responsive ${isMobile && "hidden"}`}>
+                <p className={`text-responsive hidden md:flex lg:flex xl:flex`}>
                   Filter
                 </p>
               </button>
