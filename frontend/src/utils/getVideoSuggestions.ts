@@ -21,6 +21,7 @@ const getVideoSuggestions = async (query: string): Promise<Video[] | null> => {
         if (item.id.videoId) {
           return {
             videoId: item.id.videoId,
+            title: item.snippet.title,
             thumbnailUrl: item.snippet.thumbnails.default.url,
           };
         }
