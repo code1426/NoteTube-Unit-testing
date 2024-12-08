@@ -11,7 +11,6 @@ import type {
 import { Video } from "@/types/video.types";
 import { Deck } from "@/types/deck.types";
 
-import useUser from "@/hooks/auth/useUser";
 import useCreateNote from "@/hooks/Notes/useCreateNote";
 import useCreateVideos from "@/hooks/Videos/useCreateVideo";
 import useCreateDeck from "@/hooks/Decks/useCreateDeck";
@@ -22,8 +21,11 @@ import fetchAIResponse from "@/utils/fetchAIResponse";
 import { Flashcard } from "@/types/flashcard.types";
 import NoteInputForm from "../components/Notes/NoteInputForm";
 
+import { UserContext } from "@/context/Contexts";
+import { useContext } from "react";
+
 const HomePage = () => {
-  const { user, loading: loadingUser } = useUser();
+  const { user } = useContext(UserContext);
   const { createNote } = useCreateNote();
   const { insertVideos } = useCreateVideos();
   const { createDeck } = useCreateDeck();
@@ -176,7 +178,7 @@ const HomePage = () => {
     }
   };
 
-  if (loadingUser || !user) {
+  if (!user) {
     return <LoadingScreen />;
   }
 
@@ -184,10 +186,7 @@ const HomePage = () => {
     <>
       <Toaster />
       <div className="relative w-full min-h-screen bg-white overflow-auto flex flex-col scrollbar-custom h-screen">
-        <GreetingsBanner
-          isHomePage={true}
-          username={user.username || "Guest"}
-        />
+        <GreetingsBanner />
         <Header
           isHomepage={true}
           isFlashCardsPage={false}
