@@ -1,6 +1,8 @@
-import { Video } from "@/types/video.types";
+interface VideoThumbnail {
+  thumbnailUrl: string;
+}
 
-const HistoryGeneratedVideoThumbnail = ({ thumbnailUrl }: Video) => {
+const HistoryGeneratedVideoThumbnail = ({ thumbnailUrl }: VideoThumbnail) => {
   return (
     <div className="bg-black border-[4px] border-gray-500 border-solid rounded-3xl overflow-hidden">
       <div className="h-24 w-40 flex justify-center">

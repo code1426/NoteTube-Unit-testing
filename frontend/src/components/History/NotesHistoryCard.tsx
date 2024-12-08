@@ -35,7 +35,6 @@ const NotesHistoryCard = ({ id, title, videos }: FullNoteContent) => {
               <HistoryGeneratedVideoThumbnail
                 key={video.videoId}
                 thumbnailUrl={video.thumbnailUrl}
-                videoId={video.videoId}
               />
             ))
           )}
