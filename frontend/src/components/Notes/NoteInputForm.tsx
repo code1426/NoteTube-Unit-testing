@@ -1,13 +1,23 @@
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
-import TextAreaTab from "./TextAreaTab";
-import FileUploadTab from "./FileUploadTab";
+import { useState } from "react";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { Upload } from "lucide-react";
+
+import { Card, CardContent, CardFooter } from "../ui/card";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { Button } from "../ui/button";
-import { useState } from "react";
-import { GenerateAIResponseProps } from "@/types/ai.types";
+
+import TextAreaTab from "./TextAreaTab";
+import FileUploadTab from "./FileUploadTab";
+
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { PiUpload } from "react-icons/pi";
+
+import { GenerateAIResponseProps } from "@/types/ai.types";
+import { cn } from "@/lib/utils";
+import { FileUploadSchema, TextInputSchema } from "@/utils/formSchemas";
 
 interface NoteInputFormProps {
   onSubmit: (props: GenerateAIResponseProps) => void;
@@ -16,11 +26,29 @@ interface NoteInputFormProps {
 const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
+
   const [text, setText] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  const [activeTab, setActiveTab] = useState<"text" | "files">("text");
 
-  const clearText = () => {
-    setText("");
+  const textInputForm = useForm<z.infer<typeof TextInputSchema>>({
+    resolver: zodResolver(TextInputSchema),
+  });
+
+  const fileUploadForm = useForm<z.infer<typeof FileUploadSchema>>({
+    resolver: zodResolver(FileUploadSchema),
+  });
+
+  const switchTo = (tab: "text" | "files") => {
+    if (tab === "text") {
+      setSelectedFiles(null);
+      fileUploadForm.reset();
+    }
+    if (tab === "files") {
+      setText("");
+      textInputForm.reset();
+    }
+    setActiveTab(tab);
   };
 
   const handleChangeText = (e: string) => {
@@ -29,22 +57,6 @@ const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
 
   const handleUploadText = () => {
     const trimmedText = text.trim();
-
-    if (trimmedText.length < 50) {
-      toast({
-        variant: "destructive",
-        title: "Please enter at least 50 characters before uploading.",
-      });
-      return;
-    }
-
-    if (trimmedText.length > 4000) {
-      toast({
-        variant: "destructive",
-        title: "Please enter less than 4000 characters.",
-      });
-      return;
-    }
 
     {
       toast({
@@ -56,52 +68,20 @@ const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
     onSubmit({
       input: trimmedText,
     });
-    clearText();
+    setText("");
   };
 
   const handleChangeFiles = (files: FileList) => {
     if (files) {
-      if (files.length > 4) {
-        toast({
-          variant: "destructive",
-          title: "Please upload up to 4 files at a time.",
-        });
-        return;
-      }
-
-      const supportedFileTypes = [
-        "application/pdf",
-        "text/plain",
-        "image/jpeg",
-        "image/png",
-      ];
-
-      [...files].map((file) => {
-        if (!supportedFileTypes.includes(file.type)) {
-          toast({
-            variant: "destructive",
-            title: `${file.name} has an unsupported file type. Please upload a PDF, JPEG, JPG, PNG, or text file.`,
-          });
-          return;
-        }
-        if (file.size > 10 * 1024 ** 2) {
-          toast({
-            variant: "destructive",
-            title: `${file.name} exceeds 10MB. Please upload a smaller file.`,
-          });
-          return;
-        }
-      });
-
+      fileUploadForm.trigger("files");
       setSelectedFiles(files);
-      setText("");
     }
   };
 
   const handleUploadFiles = async () => {
     try {
       if (!selectedFiles) {
-        throw new Error("Please select files to upload.");
+        throw new Error("No files selected");
       }
 
       onSubmit({
@@ -118,39 +98,50 @@ const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
   };
 
   return (
-    <Card className="w-11/12 place-self-center">
-      <CardHeader></CardHeader>
+    <Card className="w-11/12 place-self-center pt-4">
       <CardContent>
         <Tabs defaultValue="text" className="flex flex-col gap-3">
           <TabsList className="w-1/2 flex">
-            <TabsTrigger value="text" onClick={clearText}>
+            <TabsTrigger
+              value="text"
+              onClick={() => switchTo("text")}
+              className=" m-0 rounded-tr-none"
+            >
               Text
             </TabsTrigger>
-            <TabsTrigger value="files" onClick={clearText}>
+            <TabsTrigger
+              value="files"
+              onClick={() => switchTo("files")}
+              className=" m-0 rounded-tl-none"
+            >
               Files
             </TabsTrigger>
           </TabsList>
-          <TextAreaTab value={text} onChange={handleChangeText} />
-          <FileUploadTab value={selectedFiles!} onChange={handleChangeFiles} />
+          <TextAreaTab form={textInputForm} onChange={handleChangeText} />
+          <FileUploadTab
+            form={fileUploadForm}
+            selectedFiles={selectedFiles}
+            onChange={handleChangeFiles}
+          />
         </Tabs>
       </CardContent>
       <CardFooter className={isMobile ? "" : "justify-end"}>
         <Button
-          className={
-            isMobile
-              ? "w-full bg-green text-base hover:bg-green_hover"
-              : "min-w-72 bg-green text-base hover:bg-green_hover"
-          }
+          className={cn(
+            "bg-green hover:bg-green_hover text-base",
+            isMobile ? "w-full" : "min-w-72",
+          )}
           onClick={() => {
-            if (text) {
-              handleUploadText();
-            } else {
-              handleUploadFiles();
+            if (activeTab === "text") {
+              textInputForm.handleSubmit(handleUploadText)();
+            }
+            if (activeTab === "files") {
+              fileUploadForm.handleSubmit(handleUploadFiles)();
             }
           }}
         >
+          <Upload />
           Upload
-          <PiUpload />
         </Button>
       </CardFooter>
     </Card>

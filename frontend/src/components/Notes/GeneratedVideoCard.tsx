@@ -1,5 +1,6 @@
-import { Video } from "@/types/video.types";
 import { useState } from "react";
+
+import { Video } from "@/types/video.types";
 
 const GeneratedVideoCard = ({ title, videoId }: Video) => {
   const [videoPanelOpened, setVideoPanelState] = useState(false);
