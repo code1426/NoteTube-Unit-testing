@@ -34,6 +34,7 @@ const separateNotesWithVideos = (
       ) {
         existingNote.videos.push({
           videoId: data.video_id,
+          title: data.title,
           thumbnailUrl: data.thumbnail_url,
         });
       }
@@ -46,7 +47,13 @@ const separateNotesWithVideos = (
         createdAt: data.created_at,
         videos:
           data.video_id && data.thumbnail_url
-            ? [{ videoId: data.video_id, thumbnailUrl: data.thumbnail_url }]
+            ? [
+                {
+                  videoId: data.video_id,
+                  title: data.title,
+                  thumbnailUrl: data.thumbnail_url,
+                },
+              ]
             : [],
       });
     }
