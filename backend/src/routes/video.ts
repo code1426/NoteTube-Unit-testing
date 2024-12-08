@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/", async (request: Request, response: Response) => {
   try {
-    const { videoId, thumbnailUrl, noteId } = request.body as Video;
+    const { videoId, thumbnailUrl, title, noteId } = request.body as Video;
 
     if (!videoId || !thumbnailUrl || !noteId) {
       response.status(400).json({ message: "Missing required fields" });
@@ -15,11 +15,11 @@ router.post("/", async (request: Request, response: Response) => {
 
     const result = await pool.query(
       `
-      INSERT INTO Videos (video_id, thumbnail_url, note_id)
-      VALUES ($1, $2, $3)
+      INSERT INTO Videos (video_id, thumbnail_url, title, note_id)
+      VALUES ($1, $2, $3, $4)
       RETURNING *
       `,
-      [videoId, thumbnailUrl, noteId],
+      [videoId, thumbnailUrl, title, noteId],
     );
 
     response.status(200).json(result.rows[0]);

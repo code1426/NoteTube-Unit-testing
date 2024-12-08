@@ -1,17 +1,13 @@
-import { SidebarMenuButton } from "../ui/sidebar";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Label } from "../ui/label";
-import unfold from "@/assets/images/unfold.png";
-
 import { UserContext } from "@/context/Contexts";
 import { useContext } from "react";
 
 interface Props {
-  state: "expanded" | "collapsed";
-  isChild?: boolean;
+  isDropdown?: boolean;
 }
 
-const ProfileButton = ({ state, isChild = false }: Props) => {
+const ProfileButton = ({ isDropdown = false }: Props) => {
   const { user } = useContext(UserContext);
 
   const getAbbreviation = (name: string) => {
@@ -21,28 +17,29 @@ const ProfileButton = ({ state, isChild = false }: Props) => {
       .join("");
   };
 
+  if (!user) return <div></div>;
+
   return (
-    <SidebarMenuButton
-      className={`outline-none cursor-pointer mr-2   min-h-12 transition-all flex items-center ${isChild && "hover:bg-white active:bg-white p-0"}`}
-      variant="footer"
-      size="sm"
+    <div
+      className={`outline-none cursor-pointer gap-2 p-1 rounded-full transition-all flex items-center ${isDropdown && "hover:bg-white active:bg-white p-0"}`}
     >
-      <Avatar className="border border-gray-200">
+      <Avatar className="border ml-[-8px] border-gray-300">
         <AvatarFallback className="text-lg">
           {getAbbreviation(user!.username)}
         </AvatarFallback>
       </Avatar>
 
-      <div className="flex flex-row flex-1 justify-between items-center">
-        <div
-          className={`flex flex-col items-start justify-center min-h-12 flex-shrink-0 ${state === "collapsed" && "transition-all"}`}
-        >
-          <Label className="text-sm">{user?.username}</Label>
-          <Label className="text-xs">{user?.email}</Label>
+      {isDropdown && (
+        <div className="flex flex-row flex-1 justify-between items-center">
+          <div
+            className={`flex flex-col items-start justify-center min-h-12 flex-shrink-0 transition-all `}
+          >
+            <Label className="text-sm">{user?.username}</Label>
+            <Label className="text-xs">{user?.email}</Label>
+          </div>
         </div>
-        {isChild || <img className="w-4 h-5" src={unfold} alt="" />}
-      </div>
-    </SidebarMenuButton>
+      )}
+    </div>
   );
 };
 

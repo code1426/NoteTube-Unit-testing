@@ -1,19 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import toast from "react-hot-toast";
+import { UserContext } from "@/context/Contexts";
 
-interface GreetingsBannerProps {
-  isHomePage: boolean;
-  username?: string;
-}
+const GreetingsBanner = () => {
+  const { user } = useContext(UserContext);
 
-const GreetingsBanner = ({ isHomePage, username }: GreetingsBannerProps) => {
   useEffect(() => {
     const hasShownBanner = localStorage.getItem("hasShownBanner");
 
-    if (isHomePage && !hasShownBanner) {
+    if (!hasShownBanner) {
       localStorage.setItem("hasShownBanner", "true");
 
-      toast.success(`Welcome ${username || "Guest"}!`, {
+      toast.success(`Welcome ${user?.username}!`, {
         duration: 3000,
         position: "top-right",
         style: {
@@ -24,11 +22,14 @@ const GreetingsBanner = ({ isHomePage, username }: GreetingsBannerProps) => {
           fontSize: "1rem",
           fontWeight: "bold",
           animation: "slideIn 0.5s ease-out, fadeOut 0.5s ease-in 3.5s",
-          marginRight: "1.5rem",
+          marginRight: "3rem",
+          marginTop: "-0.5rem",
         },
       });
     }
-  }, [isHomePage, username]);
+  }, [user?.username]);
+
+  if (!user) return <div></div>;
 
   return (
     <>

@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import useUpdateUsername from "@/hooks/User/useUpdateUsername";
 import useUser from "@/hooks/auth/useUser";
 import { User } from "@/types/user.types";
+import { CiEdit } from "react-icons/ci";
 const UpdateUsernameForm = () => {
   const { user } = useUser();
   const [newwUsername, setNewUsername] = useState(user?.username || "");
@@ -23,7 +24,7 @@ const UpdateUsernameForm = () => {
     if (!newwUsername || newwUsername === user?.username) return;
     const result = await newUsername({
       ...user,
-      username: newwUsername,
+      username: newwUsername.trim(),
     } as User);
 
     if (result.success) {
@@ -36,14 +37,12 @@ const UpdateUsernameForm = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button>Edit Profile</button>
+        <CiEdit size={20} />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
+          <DialogTitle>Update Username</DialogTitle>
+          <DialogDescription>Click save when you're done.</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { TestGeneratedVideo } from "../History/GeneratedVideoThumbnail";
 
-const GeneratedVideoCard = ({ id }: TestGeneratedVideo) => {
+import { Video } from "@/types/video.types";
+
+const GeneratedVideoCard = ({ title, videoId }: Video) => {
   const [videoPanelOpened, setVideoPanelState] = useState(false);
 
   return (
@@ -11,14 +12,14 @@ const GeneratedVideoCard = ({ id }: TestGeneratedVideo) => {
         onClick={() => setVideoPanelState(!videoPanelOpened)}
         className="w-full h-full flex flex-row justify-center"
       >
-        <div className="h-12 flex flex-col justify-center">{"No Title"}</div>
+        <div className="h-12 flex flex-col justify-center">{title}</div>
       </div>
       {/* the div below is for the video */}
       {videoPanelOpened ? (
         <div className="w-full h-[36rem] bg-black border-[4px] border-black border-solid flex flex-col items-center p-3">
           <iframe
             className="w-[98%] h-[100%]"
-            src={`https://www.youtube.com/embed/${id}`}
+            src={`https://www.youtube.com/embed/${videoId}`}
             allowFullScreen={true}
           ></iframe>
         </div>

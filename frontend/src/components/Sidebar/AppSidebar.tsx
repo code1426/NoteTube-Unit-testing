@@ -122,7 +122,7 @@ const AppSidebar = () => {
       <SidebarFooter>
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <ProfileButton state={state} />
+            <ProfileButton />
           </DropdownMenuTrigger>
           <DropdownMenuContent
             side={`${isMobile ? "top" : "right"}`}
@@ -132,7 +132,7 @@ const AppSidebar = () => {
             className="mb-2"
           >
             <DropdownMenuLabel>
-              <ProfileButton isChild state={state} />
+              <ProfileButton />
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>

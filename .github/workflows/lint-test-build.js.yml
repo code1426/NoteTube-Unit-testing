@@ -6,7 +6,7 @@ name: lint-build
 on: [push, pull_request]
 
 jobs:
-  lint-build:
+  lint-test-build:
     runs-on: ubuntu-latest
 
     strategy:

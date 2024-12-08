@@ -17,7 +17,7 @@ const generateAIResponse = async (
           throw new Error(
             error instanceof GoogleGenerativeAIError
               ? error.message
-              : "Unknown error on generating summary",
+              : `Unknown error on generating ${outputOption}`,
           );
         });
 
@@ -34,7 +34,7 @@ const generateAIResponse = async (
           throw new Error(
             error instanceof GoogleGenerativeAIError
               ? error.message
-              : "Unknown error on generating flashcards",
+              : `Unknown error on generating ${outputOption}`,
           );
         });
 
