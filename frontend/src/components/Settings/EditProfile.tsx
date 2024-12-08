@@ -1,5 +1,4 @@
-import { CiEdit } from "react-icons/ci";
-
+import UpdateUsernameForm from "./UpdateUsernameForm";
 const EditProfile = () => {
   return (
     <div className="w-full h-full flex ">
@@ -8,7 +7,7 @@ const EditProfile = () => {
           id="change-username"
           className="flex text-sm w-full rounded-lg cursor-pointer hover:text-green"
         >
-          <CiEdit size={20} />
+          <UpdateUsernameForm />
         </div>
       </div>
     </div>
