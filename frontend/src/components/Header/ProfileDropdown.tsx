@@ -27,10 +27,15 @@ import { BiNotification } from "react-icons/bi";
 // import { Edit2Icon } from "lucide-react";
 import { LogOutIcon } from "lucide-react";
 import { Settings } from "lucide-react";
+import LoadingScreen from "../LoadingScreen";
 
 const ProfileDropdown = () => {
   const [isProfileOpen, setProfileOpen] = useState(false);
   const { user } = useContext(UserContext);
+  if (!user) {
+    return <LoadingScreen message="Loading page..." />;
+  }
+
   const getAbbreviation = (name: string) => {
     return name
       .split(" ")
