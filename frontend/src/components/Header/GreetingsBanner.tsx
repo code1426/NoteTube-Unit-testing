@@ -4,6 +4,7 @@ import { UserContext } from "@/context/Contexts";
 
 const GreetingsBanner = () => {
   const { user } = useContext(UserContext);
+
   useEffect(() => {
     const hasShownBanner = localStorage.getItem("hasShownBanner");
 
@@ -27,6 +28,8 @@ const GreetingsBanner = () => {
       });
     }
   }, [user?.username]);
+
+  if (!user) return <div></div>;
 
   return (
     <>

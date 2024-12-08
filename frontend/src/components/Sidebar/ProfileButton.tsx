@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Label } from "../ui/label";
-
 import { UserContext } from "@/context/Contexts";
 import { useContext } from "react";
 
@@ -17,6 +16,8 @@ const ProfileButton = ({ isDropdown = false }: Props) => {
       .map((name) => name[0].toUpperCase())
       .join("");
   };
+
+  if (!user) return <div></div>;
 
   return (
     <div
