@@ -11,6 +11,7 @@ import FilterCardModal from "../Flashcards/FilterFlashcardModal";
 import { Link, useNavigate } from "react-router-dom";
 import { options } from "../../types/options.types";
 import { useIsMobile } from "@/hooks/use-mobile";
+import SearchCardModal from "./SearchModal";
 
 interface SubHeaderProps {
   isHomepage: boolean;
@@ -40,12 +41,22 @@ const Header: React.FC<SubHeaderProps> = ({
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const isMobile = useIsMobile();
 
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
+  const toggleSearchModal = () => {
+    setIsSearchModalOpen((prevState) => !prevState);
+  };
+
   const handleSearch = () => {
-    const toggledSearchState = !isSearchActive;
-    setIsSearchActive(toggledSearchState);
-    if (!toggledSearchState) {
-      setSearchText("");
-      onSearch!("");
+    if (isMobile) {
+      toggleSearchModal();
+    } else {
+      const toggledSearchState = !isSearchActive;
+      setIsSearchActive(toggledSearchState);
+      if (!toggledSearchState) {
+        setSearchText("");
+        if (onSearch) onSearch("");
+      }
     }
   };
 
@@ -62,6 +73,7 @@ const Header: React.FC<SubHeaderProps> = ({
       onApplyOptions(selectedOptions);
     }
   };
+
   const navigate = useNavigate();
   const handleBack = () => {
     navigate(-1);
@@ -81,7 +93,9 @@ const Header: React.FC<SubHeaderProps> = ({
           )}
 
           <div
-            className={`${isMobile && "max-w-32"} block truncate ml-4 w-full text-responsive_header`}
+            className={`${
+              isMobile && "max-w-32"
+            } block truncate ml-4 w-full text-responsive_header`}
           >
             {sectionTitle}
           </div>
@@ -93,7 +107,9 @@ const Header: React.FC<SubHeaderProps> = ({
               <div>
                 <Link to={`/quiz/${deckId}`}>
                   <button
-                    className={` ${isMobile && "hidden"} flex py-2 px-8 text-white items-center justify-center bg-green rounded-[50px] gap-2 hover:bg-green_hover`}
+                    className={` ${
+                      isMobile && "hidden"
+                    } flex py-2 px-8 text-white items-center justify-center bg-green rounded-[50px] gap-2 hover:bg-green_hover`}
                   >
                     <PiCards /> Quiz
                   </button>
@@ -103,7 +119,9 @@ const Header: React.FC<SubHeaderProps> = ({
             {hasAddButton && (
               <div>
                 <button
-                  className={`flex py-2 ${isMobile ? "px-2" : "px-6"} border-2 border-[#03c04a] rounded-full gap-2 hover:bg-gray-200 items-center justify-center`}
+                  className={`flex py-2 ${
+                    isMobile ? "px-2" : "px-6"
+                  } border-2 border-[#03c04a] rounded-full gap-2 hover:bg-gray-200 items-center justify-center`}
                   onClick={onAdd}
                 >
                   <PiPlus />{" "}
@@ -115,7 +133,14 @@ const Header: React.FC<SubHeaderProps> = ({
             )}
             <div>
               {/* Search bar toggle */}
-              {isSearchActive ? (
+              {isMobile ? (
+                <button
+                  className="flex items-center hover:underline gap-2"
+                  onClick={handleSearch}
+                >
+                  <PiMagnifyingGlass />{" "}
+                </button>
+              ) : isSearchActive ? (
                 <div className="flex items-center gap-2 border-2 border-[#03c04a] rounded-full px-4 py-1.5">
                   <button
                     onClick={handleSearch}
@@ -130,10 +155,10 @@ const Header: React.FC<SubHeaderProps> = ({
                     className="flex-1 focus:outline-none"
                     autoFocus
                     onChange={(e) => {
-                      const newSearchtext = e.target.value;
-                      setSearchText(newSearchtext);
+                      const newSearchText = e.target.value;
+                      setSearchText(newSearchText);
                       if (onSearch) {
-                        onSearch(newSearchtext);
+                        onSearch(newSearchText);
                       }
                     }}
                   />
@@ -173,6 +198,16 @@ const Header: React.FC<SubHeaderProps> = ({
           </div>
         )}
       </div>
+
+      {isSearchModalOpen && (
+        <SearchCardModal
+          onClose={() => toggleSearchModal()}
+          onSearch={(searchText) => {
+            setSearchText(searchText);
+            if (onSearch) onSearch(searchText);
+          }}
+        />
+      )}
     </div>
   );
 };
