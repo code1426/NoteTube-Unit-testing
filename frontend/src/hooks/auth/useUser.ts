@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from "@/context/Contexts";
+import { UserContext, AuthContext } from "@/context/Contexts";
 import type { User } from "../../types/user.types";
 
 interface ErrorDetails {
@@ -7,8 +7,8 @@ interface ErrorDetails {
 }
 
 const useUser = () => {
-  // const [user, setUser] = useState<User | null>(null);
   const { user, setUser } = useContext(UserContext);
+  const { isAuthenticated } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,7 +39,7 @@ const useUser = () => {
     };
 
     getUser();
-  }, [setUser]);
+  }, [setUser, isAuthenticated]);
 
   return { user, setUser, loading, error };
 };
