@@ -29,21 +29,23 @@ const useUpdateUsername = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.log(errorData);
-        setError("Request to get user failed with status: " + response.status);
+        console.log(errorData.message);
+        setError(
+          "Request to change username failed with status: " + response.status,
+        );
         return { success: false, error: error };
       } else {
         const user: User = await response.json();
         return { success: true, user };
       }
     } catch (error) {
-      return { success: false, error: "Failed to get user" };
+      return { success: false, error: "Failed to put username" };
     } finally {
       setLoading(false);
     }
   };
 
-  return { newUsername, loading };
+  return { newUsername, loading, error };
 };
 
 export default useUpdateUsername;
