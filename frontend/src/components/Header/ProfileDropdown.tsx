@@ -1,47 +1,37 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "@/context/Contexts";
 import ProfileButton from "../Sidebar/ProfileButton";
 import LogoutConfirmation from "../LogoutConfirmation";
-import EditProfile from "../Settings/EditProfile";
-import AccountSettings from "../Settings/AccountSettings";
+import UpdatePasswordForm from "../Settings/UpdatePasswordForm";
+import { Separator } from "@/components/ui/separator";
+import SwitchAccountConfirmation from "../Settings/SwitchAccountConfirmation";
+
+import { PiPasswordBold } from "react-icons/pi";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuItem,
 } from "../ui/dropdown-menu";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-} from "../ui/sheet";
-import { Separator } from "../ui/separator";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Label } from "../ui/label";
-
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { BiNotification } from "react-icons/bi";
-// import { Edit2Icon } from "lucide-react";
 import { LogOutIcon } from "lucide-react";
-import { Settings } from "lucide-react";
 import LoadingScreen from "../LoadingScreen";
 
 const ProfileDropdown = () => {
-  const [isProfileOpen, setProfileOpen] = useState(false);
   const { user } = useContext(UserContext);
   if (!user) {
     return <LoadingScreen message="Loading page..." />;
   }
 
-  const getAbbreviation = (name: string) => {
-    return name
-      .split(" ")
-      .map((name) => name[0].toUpperCase())
-      .join("");
-  };
   return (
     <>
       <DropdownMenu>
@@ -54,84 +44,76 @@ const ProfileDropdown = () => {
             <ProfileButton isDropdown />
           </DropdownMenuLabel>
 
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator className=" bg-gray-300" />
 
-          <DropdownMenuItem
-            onClick={() => setProfileOpen(true)}
-            className="flex items-center gap-2"
-          >
-            <Settings />
-            <span>Profile Settings</span>
-          </DropdownMenuItem>
-
-          <DropdownMenuItem>
-            <BiNotification />
-            <span>Notification</span>
-          </DropdownMenuItem>
-
-          <DropdownMenuSeparator />
-
-          <DropdownMenuItem
-            onClick={(e) => e.preventDefault()}
-            className="flex items-center"
-          >
-            <LogoutConfirmation>
-              <div className="flex flex-1 gap-2">
-                <LogOutIcon className="p-1" />
-                <span>Log Out</span>
-              </div>
-            </LogoutConfirmation>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-
-      <Sheet open={isProfileOpen} onOpenChange={setProfileOpen}>
-        <SheetContent side="right" className="w-full sm:w-[450px]">
-          <SheetHeader>
-            <SheetTitle className="font-bold text-2xl">
-              Profile Settings
-            </SheetTitle>
-            <SheetDescription>
-              Manage your profile and account settings here.
-            </SheetDescription>
-          </SheetHeader>
-          <Separator className="my-4 bg-gray-400" />
-          <div className=" overflow-atuo">
-            {/* contents */}
-            <div className="flex flex-row items-center">
-              <div
-                id="profile-image"
-                className="h-20 w-20 border-4 border-green rounded-full overflow-hidden flex bg-gray-100"
-              >
-                {/* <div className="flex self-end rounded-full bg-white w-16 h-16 justify-center items-center bg-opacity-75 absolute hover:cursor-pointer">
-                <BiNotification size={40} />
-              </div> */}
-                <div className="flex m-auto">
-                  <Avatar className="h-full w-full">
-                    <AvatarFallback className="text-5xl font-secondaryRegular bg-gray-100">
-                      {getAbbreviation(user!.username)}
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
-              </div>
-              <div className="font-secondaryRegular text-green-700  truncate block text-ellipsis max-w-44 ml-2">
-                <Label className="text-2xl">{user?.username}</Label>
-              </div>
-
-              <div>
-                <EditProfile />
-              </div>
+          <div className="p-2">
+            <div className="w-full cursor-pointer hover:text-green flex flex-row text-sm  py-3">
+              <BiNotification size={20} className="self-center mr-2" />
+              <span>Notification</span>
             </div>
-            <Separator className="my-4 bg-gray-400" />
-            <div className="mt-6 px-4">
-              <h1 className="text-xl font-semibold text-black">
-                Account Settings:
-              </h1>
-              <AccountSettings />
+
+            <Separator className=" bg-gray-300" />
+            {/*  */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <div
+                  id="change-password"
+                  className="w-full cursor-pointer hover:text-green flex flex-row text-sm pt-3 pb-2"
+                >
+                  <PiPasswordBold size={20} className="self-center mr-2" />
+                  Change Password
+                </div>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader></DialogHeader>
+                <UpdatePasswordForm />
+              </DialogContent>
+            </Dialog>
+
+            <DropdownMenuSeparator className=" bg-gray-300" />
+
+            {/*  */}
+            <div className=" flex items-center">
+              <SwitchAccountConfirmation>
+                <div
+                  id="switch-account"
+                  className="w-full cursor-pointer hover:text-green flex flex-row text-sm pt-2 pb-3"
+                >
+                  <HiOutlineSwitchHorizontal
+                    size={20}
+                    className="self-center mr-2"
+                  />
+                  Switch Account
+                </div>
+              </SwitchAccountConfirmation>
+            </div>
+
+            <Separator className=" bg-gray-300" />
+            {/*  */}
+            <div
+              id="delete-account"
+              className="w-full cursor-pointer hover:text-red-600 flex flex-row text-sm  py-3"
+            >
+              <RiDeleteBin5Line size={20} className="self-center mr-2" />
+              <span>Delete Account</span>
+            </div>
+
+            <Separator className=" bg-gray-300" />
+
+            <div
+              onClick={(e) => e.preventDefault()}
+              className="flex pt-6 px-4 items-end justify-end"
+            >
+              <LogoutConfirmation>
+                <div className="w-full cursor-pointer hover:text-red-600 flex flex-row text-sm  py-3">
+                  <span>Log Out</span>
+                  <LogOutIcon size={20} className="self-center ml-2" />
+                </div>
+              </LogoutConfirmation>
             </div>
           </div>
-        </SheetContent>
-      </Sheet>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </>
   );
 };
