@@ -28,17 +28,31 @@ router.put(
     try {
       const { id } = request.query;
       const { username } = request.body;
-
-      const result = await pool.query(
+      const usernameCheck = await pool.query(
         `
+        SELECT id
+        FROM users
+        where username = $1
+        `,
+        [username],
+      );
+      let canProceed: boolean = true;
+      if (usernameCheck.rows.length > 0 && usernameCheck.rows[0].id !== id) {
+        response.status(400).json({ message: "Username already exists." });
+        canProceed = false;
+      }
+      if (canProceed) {
+        const result = await pool.query(
+          `
         UPDATE users
         SET username = $1
         WHERE id = $2
         RETURNING *
          `,
-        [username, id],
-      );
-      response.status(200).json(result.rows);
+          [username, id],
+        );
+        response.status(200).json(result.rows);
+      }
     } catch (error) {
       next(error);
     }

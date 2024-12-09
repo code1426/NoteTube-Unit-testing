@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -14,10 +14,12 @@ import useUpdateUsername from "@/hooks/User/useUpdateUsername";
 import useUser from "@/hooks/auth/useUser";
 import { User } from "@/types/user.types";
 import { CiEdit } from "react-icons/ci";
+import toast from "react-hot-toast";
+
 const UpdateUsernameForm = () => {
   const { user } = useUser();
   const [newwUsername, setNewUsername] = useState(user?.username || "");
-  const { newUsername, loading } = useUpdateUsername();
+  const { newUsername, loading, error } = useUpdateUsername();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleApply = async () => {
@@ -30,9 +32,16 @@ const UpdateUsernameForm = () => {
     if (result.success) {
       console.log("Saved:", { username: result.user?.username });
       setIsOpen(false);
+      toast.success("Username changed");
       window.location.reload();
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Username already exists.");
+    }
+  }, [error]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -66,7 +75,7 @@ const UpdateUsernameForm = () => {
             disabled={
               loading || !newwUsername || newwUsername === user?.username
             }
-            className="btn-primary"
+            className="py-2.5 px-6 rounded-lg text-sm font-medium text-white bg-black btn-primary"
           >
             {loading ? "Saving..." : "Save Changes"}
           </button>
