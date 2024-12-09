@@ -75,7 +75,7 @@ const UpdateUsernameForm = () => {
             disabled={
               loading || !newwUsername || newwUsername === user?.username
             }
-            className="btn-primary"
+            className="py-2.5 px-6 rounded-lg text-sm font-medium text-white bg-black btn-primary"
           >
             {loading ? "Saving..." : "Save Changes"}
           </button>
