@@ -72,7 +72,7 @@ const GeneratedVideosPage = () => {
         className=" p-4 h-auto w-full flex justify-center flex-col"
       >
         <div className="flex justify-center">
-          <div className="border-4 h-[36rem] w-[52rem] rounded-2xl">
+          <div className="border-4 h-[36rem] w-[52rem] rounded-2xl flex justify-center bg-black">
             <iframe
               className="w-[98%] h-[100%]"
               src={`https://www.youtube.com/embed/${selectedVideo}`}
