@@ -35,6 +35,10 @@ const UpdateUsernameForm = () => {
       toast.success("Username changed");
       window.location.reload();
     }
+
+    if (result.error) {
+      toast.error("failed to change username");
+    }
   };
 
   useEffect(() => {
@@ -75,7 +79,7 @@ const UpdateUsernameForm = () => {
             disabled={
               loading || !newwUsername || newwUsername === user?.username
             }
-            className="py-2.5 px-6 rounded-lg text-sm font-medium text-white bg-black btn-primary"
+            className="py-2.5 px-6 rounded-lg text-sm font-medium text-white bg-green hover:bg-green_hover btn-primary"
           >
             {loading ? "Saving..." : "Save Changes"}
           </button>
