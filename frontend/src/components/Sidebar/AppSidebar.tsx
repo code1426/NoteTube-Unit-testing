@@ -2,7 +2,6 @@ import { MdOutlineNoteAdd as upload } from "react-icons/md"; // upload notes
 import { TbCards as decks } from "react-icons/tb"; // my decks
 import { CgNotes as notes } from "react-icons/cg";
 import { GoVideo as videos } from "react-icons/go"; // generated videos
-import { FcVideoFile as AppLogo } from "react-icons/fc"; //placeholder of app logo
 import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
@@ -56,10 +55,7 @@ const AppSidebar = () => {
           className="h-12 select-none font-secondaryRegular hover:text-green text-green"
         >
           <div>
-            <AppLogo
-              style={{ width: 32, height: 32 }}
-              className="bg-green rounded-full "
-            />
+            <img src="./logo.svg" alt="Logo" className="w-8 h-8 mb-2" />
             <span className="text-2xl">NoteTube</span>
           </div>
         </SidebarMenuButton>
