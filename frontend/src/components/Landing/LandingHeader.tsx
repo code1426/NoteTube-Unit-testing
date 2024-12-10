@@ -1,4 +1,3 @@
-import { GrStatusPlaceholderSmall } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import {
   NavigationMenu,
