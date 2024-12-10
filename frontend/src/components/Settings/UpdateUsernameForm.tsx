@@ -23,7 +23,16 @@ const UpdateUsernameForm = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleApply = async () => {
-    if (!newwUsername || newwUsername === user?.username) return;
+    if (!newwUsername || newwUsername === user?.username) {
+      toast.error("New username should be different.");
+      return;
+    }
+
+    if (newwUsername.length < 3 || newwUsername.length > 254) {
+      toast.error("Username must be between 3 and 254 characters.");
+      return;
+    }
+
     const result = await newUsername({
       ...user,
       username: newwUsername.trim(),
@@ -35,14 +44,11 @@ const UpdateUsernameForm = () => {
       toast.success("Username changed");
       window.location.reload();
     }
-
-    if (result.error) {
-      toast.error("failed to change username");
-    }
   };
 
   useEffect(() => {
-    if (error) {
+    console.log(error);
+    if (error?.includes("400")) {
       toast.error("Username already exists.");
     }
   }, [error]);
@@ -76,9 +82,7 @@ const UpdateUsernameForm = () => {
           <button
             type="button"
             onClick={handleApply}
-            disabled={
-              loading || !newwUsername || newwUsername === user?.username
-            }
+            disabled={loading || !newwUsername}
             className="py-2.5 px-6 rounded-lg text-sm font-medium text-white bg-green hover:bg-green_hover btn-primary"
           >
             {loading ? "Saving..." : "Save Changes"}
