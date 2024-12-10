@@ -56,10 +56,7 @@ const AppSidebar = () => {
           className="h-12 select-none font-secondaryRegular hover:text-green text-green"
         >
           <div>
-            <AppLogo
-              style={{ width: 32, height: 32 }}
-              className="bg-green rounded-full "
-            />
+            <img src="./logo.svg" alt="Logo" className="w-8 h-8 mb-2" />
             <span className="text-2xl">NoteTube</span>
           </div>
         </SidebarMenuButton>
