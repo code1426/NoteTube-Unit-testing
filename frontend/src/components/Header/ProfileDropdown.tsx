@@ -24,12 +24,11 @@ import {
 } from "@/components/ui/dialog";
 import { BiNotification } from "react-icons/bi";
 import { LogOutIcon } from "lucide-react";
-import LoadingScreen from "../LoadingScreen";
 
 const ProfileDropdown = () => {
   const { user } = useContext(UserContext);
   if (!user) {
-    return <LoadingScreen message="Loading page..." />;
+    return <div></div>;
   }
 
   return (

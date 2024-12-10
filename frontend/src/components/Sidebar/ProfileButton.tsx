@@ -15,7 +15,8 @@ const ProfileButton = ({ isDropdown = false }: Props) => {
     return name
       .split(" ")
       .map((name) => name[0].toUpperCase())
-      .join("");
+      .join("")
+      .slice(0, 2);
   };
 
   if (!user) return <div></div>;
@@ -25,7 +26,7 @@ const ProfileButton = ({ isDropdown = false }: Props) => {
       className={`outline-none cursor-pointer  gap-2 p-1 rounded-full transition-all flex flex-col justify-center items-center ${isDropdown && "hover:bg-white min-w-44 w-60 active:bg-white p-0"}`}
     >
       <Avatar className={` ${isDropdown && "w-20 h-20 border-2 border-green"}`}>
-        <AvatarFallback className={`text-xl ${isDropdown && "text-5xl"}`}>
+        <AvatarFallback className={`text-xl ${isDropdown && "text-4xl"}`}>
           {getAbbreviation(user!.username)}
         </AvatarFallback>
       </Avatar>
