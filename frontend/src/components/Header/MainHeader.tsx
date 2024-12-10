@@ -13,7 +13,11 @@ const MainHeader = () => {
           onClick={toggleSidebar}
           className="flex flex-row gap-2 cursor-pointer items-center justify-start"
         >
-          <img src="logo.svg" alt="Logo" className="w-8 h-8 mb-2" />
+          <img
+            src="../../public/logo.svg"
+            alt="Logo"
+            className="w-8 h-8 mb-2"
+          />
           <span className="text-3xl font-secondaryRegular text-green">
             NoteTube
           </span>
