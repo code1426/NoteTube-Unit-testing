@@ -2,7 +2,6 @@ import { MdOutlineNoteAdd as upload } from "react-icons/md"; // upload notes
 import { TbCards as decks } from "react-icons/tb"; // my decks
 import { CgNotes as notes } from "react-icons/cg";
 import { GoVideo as videos } from "react-icons/go"; // generated videos
-import { FcVideoFile as AppLogo } from "react-icons/fc"; //placeholder of app logo
 import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
