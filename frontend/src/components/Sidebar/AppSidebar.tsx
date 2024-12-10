@@ -73,7 +73,7 @@ const AppSidebar = () => {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
-                    className={`transition-all`}
+                    className={`transition-all hover:bg-gray-200 active:bg-gray-200`}
                     asChild
                     size={"lg"}
                     tooltip={item.title}

@@ -27,7 +27,7 @@ const LandingHeader: React.FC<LandingHeaderProps> = ({ refs }) => {
   return (
     <div className="flex flex-row top-0 px-10 h-20 bg-white bg-opacity-70 items-center justify-between sticky backdrop-blur-xl z-50 select-none">
       <div className="flex flex-row text-green text-xl font-secondaryRegular hover:text-green_hover transition-all duration-300 gap-5">
-        <img src="../../public/logo.svg" alt="Logo" className="w-6 h-6 mb-2" />
+        <img src="./logo.svg" alt="Logo" className="w-6 h-6 mb-2" />
         NoteTube
       </div>
       <div className="hidden flex-row gap-8 sm:flex">
@@ -43,7 +43,7 @@ const LandingHeader: React.FC<LandingHeaderProps> = ({ refs }) => {
                     <NavigationMenuLink asChild>
                       <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
                         <img
-                          src="../../public/logo.svg"
+                          src="./logo.svg"
                           alt="Logo"
                           className="w-6 h-6 mb-2"
                         />
