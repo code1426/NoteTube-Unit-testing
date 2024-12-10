@@ -18,6 +18,7 @@ const NotesHistoryCard = ({ id, title, videos }: FullNoteContent) => {
       console.error("Error deleting note:", error);
     }
   };
+
   return (
     <Card className="shadow-md">
       <CardHeader className="flex-row items-center justify-between border-b">
