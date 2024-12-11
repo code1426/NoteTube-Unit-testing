@@ -4,6 +4,7 @@ import useDeleteFlashcard from "../../hooks/Flashcards/useDeleteFlashcard";
 import toast from "react-hot-toast";
 import DeleteFlashcardsConfirmation from "./DeleteFlashcardsConfirmation";
 import EditFlashcardDialog from "./EditFlashcardDialog";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const FlashcardItem = ({ id, front, back, deckId }: Flashcard) => {
   const { deleteFlashcard, error } = useDeleteFlashcard(id);
@@ -18,24 +19,28 @@ const FlashcardItem = ({ id, front, back, deckId }: Flashcard) => {
     }
   };
   return (
-    <Card className="shadow-md">
-      <CardHeader className="flex-row items-center justify-between border-b">
-        <CardTitle className="flex-1 text-left">{front}</CardTitle>
-        <div className="flex">
-          <EditFlashcardDialog
-            id={id}
-            front={front}
-            back={back}
-            deckId={deckId}
-          />
-          <DeleteFlashcardsConfirmation
-            id={id}
-            onDelete={handleConfirmDelete}
-          />
-        </div>
-      </CardHeader>
-      <CardContent className="flex-1 py-[26.6px]">{back}</CardContent>
-    </Card>
+    <>
+      <TooltipProvider>
+        <Card className="shadow-md">
+          <CardHeader className="flex-row items-center justify-between border-b">
+            <CardTitle className="flex-1 text-left">{front}</CardTitle>
+            <div className="flex">
+              <EditFlashcardDialog
+                id={id}
+                front={front}
+                back={back}
+                deckId={deckId}
+              />
+              <DeleteFlashcardsConfirmation
+                id={id}
+                onDelete={handleConfirmDelete}
+              />
+            </div>
+          </CardHeader>
+          <CardContent className="flex-1 py-[26.6px]">{back}</CardContent>
+        </Card>
+      </TooltipProvider>
+    </>
   );
 };
 

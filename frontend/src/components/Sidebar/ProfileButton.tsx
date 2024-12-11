@@ -3,6 +3,11 @@ import { Label } from "../ui/label";
 import { UserContext } from "@/context/Contexts";
 import { useContext } from "react";
 import EditProfile from "../Settings/EditProfile";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Props {
   isDropdown?: boolean;
@@ -40,7 +45,14 @@ const ProfileButton = ({ isDropdown = false }: Props) => {
               <Label className="text-lg">{user?.username}</Label>
             </div>
             <div className="ml-2 right-0">
-              <EditProfile />
+              <Tooltip>
+                <TooltipTrigger>
+                  <EditProfile />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Change Username</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
           <Label className="text-xs">{user?.email}</Label>

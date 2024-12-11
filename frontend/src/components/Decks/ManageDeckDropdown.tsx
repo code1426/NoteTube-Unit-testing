@@ -14,6 +14,11 @@ import useDeleteDeck from "../../hooks/Decks/useDeleteDeck";
 import RenameDeckDialog from "./RenameDeckDialog";
 import ChangeDeckColorDialog from "./ChangeDeckColorDialog";
 import DeleteDeckConfirmation from "./DeleteDeckConfirmation";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ManageDeckDropdownProps {
   id: string;
@@ -42,11 +47,18 @@ const ManageDeckDropdown = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200">
-          <PiDotsThreeCircle size={30} color="white" />
-        </button>
-      </DropdownMenuTrigger>
+      <Tooltip>
+        <TooltipTrigger>
+          <DropdownMenuTrigger>
+            <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200">
+              <PiDotsThreeCircle size={30} color="white" />
+            </button>
+          </DropdownMenuTrigger>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Manage Deck</p>
+        </TooltipContent>
+      </Tooltip>
       <DropdownMenuPortal>
         <DropdownMenuContent className="w-[10.5rem] py-2">
           <DropdownMenuLabel className="select-none">

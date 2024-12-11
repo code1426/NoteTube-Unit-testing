@@ -10,6 +10,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { PiTrash } from "react-icons/pi";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface DeleteFlashcardsModalProps {
   id: string;
@@ -21,11 +26,18 @@ const DeleteFlashcardsConfirmation = ({
 }: DeleteFlashcardsModalProps) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
-        <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200">
-          <PiTrash size={16} />
-        </button>
-      </AlertDialogTrigger>
+      <Tooltip>
+        <TooltipTrigger>
+          <AlertDialogTrigger>
+            <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200">
+              <PiTrash size={16} />
+            </button>
+          </AlertDialogTrigger>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Delete Card</p>
+        </TooltipContent>
+      </Tooltip>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
