@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-// import { useParams, useLocation } from "react-router-dom";
 import Header from "../components/Header/Header";
-import GeneratedVideoCard from "../components/Notes/GeneratedVideoCard";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import LoadingScreen from "@/components/LoadingScreen";
 import useFetchNote from "@/hooks/Notes/useFetchNote";
 import { FullNoteContent } from "@/types/note.types";
 import separateNotesWithVideos from "@/utils/notesFormatter";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import SummaryContainer from "@/components/Notes/SummaryContainer";
+import VideoCard from "@/components/Notes/VideoCard";
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import HoverVideoCard from "@/components/Notes/HoverVideoCard";
 
 const NotePage: React.FC = () => {
   const { noteId } = useParams<{ noteId: string }>();
@@ -34,7 +37,7 @@ const NotePage: React.FC = () => {
   }
 
   return (
-    <div className="bg-white relative font-secondaryRegular w-full">
+    <div className="w-full min-h-screen flex flex-col overflow-x-hidden">
       <Header
         isHomepage={false}
         isFlashCardsPage={false}
@@ -43,26 +46,43 @@ const NotePage: React.FC = () => {
         onAdd={() => {}}
         hasAddButton={false}
       />
-      <div className="w-full flex flex-col items-center">
-        {/* The div below is for the uploaded notes content */}
-        <div className="flex justify-center px-16 py-6 tracking-wider">
-          <p>{displayedNote!.content}</p>
-        </div>
-        {/* The div below is for the generated videos */}
-        <div className="w-full flex flex-col justify-center items-center gap-4 py-6">
-          {displayedNote!.videos.length === 0 ? (
-            <p>No videos found for this note...</p>
-          ) : (
-            displayedNote!.videos!.map((generatedVideo) => (
-              <GeneratedVideoCard
-                key={generatedVideo.videoId}
-                title={generatedVideo.title}
-                thumbnailUrl={generatedVideo.thumbnailUrl}
-                videoId={generatedVideo.videoId}
-              />
-            ))
-          )}
-        </div>
+      <div className="flex-1 flex flex-col items-center px-2 py-4 space-y-4 md:px-4 lg:px-6">
+        <SummaryContainer content={displayedNote!.content} />
+      </div>
+
+      <div className="mt-auto overflow-x-hidden w-[90rem] max-w-full">
+        <h2 className="text-xl font-semibold text-gray-800 px-5 py-3">
+          Related Videos
+        </h2>
+
+        <ScrollArea className="pb-4">
+          <div className="flex space-x-4 px-5">
+            {displayedNote!.videos.length === 0 ? (
+              <p className="text-gray-500 italic mx-auto">
+                No videos found for this note...
+              </p>
+            ) : (
+              displayedNote!.videos!.map((generatedVideo) => (
+                <div
+                  className="w-[280px] flex-shrink-0"
+                  key={generatedVideo.videoId}
+                >
+                  <HoverCard>
+                    <HoverCardTrigger>
+                      <VideoCard
+                        videoId={generatedVideo.videoId}
+                        thumbnailUrl={generatedVideo.thumbnailUrl}
+                        title={generatedVideo.title}
+                      />
+                    </HoverCardTrigger>
+                    <HoverVideoCard title={generatedVideo.title} />
+                  </HoverCard>
+                </div>
+              ))
+            )}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </div>
     </div>
   );

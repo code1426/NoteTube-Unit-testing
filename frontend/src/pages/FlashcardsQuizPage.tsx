@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import useFetchFlashcards from "../hooks/Flashcards/useFetchFlashcards";
 import type { Flashcard } from "../types/flashcard.types";
 import LoadingScreen from "../components/LoadingScreen";
-import ReturnButton from "../components/ReturnButton";
 import toast, { Toaster } from "react-hot-toast";
 import NoItemsContainerBox from "../components/NoItemsContainerBox";
 import FlashcardCarousel from "@/components/Flashcards/FlashcardsCarousel";
+import Header from "@/components/Header/Header";
 
 const FlashcardsQuizPage = () => {
   const { deckId } = useParams<{ deckId: string }>();
@@ -27,16 +27,18 @@ const FlashcardsQuizPage = () => {
     toast.error("Error fetching flashcards.");
   }
 
-  // const isSingleCard = quizCards.length === 1;
-
   return (
     <>
       <Toaster />
       <div className="w-full">
+        <Header
+          isHomepage={false}
+          isSectionTitleOnly={false}
+          isFlashCardsPage={false}
+          sectionTitle="Quiz"
+          hasAddButton={false}
+        />
         <div className="bg-white w-full h-screen flex flex-col justify-center items-center p-5">
-          <div className="absolute top-5 right-5">
-            <ReturnButton />
-          </div>
           {quizCards.length === 0 ? (
             <NoItemsContainerBox
               mainText="No flashcards available."
