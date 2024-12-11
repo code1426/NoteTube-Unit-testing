@@ -14,7 +14,7 @@ const HoverFlashcardCard: React.FC<HoverFlashcardCardProps> = ({
   });
 
   return (
-    <HoverCardContent className="bg-slate-100">
+    <HoverCardContent className="bg-slate-100 w-60">
       <div className="space-y-2">
         <label className="text-sm font-semibold">Flashcard</label>
         <div className="flex items-center pt-2">
