@@ -9,7 +9,6 @@ import NotePage from "./pages/NotePage";
 import FlashcardsPage from "./pages/FlashcardsPage";
 import FlashcardsQuizPage from "./pages/FlashcardsQuizPage";
 import UserDecksPage from "./pages/UserDecksPage";
-import ProfilePage from "./pages/ProfilePage";
 import LoadingScreen from "./components/LoadingScreen";
 import SideBarLayout from "./components/Sidebar/Layout";
 import NotesHistoryPage from "./pages/NotesHistoryPage";
@@ -59,10 +58,6 @@ const App = () => {
               element={
                 isAuthenticated ? <FlashcardsQuizPage /> : <Navigate to="/" />
               }
-            />
-            <Route
-              path="/profile"
-              element={isAuthenticated ? <ProfilePage /> : <Navigate to="/" />}
             />
             <Route
               path="/notes-history"
