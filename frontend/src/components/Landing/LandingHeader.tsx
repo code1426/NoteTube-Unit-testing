@@ -11,6 +11,8 @@ import ListItem from "./ListItem";
 
 interface LandingHeaderProps {
   refs?: {
+    introductionRef: React.RefObject<HTMLDivElement>;
+    discoverRef: React.RefObject<HTMLDivElement>;
     aboutRef: React.RefObject<HTMLDivElement>;
     feature1Ref: React.RefObject<HTMLDivElement>;
     feature2Ref: React.RefObject<HTMLDivElement>;
@@ -61,7 +63,7 @@ const LandingHeader: React.FC<LandingHeaderProps> = ({ refs }) => {
                   <ListItem
                     title="Introduction"
                     onClick={() =>
-                      refs?.aboutRef && scrollToSection(refs.aboutRef)
+                      refs?.aboutRef && scrollToSection(refs.introductionRef)
                     }
                   >
                     Learn how NoteTube revolutionizes the way you study by
@@ -71,7 +73,7 @@ const LandingHeader: React.FC<LandingHeaderProps> = ({ refs }) => {
                   <ListItem
                     title="Discover"
                     onClick={() =>
-                      refs?.aboutRef && scrollToSection(refs.aboutRef)
+                      refs?.aboutRef && scrollToSection(refs.discoverRef)
                     }
                   >
                     Explore the unique features of NoteTube that make it your

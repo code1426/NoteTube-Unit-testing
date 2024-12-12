@@ -1,6 +1,6 @@
-import { CgNotes } from "react-icons/cg";
-import { BiSolidVideos } from "react-icons/bi";
-import { PiCardsBold } from "react-icons/pi";
+// import { CgNotes } from "react-icons/cg";
+// import { BiSolidVideos } from "react-icons/bi";
+// import { PiCardsBold } from "react-icons/pi";
 import { useRef, useEffect } from "react";
 
 import LandingHeader from "../components/Landing/LandingHeader";
@@ -8,8 +8,13 @@ import Hero from "../components/Landing/Hero";
 import Section from "../components/Landing/Section";
 import FAQs from "@/components/Landing/FAQs";
 import Footer from "@/components/Landing/Footer";
+import UserManualSection from "@/components/Landing/UserManualSection";
+import JoinUsSection from "@/components/Landing/JoinUsSection";
+import InformationCardsSection from "@/components/Landing/InformationCardsSection";
 
 const LandingPage = () => {
+  const introductionRef = useRef<HTMLDivElement>(null);
+  const discoverRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const feature1Ref = useRef<HTMLDivElement>(null);
   const feature2Ref = useRef<HTMLDivElement>(null);
@@ -17,6 +22,8 @@ const LandingPage = () => {
   const faqsRef = useRef<HTMLDivElement>(null);
 
   const refs = {
+    introductionRef,
+    discoverRef,
     aboutRef,
     feature1Ref,
     feature2Ref,
@@ -56,13 +63,30 @@ const LandingPage = () => {
       <LandingHeader refs={refs} />
       <Hero />
       <div
-        ref={aboutRef}
+        ref={introductionRef}
         className="section opacity-0 transform translate-y-24 transition-all duration-500"
       >
         <Section
           title="What is NoteTube?"
-          description="NoteTube is a smart tool designed to transform your notes into effective learning resources by summarizing content, suggesting relevant videos, and creating interactive flashcards."
+          description="NoteTube is your ultimate study companion, transforming notes into interactive learning resources."
           reverse
+        />
+      </div>
+      <div
+        ref={discoverRef}
+        className="section opacity-0 transform translate-y-24 transition-all duration-500"
+      >
+        <InformationCardsSection />
+      </div>
+      <div
+        ref={aboutRef}
+        className="section opacity-0 transform translate-y-24 transition-all duration-500"
+      >
+        <Section
+          title="About Us"
+          description="At NoteTube, we believe in revolutionizing the way students learn by integrating advanced AI technology. We transform scattered notes into structured, engaging study materials that are easy to comprehend and retain. Our mission is to enhance educational experiences by making studying more effective and enjoyable. With NoteTube, students can maximize their learning potential and achieve academic success."
+          reverse
+          image="src\assets\images\about.png"
         />
       </div>
       <div
@@ -71,11 +95,9 @@ const LandingPage = () => {
       >
         <Section
           title="Upload Notes"
-          description="Easily upload your notes in various formats and let NoteTube process and enhance your content for better learning."
+          description="Break free from traditional note-taking limitations. Simply upload your handwritten, typed, or digital notes in any format - PDFs, images, text documents - and watch as NoteTube intelligently processes and transforms them into a comprehensive learning experience tailored just for you."
           reverse={false}
-          Icon={
-            <CgNotes className="right-icon opacity-0 transform translate-x-24 transition-all duration-500" />
-          }
+          image="src\assets\images\notes.png"
         />
       </div>
       <div
@@ -84,11 +106,9 @@ const LandingPage = () => {
       >
         <Section
           title="Get Related Videos"
-          description="Receive curated video recommendations that align with your uploaded notes, helping you dive deeper into your topics."
+          description="Dive deeper into your learning with curated, intelligent video recommendations. Our AI analyzes your notes and finds the most relevant, high-quality educational content from across the web, ensuring you get targeted explanations that complement and enhance your existing study materials."
           reverse
-          Icon={
-            <BiSolidVideos className="left-icon opacity-0 transform -translate-x-24 transition-all duration-500" />
-          }
+          image="src\assets\images\videos.png"
         />
       </div>
       <div
@@ -97,15 +117,22 @@ const LandingPage = () => {
       >
         <Section
           title="Use Generated Flashcards"
-          description="Access auto-generated flashcards based on your notes, designed to help you retain key concepts more effectively."
+          description="Supercharge your memory retention with AI-powered flashcards. NoteTube automatically generates smart, context-aware flashcards from your notes, presenting key concepts, definitions, and critical information in an interactive format that makes studying more engaging and efficient."
           reverse={false}
-          Icon={
-            <PiCardsBold className="right-icon opacity-0 transform translate-x-24 transition-all duration-500" />
-          }
+          image="src\assets\images\cards.png"
         />
       </div>
-      <div className="section" ref={faqsRef}>
+      <div className="section opacity-0 transform translate-y-24 transition-all duration-500">
+        <UserManualSection />
+      </div>
+      <div
+        ref={faqsRef}
+        className="section opacity-0 transform translate-y-24 transition-all duration-500"
+      >
         <FAQs />
+      </div>
+      <div className="section opacity-0 transform translate-y-24 transition-all duration-500">
+        <JoinUsSection />
       </div>
       <Footer />
     </div>
