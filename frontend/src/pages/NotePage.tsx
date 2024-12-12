@@ -50,7 +50,7 @@ const NotePage: React.FC = () => {
         <SummaryContainer content={displayedNote!.content} />
       </div>
 
-      <div className="mt-auto overflow-x-hidden w-[90rem] max-w-full">
+      <div className="mt-auto overflow-x-hidden w-full">
         <h2 className="text-xl font-semibold text-gray-800 px-5 py-3">
           Related Videos
         </h2>
@@ -64,7 +64,7 @@ const NotePage: React.FC = () => {
             ) : (
               displayedNote!.videos!.map((generatedVideo) => (
                 <div
-                  className="w-[280px] flex-shrink-0"
+                  className="max-w-[280px] w-full flex-shrink-0"
                   key={generatedVideo.videoId}
                 >
                   <HoverCard>

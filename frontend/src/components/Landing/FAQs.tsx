@@ -7,7 +7,7 @@ import {
 
 const FAQs = () => {
   return (
-    <section className="px-4 min-h-screen md:px-8 lg:py-16 bg-green bg-opacity-85 text-white">
+    <section className="px-4 min-h-screen md:px-8 lg:py-16 bg-white bg-opacity-85 select-none">
       <h2 className="text-6xl font-bold text-center mb-6 font-secondaryRegular">
         FAQs
       </h2>
@@ -55,6 +55,17 @@ const FAQs = () => {
             Yes, NoteTube offers a free tier with essential features. For
             advanced functionalities, such as premium video suggestions and
             unlimited flashcard generation, users can subscribe to a paid plan.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="question-5">
+          <AccordionTrigger className="text-xl font-bold">
+            Is there a limit to the notes you upload?
+          </AccordionTrigger>
+          <AccordionContent className="text-xl">
+            Unfortunately, there is a limt. Since, this app is free we are just
+            using free storage systems to deploy our app that is why there is
+            are only a number of times you can upload your notes because our
+            database can only hold up to 50 rows.
           </AccordionContent>
         </AccordionItem>
       </Accordion>
