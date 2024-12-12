@@ -1,3 +1,13 @@
+export const PASTEL_COLORS = [
+  "#FFADAD", // Pastel Red
+  "#FFD6A5", // Pastel Orange
+  "#FDFFB6", // Pastel Yellow
+  "#CAFFBF", // Pastel Green
+  "#9BF6FF", // Pastel Blue
+  "#A0C4FF", // Pastel Purple
+  "#FFC6FF", // Pastel Pink
+];
+
 export const ALLOWED_FILE_TYPES: { [key: string]: boolean } = {
   "image/jpeg": true,
   "image/jpg": true,
@@ -6,7 +16,7 @@ export const ALLOWED_FILE_TYPES: { [key: string]: boolean } = {
   "application/msword": true,
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
     true,
-  "plain/text": true,
+  "text/plain": true,
 };
 
 export const MIN_TEXT_INPUT_LENGTH = 50; // 50 characters

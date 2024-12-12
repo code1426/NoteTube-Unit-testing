@@ -10,7 +10,8 @@ import {
   DrawerFooter,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import pastelColors from "./deckColors";
+
+import generateRandomColor from "@/utils/generateRandomColor";
 
 interface AddDeckDrawerProps {
   userId: string;
@@ -29,8 +30,7 @@ const AddDeckDrawer = ({ userId, onClose, onSuccess }: AddDeckDrawerProps) => {
       return;
     }
 
-    const selectedColor =
-      pastelColors[Math.floor(Math.random() * pastelColors.length)];
+    const selectedColor = generateRandomColor();
 
     const result = await createDeck({
       id: "",

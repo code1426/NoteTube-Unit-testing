@@ -14,11 +14,11 @@ import { PiPaletteLight, PiPaintBrush } from "react-icons/pi";
 import toast from "react-hot-toast";
 import type { Deck } from "@/types/deck.types";
 import useChangeDeckColor from "@/hooks/Decks/useChangeColorDeck";
-import pastelColors from "./deckColors";
+import { PASTEL_COLORS } from "@/utils/constants";
 
 const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
   const { changeDeckColor, loading, error } = useChangeDeckColor();
-  const isColorPreset: boolean = pastelColors.includes(color!);
+  const isColorPreset: boolean = PASTEL_COLORS.includes(color!);
 
   const [selectedColor, setSelectedColor] = useState<string>(
     isColorPreset ? color! : "#ffffff",
@@ -75,7 +75,7 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
         </DialogHeader>
         <div className="py-4">
           <div className="flex flex-wrap gap-4">
-            {pastelColors.map((color) => (
+            {PASTEL_COLORS.map((color) => (
               <button
                 key={color}
                 className={`w-12 h-12 rounded-full border-4 transition-colors ${
@@ -90,7 +90,7 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
             <div className="relative">
               <button
                 className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-colors ${
-                  !pastelColors.includes(selectedColor!)
+                  !PASTEL_COLORS.includes(selectedColor!)
                     ? "border-black"
                     : "border-transparent"
                 }`}
