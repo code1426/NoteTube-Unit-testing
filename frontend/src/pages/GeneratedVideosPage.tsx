@@ -39,7 +39,7 @@ const GeneratedVideosPage = () => {
   }, [notes]);
 
   if (userLoading || !user || loading || loadingNote) {
-    return <LoadingScreen message="Loading notes..." />;
+    return <LoadingScreen message="Loading generated videos..." />;
   }
 
   if (!displayedNote) {

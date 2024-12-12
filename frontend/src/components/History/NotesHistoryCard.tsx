@@ -5,9 +5,12 @@ import HistoryGeneratedVideoThumbnail from "./GeneratedVideoThumbnail";
 import DeleteHistoryConfirmation from "./DeleteHistoryConfirmation";
 import toast from "react-hot-toast";
 import useDeleteNote from "@/hooks/Notes/useDeleteNote";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const NotesHistoryCard = ({ id, title, videos }: FullNoteContent) => {
   const { deleteNote, error } = useDeleteNote(id);
+  const isMobile = useIsMobile();
+
   const handleConfirmDelete = async () => {
     const result = await deleteNote();
     if (result.success) {
@@ -31,6 +34,10 @@ const NotesHistoryCard = ({ id, title, videos }: FullNoteContent) => {
         <CardContent className="flex flex-row flex-wrap justify-start items-center mb-8 gap-8 p-4 select-none">
           {!videos ? (
             <></>
+          ) : isMobile ? (
+            <p className="text-gray-500 text-sm">
+              Video previews are hidden on mobile. Tap on the deck to view them.
+            </p>
           ) : (
             videos!.map((video) => (
               <HistoryGeneratedVideoThumbnail
