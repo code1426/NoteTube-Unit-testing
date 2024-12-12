@@ -4,6 +4,7 @@ import useDeleteFlashcard from "../../hooks/Flashcards/useDeleteFlashcard";
 import toast from "react-hot-toast";
 import DeleteFlashcardsConfirmation from "./DeleteFlashcardsConfirmation";
 import EditFlashcardDialog from "./EditFlashcardDialog";
+// import { Separator } from "../ui/separator";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import renderListContent from "@/utils/listRenderHandler";
 
@@ -19,13 +20,20 @@ const FlashcardItem = ({ id, front, back, deckId }: Flashcard) => {
       console.error("Error deleting flashcard:", error);
     }
   };
+
   return (
     <>
       <TooltipProvider>
-        <Card className="shadow-md">
-          <CardHeader className="flex-row items-center justify-between border-b">
-            <CardTitle className="flex-1 text-left">{front}</CardTitle>
-            <div className="flex">
+        <Card className="shadow-md p-2">
+          {/* Header Section */}
+          <CardHeader className="flex flex-row items-start justify-between pb-2">
+            <CardTitle
+              className="text-lg text-left w-full break-words whitespace-normal leading-relaxed"
+              style={{ wordBreak: "break-word", overflowWrap: "break-word" }}
+            >
+              {front}
+            </CardTitle>
+            <div className="mt-2 flex space-x-2">
               <EditFlashcardDialog
                 id={id}
                 front={front}

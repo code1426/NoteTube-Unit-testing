@@ -120,7 +120,7 @@ const Header: React.FC<SubHeaderProps> = ({
                   <div>
                     <Tooltip>
                       <TooltipTrigger>
-                        <Link to={`/quiz/${deckId}`}>
+                        <Link to={`/quiz/${deckId}`} state={{ sectionTitle }}>
                           <button
                             className={`hidden md:flex lg:flex xl:flex py-2 px-8 text-white items-center justify-center bg-green rounded-[50px] gap-2 hover:bg-green_hover`}
                           >
@@ -192,7 +192,7 @@ const Header: React.FC<SubHeaderProps> = ({
                     <Tooltip>
                       <TooltipTrigger>
                         <button
-                          className="flex items-center hover:underline gap-2"
+                          className={`flex items-center hover:underline gap-2 ${sectionTitle === "Quiz" && "hidden"}`}
                           onClick={handleSearch}
                         >
                           <PiMagnifyingGlass />{" "}
@@ -211,7 +211,9 @@ const Header: React.FC<SubHeaderProps> = ({
                 </div>
 
                 {/* Filter button */}
-                <div className="relative">
+                <div
+                  className={`relative ${sectionTitle === "Quiz" && "hidden"}`}
+                >
                   <Tooltip>
                     <TooltipTrigger>
                       <button

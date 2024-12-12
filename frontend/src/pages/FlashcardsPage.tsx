@@ -123,6 +123,7 @@ const FlashcardsPage: React.FC = () => {
             <div>
               <Link
                 to={`/quiz/${deckId}`}
+                state={{ deckName }}
                 className="flex px-8 py-2 fixed items-center justify-center bottom-0 left-0 right-0 bg-white"
               >
                 <button

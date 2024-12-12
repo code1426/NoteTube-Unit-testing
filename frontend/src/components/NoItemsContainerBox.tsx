@@ -14,7 +14,7 @@ const NoItemsContainerBox: React.FC<NoItemsContainerBoxProps> = ({
   altText,
 }) => {
   return (
-    <div className="text-center flex flex-col items-center gap-4 border-2 shadow-md p-6 rounded-lg">
+    <div className="text-center self-center flex flex-col w-full max-w-3xl items-center gap-4 border-2 shadow-md p-6 rounded-lg">
       <img src={imageSrc} alt={altText} className="w-52 h-52" />
       <p className="text-3xl font-bold text-primaryRegular">{mainText}</p>
       <p className="text-2xl text-primaryRegular">{subText}</p>
