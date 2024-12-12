@@ -21,9 +21,10 @@ import { FileUploadSchema, TextInputSchema } from "@/utils/formSchemas";
 
 interface NoteInputFormProps {
   onSubmit: (props: GenerateAIResponseProps) => void;
+  disabled?: boolean;
 }
 
-const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
+const NoteInputForm = ({ onSubmit, disabled }: NoteInputFormProps) => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
 
@@ -57,13 +58,6 @@ const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
 
   const handleUploadText = () => {
     const trimmedText = text.trim();
-
-    {
-      toast({
-        title: "You submitted this note:",
-        description: trimmedText,
-      });
-    }
 
     onSubmit({
       input: trimmedText,
@@ -127,6 +121,7 @@ const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
       </CardContent>
       <CardFooter className={isMobile ? "" : "justify-end"}>
         <Button
+          disabled={disabled}
           className={cn(
             "bg-green hover:bg-green_hover text-base",
             isMobile ? "w-full" : "min-w-72",
