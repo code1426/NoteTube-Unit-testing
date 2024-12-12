@@ -10,12 +10,20 @@ import separateNotesWithVideos from "@/utils/notesFormatter";
 import NotesHistoryCard from "@/components/History/NotesHistoryCard";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import HoverHistoryNotesCard from "@/components/History/HoverHistoryNotesCard";
+import applySortingAndFilteringToNotes from "@/utils/notesSorterFilter";
+import { options } from "@/types/options.types";
 
 const NotesHistoryPage = () => {
   const { user, loading: userLoading } = UseUser();
   const [displayedNotes, setDisplayedNotes] = useState<FullNoteContent[]>([]);
   const [loadingNotes, setLoadingNotes] = useState(true);
   const { notes, loading, error } = useFetchNotes(user?.id || "");
+
+  const [filterOptions, setFilterOptions] = useState<options>({
+    sortByNames: "",
+    sortByDate: "latest", // Default order
+    searchByName: "",
+  });
 
   if (error) {
     console.error(error);
@@ -29,6 +37,27 @@ const NotesHistoryPage = () => {
       console.log(displayedNotes);
     }
   }, [notes]);
+
+  useEffect(() => {
+    if (notes) {
+      const updatedNotes = applySortingAndFilteringToNotes(
+        separateNotesWithVideos(notes),
+        filterOptions,
+      );
+      setDisplayedNotes(updatedNotes);
+    }
+  }, [notes, filterOptions]);
+
+  const handleApplyFilters = (newOptions: options) => {
+    setFilterOptions(newOptions);
+  };
+
+  const handleSearch = (searchText: string) => {
+    setFilterOptions((prev) => ({
+      ...prev,
+      searchByName: searchText,
+    }));
+  };
 
   if (userLoading || !user || loading || loadingNotes) {
     return <LoadingScreen message="Loading notes..." />;
@@ -44,6 +73,8 @@ const NotesHistoryPage = () => {
           isSectionTitleOnly={false}
           hasAddButton={false}
           sectionTitle="Notes History"
+          onApplyOptions={handleApplyFilters}
+          onSearch={handleSearch}
         />
         <div className="flex flex-col h-screen w-full justify-start items-center mb-8 gap-8 p-4 select-none">
           {!displayedNotes || displayedNotes?.length === 0 ? (
