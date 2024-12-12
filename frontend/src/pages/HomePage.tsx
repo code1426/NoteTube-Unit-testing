@@ -1,37 +1,36 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { toast } from "sonner";
 
 import GreetingsBanner from "@/components/Header/GreetingsBanner";
 import Header from "@/components/Header/Header";
-import LoadingScreen from "../components/LoadingScreen";
+import LoadingScreen from "@/components/LoadingScreen";
+import NoteInputForm from "@/components/Notes/NoteInputForm";
+import AnimatedProgressBar from "@/components/Notes/AnimatedProgressBar";
 
 import type {
   GenerateAIResponseProps,
   GeneratedFlashcard,
 } from "@/types/ai.types";
-import { Video } from "@/types/video.types";
-import { Deck } from "@/types/deck.types";
+import type { Video } from "@/types/video.types";
+import type { Deck } from "@/types/deck.types";
+import type { Flashcard } from "@/types/flashcard.types";
 
 import useCreateNote from "@/hooks/Notes/useCreateNote";
 import useCreateVideos from "@/hooks/Videos/useCreateVideo";
 import useCreateDeck from "@/hooks/Decks/useCreateDeck";
 import useCreateFlashcard from "@/hooks/Flashcards/useCreateFlashcard";
 
-import getVideoSuggestions from "@/utils/getVideoSuggestions";
-import fetchAIResponse from "@/utils/fetchAIResponse";
-import { Flashcard } from "@/types/flashcard.types";
-import NoteInputForm from "@/components/Notes/NoteInputForm";
-
 import { UserContext } from "@/context/Contexts";
 
-import { toast } from "sonner";
-import AnimatedProgressBar from "@/components/Notes/AnimatedProgressBar";
+import getVideoSuggestions from "@/utils/getVideoSuggestions";
+import fetchAIResponse from "@/utils/fetchAIResponse";
+import generateRandomColor from "@/utils/generateRandomColor";
 
 const HomePage = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
-
-  const [loading, setLoading] = useState(false);
 
   const { createNote } = useCreateNote();
   const { insertVideos } = useCreateVideos();
@@ -103,14 +102,13 @@ const HomePage = () => {
     note: GenerateAIResponseProps,
   ): Promise<void> => {
     try {
-      setLoading(true);
       if (!user?.id) {
         throw new Error("No user ID found");
       }
 
       // generate summary
       const AIResponseLoad = toast.promise(fetchAIResponse(note), {
-        loading: <AnimatedProgressBar />,
+        loading: <AnimatedProgressBar title="Generating AI response" />,
         success: () => {
           return `AI response generated successfully`;
         },
@@ -119,28 +117,32 @@ const HomePage = () => {
         },
       });
 
-      const AIresponse = await AIResponseLoad.unwrap();
+      const AIResponse = await AIResponseLoad.unwrap();
 
-      if (!AIresponse?.summary) {
+      // const AIResponse = await fetchAIResponse(note).catch((error) => {
+      //   throw new Error(error.message);
+      // });
+
+      if (!AIResponse?.summary) {
         throw new Error("Failed to generate summary");
       }
 
-      if (!AIresponse?.flashcards) {
+      if (!AIResponse?.flashcards) {
         throw new Error("Failed to generate flashcards");
       }
 
-      const summary = AIresponse.summary;
+      const summary = AIResponse.summary;
 
       // get video suggestions
       const videoSuggestionsLoad = toast.promise(
         getVideoSuggestions(summary.content),
         {
-          loading: <AnimatedProgressBar />,
+          loading: <AnimatedProgressBar title="Getting suggested videos" />,
           success: () => {
-            return `Got video suggestions successfully`;
+            return `Got suggested videos successfully`;
           },
           error: (error) => {
-            return `Failed to generate video suggestions: ${error}`;
+            return `Failed to get suggested videos: ${error}`;
           },
         },
       );
@@ -149,19 +151,25 @@ const HomePage = () => {
         .unwrap()
         .then((videos) => videos?.slice(0, 5));
 
+      // const suggestedVideos = await getVideoSuggestions(summary.content)
+      //   .then((videos) => videos?.slice(0, 5))
+      //   .catch((error) => {
+      //     throw new Error(error.message);
+      //   });
+
       if (!suggestedVideos) {
-        throw new Error("Failed to get video suggestions");
+        throw new Error("Failed to get suggested videos");
       }
 
       const deckData: Deck = {
         id: "",
         deckName: summary.title,
-        color: "green",
+        color: generateRandomColor(),
         userId: user.id,
       };
 
       const deckLoad = toast.promise(handleCreateDeck(deckData), {
-        loading: <AnimatedProgressBar />,
+        loading: <AnimatedProgressBar title="Creating deck" className="" />,
         success: () => {
           return `Created deck successfully`;
         },
@@ -172,15 +180,19 @@ const HomePage = () => {
 
       const createdDeck = await deckLoad.unwrap();
 
+      // const createdDeck = await handleCreateDeck(deckData).catch((error) => {
+      //   throw new Error(error.message);
+      // });
+
       if (!createdDeck) {
         throw new Error("Failed to create deck");
       }
 
       // create flashcards to created deck
       toast.promise(
-        handleAddFlashcards(createdDeck.id, AIresponse.flashcards.items),
+        handleAddFlashcards(createdDeck.id, AIResponse.flashcards.items),
         {
-          loading: <AnimatedProgressBar />,
+          loading: <AnimatedProgressBar title="Creating flashcards" />,
           success: () => {
             return `Created flashcards successfully`;
           },
@@ -190,10 +202,12 @@ const HomePage = () => {
         },
       );
 
+      // await handleAddFlashcards(createdDeck.id, AIResponse.flashcards.items);
+
       const noteLoad = toast.promise(
         createNote({ ...summary, userId: user.id }),
         {
-          loading: <AnimatedProgressBar />,
+          loading: <AnimatedProgressBar title="Creating note" />,
           success: () => {
             return `Created note successfully`;
           },
@@ -205,12 +219,15 @@ const HomePage = () => {
 
       const result = await noteLoad.unwrap();
 
+      // const result = await createNote({ ...summary, userId: user.id });
+
       if (result.error) {
         throw new Error(result.error);
       }
 
       // add videos to note
-      handleAddVideos(result.note?.id || null, suggestedVideos);
+      await handleAddVideos(result.note?.id || null, suggestedVideos);
+
       navigate("/generated-videos");
     } catch (error) {
       toast.dismiss();
@@ -218,8 +235,6 @@ const HomePage = () => {
         "Error creating note: " +
           (error instanceof Error ? error.message : "Unknown error"),
       );
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -239,7 +254,7 @@ const HomePage = () => {
           hasAddButton={false}
           sectionTitle="Upload Notes"
         />
-        <NoteInputForm onSubmit={handleAddNote} disabled={loading} />
+        <NoteInputForm onSubmit={handleAddNote} />
       </div>
     </>
   );

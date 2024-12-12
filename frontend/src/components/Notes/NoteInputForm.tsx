@@ -11,8 +11,6 @@ import { Button } from "../ui/button";
 
 import TextAreaTab from "./TextAreaTab";
 import FileUploadTab from "./FileUploadTab";
-
-import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import { GenerateAIResponseProps } from "@/types/ai.types";
@@ -20,12 +18,10 @@ import { cn } from "@/lib/utils";
 import { FileUploadSchema, TextInputSchema } from "@/utils/formSchemas";
 
 interface NoteInputFormProps {
-  onSubmit: (props: GenerateAIResponseProps) => void;
-  disabled?: boolean;
+  onSubmit: (props: GenerateAIResponseProps) => Promise<void>;
 }
 
-const NoteInputForm = ({ onSubmit, disabled }: NoteInputFormProps) => {
-  const { toast } = useToast();
+const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
   const isMobile = useIsMobile();
 
   const [text, setText] = useState("");
@@ -56,7 +52,7 @@ const NoteInputForm = ({ onSubmit, disabled }: NoteInputFormProps) => {
     setText(e);
   };
 
-  const handleUploadText = () => {
+  const handleUploadText = async () => {
     const trimmedText = text.trim();
 
     onSubmit({
@@ -84,10 +80,11 @@ const NoteInputForm = ({ onSubmit, disabled }: NoteInputFormProps) => {
 
       setSelectedFiles(null);
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: error instanceof Error ? error.message : "Unknown error",
-      });
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : "Unknown error while uploading files",
+      );
     }
   };
 
@@ -121,7 +118,6 @@ const NoteInputForm = ({ onSubmit, disabled }: NoteInputFormProps) => {
       </CardContent>
       <CardFooter className={isMobile ? "" : "justify-end"}>
         <Button
-          disabled={disabled}
           className={cn(
             "bg-green hover:bg-green_hover text-base",
             isMobile ? "w-full" : "min-w-72",
