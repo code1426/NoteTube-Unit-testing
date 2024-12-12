@@ -1,4 +1,5 @@
-import toast, { Toaster } from "react-hot-toast";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import GreetingsBanner from "@/components/Header/GreetingsBanner";
 import Header from "@/components/Header/Header";
@@ -19,13 +20,19 @@ import useCreateFlashcard from "@/hooks/Flashcards/useCreateFlashcard";
 import getVideoSuggestions from "@/utils/getVideoSuggestions";
 import fetchAIResponse from "@/utils/fetchAIResponse";
 import { Flashcard } from "@/types/flashcard.types";
-import NoteInputForm from "../components/Notes/NoteInputForm";
+import NoteInputForm from "@/components/Notes/NoteInputForm";
 
 import { UserContext } from "@/context/Contexts";
-import { useContext } from "react";
+
+import { toast } from "sonner";
+import AnimatedProgressBar from "@/components/Notes/AnimatedProgressBar";
 
 const HomePage = () => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
   const { createNote } = useCreateNote();
   const { insertVideos } = useCreateVideos();
   const { createDeck } = useCreateDeck();
@@ -95,19 +102,24 @@ const HomePage = () => {
   const handleAddNote = async (
     note: GenerateAIResponseProps,
   ): Promise<void> => {
-    let loadingToast: string;
-
     try {
+      setLoading(true);
       if (!user?.id) {
         throw new Error("No user ID found");
       }
 
       // generate summary
-      loadingToast = toast.loading("Generating AI response...");
-
-      const AIresponse = await fetchAIResponse(note).catch((error) => {
-        throw new Error("Failed to fetch AI response: " + error);
+      const AIResponseLoad = toast.promise(fetchAIResponse(note), {
+        loading: <AnimatedProgressBar />,
+        success: () => {
+          return `AI response generated successfully`;
+        },
+        error: (error) => {
+          return `Failed to generate AI response: ${error}`;
+        },
       });
+
+      const AIresponse = await AIResponseLoad.unwrap();
 
       if (!AIresponse?.summary) {
         throw new Error("Failed to generate summary");
@@ -119,62 +131,95 @@ const HomePage = () => {
 
       const summary = AIresponse.summary;
 
-      console.log(summary);
-      toast.dismiss(loadingToast);
-
       // get video suggestions
-      loadingToast = toast.loading("Getting video suggestions...");
-      const suggestedVideos = await getVideoSuggestions(summary.content).then(
-        (videos) => videos?.slice(0, 5),
-      ); // get 5 videos
+      const videoSuggestionsLoad = toast.promise(
+        getVideoSuggestions(summary.content),
+        {
+          loading: <AnimatedProgressBar />,
+          success: () => {
+            return `Got video suggestions successfully`;
+          },
+          error: (error) => {
+            return `Failed to generate video suggestions: ${error}`;
+          },
+        },
+      );
+
+      const suggestedVideos = await videoSuggestionsLoad
+        .unwrap()
+        .then((videos) => videos?.slice(0, 5));
 
       if (!suggestedVideos) {
         throw new Error("Failed to get video suggestions");
       }
-      toast.dismiss(loadingToast);
 
-      // create deck from note
-      loadingToast = toast.loading("Creating deck ...");
       const deckData: Deck = {
         id: "",
         deckName: summary.title,
         color: "green",
         userId: user.id,
       };
-      const createdDeck = await handleCreateDeck(deckData);
+
+      const deckLoad = toast.promise(handleCreateDeck(deckData), {
+        loading: <AnimatedProgressBar />,
+        success: () => {
+          return `Created deck successfully`;
+        },
+        error: (error) => {
+          return `Failed to create deck: ${error}`;
+        },
+      });
+
+      const createdDeck = await deckLoad.unwrap();
 
       if (!createdDeck) {
         throw new Error("Failed to create deck");
       }
 
-      toast.dismiss(loadingToast);
-
       // create flashcards to created deck
-      loadingToast = toast.loading("Creating flashcards...");
+      toast.promise(
+        handleAddFlashcards(createdDeck.id, AIresponse.flashcards.items),
+        {
+          loading: <AnimatedProgressBar />,
+          success: () => {
+            return `Created flashcards successfully`;
+          },
+          error: (error) => {
+            return `Failed to create flashcards: ${error}`;
+          },
+        },
+      );
 
-      handleAddFlashcards(createdDeck.id, AIresponse.flashcards.items);
+      const noteLoad = toast.promise(
+        createNote({ ...summary, userId: user.id }),
+        {
+          loading: <AnimatedProgressBar />,
+          success: () => {
+            return `Created note successfully`;
+          },
+          error: (error) => {
+            return `Failed to create note: ${error}`;
+          },
+        },
+      );
 
-      toast.dismiss(loadingToast);
-
-      loadingToast = toast.loading("Creating note...");
-      const result = await createNote({ ...summary, userId: user.id });
+      const result = await noteLoad.unwrap();
 
       if (result.error) {
         throw new Error(result.error);
       }
 
-      toast.dismiss(loadingToast);
-
       // add videos to note
       handleAddVideos(result.note?.id || null, suggestedVideos);
-      toast.success("Note created successfully");
+      navigate("/generated-videos");
     } catch (error) {
       toast.dismiss();
       toast.error(
         "Error creating note: " +
           (error instanceof Error ? error.message : "Unknown error"),
       );
-      return;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -184,7 +229,7 @@ const HomePage = () => {
 
   return (
     <>
-      <Toaster />
+      {/* <Toaster /> */}
       <div className="relative w-full min-h-screen bg-white overflow-auto flex flex-col scrollbar-custom h-screen">
         <GreetingsBanner />
         <Header
@@ -194,8 +239,7 @@ const HomePage = () => {
           hasAddButton={false}
           sectionTitle="Upload Notes"
         />
-        <NoteInputForm onSubmit={handleAddNote} />
-        {/* <NoteInputField onSubmit={handleAddNote} /> */}
+        <NoteInputForm onSubmit={handleAddNote} disabled={loading} />
       </div>
     </>
   );
