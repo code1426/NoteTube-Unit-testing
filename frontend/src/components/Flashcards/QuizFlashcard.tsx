@@ -1,56 +1,50 @@
-import { useState } from "react";
-import { PiQuestionBold, PiExclamationMarkBold } from "react-icons/pi";
+import { Separator } from "@radix-ui/react-separator";
+import { Label } from "../ui/label";
 
 interface QuizFlashcardProps {
   front: string;
   back: string;
+  isBackVisible: boolean;
 }
 
-const QuizFlashcard: React.FC<QuizFlashcardProps> = ({ front, back }) => {
-  const [text, setText] = useState(front);
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [info, setInfo] = useState("answer");
-  const [faceInfo, setFaceInfo] = useState("Question");
-  const [effect, setEffect] = useState(false);
-
-  const handleFlip = () => {
-    if (isFlipped) {
-      setText(front);
-      setInfo("answer");
-      setFaceInfo("Question");
-    } else {
-      setText(back);
-      setInfo("question");
-      setFaceInfo("Answer");
-    }
-    setEffect(true);
-    setIsFlipped(!isFlipped);
-  };
-
+const QuizFlashcard: React.FC<QuizFlashcardProps> = ({
+  front,
+  back,
+  isBackVisible,
+}) => {
   return (
-    <div
-      className={`${effect ? "animate-flip" : ""} w-[60vh] h-[75vh] bg-green grid place-items-center rounded-[50px]`}
-      onClick={handleFlip}
-      onAnimationEnd={() => setEffect(false)}
-    >
-      <div className="w-[57vh] h-[72vh] bg-white rounded-[50px] border-7 border-[#03c04a] grid place-items-center">
-        <div className="w-[54vh] h-[69vh] bg-green rounded-[35px] border-1 border-[#03c04a] grid place-items-center">
-          <div className="text-center flex flex-col text-white text-3xl p-4 items-center font-bold font-secondaryRegular">
-            {isFlipped ? (
-              <PiExclamationMarkBold size={50} />
-            ) : (
-              <PiQuestionBold size={50} />
-            )}
-            {faceInfo}
-          </div>
+    <div className="flex flex-col w-full md:min-h-44 lg:min-h-44 xl:min-h-44 md:h-full lg:h-full xl:h-full bg-white border-2 border-green rounded-xl p-4 sm:p-6 shadow-sm">
+      {/* Front Content */}
+      <div className="front flex w-full flex-1">
+        <Label
+          className="text-wrap flex-1 overflow-hidden"
+          style={{
+            fontSize: "clamp(1rem, 2.5vw, 1.25rem)",
+            whiteSpace: "normal",
+            wordBreak: "break-word",
+            lineHeight: "1.5",
+          }}
+        >
+          {front}
+        </Label>
+      </div>
 
-          <div className="text-center text-white text-2xl p-4 font-semibold">
-            {text}
-          </div>
-          <div className="text-center text-white text-1xl p-4">
-            Flip the card for {info}
-          </div>
-        </div>
+      {/* Separator */}
+      <Separator className="border-t-2 border-gray-300 w-full my-4" />
+
+      {/* Back Content */}
+      <div className="back flex w-full flex-1">
+        <Label
+          className="text-wrap flex-1 overflow-hidden"
+          style={{
+            fontSize: "clamp(1rem, 2.5vw, 1.25rem)",
+            whiteSpace: "normal",
+            wordBreak: "break-word",
+            lineHeight: "1.5",
+          }}
+        >
+          {isBackVisible ? back : " "}
+        </Label>
       </div>
     </div>
   );
