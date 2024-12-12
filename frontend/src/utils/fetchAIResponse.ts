@@ -1,6 +1,8 @@
 import { AIResponse, GenerateAIResponseProps } from "@/types/ai.types";
 
-const fetchAIResponse = async (props: GenerateAIResponseProps) => {
+const fetchAIResponse = async (
+  props: GenerateAIResponseProps,
+): Promise<AIResponse | null> => {
   try {
     if (typeof props.input === "string") {
       const response = await fetch(
@@ -48,6 +50,6 @@ const fetchAIResponse = async (props: GenerateAIResponseProps) => {
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : "Unknown error");
   }
+  return null;
 };
-
 export default fetchAIResponse;
