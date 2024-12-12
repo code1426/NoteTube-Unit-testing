@@ -3,6 +3,7 @@ import { UserContext } from "@/context/Contexts";
 import ProfileButton from "../Sidebar/ProfileButton";
 import LogoutConfirmation from "../LogoutConfirmation";
 import UpdatePasswordForm from "../Settings/UpdatePasswordForm";
+import DeleteUserForm from "../Settings/DeleteUserForm";
 import { PiPasswordBold } from "react-icons/pi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { LogOutIcon } from "lucide-react";
@@ -73,7 +74,7 @@ const ProfileDropdown = () => {
               className="w-full cursor-pointer hover:text-red-600 flex flex-row text-sm hover:bg-gray-200 rounded-md p-2"
             >
               <RiDeleteBin5Line size={20} className="self-center mr-2" />
-              <span>Delete Account</span>
+              <DeleteUserForm />
             </div>
 
             <DropdownMenuSeparator className=" bg-gray-300" />
