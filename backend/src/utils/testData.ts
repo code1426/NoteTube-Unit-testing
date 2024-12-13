@@ -5,6 +5,7 @@ export const testUser: User = {
   email: "shishwow@test.com",
   password: "passwordKo12345",
 };
+
 export const duplicateUsername: User = {
   username: "dupe",
   email: "testing@test.com",
@@ -22,4 +23,15 @@ export const testDeck = {
 export const testFlashcard = {
   front: "testFront",
   back: "testBack",
+};
+
+export const testNote = {
+  title: "Test Note Title",
+  content: "This is a test note for integration testing.",
+};
+
+export const testVideo = {
+  videoId: "12345abcde",
+  thumbnailUrl: "https://example.com/thumbnail.jpg",
+  title: "Test Video Title",
 };

@@ -30,23 +30,4 @@ router.post("/", async (request: Request, response: Response) => {
   }
 });
 
-// GET all video for a specific note
-// router.get(
-//   "/notes/:noteId/videos",
-//   async (request: Request, response: Response, next: NextFunction) => {
-//     const { noteId } = request.params;
-
-//     // console.log("note id received", noteId)
-//     try {
-//       const result = await pool.query(
-//         "SELECT * FROM Videos v WHERE v.note_id = $1",
-//         [noteId],
-//       );
-//       response.status(200).json(result.rows);
-//     } catch (error) {
-//       next(error);
-//     }
-//   },
-// );
-
 export default router;
