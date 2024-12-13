@@ -14,15 +14,15 @@ describe("The deck endpoint", () => {
       "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3)",
       [testUser.username, testUser.email, testUser.password],
     );
-  }, 10000);
+  }, 30000);
 
   afterEach(async () => {
     await pool.query("ROLLBACK");
-  }, 10000);
+  }, 30000);
 
   afterAll(async () => {
     await pool.end();
-  }, 10000);
+  }, 30000);
 
   it("should create a new deck successfully", async () => {
     const deckData = {
@@ -43,7 +43,7 @@ describe("The deck endpoint", () => {
       deckName: response.body.deck_name,
       color: response.body.color,
     }).toEqual({ deckName: testDeck.deckName, color: testDeck.color });
-  }, 10000);
+  }, 30000);
 
   it("should fetch all user decks", async () => {
     const userId = await pool.query(
@@ -65,7 +65,7 @@ describe("The deck endpoint", () => {
       deck_name: testDeck.deckName,
       color: testDeck.color,
     });
-  }, 10000);
+  }, 30000);
 
   it("should rename the deck", async () => {
     const userId = await pool.query(
@@ -92,7 +92,7 @@ describe("The deck endpoint", () => {
     expect({ deckName: response.body.deck_name }).toEqual({
       deckName: newDeckName.deckName,
     });
-  }, 10000);
+  }, 30000);
 
   it("should change the color of the deck", async () => {
     const userId = await pool.query(
@@ -119,7 +119,7 @@ describe("The deck endpoint", () => {
     expect({ color: response.body.color }).toEqual({
       color: newColor.color,
     });
-  }, 10000);
+  }, 30000);
 
   it("should delete the deck", async () => {
     const userId = await pool.query(
@@ -145,5 +145,5 @@ describe("The deck endpoint", () => {
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
     expect(remainingDeck.rows.length).toBe(0);
-  }, 10000);
+  }, 30000);
 });

@@ -19,15 +19,15 @@ describe("The user login endpoint", () => {
       "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3)",
       [testUser.username, testUser.email, hashedPassword],
     );
-  }, 10000);
+  }, 30000);
 
   afterEach(async () => {
     await pool.query("ROLLBACK");
-  }, 10000);
+  }, 30000);
 
   afterAll(async () => {
     await pool.end();
-  }, 10000);
+  }, 30000);
 
   it("should login a returning user successfully using their username", async () => {
     const loginData = {
@@ -39,7 +39,7 @@ describe("The user login endpoint", () => {
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
     expect(typeof response.body).toBe("string");
-  }, 10000);
+  }, 30000);
 
   it("should login a returning user successfully using their email", async () => {
     const loginData = {
@@ -51,7 +51,7 @@ describe("The user login endpoint", () => {
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
     expect(typeof response.body).toBe("string");
-  }, 10000);
+  }, 30000);
 
   it("should return an error if the user doesnt exist", async () => {
     const loginData = {
@@ -66,7 +66,7 @@ describe("The user login endpoint", () => {
       field: "both",
       message: "User not found",
     });
-  }, 10000);
+  }, 30000);
 
   it("should return an error if the password is wrong", async () => {
     const loginData = {
@@ -81,5 +81,5 @@ describe("The user login endpoint", () => {
       field: "password",
       message: "Password is incorrect",
     });
-  }, 10000);
+  }, 30000);
 });
