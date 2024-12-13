@@ -160,7 +160,7 @@ const Header: React.FC<SubHeaderProps> = ({
                   {/* Search bar toggle */}
                   {isMobile ? (
                     <button
-                      className="flex items-center hover:underline gap-2"
+                      className={`flex items-center hover:underline gap-2 ${sectionTitle === "Quiz" && "hidden"}`}
                       onClick={handleSearch}
                     >
                       <PiMagnifyingGlass />{" "}

@@ -21,6 +21,7 @@ const FlashcardsQuizPage = () => {
   const deckName = location.state?.sectionTitle || location.state?.deckName;
   const { flashcards, loading, error } = useFetchFlashcards(deckId!);
   const [quizCards, setQuizCards] = useState<Flashcard[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Fade()]);
@@ -40,11 +41,13 @@ const FlashcardsQuizPage = () => {
 
   const handleNext = () => {
     if (emblaApi) emblaApi.scrollNext();
+    setCurrentIndex((prev) => (prev + 1) % quizCards.length);
     setShowAnswer(false); // Reset answer visibility for the next card
   };
 
   const handlePrev = () => {
     if (emblaApi) emblaApi.scrollPrev();
+    setCurrentIndex((prev) => (prev - 1 + quizCards.length) % quizCards.length);
     setShowAnswer(false); // Reset answer visibility for the previous card
   };
 
@@ -84,7 +87,7 @@ const FlashcardsQuizPage = () => {
               ref={emblaRef}
             >
               <div className="flex">
-                {quizCards.map((card) => (
+                {quizCards.map((card, index) => (
                   <div
                     key={card.id}
                     className="flex-shrink-0 w-full transition-transform duration-300"
@@ -92,7 +95,7 @@ const FlashcardsQuizPage = () => {
                     <QuizFlashcard
                       front={card.front}
                       back={card.back}
-                      isBackVisible={showAnswer}
+                      isBackVisible={index === currentIndex && showAnswer}
                     />
                   </div>
                 ))}
@@ -100,7 +103,7 @@ const FlashcardsQuizPage = () => {
             </div>
 
             {/* Buttons */}
-            <div className="button-container w-full flex items-center justify-center gap-8 mt-8">
+            <div className="button-container w-full flex items-center justify-center gap-4 mt-8">
               <button
                 onClick={handlePrev}
                 className="w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
@@ -111,7 +114,7 @@ const FlashcardsQuizPage = () => {
 
               <button
                 onClick={() => setShowAnswer((prev) => !prev)}
-                className="px-6 py-3 w-48 transition-all rounded-full bg-green text-white hover:bg-green_hover text-sm md:text-lg flex items-center justify-center"
+                className="py-2 w-48 transition-all rounded-full bg-green text-white hover:bg-green_hover text-sm md:text-lg flex items-center justify-center"
                 aria-label="Show Answer"
               >
                 <Label className="text-xl">

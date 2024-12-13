@@ -4,7 +4,7 @@ import useDeleteFlashcard from "../../hooks/Flashcards/useDeleteFlashcard";
 import toast from "react-hot-toast";
 import DeleteFlashcardsConfirmation from "./DeleteFlashcardsConfirmation";
 import EditFlashcardDialog from "./EditFlashcardDialog";
-// import { Separator } from "../ui/separator";
+import { Separator } from "../ui/separator";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import renderListContent from "@/utils/listRenderHandler";
 
@@ -33,7 +33,7 @@ const FlashcardItem = ({ id, front, back, deckId }: Flashcard) => {
             >
               {front}
             </CardTitle>
-            <div className="mt-2 flex space-x-2">
+            <div className="mt-2 flex space-x-1">
               <EditFlashcardDialog
                 id={id}
                 front={front}
@@ -46,7 +46,15 @@ const FlashcardItem = ({ id, front, back, deckId }: Flashcard) => {
               />
             </div>
           </CardHeader>
-          <CardContent className="flex-1 py-[26.6px]">
+
+          <Separator className="border" />
+          <CardContent
+            className="flex-1 py-[26.6px] max-h-48 overflow-y-auto"
+            style={{
+              wordBreak: "break-word",
+              overflowWrap: "break-word",
+            }}
+          >
             {renderListContent(back)}
           </CardContent>
         </Card>
