@@ -89,11 +89,11 @@ const UserDecksPage: React.FC = () => {
         </Drawer>
 
         {filteredDecks?.length === 0 ? (
-          <div className="p-5">
+          <div className="pt-5">
             <NoItemsContainerBox
               mainText="No decks available"
               subText="Add a deck using the + Add Deck button."
-              imageSrc="/src/assets/images/chillguy.png"
+              imageSrc="../src/assets/images/chillguy.png"
               altText="No Cards Available"
             />
           </div>
