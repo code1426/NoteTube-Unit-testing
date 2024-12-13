@@ -13,9 +13,6 @@ export const ALLOWED_FILE_TYPES: { [key: string]: boolean } = {
   "image/jpg": true,
   "image/png": true,
   "application/pdf": true,
-  "application/msword": true,
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-    true,
   "text/plain": true,
 };
 
