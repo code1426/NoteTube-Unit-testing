@@ -74,7 +74,7 @@ router.post("/login", async (request: Request, response: Response) => {
     if (user.rows.length === 0) {
       response.status(401).json({
         field: "both",
-        message: "Password or Username/Email is Incorrect",
+        message: "User not found",
       });
       return;
     }
@@ -83,10 +83,11 @@ router.post("/login", async (request: Request, response: Response) => {
       password,
       user.rows[0].password,
     );
+
     if (!isValidPassword) {
       response.status(401).json({
-        field: "both",
-        message: "Password or Username/Email is Incorrect",
+        field: "password",
+        message: "Password is incorrect",
       });
       return;
     }
