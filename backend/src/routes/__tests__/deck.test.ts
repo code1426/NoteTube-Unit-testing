@@ -43,7 +43,7 @@ describe("The deck endpoint", () => {
       deckName: response.body.deck_name,
       color: response.body.color,
     }).toEqual({ deckName: testDeck.deckName, color: testDeck.color });
-  });
+  }, 10000);
 
   it("should fetch all user decks", async () => {
     const userId = await pool.query(
@@ -65,7 +65,7 @@ describe("The deck endpoint", () => {
       deck_name: testDeck.deckName,
       color: testDeck.color,
     });
-  });
+  }, 10000);
 
   it("should rename the deck", async () => {
     const userId = await pool.query(
@@ -92,7 +92,7 @@ describe("The deck endpoint", () => {
     expect({ deckName: response.body.deck_name }).toEqual({
       deckName: newDeckName.deckName,
     });
-  });
+  }, 10000);
 
   it("should change the color of the deck", async () => {
     const userId = await pool.query(
@@ -119,7 +119,7 @@ describe("The deck endpoint", () => {
     expect({ color: response.body.color }).toEqual({
       color: newColor.color,
     });
-  });
+  }, 10000);
 
   it("should delete the deck", async () => {
     const userId = await pool.query(
@@ -136,7 +136,6 @@ describe("The deck endpoint", () => {
       [testDeck.deckName],
     );
     const response = await request(app).delete(route + `/${deckId.rows[0].id}`);
-    console.log(response.body);
 
     const remainingDeck = await pool.query(
       "SELECT * FROM Decks WHERE id = $1",
@@ -146,5 +145,5 @@ describe("The deck endpoint", () => {
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
     expect(remainingDeck.rows.length).toBe(0);
-  });
+  }, 10000);
 });

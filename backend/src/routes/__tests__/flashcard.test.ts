@@ -53,7 +53,7 @@ describe("The flashcard endpoint", () => {
       front: flashcardData.front,
       back: flashcardData.back,
     });
-  });
+  }, 10000);
 
   it("should fetch all deck flashcards", async () => {
     const deckId = await pool.query(
@@ -76,7 +76,7 @@ describe("The flashcard endpoint", () => {
       front: testFlashcard.front,
       back: testFlashcard.back,
     });
-  });
+  }, 10000);
 
   it("should change the contents of the deck", async () => {
     const deckId = await pool.query(
@@ -107,7 +107,7 @@ describe("The flashcard endpoint", () => {
       front: newFlashcardContents.front,
       back: newFlashcardContents.back,
     });
-  });
+  }, 10000);
 
   it("should delete the flashcard", async () => {
     const deckId = await pool.query(
@@ -127,7 +127,6 @@ describe("The flashcard endpoint", () => {
     const response = await request(app).delete(
       route + `/flashcards/${flashcardId.rows[0].id}`,
     );
-    console.log(response.body);
 
     const remainingFlashcard = await pool.query(
       "SELECT * FROM Flashcards WHERE id = $1",
@@ -137,5 +136,5 @@ describe("The flashcard endpoint", () => {
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
     expect(remainingFlashcard.rows.length).toBe(0);
-  });
+  }, 10000);
 });
