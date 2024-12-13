@@ -138,23 +138,6 @@
   .text-balance {
     text-wrap: balance;
   }
-  .scrollbar-custom {
-    &::-webkit-scrollbar {
-      height: 0.5rem;
-      width: 0.5rem;
-    }
-    &::-webkit-scrollbar-track {
-      box-shadow: inset 0 0 5px grey;
-      border-radius: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #03c04a;
-      border-radius: 10px;
-    }
-    &::-webkit-scrollbar-thumb:hover {
-      background: #009a3a;
-    }
-  }
 }
 
 @layer components {
@@ -177,6 +160,33 @@
     animation: bounceIn 1s ease;
     opacity: 1;
     transform: translateX(0);
+  }
+
+  .infosection {
+    opacity: 0;
+    transform: translateX(48px);
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
+  }
+  .infosection.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .infosection > div {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .infosection > div:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .carousel-item {
+    padding: 20px;
   }
 }
 
@@ -219,5 +229,28 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+.scrollbar-custom {
+  height: 100%;
+  overflow-y: auto;
+  .scrollbar-custom {
+    scrollbar-color: var(--sidebar-accent) var(--sidebar-background);
+  }
+  .scrollbar-custom::-webkit-scrollbar {
+    height: 0.5rem;
+    width: 0.5rem;
+  }
+  .scrollbar-custom::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background: #03c04a;
+    border-radius: 10px;
+  }
+  .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    background: #009a3a;
   }
 }

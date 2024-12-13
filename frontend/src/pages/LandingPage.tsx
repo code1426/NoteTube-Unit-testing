@@ -11,6 +11,7 @@ import Footer from "@/components/Landing/Footer";
 import UserManualSection from "@/components/Landing/UserManualSection";
 import JoinUsSection from "@/components/Landing/JoinUsSection";
 import InformationCardsSection from "@/components/Landing/InformationCardsSection";
+import SectionCarousel from "@/components/Landing/SectionCarousel";
 
 const LandingPage = () => {
   const introductionRef = useRef<HTMLDivElement>(null);
@@ -49,7 +50,7 @@ const LandingPage = () => {
     );
 
     const elements = document.querySelectorAll(
-      ".section, .left-icon, .right-icon",
+      ".section, .left-icon, .right-icon, .infosection, .card",
     );
     elements.forEach((el) => observer.observe(el));
 
@@ -59,12 +60,12 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col justify-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat">
+    <div className="min-h-screen w-full overflow-auto flex flex-col items-center justify-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat scrollbar-custom">
       <LandingHeader refs={refs} />
       <Hero />
       <div
         ref={introductionRef}
-        className="section opacity-0 transform translate-y-24 transition-all duration-500"
+        className="section opacity-0 transform translate-y-24 transition-all duration-500 w-screen"
       >
         <Section
           title="What is NoteTube?"
@@ -72,15 +73,17 @@ const LandingPage = () => {
           reverse
         />
       </div>
+      {/*  */}
       <div
         ref={discoverRef}
         className="section opacity-0 transform translate-y-24 transition-all duration-500"
       >
         <InformationCardsSection />
       </div>
+      {/*  */}
       <div
         ref={aboutRef}
-        className="section opacity-0 transform translate-y-24 transition-all duration-500"
+        className="section opacity-0 transform translate-y-24 transition-all duration-500 w-screen"
       >
         <Section
           title="About Us"
@@ -89,45 +92,42 @@ const LandingPage = () => {
           image="src\assets\images\about.png"
         />
       </div>
-      <div
-        ref={feature1Ref}
-        className="section opacity-0 transform translate-y-24 transition-all duration-500"
-      >
-        <Section
-          title="Upload Notes"
-          description="Break free from traditional note-taking limitations. Simply upload your handwritten, typed, or digital notes in any format - PDFs, images, text documents - and watch as NoteTube intelligently processes and transforms them into a comprehensive learning experience tailored just for you."
-          reverse={false}
-          image="src\assets\images\notes.png"
-        />
-      </div>
-      <div
-        ref={feature2Ref}
-        className="section opacity-0 transform translate-y-24 transition-all duration-500"
-      >
-        <Section
-          title="Get Related Videos"
-          description="Dive deeper into your learning with curated, intelligent video recommendations. Our AI analyzes your notes and finds the most relevant, high-quality educational content from across the web, ensuring you get targeted explanations that complement and enhance your existing study materials."
-          reverse
-          image="src\assets\images\videos.png"
-        />
-      </div>
-      <div
-        ref={feature3Ref}
-        className="section opacity-0 transform translate-y-24 transition-all duration-500"
-      >
-        <Section
-          title="Use Generated Flashcards"
-          description="Supercharge your memory retention with AI-powered flashcards. NoteTube automatically generates smart, context-aware flashcards from your notes, presenting key concepts, definitions, and critical information in an interactive format that makes studying more engaging and efficient."
-          reverse={false}
-          image="src\assets\images\cards.png"
-        />
-      </div>
-      <div className="section opacity-0 transform translate-y-24 transition-all duration-500">
+      {/*  */}
+      <section className="section w-screen mx-8 shadow-2xl border-8">
+        <SectionCarousel duration={3000}>
+          <div className="section">
+            <Section
+              title="Upload Notes"
+              description="Break free from traditional note-taking limitations. Simply upload your handwritten, typed, or digital notes in any format - PDFs, images, text documents - and watch as NoteTube intelligently processes and transforms them into a comprehensive learning experience tailored just for you."
+              reverse={false}
+              image="src/assets/images/notes.png"
+            />
+          </div>
+          <div className="section">
+            <Section
+              title="Get Related Videos"
+              description="Dive deeper into your learning with curated, intelligent video recommendations. Our AI analyzes your notes and finds the most relevant, high-quality educational content from across the web, ensuring you get targeted explanations that complement and enhance your existing study materials."
+              reverse={false}
+              image="src/assets/images/videos.png"
+            />
+          </div>
+          <div className="section">
+            <Section
+              title="Use Generated Flashcards"
+              description="  Supercharge your memory retention with AI-powered flashcards. NoteTube automatically generates smart, context-aware flashcards from your notes, presenting key concepts, definitions, and critical information in an interactive format that makes studying more engaging and efficient."
+              reverse={false}
+              image="src/assets/images/cards.png"
+            />
+          </div>
+        </SectionCarousel>
+      </section>
+      {/*  */}
+      <div className="section opacity-0 transform translate-y-24 transition-all duration-500 w-screen">
         <UserManualSection />
       </div>
       <div
         ref={faqsRef}
-        className="section opacity-0 transform translate-y-24 transition-all duration-500"
+        className="section opacity-0 transform translate-y-24 transition-all duration-500 w-auto"
       >
         <FAQs />
       </div>
