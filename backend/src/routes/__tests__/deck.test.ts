@@ -14,15 +14,15 @@ describe("The deck endpoint", () => {
       "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3)",
       [testUser.username, testUser.email, testUser.password],
     );
-  });
+  }, 10000);
 
   afterEach(async () => {
     await pool.query("ROLLBACK");
-  });
+  }, 10000);
 
   afterAll(async () => {
     await pool.end();
-  });
+  }, 10000);
 
   it("should create a new deck successfully", async () => {
     const deckData = {

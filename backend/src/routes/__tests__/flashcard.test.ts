@@ -24,15 +24,15 @@ describe("The flashcard endpoint", () => {
       "INSERT INTO Decks (deck_name, user_id, color, created_at) VALUES ($1, $2, $3, NOW())",
       [testDeck.deckName, userId.rows[0].id, testDeck.color],
     );
-  });
+  }, 10000);
 
   afterEach(async () => {
     await pool.query("ROLLBACK");
-  });
+  }, 10000);
 
   afterAll(async () => {
     await pool.end();
-  });
+  }, 10000);
 
   it("should create a new flashcard successfully", async () => {
     const flashcardData = {

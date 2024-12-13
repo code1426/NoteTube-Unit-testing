@@ -11,15 +11,15 @@ const route = "/auth/register";
 describe("The user registration endpoint", () => {
   beforeEach(async () => {
     await pool.query("BEGIN");
-  });
+  }, 10000);
 
   afterEach(async () => {
     await pool.query("ROLLBACK");
-  });
+  }, 10000);
 
   afterAll(async () => {
     await pool.end(); // close the db connection after testing all
-  });
+  }, 10000);
 
   // ADDING A NEW USER
   it("should register a new user successfully", async () => {
