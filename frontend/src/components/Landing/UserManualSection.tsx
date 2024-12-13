@@ -5,7 +5,7 @@ const UserManualSection = () => {
   return (
     <div className="bg-green bg-opacity-85 py-16 px-8 select-none">
       <h2 className="text-6xl font-secondaryRegular text-white text-center mb-16 px-52">
-        <div className="bg-lime-400">How It Works</div>
+        How It Works
       </h2>
       <div className="flex items-center justify-center space-x-8">
         <UserManualCard

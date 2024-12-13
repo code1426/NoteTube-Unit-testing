@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import separateNotesWithVideos from "@/utils/notesFormatter";
 import VideoCard from "@/components/Videos/GeneratedVideo";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const GeneratedVideosPage = () => {
   const { user, loading: userLoading } = UseUser();
@@ -17,6 +18,8 @@ const GeneratedVideosPage = () => {
   const [loadingNote, setLoadingNote] = useState(true);
   const { notes, loading, error } = useFetchNotes(user?.id || "");
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const isMobile = useIsMobile();
+  const [mobileWidth, setMobileWidth] = useState(720);
 
   const HandleVideoSelect = (videoId: string) => {
     setSelectedVideo(videoId);
@@ -35,8 +38,12 @@ const GeneratedVideosPage = () => {
         setSelectedVideo(displayedNote!.videos[0].videoId);
       }
       console.log(displayedNote);
+      if (isMobile) {
+        setMobileWidth(window.outerWidth);
+        console.log(window.outerWidth);
+      }
     }
-  }, [notes]);
+  }, [notes, isMobile]);
 
   if (userLoading || !user || loading || loadingNote) {
     return <LoadingScreen message="Loading generated videos..." />;
@@ -58,7 +65,7 @@ const GeneratedVideosPage = () => {
 
   return (
     <div
-      id="main-of-the-mains"
+      id="main-page-screen-div"
       className="bg-white relative font-secondaryRegular w-full"
     >
       <Header
@@ -69,36 +76,51 @@ const GeneratedVideosPage = () => {
         hasAddButton={false}
       />
       <div
-        id="ai-generated-notes"
-        className=" p-4 h-auto w-full flex justify-center flex-col"
+        id="generated-videos-name"
+        className=" font-secondaryRegular text-green text-3xl py-1 px-8"
       >
-        <div className="flex justify-center">
-          <div className="border-4 h-[36rem] w-[52rem] rounded-2xl flex justify-center bg-black">
-            <iframe
-              className="w-[98%] h-[100%]"
-              src={`https://www.youtube.com/embed/${selectedVideo}`}
-              allowFullScreen={true}
-            ></iframe>
+        Videos From: {displayedNote!.title}
+      </div>
+      <div
+        id="videos-containers"
+        className={`flex ${isMobile ? "flex-col" : "flex-row"} items-center w-[96%]`}
+      >
+        <div
+          id="current-selected-video"
+          className=" p-4 h-auto w-auto flex justify-center flex-col"
+        >
+          <div
+            className={`h-[${isMobile ? `${mobileWidth * 0.8}px` : "32rem"}] w-[${isMobile ? `${mobileWidth}px` : "48rem"}] flex justify-center`}
+            id="main-video-container"
+          >
+            <div
+              className={`h-full w-full border-4 rounded-2xl flex justify-center bg-black border-black`}
+            >
+              <iframe
+                className="w-[100%] h-[100%]"
+                src={`https://www.youtube.com/embed/${selectedVideo}`}
+                allowFullScreen={true}
+              ></iframe>
+            </div>
           </div>
         </div>
-      </div>
-      <div id="ai-generated-videos" className=" my-2 p-4 h-auto w-full">
-        <div className="border-4 border-gray-300 h-auto w-full">
-          <div
-            id="generated-videos-name"
-            className=" font-secondaryRegular text-green text-3xl p-2"
-          >
-            Videos From: {displayedNote!.title}
-          </div>
-          <div id="videos" className=" p-2 gap-8 flex flex-row justify-center">
-            {displayedNote.videos.map((video, index) => (
-              <VideoCard
-                key={index}
-                videoId={video.videoId}
-                thumbnailUrl={video.thumbnailUrl}
-                onClickFunction={HandleVideoSelect}
-              />
-            ))}
+        <div id="ai-generated-videos" className=" my-1 p-2 h-full w-auto">
+          <div className="h-auto w-full">
+            <div id="videos" className="gap-4 flex flex-col justify-center">
+              {displayedNote.videos.map((video) =>
+                video.videoId != selectedVideo ? (
+                  <VideoCard
+                    key={video.videoId}
+                    videoId={video.videoId}
+                    thumbnailUrl={video.thumbnailUrl}
+                    title={video.title}
+                    onClickFunction={HandleVideoSelect}
+                  />
+                ) : (
+                  <></>
+                ),
+              )}
+            </div>
           </div>
         </div>
       </div>

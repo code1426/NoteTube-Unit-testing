@@ -63,7 +63,7 @@ const SectionCarousel = ({
           <button
             key={index}
             className={`w-3 h-3 rounded-full ${
-              index === currentIndex ? "bg-green-500" : "bg-gray-400"
+              index === currentIndex ? "bg-green" : "bg-gray-400"
             }`}
             onClick={() => setCurrentIndex(index)} // Manually select slide
           />

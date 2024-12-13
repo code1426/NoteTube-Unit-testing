@@ -39,7 +39,7 @@ const UserManualCard: React.FC<UserManualCardProps> = ({
       </Tilt>
       <div className="text-center">
         <h3 className="text-3xl font-secondaryRegular text-white mb-4 px-20">
-          <div className="bg-lime-400">{title}</div>
+          {title}
         </h3>
         <p className="text-xl font-primaryMedium max-w-xs">{description}</p>
       </div>

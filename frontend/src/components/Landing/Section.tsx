@@ -19,7 +19,6 @@ const Section = ({
   const order = reverse ? "flex-row-reverse" : "flex-row";
   const textColor = reverse ? "text-white" : "text-green";
   const bgColor = reverse ? "bg-green" : "bg-white";
-  const highlightColor = reverse ? "bg-lime-400" : "bg-lime-200";
 
   return (
     <div
@@ -29,7 +28,7 @@ const Section = ({
         <div
           className={`text-6xl font-secondaryRegular ${textColor} text-center px-28`}
         >
-          <div className={`${highlightColor} text-wrap`}>{title}</div>
+          {title}
         </div>
         <div className={`text-xl font-primaryMedium text-black text-justify`}>
           {description}
