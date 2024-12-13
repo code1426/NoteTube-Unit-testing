@@ -1,6 +1,6 @@
-import { app } from "../../index";
+import { app } from "../index";
 
-describe("The app API", () => {
+describe("The backend", () => {
   it("starts successfully", async () => {
     expect(app).toBeDefined();
   });
