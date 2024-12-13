@@ -36,7 +36,7 @@ const NotesHistoryCard = ({ id, title, videos }: FullNoteContent) => {
             <></>
           ) : isMobile ? (
             <p className="text-gray-500 text-sm">
-              Video previews are hidden on mobile. Tap on the deck to view them.
+              Video previews are hidden on mobile. Tap on the note to view them.
             </p>
           ) : (
             videos!.map((video) => (

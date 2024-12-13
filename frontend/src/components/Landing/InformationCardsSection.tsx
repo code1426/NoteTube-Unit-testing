@@ -31,7 +31,7 @@ const InformationCardsSection = () => {
   return (
     <div className="py-24 px-8 bg-white section transition-all duration-500 w-screen">
       <h2 className="text-6xl font-secondaryRegular text-green text-center mb-12 px-60">
-        <div className="bg-lime-200">Why Choose NoteTube</div>
+        Why Choose NoteTube
       </h2>
       <div className="flex justify-center gap-8">
         {InformationCards.map((card, index) => (
