@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "@/context/Contexts";
 import ProfileButton from "../Sidebar/ProfileButton";
-import LogoutConfirmation from "../LogoutConfirmation";
+import LogoutConfirmation from "../Settings/LogoutConfirmation";
 import UpdatePasswordForm from "../Settings/UpdatePasswordForm";
 import DeleteUserForm from "../Settings/DeleteUserForm";
 import { PiPasswordBold } from "react-icons/pi";
