@@ -33,14 +33,19 @@ describe("The video POST endpoint", () => {
       videoId: testVideo.videoId,
       thumbnailUrl: testVideo.thumbnailUrl,
       title: testVideo.title,
-      noteId,
+      noteId: noteId,
     };
 
     const response = await request(app).post("/videos").send(videoData);
 
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
-    expect(response.body).toMatchObject(videoData);
+    expect(response.body).toMatchObject({
+      video_id: videoData.videoId,
+      thumbnail_url: videoData.thumbnailUrl,
+      title: videoData.title,
+      note_id: videoData.noteId,
+    });
   }, 30000);
 
   it("should return a 400 error when required fields are missing", async () => {
