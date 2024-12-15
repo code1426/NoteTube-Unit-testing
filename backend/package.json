@@ -7,7 +7,7 @@
     "dev": "nodemon src/server.ts",
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint .",
-    "test": "jest --config jest.config.ts --coverage"
+    "test": "jest --coverage"
   },
   "keywords": [],
   "author": "",
