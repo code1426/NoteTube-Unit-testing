@@ -101,25 +101,24 @@ const FileUploadTab = ({
           />
         </form>
       </Form>
-      {selectedFiles && (
-        <ScrollArea className="h-36 rounded-md">
-          {[...selectedFiles].map((file, index) => (
-            <FileCard
-              key={index}
-              file={file}
-              onDelete={() => {
-                const newFiles = [...selectedFiles].filter((f) => {
-                  return f !== file;
-                });
-                form.setValue("files", arrayToFileList(newFiles), {
-                  shouldValidate: true,
-                });
-                onChange(arrayToFileList(newFiles));
-              }}
-            />
-          ))}
-        </ScrollArea>
-      )}
+      <div className="h-36">
+        {selectedFiles && (
+          <ScrollArea className="h-full rounded-md">
+            {[...selectedFiles].map((file, index) => (
+              <FileCard
+                key={index}
+                file={file}
+                onDelete={() => {
+                  const newFiles = [...selectedFiles].filter((f) => {
+                    return f !== file;
+                  });
+                  onChange(arrayToFileList(newFiles));
+                }}
+              />
+            ))}
+          </ScrollArea>
+        )}
+      </div>
     </TabsContent>
   );
 };

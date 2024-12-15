@@ -63,7 +63,7 @@ const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
 
   const handleChangeFiles = (files: FileList) => {
     if (files) {
-      fileUploadForm.trigger("files");
+      fileUploadForm.setValue("files", files, { shouldValidate: true });
       setSelectedFiles(files);
     }
   };

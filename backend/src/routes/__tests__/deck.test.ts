@@ -6,6 +6,8 @@ import { testUser, testDeck } from "../../utils/testData";
 
 const route = "/decks";
 
+let userId: string;
+
 describe("The deck endpoint", () => {
   beforeEach(async () => {
     await pool.query("BEGIN");
@@ -14,6 +16,13 @@ describe("The deck endpoint", () => {
       "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3)",
       [testUser.username, testUser.email, testUser.password],
     );
+
+    const userIdResult = await pool.query(
+      "SELECT id FROM Users WHERE username = $1",
+      [testUser.username],
+    );
+
+    userId = userIdResult.rows[0].id;
   }, 30000);
 
   afterEach(async () => {
@@ -25,64 +34,49 @@ describe("The deck endpoint", () => {
   }, 30000);
 
   it("should create a new deck successfully", async () => {
-    const deckData = {
-      deck_name: testDeck.deck_name,
-      color: testDeck.color,
-    };
-    const userId = await pool.query(
-      "SELECT id FROM Users WHERE username = $1",
-      [testUser.username],
-    );
     const response = await request(app)
-      .post(route + `/${userId.rows[0].id}`)
-      .send(deckData);
+      .post(route + `/${userId}`)
+      .send(testDeck);
 
     expect(response.status).toBe(201);
     expect(response.body).toBeDefined();
     expect({
       deck_name: response.body.deck_name,
       color: response.body.color,
-    }).toEqual({ deck_name: testDeck.deck_name, color: testDeck.color });
+    }).toEqual(testDeck);
   }, 30000);
 
   it("should fetch all user decks", async () => {
-    const userId = await pool.query(
-      "SELECT id FROM Users WHERE username = $1",
-      [testUser.username],
-    );
     await pool.query(
       "INSERT INTO Decks (deck_name, user_id, color, created_at) VALUES ($1, $2, $3, NOW())",
-      [testDeck.deck_name, userId.rows[0].id, testDeck.color],
+      [testDeck.deck_name, userId, testDeck.color],
     );
 
-    const response = await request(app).get(
-      route + `?userId=${userId.rows[0].id}`,
-    );
+    const response = await request(app).get(route + `?userId=${userId}`);
 
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
-    expect(response.body[0]).toMatchObject({
-      deck_name: testDeck.deck_name,
-      color: testDeck.color,
-    });
+    expect({
+      deck_name: response.body[0].deck_name,
+      color: response.body[0].color,
+    }).toEqual(testDeck);
   }, 30000);
 
   it("should rename the deck", async () => {
-    const userId = await pool.query(
-      "SELECT id FROM Users WHERE username = $1",
-      [testUser.username],
-    );
     await pool.query(
       "INSERT INTO Decks (deck_name, user_id, color, created_at) VALUES ($1, $2, $3, NOW())",
-      [testDeck.deck_name, userId.rows[0].id, testDeck.color],
+      [testDeck.deck_name, userId, testDeck.color],
     );
+
     const deckId = await pool.query(
       "SELECT id FROM Decks WHERE deck_name = $1",
       [testDeck.deck_name],
     );
+
     const newDeckName = {
       deck_name: "renamedTestDeck",
     };
+
     const response = await request(app)
       .put(route + `/${deckId.rows[0].id}/name`)
       .send(newDeckName);
@@ -95,13 +89,9 @@ describe("The deck endpoint", () => {
   }, 30000);
 
   it("should change the color of the deck", async () => {
-    const userId = await pool.query(
-      "SELECT id FROM Users WHERE username = $1",
-      [testUser.username],
-    );
     await pool.query(
       "INSERT INTO Decks (deck_name, user_id, color, created_at) VALUES ($1, $2, $3, NOW())",
-      [testDeck.deck_name, userId.rows[0].id, testDeck.color],
+      [testDeck.deck_name, userId, testDeck.color],
     );
     const deckId = await pool.query(
       "SELECT id FROM Decks WHERE deck_name = $1",
@@ -122,28 +112,21 @@ describe("The deck endpoint", () => {
   }, 30000);
 
   it("should delete the deck", async () => {
-    const userId = await pool.query(
-      "SELECT id FROM Users WHERE username = $1",
-      [testUser.username],
-    );
     await pool.query(
       "INSERT INTO Decks (deck_name, user_id, color, created_at) VALUES ($1, $2, $3, NOW())",
-      [testDeck.deck_name, userId.rows[0].id, testDeck.color],
+      [testDeck.deck_name, userId, testDeck.color],
     );
 
-    const deckId = await pool.query(
+    const deckIdResult = await pool.query(
       "SELECT id FROM Decks WHERE deck_name = $1",
       [testDeck.deck_name],
     );
-    const response = await request(app).delete(route + `/${deckId.rows[0].id}`);
 
-    const remainingDeck = await pool.query(
-      "SELECT * FROM Decks WHERE id = $1",
-      [deckId.rows[0].id],
-    );
+    const deckId = deckIdResult.rows[0].id;
+
+    const response = await request(app).delete(route + `/${deckId}`);
 
     expect(response.status).toBe(200);
-    expect(response.body).toBeDefined();
-    expect(remainingDeck.rows.length).toBe(0);
+    expect(response.body).toMatchObject(testDeck);
   }, 30000);
 });

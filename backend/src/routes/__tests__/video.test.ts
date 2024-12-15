@@ -33,7 +33,7 @@ describe("The video POST endpoint", () => {
       videoId: testVideo.videoId,
       thumbnailUrl: testVideo.thumbnailUrl,
       title: testVideo.title,
-      noteId,
+      noteId: noteId,
     };
 
     const response = await request(app).post("/videos").send(videoData);

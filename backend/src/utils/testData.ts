@@ -11,15 +11,18 @@ export const duplicateUsername: User = {
   email: "testing@test.com",
   password: "passwordKo123456",
 };
+
 export const duplicateEmail: User = {
   username: "test2",
   email: "momomom@test.com",
   password: "passwordKo1234567",
 };
+
 export const testDeck = {
   deck_name: "testDeck",
   color: "red",
 };
+
 export const testFlashcard = {
   front: "testFront",
   back: "testBack",

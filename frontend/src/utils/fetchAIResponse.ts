@@ -21,7 +21,6 @@ const fetchAIResponse = async (
         throw new Error(errorData.message);
       }
       const result = (await response.json()) as AIResponse;
-      console.log(result);
       return result;
     } else if (props.input instanceof FileList) {
       const formData = new FormData();
