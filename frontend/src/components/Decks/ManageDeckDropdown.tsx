@@ -32,17 +32,19 @@ const ManageDeckDropdown = ({
   deckName,
   color,
 }: ManageDeckDropdownProps) => {
-  const { deleteDeck, error } = useDeleteDeck(id);
+  const { deleteDeck } = useDeleteDeck(id);
 
   const handleConfirmDelete = async () => {
-    const result = await deleteDeck();
-    if (result.success) {
-      toast.success("Deck deleted successfully.");
-      window.location.reload();
-    } else {
-      console.error("Error deleting deck:", error);
-      toast.error("Error deleting deck.");
-    }
+    toast.promise(deleteDeck(), {
+      loading: <p>Deleting deck...</p>,
+      success: () => {
+        return `Deleted deck successfully`;
+      },
+      error: (error) => {
+        console.error("Error deleting deck:", error);
+        return `Failed to delete deck: ${error}`;
+      },
+    });
   };
 
   return (
@@ -50,7 +52,7 @@ const ManageDeckDropdown = ({
       <Tooltip>
         <TooltipTrigger>
           <DropdownMenuTrigger>
-            <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200">
+            <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-300">
               <PiDotsThreeCircle size={30} color="white" />
             </button>
           </DropdownMenuTrigger>
@@ -60,7 +62,7 @@ const ManageDeckDropdown = ({
         </TooltipContent>
       </Tooltip>
       <DropdownMenuPortal>
-        <DropdownMenuContent className="w-[10.5rem] py-2">
+        <DropdownMenuContent className="w-[10.5rem]">
           <DropdownMenuLabel className="select-none">
             Manage Deck
           </DropdownMenuLabel>

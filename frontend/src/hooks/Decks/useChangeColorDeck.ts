@@ -1,18 +1,20 @@
-import { useState } from "react";
-import { Deck } from "../../types/deck.types";
+import { useState, useContext } from "react";
+import { DeckEntity } from "../../types/deck.types";
+import { DecksContext } from "@/context/Contexts";
 
 interface ChangeDeckColorResult {
   success: boolean;
-  deck?: Deck;
+  deck?: DeckEntity;
   error?: string | null;
 }
 
 const useChangeDeckColor = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { decks, setDecks } = useContext(DecksContext);
 
   const changeDeckColor = async (
-    deckData: Deck,
+    deckData: DeckEntity,
   ): Promise<ChangeDeckColorResult> => {
     setLoading(true);
     try {
@@ -35,7 +37,16 @@ const useChangeDeckColor = () => {
         );
         return { success: false, error: error };
       } else {
-        const deck: Deck = await response.json();
+        // Update the decks state with the new deck color
+        setDecks(
+          decks!.map((existingDeck) =>
+            existingDeck.id === deckData.id
+              ? { ...existingDeck, color: deckData.color }
+              : existingDeck,
+          ),
+        );
+
+        const deck: DeckEntity = await response.json();
         return { success: true, deck: deck };
       }
     } catch (error) {

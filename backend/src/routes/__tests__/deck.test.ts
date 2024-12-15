@@ -26,7 +26,7 @@ describe("The deck endpoint", () => {
 
   it("should create a new deck successfully", async () => {
     const deckData = {
-      deckName: testDeck.deckName,
+      deck_name: testDeck.deck_name,
       color: testDeck.color,
     };
     const userId = await pool.query(
@@ -40,9 +40,9 @@ describe("The deck endpoint", () => {
     expect(response.status).toBe(201);
     expect(response.body).toBeDefined();
     expect({
-      deckName: response.body.deck_name,
+      deck_name: response.body.deck_name,
       color: response.body.color,
-    }).toEqual({ deckName: testDeck.deckName, color: testDeck.color });
+    }).toEqual({ deck_name: testDeck.deck_name, color: testDeck.color });
   }, 30000);
 
   it("should fetch all user decks", async () => {
@@ -52,7 +52,7 @@ describe("The deck endpoint", () => {
     );
     await pool.query(
       "INSERT INTO Decks (deck_name, user_id, color, created_at) VALUES ($1, $2, $3, NOW())",
-      [testDeck.deckName, userId.rows[0].id, testDeck.color],
+      [testDeck.deck_name, userId.rows[0].id, testDeck.color],
     );
 
     const response = await request(app).get(
@@ -62,7 +62,7 @@ describe("The deck endpoint", () => {
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
     expect(response.body[0]).toMatchObject({
-      deck_name: testDeck.deckName,
+      deck_name: testDeck.deck_name,
       color: testDeck.color,
     });
   }, 30000);
@@ -74,14 +74,14 @@ describe("The deck endpoint", () => {
     );
     await pool.query(
       "INSERT INTO Decks (deck_name, user_id, color, created_at) VALUES ($1, $2, $3, NOW())",
-      [testDeck.deckName, userId.rows[0].id, testDeck.color],
+      [testDeck.deck_name, userId.rows[0].id, testDeck.color],
     );
     const deckId = await pool.query(
       "SELECT id FROM Decks WHERE deck_name = $1",
-      [testDeck.deckName],
+      [testDeck.deck_name],
     );
     const newDeckName = {
-      deckName: "renamedTestDeck",
+      deck_name: "renamedTestDeck",
     };
     const response = await request(app)
       .put(route + `/${deckId.rows[0].id}/name`)
@@ -89,8 +89,8 @@ describe("The deck endpoint", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
-    expect({ deckName: response.body.deck_name }).toEqual({
-      deckName: newDeckName.deckName,
+    expect({ deck_name: response.body.deck_name }).toEqual({
+      deck_name: newDeckName.deck_name,
     });
   }, 30000);
 
@@ -101,11 +101,11 @@ describe("The deck endpoint", () => {
     );
     await pool.query(
       "INSERT INTO Decks (deck_name, user_id, color, created_at) VALUES ($1, $2, $3, NOW())",
-      [testDeck.deckName, userId.rows[0].id, testDeck.color],
+      [testDeck.deck_name, userId.rows[0].id, testDeck.color],
     );
     const deckId = await pool.query(
       "SELECT id FROM Decks WHERE deck_name = $1",
-      [testDeck.deckName],
+      [testDeck.deck_name],
     );
     const newColor = {
       color: "blue",
@@ -128,12 +128,12 @@ describe("The deck endpoint", () => {
     );
     await pool.query(
       "INSERT INTO Decks (deck_name, user_id, color, created_at) VALUES ($1, $2, $3, NOW())",
-      [testDeck.deckName, userId.rows[0].id, testDeck.color],
+      [testDeck.deck_name, userId.rows[0].id, testDeck.color],
     );
 
     const deckId = await pool.query(
       "SELECT id FROM Decks WHERE deck_name = $1",
-      [testDeck.deckName],
+      [testDeck.deck_name],
     );
     const response = await request(app).delete(route + `/${deckId.rows[0].id}`);
 

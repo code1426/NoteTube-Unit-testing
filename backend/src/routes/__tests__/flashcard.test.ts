@@ -22,7 +22,7 @@ describe("The flashcard endpoint", () => {
 
     await pool.query(
       "INSERT INTO Decks (deck_name, user_id, color, created_at) VALUES ($1, $2, $3, NOW())",
-      [testDeck.deckName, userId.rows[0].id, testDeck.color],
+      [testDeck.deck_name, userId.rows[0].id, testDeck.color],
     );
   }, 30000);
 
@@ -41,7 +41,7 @@ describe("The flashcard endpoint", () => {
     };
     const deckId = await pool.query(
       "SELECT id FROM Decks WHERE deck_name = $1",
-      [testDeck.deckName],
+      [testDeck.deck_name],
     );
     const response = await request(app)
       .post(route + `/decks/${deckId.rows[0].id}/flashcards`)
@@ -58,7 +58,7 @@ describe("The flashcard endpoint", () => {
   it("should fetch all deck flashcards", async () => {
     const deckId = await pool.query(
       "SELECT id FROM Decks WHERE deck_name = $1",
-      [testDeck.deckName],
+      [testDeck.deck_name],
     );
 
     await pool.query(
@@ -81,7 +81,7 @@ describe("The flashcard endpoint", () => {
   it("should change the contents of the deck", async () => {
     const deckId = await pool.query(
       "SELECT id FROM Decks WHERE deck_name = $1",
-      [testDeck.deckName],
+      [testDeck.deck_name],
     );
     await pool.query(
       "INSERT INTO Flashcards (front, back, deck_id, created_at) VALUES ($1, $2, $3, NOW())",
@@ -112,7 +112,7 @@ describe("The flashcard endpoint", () => {
   it("should delete the flashcard", async () => {
     const deckId = await pool.query(
       "SELECT id FROM Decks WHERE deck_name = $1",
-      [testDeck.deckName],
+      [testDeck.deck_name],
     );
     await pool.query(
       "INSERT INTO Flashcards (front, back, deck_id, created_at) VALUES ($1, $2, $3, NOW())",

@@ -52,9 +52,9 @@ const applySortingAndFilteringToDecks = (
     console.log("(decks) using searchBy");
     sortedFilteredarray = sortedFilteredarray.filter((content) => {
       if (
-        content["deck_name"]
-          .toLowerCase()
-          .includes(options.searchByName.toLowerCase())
+        content["deck_name"]!.toLowerCase().includes(
+          options.searchByName.toLowerCase(),
+        )
       )
         return sortedFilteredarray;
     });

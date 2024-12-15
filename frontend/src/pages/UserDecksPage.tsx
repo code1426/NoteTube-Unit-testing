@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import Header from "../components/Header/Header";
 import DeckItem from "../components/Decks/DeckItem";
 import LoadingScreen from "../components/LoadingScreen";
-import useFetchUserDecks from "../hooks/Decks/useFetchUserDecks";
-import { toast, Toaster } from "react-hot-toast";
+// import useFetchUserDecks from "../hooks/Decks/useFetchUserDecks";
+import { Toaster } from "react-hot-toast";
 import NoItemsContainerBox from "../components/NoItemsContainerBox";
 import useFilterDecks from "../hooks/Decks/useFilterDecks";
 import { options } from "../types/options.types";
@@ -12,15 +12,16 @@ import AddDeckDrawer from "../components/Decks/AddDeckDrawer";
 import { Drawer } from "@/components/ui/drawer";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import HoverDeckCard from "@/components/Decks/HoverDeckCard";
-import { UserContext } from "@/context/Contexts";
+import { UserContext, DecksContext } from "@/context/Contexts";
 
 const UserDecksPage: React.FC = () => {
   const { user } = useContext(UserContext);
-  const {
-    userDecks,
-    loading: decksLoading,
-    error,
-  } = useFetchUserDecks(user?.id || "");
+  const { decks: userDecks } = useContext(DecksContext);
+  // const {
+  //   userDecks,
+  //   loading: decksLoading,
+  //   error,
+  // } = useFetchUserDecks(user?.id || "");
   const [isAddDeckDrawerOpen, setIsAddDeckDrawerOpen] = useState(false);
   const [filterOptions, setFilterOptions] = useState<options>({
     sortByNames: "",
@@ -28,17 +29,12 @@ const UserDecksPage: React.FC = () => {
     searchByName: "",
   });
   const { filteredDecks, setOptions } = useFilterDecks(
-    userDecks,
+    userDecks!,
     filterOptions,
   );
 
-  if (!user || decksLoading) {
+  if (!user || !userDecks) {
     return <LoadingScreen message="Loading decks..." />;
-  }
-
-  if (error) {
-    console.error(error);
-    toast.error("Error fetching user decks.");
   }
 
   const toggleAddDeckDrawer = () => {
@@ -47,7 +43,7 @@ const UserDecksPage: React.FC = () => {
 
   const handleFormSuccess = () => {
     setIsAddDeckDrawerOpen(false);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const handleApplyFilters = (newOptions: options) => {
@@ -115,7 +111,7 @@ const UserDecksPage: React.FC = () => {
                   />
                 </HoverCardTrigger>
                 <HoverDeckCard
-                  deckName={deck.deck_name}
+                  deckName={deck.deck_name!}
                   createdAt={deck.created_at!}
                 />
               </HoverCard>

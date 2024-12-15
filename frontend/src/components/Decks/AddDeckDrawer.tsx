@@ -22,7 +22,7 @@ interface AddDeckDrawerProps {
 const AddDeckDrawer = ({ userId, onClose, onSuccess }: AddDeckDrawerProps) => {
   const { createDeck, loading } = useCreateDeck();
   const [deckName, setDeckName] = useState("");
-  const [isInputFocused, setIsInputFocused] = useState(false);
+  // const [isInputFocused, setIsInputFocused] = useState(false);
 
   const handleCreateDeck = async () => {
     if (!deckName.trim()) {
@@ -34,9 +34,10 @@ const AddDeckDrawer = ({ userId, onClose, onSuccess }: AddDeckDrawerProps) => {
 
     const result = await createDeck({
       id: "",
-      deckName: deckName.trim(),
-      userId: userId,
+      deck_name: deckName.trim(),
+      user_id: userId,
       color: selectedColor,
+      card_count: 0,
     });
 
     if (result.error) {
@@ -76,17 +77,10 @@ const AddDeckDrawer = ({ userId, onClose, onSuccess }: AddDeckDrawerProps) => {
       <div className="px-6 py-4 space-y-4">
         <div className="relative">
           <input
-            className={`w-full p-3 pr-12 border-2 rounded-lg text-black text-xl 
-              ${
-                isInputFocused
-                  ? "border-green ring-2 ring-green/50"
-                  : "border-gray-300 hover:border-green/50"
-              } 
+            className={`w-full p-3 pr-12 border-2 border-green focus:ring focus:ring-green rounded-lg outline-none text-black text-xl 
               transition-all duration-300 ease-in-out`}
             placeholder="Enter deck name"
             value={deckName}
-            onFocus={() => setIsInputFocused(true)}
-            onBlur={() => setIsInputFocused(false)}
             onChange={(e) => setDeckName(e.target.value)}
             disabled={loading}
             maxLength={50}
@@ -112,7 +106,7 @@ const AddDeckDrawer = ({ userId, onClose, onSuccess }: AddDeckDrawerProps) => {
         <div className="flex gap-4">
           <button
             className="flex-1 px-6 py-3 border-2 border-green text-green 
-              rounded-lg text-xl font-semibold hover:bg-green/10 
+              rounded-lg text-xl font-semibold hover:bg-gray-200
               transition-colors disabled:opacity-50"
             onClick={onClose}
             disabled={loading}

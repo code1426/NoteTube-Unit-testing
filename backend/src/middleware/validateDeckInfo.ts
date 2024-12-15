@@ -5,9 +5,9 @@ const validateDeckInfo = (
   response: Response,
   next: NextFunction,
 ): void => {
-  const { deckName } = request.body;
+  const { deck_name } = request.body;
 
-  if (!deckName || !request.params.userId) {
+  if (!deck_name || !request.params.userId) {
     response.status(400).json({ message: "Missing deck name or user ID" });
     return;
   }

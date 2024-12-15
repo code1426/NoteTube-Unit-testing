@@ -112,7 +112,7 @@ const AddFlashcardDrawer = ({
         <div className="flex flex-col border-2 border-[#03c04a]">
           <div className="relative">
             <textarea
-              className="w-full p-3 border-b-2 border-[#03c04a] text-black text-xl resize-none"
+              className="w-full p-3 border-b-2 border-[#03c04a] outline-none text-black text-xl resize-none"
               placeholder="Front of the card"
               value={flashcardFront}
               onChange={(e) => setFlashcardFront(e.target.value)}
@@ -131,7 +131,7 @@ const AddFlashcardDrawer = ({
           </div>
           <div className="relative">
             <textarea
-              className="w-full p-3 text-black text-xl resize-none"
+              className="w-full p-3 text-black text-xl outline-none resize-none"
               placeholder="Back of the card"
               value={flashcardBack}
               onChange={(e) => setFlashcardBack(e.target.value)}
@@ -172,7 +172,7 @@ const AddFlashcardDrawer = ({
         <div className="flex gap-4">
           <button
             className="flex-1 px-6 py-3 border-2 border-green text-green 
-              rounded-lg text-xl font-semibold hover:bg-green/10 
+              rounded-lg text-xl font-semibold hover:bg-gray-200
               transition-colors disabled:opacity-50"
             onClick={onClose}
             disabled={loading}

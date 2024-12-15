@@ -1,10 +1,10 @@
 export interface DeckEntity {
   id: string;
-  deck_name: string;
-  user_id: string;
-  card_count: number;
-  color: string;
-  created_at: string;
+  deck_name?: string;
+  user_id?: string;
+  card_count?: number;
+  color?: string;
+  created_at?: string;
 }
 
 export interface Deck {
