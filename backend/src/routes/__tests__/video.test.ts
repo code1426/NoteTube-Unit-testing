@@ -40,12 +40,7 @@ describe("The video POST endpoint", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
-    expect(response.body).toMatchObject({
-      video_id: videoData.videoId,
-      thumbnail_url: videoData.thumbnailUrl,
-      title: videoData.title,
-      note_id: videoData.noteId,
-    });
+    expect(response.body).toMatchObject(videoData);
   }, 30000);
 
   it("should return a 400 error when required fields are missing", async () => {
