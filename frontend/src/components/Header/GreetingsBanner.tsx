@@ -4,6 +4,7 @@ import { UserContext } from "@/context/Contexts";
 
 const GreetingsBanner = () => {
   const { user } = useContext(UserContext);
+  const username = user?.username || "";
 
   useEffect(() => {
     const hasShownBanner = localStorage.getItem("hasShownBanner");
@@ -11,7 +12,7 @@ const GreetingsBanner = () => {
     if (!hasShownBanner) {
       localStorage.setItem("hasShownBanner", "true");
 
-      toast.success(`Welcome ${user?.username}!`, {
+      toast.success(`Welcome ${username}!`, {
         duration: 3000,
         position: "top-right",
         style: {
@@ -24,15 +25,10 @@ const GreetingsBanner = () => {
           animation: "slideIn 0.5s ease-out, fadeOut 0.5s ease-in 3.5s",
           marginRight: "3rem",
           marginTop: "-0.5rem",
-          // overflow: "hidden",
-          // textOverflow: "ellipsis",
-          // whiteSpace: "nowrap",
         },
       });
     }
-  }, [user?.username]);
-
-  if (!user) return;
+  }, [username]);
 
   return (
     <>

@@ -12,7 +12,7 @@ router.post(
   validateDeckInfo,
   async (request: Request, response: Response, next: NextFunction) => {
     const { userId } = request.params;
-    const { deckName, color } = request.body;
+    const { deck_name, color } = request.body;
 
     try {
       const result = await pool.query(
@@ -21,7 +21,7 @@ router.post(
         VALUES ($1, $2, $3, NOW())
         RETURNING *
         `,
-        [deckName, userId, color],
+        [deck_name, userId, color],
       );
       response.status(201).json(result.rows[0]);
     } catch (error) {
@@ -84,7 +84,7 @@ router.put(
   async (request: Request, response: Response, next: NextFunction) => {
     try {
       const { id } = request.params;
-      const { deckName } = request.body;
+      const { deck_name } = request.body;
 
       const result = await pool.query(
         `
@@ -93,7 +93,7 @@ router.put(
         WHERE id = $2
         RETURNING *
          `,
-        [deckName, id],
+        [deck_name, id],
       );
       response.status(200).json(result.rows[0]);
     } catch (error) {

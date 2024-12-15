@@ -16,6 +16,7 @@ import GeneratedVideosPage from "./pages/GeneratedVideosPage";
 
 import useUserVerification from "./hooks/auth/useUserVerification";
 import useUser from "./hooks/auth/useUser";
+import useFetchUserDecks from "./hooks/Decks/useFetchUserDecks";
 
 const App = () => {
   const {
@@ -23,9 +24,10 @@ const App = () => {
     setIsAuthenticated,
     loading: loadingVerification,
   } = useUserVerification();
-  const { loading: loadingUser } = useUser();
+  const { user, loading: loadingUser } = useUser();
+  const { loading: loadingDecks } = useFetchUserDecks(user?.id || "");
 
-  return loadingVerification || loadingUser ? (
+  return loadingVerification || loadingUser || loadingDecks ? (
     <LoadingScreen />
   ) : (
     <StrictMode>

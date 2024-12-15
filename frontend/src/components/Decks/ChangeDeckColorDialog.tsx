@@ -50,7 +50,7 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
 
     if (res.success) {
       toast.success("Changed deck color.");
-      window.location.reload();
+      // window.location.reload();
     } else {
       console.error("Failed to change deck color:", error);
       toast.error("Failed to change deck color. Please try again.");
@@ -60,7 +60,7 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
   return (
     <Dialog onOpenChange={resetDeckColor}>
       <DialogTrigger>
-        <button className="flex items-center justify-left p-2 w-40 hover:bg-gray-200">
+        <button className="flex items-center justify-left p-2 w-40 hover:bg-gray-200 rounded-sm">
           <PiPaletteLight size={20} className="mr-2" />
           <span className="text-sm">Change Color</span>
         </button>
@@ -123,7 +123,7 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
 
         <DialogFooter>
           <button
-            className={`flex-1 px-6 py-3 flex items-center justify-center 
+            className={`flex-1 px-6 h-14 flex items-center justify-center
                 ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} 
                 text-white rounded-lg text-xl font-semibold 
                 transition-colors disabled:opacity-50 gap-2`}

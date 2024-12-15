@@ -14,7 +14,7 @@ import type {
   GeneratedFlashcard,
 } from "@/types/ai.types";
 import type { Video } from "@/types/video.types";
-import type { Deck } from "@/types/deck.types";
+import type { DeckEntity } from "@/types/deck.types";
 import type { Flashcard } from "@/types/flashcard.types";
 
 import useCreateNote from "@/hooks/Notes/useCreateNote";
@@ -62,7 +62,7 @@ const HomePage = () => {
     }
   };
 
-  const handleCreateDeck = async (deckData: Deck) => {
+  const handleCreateDeck = async (deckData: DeckEntity) => {
     try {
       const result = await createDeck({ ...deckData });
 
@@ -161,11 +161,12 @@ const HomePage = () => {
         throw new Error("Failed to get suggested videos");
       }
 
-      const deckData: Deck = {
+      const deckData: DeckEntity = {
         id: "",
-        deckName: summary.title,
+        deck_name: summary.title,
         color: generateRandomColor(),
-        userId: user.id,
+        user_id: user.id,
+        card_count: AIResponse.flashcards.items.length,
       };
 
       const deckLoad = toast.promise(handleCreateDeck(deckData), {

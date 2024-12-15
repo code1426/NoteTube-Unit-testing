@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { DecksContext } from "@/context/Contexts";
 
 const useDeleteDeck = (deckId: string) => {
   const [error, setError] = useState<string | null>(null);
+  const { decks, setDecks } = useContext(DecksContext);
 
   const deleteDeck = async (): Promise<{
     success: boolean;
@@ -29,6 +31,7 @@ const useDeleteDeck = (deckId: string) => {
         };
       }
 
+      setDecks(decks!.filter((deck) => deck.id !== deckId));
       return { success: true, error: null };
     } catch (error) {
       console.error(error);

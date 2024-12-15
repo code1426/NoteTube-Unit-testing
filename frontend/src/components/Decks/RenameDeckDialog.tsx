@@ -31,12 +31,12 @@ const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
 
     const res = await renameDeck({
       id: id,
-      deckName: newDeckName,
+      deck_name: newDeckName,
     });
 
     if (res.success) {
       toast.success("Renamed deck successfully.");
-      window.location.reload();
+      // window.location.reload();
     } else {
       console.error("Failed to rename deck:", error);
       toast.error("Failed to rename deck. Please try again.");
@@ -48,7 +48,7 @@ const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
   return (
     <Dialog onOpenChange={resetDeckName}>
       <DialogTrigger>
-        <div className="flex items-center justify-left p-2 w-40 hover:bg-gray-200">
+        <div className="flex items-center justify-left p-2 w-40 hover:bg-gray-200 rounded-sm">
           <PiPencil size={20} className="mr-2" />
           <span className="text-sm">Rename Deck</span>
         </div>
@@ -70,7 +70,7 @@ const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
           <div className="relative">
             <input
               id="deckName"
-              className={`w-full p-3 pr-12 border-2 rounded-lg text-black font-semibold 
+              className={`w-full p-3 pr-12 border-2 rounded-lg outline-none text-black font-semibold 
                 ${
                   isInputFocused
                     ? "border-green ring-2 ring-green/50"
@@ -103,7 +103,7 @@ const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
 
         <DialogFooter>
           <button
-            className={`flex-1 px-6 py-3 flex items-center justify-center 
+            className={`flex-1 px-6 h-14 flex items-center justify-center 
                 ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} 
                 text-white rounded-lg text-xl font-semibold 
                 transition-colors disabled:opacity-50 gap-2`}

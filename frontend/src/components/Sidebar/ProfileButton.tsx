@@ -17,6 +17,8 @@ const ProfileButton = ({ isDropdown = false }: Props) => {
   const { user } = useContext(UserContext);
 
   const getAbbreviation = (name: string) => {
+    if (!name) return;
+
     return name
       .split(" ")
       .map((name) => name[0].toUpperCase())

@@ -1,22 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { DeckEntity } from "../../types/deck.types";
+import { DecksContext } from "@/context/Contexts";
 
 interface FetchUserDecksResult {
-  userDecks: DeckEntity[] | null;
+  userDecks?: DeckEntity[] | null;
   loading: boolean;
   error?: string | null;
 }
 
 const useFetchUserDecks = (userId: string): FetchUserDecksResult => {
-  const [userDecks, setUserDecks] = useState<DeckEntity[] | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { setDecks: setUserDecks } = useContext(DecksContext);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchDecks = async () => {
-      setLoading(true);
+      if (!userId) {
+        setLoading(false);
+        setError("No user ID provided");
+        return;
+      }
 
       try {
+        setLoading(true);
         const response = await fetch(
           `${import.meta.env.VITE_BASE_API_URL}/decks?userId=${userId}`,
           {
@@ -46,9 +52,9 @@ const useFetchUserDecks = (userId: string): FetchUserDecksResult => {
     if (userId) {
       fetchDecks();
     }
-  }, [userId]);
+  }, [userId, setUserDecks]);
 
-  return { userDecks, loading, error };
+  return { loading, error };
 };
 
 export default useFetchUserDecks;
