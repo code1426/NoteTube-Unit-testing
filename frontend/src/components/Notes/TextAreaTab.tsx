@@ -41,7 +41,7 @@ const TextAreaTab = ({ form, onChange }: TextAreaTabProps) => {
                     }}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage role="alert" />
               </FormItem>
             )}
           />

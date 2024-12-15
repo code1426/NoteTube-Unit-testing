@@ -11,7 +11,6 @@ import { Button } from "../ui/button";
 
 import TextAreaTab from "./TextAreaTab";
 import FileUploadTab from "./FileUploadTab";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 import { GenerateAIResponseProps } from "@/types/ai.types";
 import { cn } from "@/lib/utils";
@@ -22,8 +21,6 @@ interface NoteInputFormProps {
 }
 
 const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
-  const isMobile = useIsMobile();
-
   const [text, setText] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [activeTab, setActiveTab] = useState<"text" | "files">("text");
@@ -94,6 +91,7 @@ const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
         <Tabs defaultValue="text" className="flex flex-col gap-3">
           <TabsList className="w-1/2 flex">
             <TabsTrigger
+              role="text-tab-btn"
               value="text"
               onClick={() => switchTo("text")}
               className=" m-0 rounded-tr-none"
@@ -101,6 +99,7 @@ const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
               Text
             </TabsTrigger>
             <TabsTrigger
+              role="file-tab-btn"
               value="files"
               onClick={() => switchTo("files")}
               className=" m-0 rounded-tl-none"
@@ -116,11 +115,11 @@ const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
           />
         </Tabs>
       </CardContent>
-      <CardFooter className={isMobile ? "" : "justify-end"}>
+      <CardFooter className={"md:justify-end"}>
         <Button
           className={cn(
             "bg-green hover:bg-green_hover text-base",
-            isMobile ? "w-full" : "min-w-72",
+            "w-full md:min-w-72 md:w-auto",
           )}
           onClick={() => {
             if (activeTab === "text") {

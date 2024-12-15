@@ -12,7 +12,7 @@ export const TextInputSchema = z.object({
   input: z
     .string({ message: "You must enter some text" })
     .min(MIN_TEXT_INPUT_LENGTH, {
-      message: `Input must be at least ${MIN_TEXT_INPUT_LENGTH} characters.`,
+      message: `Input must be at least ${MIN_TEXT_INPUT_LENGTH} characters`,
     })
     .max(MAX_TEXT_INPUT_LENGTH, {
       message: `Input must be less than ${MAX_TEXT_INPUT_LENGTH} characters`,
