@@ -1,22 +1,21 @@
 import Header from "../components/Header/Header";
 import UseUser from "../hooks/auth/useUser";
 import LoadingScreen from "../components/LoadingScreen";
-import { FullNoteContent } from "../types/note.types";
-import useFetchNotes from "@/hooks/Notes/useFetchNotes";
+import { NoteWithVideos } from "../types/note.types";
 import NoItemsContainerBox from "@/components/NoItemsContainerBox";
-import { toast } from "react-hot-toast";
-import { useEffect, useState } from "react";
-import separateNotesWithVideos from "@/utils/notesFormatter";
+import { useContext, useEffect, useState } from "react";
 import VideoCard from "@/components/Videos/GeneratedVideo";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { NotesContext } from "@/context/Contexts";
 
 const GeneratedVideosPage = () => {
-  const { user, loading: userLoading } = UseUser();
-  const [displayedNote, setDisplayedNote] = useState<FullNoteContent | null>(
+  const { notes } = useContext(NotesContext);
+
+  const { user } = UseUser();
+  const [displayedNote, setDisplayedNote] = useState<NoteWithVideos | null>(
     null,
   );
-  const [loadingNote, setLoadingNote] = useState(true);
-  const { notes, loading, error } = useFetchNotes(user?.id || "");
+
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const isMobile = useIsMobile();
   const [mobileWidth, setMobileWidth] = useState(720);
@@ -25,15 +24,10 @@ const GeneratedVideosPage = () => {
     setSelectedVideo(videoId);
   };
 
-  if (error) {
-    console.error(error);
-    toast.error("Error fetching user notes.");
-  }
-
   useEffect(() => {
     if (notes) {
-      setDisplayedNote(separateNotesWithVideos(notes)[0]);
-      setLoadingNote(false);
+      console.log(notes);
+      setDisplayedNote(notes[notes.length - 1]);
       if (displayedNote) {
         setSelectedVideo(displayedNote!.videos[0].videoId);
       }
@@ -45,7 +39,7 @@ const GeneratedVideosPage = () => {
     }
   }, [notes, isMobile]);
 
-  if (userLoading || !user || loading || loadingNote) {
+  if (!user || !notes) {
     return <LoadingScreen message="Loading generated videos..." />;
   }
 

@@ -14,7 +14,15 @@ export interface Note {
   userId: string;
 }
 
-export interface FetchedNotesFormat {
+export interface FetchedNote {
+  id: string;
+  title: string;
+  content: string;
+  created_at: string;
+  user_id: string;
+}
+
+export interface FetchedNoteWithVideos {
   id: string;
   title: string;
   content: string;
@@ -24,7 +32,7 @@ export interface FetchedNotesFormat {
   thumbnail_url: string;
 }
 
-export interface FullNoteContent {
+export interface NoteWithVideos {
   id: string;
   title: string;
   content: string;

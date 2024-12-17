@@ -22,7 +22,7 @@ import useCreateVideos from "@/hooks/Videos/useCreateVideo";
 import useCreateDeck from "@/hooks/Decks/useCreateDeck";
 import useCreateFlashcard from "@/hooks/Flashcards/useCreateFlashcard";
 
-import { UserContext } from "@/context/Contexts";
+import { NotesContext, UserContext } from "@/context/Contexts";
 
 import getVideoSuggestions from "@/utils/getVideoSuggestions";
 import fetchAIResponse from "@/utils/fetchAIResponse";
@@ -30,6 +30,9 @@ import generateRandomColor from "@/utils/generateRandomColor";
 
 const HomePage = () => {
   const { user } = useContext(UserContext);
+  const { isUploading, setIsUploading, notes, setNotes } =
+    useContext(NotesContext);
+
   const navigate = useNavigate();
 
   const { createNote } = useCreateNote();
@@ -83,15 +86,7 @@ const HomePage = () => {
         throw new Error("No note ID found");
       }
 
-      const result = await insertVideos(noteId, videoList).catch((error) => {
-        throw new Error("Failed to add videos: " + error);
-      });
-
-      result.map((video, index) =>
-        console.log(
-          `LINK ${index + 1}: https://www.youtube.com/watch?v=${video.videoId}`,
-        ),
-      );
+      await insertVideos(noteId, videoList);
     } catch (error) {
       toast.error("Error adding videos: " + error);
       return;
@@ -102,6 +97,7 @@ const HomePage = () => {
     note: GenerateAIResponseProps,
   ): Promise<void> => {
     try {
+      setIsUploading(true);
       if (!user?.id) {
         throw new Error("No user ID found");
       }
@@ -118,10 +114,6 @@ const HomePage = () => {
       });
 
       const AIResponse = await AIResponseLoad.unwrap();
-
-      // const AIResponse = await fetchAIResponse(note).catch((error) => {
-      //   throw new Error(error.message);
-      // });
 
       if (!AIResponse?.summary) {
         throw new Error("Failed to generate summary");
@@ -151,12 +143,6 @@ const HomePage = () => {
         .unwrap()
         .then((videos) => videos?.slice(0, 5));
 
-      // const suggestedVideos = await getVideoSuggestions(summary.content)
-      //   .then((videos) => videos?.slice(0, 5))
-      //   .catch((error) => {
-      //     throw new Error(error.message);
-      //   });
-
       if (!suggestedVideos) {
         throw new Error("Failed to get suggested videos");
       }
@@ -181,10 +167,6 @@ const HomePage = () => {
 
       const createdDeck = await deckLoad.unwrap();
 
-      // const createdDeck = await handleCreateDeck(deckData).catch((error) => {
-      //   throw new Error(error.message);
-      // });
-
       if (!createdDeck) {
         throw new Error("Failed to create deck");
       }
@@ -203,8 +185,6 @@ const HomePage = () => {
         },
       );
 
-      // await handleAddFlashcards(createdDeck.id, AIResponse.flashcards.items);
-
       const noteLoad = toast.promise(
         createNote({ ...summary, userId: user.id }),
         {
@@ -220,14 +200,20 @@ const HomePage = () => {
 
       const result = await noteLoad.unwrap();
 
-      // const result = await createNote({ ...summary, userId: user.id });
-
       if (result.error) {
         throw new Error(result.error);
       }
 
       // add videos to note
       await handleAddVideos(result.note?.id || null, suggestedVideos);
+
+      setNotes([
+        ...notes!,
+        {
+          ...result.note!,
+          videos: suggestedVideos,
+        },
+      ]);
 
       navigate("/generated-videos");
     } catch (error) {
@@ -236,6 +222,8 @@ const HomePage = () => {
         "Error creating note: " +
           (error instanceof Error ? error.message : "Unknown error"),
       );
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -255,7 +243,7 @@ const HomePage = () => {
           hasAddButton={false}
           sectionTitle="Upload Notes"
         />
-        <NoteInputForm onSubmit={handleAddNote} />
+        <NoteInputForm onSubmit={handleAddNote} disabled={isUploading} />
       </div>
     </>
   );

@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import LoadingScreen from "@/components/LoadingScreen";
 import useFetchNote from "@/hooks/Notes/useFetchNote";
-import { FullNoteContent } from "@/types/note.types";
-import separateNotesWithVideos from "@/utils/notesFormatter";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import SummaryContainer from "@/components/Notes/SummaryContainer";
 import VideoCard from "@/components/Notes/VideoCard";
@@ -14,10 +11,6 @@ import HoverVideoCard from "@/components/Notes/HoverVideoCard";
 
 const NotePage: React.FC = () => {
   const { noteId } = useParams<{ noteId: string }>();
-  const [displayedNote, setDisplayedNote] = useState<FullNoteContent | null>(
-    null,
-  );
-  const [loadingNote, setLoadingNote] = useState(true);
   const { note, noteLoading, noteError } = useFetchNote(noteId!);
 
   if (noteError) {
@@ -25,14 +18,7 @@ const NotePage: React.FC = () => {
     toast.error("Error fetching user note.");
   }
 
-  useEffect(() => {
-    if (note) {
-      setDisplayedNote(separateNotesWithVideos(note)[0]);
-      setLoadingNote(false);
-    }
-  }, [note]);
-
-  if (noteLoading || loadingNote) {
+  if (noteLoading || !note) {
     return <LoadingScreen message="Loading note..." />;
   }
 
@@ -42,12 +28,12 @@ const NotePage: React.FC = () => {
         isHomepage={false}
         isFlashCardsPage={false}
         isSectionTitleOnly={true}
-        sectionTitle={displayedNote!.title}
+        sectionTitle={note!.title}
         onAdd={() => {}}
         hasAddButton={false}
       />
       <div className="flex-1 flex flex-col items-center px-2 py-4 space-y-4 md:px-4 lg:px-6">
-        <SummaryContainer content={displayedNote!.content} />
+        <SummaryContainer content={note!.content} />
       </div>
 
       <div className="mt-auto overflow-x-hidden w-full">
@@ -57,12 +43,12 @@ const NotePage: React.FC = () => {
 
         <ScrollArea className="pb-4">
           <div className="flex space-x-4 px-5">
-            {displayedNote!.videos.length === 0 ? (
+            {note!.videos.length === 0 ? (
               <p className="text-gray-500 italic mx-auto">
                 No videos found for this note...
               </p>
             ) : (
-              displayedNote!.videos!.map((generatedVideo) => (
+              note!.videos!.map((generatedVideo) => (
                 <div
                   className="max-w-[280px] w-full flex-shrink-0"
                   key={generatedVideo.videoId}

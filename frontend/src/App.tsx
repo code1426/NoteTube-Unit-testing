@@ -1,22 +1,23 @@
 import { StrictMode } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
-import LandingPage from "./pages/LandingPage";
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import NotePage from "./pages/NotePage";
-import FlashcardsPage from "./pages/FlashcardsPage";
-import FlashcardsQuizPage from "./pages/FlashcardsQuizPage";
-import UserDecksPage from "./pages/UserDecksPage";
-import LoadingScreen from "./components/LoadingScreen";
-import SideBarLayout from "./components/Sidebar/Layout";
-import NotesHistoryPage from "./pages/NotesHistoryPage";
-import GeneratedVideosPage from "./pages/GeneratedVideosPage";
+import LandingPage from "@/pages/LandingPage";
+import HomePage from "@/pages/HomePage";
+import LoginPage from "@/pages/LoginPage";
+import RegisterPage from "@/pages/RegisterPage";
+import NotePage from "@/pages/NotePage";
+import FlashcardsPage from "@/pages/FlashcardsPage";
+import FlashcardsQuizPage from "@/pages/FlashcardsQuizPage";
+import UserDecksPage from "@/pages/UserDecksPage";
+import LoadingScreen from "@/components/LoadingScreen";
+import SideBarLayout from "@/components/Sidebar/Layout";
+import NotesHistoryPage from "@/pages/NotesHistoryPage";
+import GeneratedVideosPage from "@/pages/GeneratedVideosPage";
 
-import useUserVerification from "./hooks/auth/useUserVerification";
-import useUser from "./hooks/auth/useUser";
-import useFetchUserDecks from "./hooks/Decks/useFetchUserDecks";
+import useUserVerification from "@/hooks/auth/useUserVerification";
+import useUser from "@/hooks/auth/useUser";
+import useFetchUserDecks from "@/hooks/Decks/useFetchUserDecks";
+import useFetchNotes from "@/hooks/Notes/useFetchNotes";
 
 const App = () => {
   const {
@@ -26,8 +27,9 @@ const App = () => {
   } = useUserVerification();
   const { user, loading: loadingUser } = useUser();
   const { loading: loadingDecks } = useFetchUserDecks(user?.id || "");
+  const { loading: loadingNotes } = useFetchNotes(user?.id || "");
 
-  return loadingVerification || loadingUser || loadingDecks ? (
+  return loadingVerification || loadingUser || loadingDecks || loadingNotes ? (
     <LoadingScreen />
   ) : (
     <StrictMode>

@@ -1,9 +1,9 @@
-import { FetchedNotesFormat, FullNoteContent } from "@/types/note.types";
+import { FetchedNoteWithVideos, NoteWithVideos } from "@/types/note.types";
 import { Video } from "@/types/video.types";
 
 const separateNotesWithVideos = (
-  fetchedData: FetchedNotesFormat[],
-): FullNoteContent[] => {
+  fetchedData: FetchedNoteWithVideos[],
+): NoteWithVideos[] => {
   if (!fetchedData) {
     return [];
   }
@@ -12,7 +12,7 @@ const separateNotesWithVideos = (
     return videos.some((video) => video.videoId === videoId);
   };
 
-  const newData: FullNoteContent[] = [];
+  const newData: NoteWithVideos[] = [];
 
   console.log(fetchedData);
 

@@ -1,23 +1,23 @@
 import UseUser from "../hooks/auth/useUser";
 import Header from "../components/Header/Header";
 import LoadingScreen from "../components/LoadingScreen";
-import { FullNoteContent } from "../types/note.types";
-import useFetchNotes from "@/hooks/Notes/useFetchNotes";
+import { NoteWithVideos } from "../types/note.types";
+
 import NoItemsContainerBox from "@/components/NoItemsContainerBox";
-import { toast, Toaster } from "react-hot-toast";
-import { useEffect, useState } from "react";
-import separateNotesWithVideos from "@/utils/notesFormatter";
+
+import { useContext, useEffect, useState } from "react";
 import NotesHistoryCard from "@/components/History/NotesHistoryCard";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import HoverHistoryNotesCard from "@/components/History/HoverHistoryNotesCard";
 import applySortingAndFilteringToNotes from "@/utils/notesSorterFilter";
 import { options } from "@/types/options.types";
+import { NotesContext } from "@/context/Contexts";
 
 const NotesHistoryPage = () => {
-  const { user, loading: userLoading } = UseUser();
-  const [displayedNotes, setDisplayedNotes] = useState<FullNoteContent[]>([]);
-  const [loadingNotes, setLoadingNotes] = useState(true);
-  const { notes, loading, error } = useFetchNotes(user?.id || "");
+  const { notes } = useContext(NotesContext);
+
+  const { user } = UseUser();
+  const [displayedNotes, setDisplayedNotes] = useState<NoteWithVideos[]>([]);
 
   const [filterOptions, setFilterOptions] = useState<options>({
     sortByNames: "",
@@ -25,15 +25,9 @@ const NotesHistoryPage = () => {
     searchByName: "",
   });
 
-  if (error) {
-    console.error(error);
-    toast.error("Error fetching user notes.");
-  }
-
   useEffect(() => {
     if (notes) {
-      setDisplayedNotes(separateNotesWithVideos(notes));
-      setLoadingNotes(false);
+      setDisplayedNotes(notes);
       console.log(displayedNotes);
     }
   }, [notes]);
@@ -41,7 +35,7 @@ const NotesHistoryPage = () => {
   useEffect(() => {
     if (notes) {
       const updatedNotes = applySortingAndFilteringToNotes(
-        separateNotesWithVideos(notes),
+        notes,
         filterOptions,
       );
       setDisplayedNotes(updatedNotes);
@@ -59,13 +53,12 @@ const NotesHistoryPage = () => {
     }));
   };
 
-  if (userLoading || !user || loading || loadingNotes) {
+  if (!user || !notes) {
     return <LoadingScreen message="Loading notes..." />;
   }
 
   return (
     <>
-      <Toaster />
       <div className="relative w-full bg-white select-none overflow-auto scrollbar-custom h-screen">
         <Header
           isHomepage={false}
@@ -87,7 +80,7 @@ const NotesHistoryPage = () => {
               />
             </div>
           ) : (
-            displayedNotes!.map((note: FullNoteContent) => (
+            displayedNotes!.map((note: NoteWithVideos) => (
               <HoverCard>
                 <HoverCardTrigger>
                   <NotesHistoryCard

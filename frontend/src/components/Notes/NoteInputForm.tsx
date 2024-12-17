@@ -18,9 +18,10 @@ import { FileUploadSchema, TextInputSchema } from "@/utils/formSchemas";
 
 interface NoteInputFormProps {
   onSubmit: (props: GenerateAIResponseProps) => Promise<void>;
+  disabled: boolean;
 }
 
-const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
+const NoteInputForm = ({ onSubmit, disabled }: NoteInputFormProps) => {
   const [text, setText] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [activeTab, setActiveTab] = useState<"text" | "files">("text");
@@ -117,6 +118,7 @@ const NoteInputForm = ({ onSubmit }: NoteInputFormProps) => {
       </CardContent>
       <CardFooter className={"md:justify-end"}>
         <Button
+          disabled={disabled}
           className={cn(
             "bg-green hover:bg-green_hover text-base",
             "w-full md:min-w-72 md:w-auto",
