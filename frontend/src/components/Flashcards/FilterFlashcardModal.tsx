@@ -38,7 +38,7 @@ const FilterCardModal = ({ onClose, onApply }: FilterCardModalProps) => {
     <Card className="flex-grow absolute top-12 right-0 z-50 bg-white p-2 rounded-lg shadow-lg w-[20rem] border border-gray-300">
       {/* Header */}
       <CardHeader className="grid grid-cols-2 ">
-        <h2 className="self-start">Filter</h2>
+        <h2 className="self-start">Sort</h2>
         <button
           className="self-start justify-self-end  text-gray-500 hover:text-red-500"
           onClick={onClose}

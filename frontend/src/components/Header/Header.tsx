@@ -3,8 +3,8 @@ import {
   PiCards,
   PiPlus,
   PiMagnifyingGlass,
-  PiFunnel,
   PiX,
+  PiArrowsDownUpLight,
 } from "react-icons/pi";
 import { PiArrowCircleLeftBold } from "react-icons/pi";
 import FilterCardModal from "../Flashcards/FilterFlashcardModal";
@@ -220,11 +220,11 @@ const Header: React.FC<SubHeaderProps> = ({
                         className="flex items-center hover:underline gap-2"
                         onClick={openFilter}
                       >
-                        <PiFunnel />{" "}
+                        <PiArrowsDownUpLight />{" "}
                         <p
                           className={`text-responsive hidden md:flex lg:flex xl:flex`}
                         >
-                          Filter
+                          Sort
                         </p>
                       </button>
                     </TooltipTrigger>
