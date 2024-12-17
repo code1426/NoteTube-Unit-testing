@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FullNoteContent } from "../../types/note.types";
+import { NoteWithVideos } from "../../types/note.types";
 import { Link } from "react-router-dom";
 import HistoryGeneratedVideoThumbnail from "./GeneratedVideoThumbnail";
 import DeleteHistoryConfirmation from "./DeleteHistoryConfirmation";
@@ -7,18 +7,16 @@ import toast from "react-hot-toast";
 import useDeleteNote from "@/hooks/Notes/useDeleteNote";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-const NotesHistoryCard = ({ id, title, videos }: FullNoteContent) => {
-  const { deleteNote, error } = useDeleteNote(id);
+const NotesHistoryCard = ({ id, title, videos }: NoteWithVideos) => {
+  const { deleteNote } = useDeleteNote(id);
   const isMobile = useIsMobile();
 
   const handleConfirmDelete = async () => {
     const result = await deleteNote();
     if (result.success) {
       toast.success("Note deleted successfully.");
-      window.location.reload();
     } else {
       toast.error("Error deleting note. Please try again.");
-      console.error("Error deleting note:", error);
     }
   };
 

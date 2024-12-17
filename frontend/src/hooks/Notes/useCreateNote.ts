@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import type { CreateNoteData, Note } from "../../types/note.types";
+import type { CreateNoteData, FetchedNote, Note } from "../../types/note.types";
 
 interface CreateNoteResult {
   success: boolean;
@@ -39,8 +39,16 @@ const useCreateNote = () => {
         return { success: false, error: error };
       }
 
-      const note: Note = await response.json();
-      return { success: true, note: note };
+      const note: FetchedNote = await response.json();
+
+      return {
+        success: true,
+        note: {
+          ...note,
+          createdAt: note.created_at,
+          userId: note.user_id,
+        } as Note,
+      };
     } catch (_error) {
       return { success: false, error: error };
     } finally {

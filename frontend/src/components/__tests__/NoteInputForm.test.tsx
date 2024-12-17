@@ -10,7 +10,7 @@ const mockOnSubmit = vi.fn();
 
 describe("The note input form", () => {
   beforeEach(() => {
-    render(<NoteInputForm onSubmit={mockOnSubmit} />);
+    render(<NoteInputForm onSubmit={mockOnSubmit} disabled={false} />);
   });
 
   it("should show an error message when submitting an empty input", async () => {

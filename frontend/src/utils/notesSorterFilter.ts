@@ -1,13 +1,13 @@
-import { FullNoteContent } from "@/types/note.types";
+import { NoteWithVideos } from "@/types/note.types";
 
 import { options } from "../types/options.types";
 
 const applySortingAndFilteringToNotes = (
-  array: FullNoteContent[],
+  array: NoteWithVideos[],
   options: options,
 ) => {
   if (array.length === 0) return array;
-  let sortedFilteredarray: FullNoteContent[] = [...array];
+  let sortedFilteredarray: NoteWithVideos[] = [...array];
 
   if (options.sortByDate === "latest") {
     console.log("(notes) sortByDate latest");

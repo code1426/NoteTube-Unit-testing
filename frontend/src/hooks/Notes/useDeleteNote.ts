@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { NotesContext } from "@/context/Contexts";
+import { useContext, useState } from "react";
 
 const useDeleteNote = (noteId: string) => {
+  const { notes, setNotes } = useContext(NotesContext);
   const [error, setError] = useState<string | null>(null);
 
   const deleteNote = async (): Promise<{
@@ -28,6 +30,8 @@ const useDeleteNote = (noteId: string) => {
           error: `Request to delete note failed with status: ${response.status}`,
         };
       }
+
+      setNotes(notes!.filter((note) => note.id !== noteId));
 
       return { success: true, error: null };
     } catch (error) {

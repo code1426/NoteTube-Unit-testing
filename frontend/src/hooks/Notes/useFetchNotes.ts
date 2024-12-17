@@ -1,15 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
-import type { FetchedNotesFormat } from "../../types/note.types";
+import type {
+  FetchedNoteWithVideos,
+  NoteWithVideos,
+} from "../../types/note.types";
+import { NotesContext } from "@/context/Contexts";
+import separateNotesWithVideos from "@/utils/notesFormatter";
 
 interface FetchNotesResult {
-  notes: FetchedNotesFormat[] | null;
+  notes?: NoteWithVideos[] | null;
   loading: boolean;
   error?: string | null;
 }
 
 const useFetchNotes = (userId: string): FetchNotesResult => {
-  const [notes, setNotes] = useState<FetchedNotesFormat[] | null>(null);
+  const { setNotes } = useContext(NotesContext);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,10 +35,10 @@ const useFetchNotes = (userId: string): FetchNotesResult => {
             "Request to fetch notes failed with status: " + response.status,
           );
           return;
-        } else {
-          const data = await response.json();
-          setNotes(data);
         }
+        const fetchedNotes: FetchedNoteWithVideos[] = await response.json();
+        const notes = separateNotesWithVideos(fetchedNotes);
+        setNotes(notes);
       } catch (error) {
         setError("Failed to fetch notes");
       } finally {
@@ -43,9 +48,9 @@ const useFetchNotes = (userId: string): FetchNotesResult => {
     if (userId) {
       fetchNotes();
     }
-  }, [userId]);
+  }, [userId, setNotes]);
 
-  return { notes, loading, error };
+  return { loading, error };
 };
 
 export default useFetchNotes;

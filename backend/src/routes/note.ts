@@ -59,7 +59,6 @@ router.get(
         ORDER BY n.created_at DESC;`,
         [noteId],
       );
-      console.log(result);
       response.status(200).json(result.rows);
     } catch (error) {
       next(error);
