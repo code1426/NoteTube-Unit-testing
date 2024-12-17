@@ -2,25 +2,34 @@ import React, { useState } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import Header from "../components/Header/Header";
 import type { Flashcard } from "../types/flashcard.types";
+import { PiCards } from "react-icons/pi";
 import LoadingScreen from "../components/LoadingScreen";
 import useFetchFlashcards from "../hooks/Flashcards/useFetchFlashcards";
 import { toast, Toaster } from "react-hot-toast";
 import NoItemsContainerBox from "../components/NoItemsContainerBox";
 import useFilterFlashcards from "../hooks/Flashcards/useFilterFlashcards";
 import { options } from "../types/options.types";
-import { Drawer } from "@/components/ui/drawer";
-import AddFlashcardDrawer from "@/components/Flashcards/AddFlashcardDrawer";
+
 import FlashcardItem from "@/components/Flashcards/FlashcardItem";
+import AddFlashcardDrawer from "@/components/Flashcards/AddFlashcardDrawer";
+import AddFlashcardDialog from "@/components/Flashcards/AddFlashcardDialog";
+
+import { useIsMobile } from "@/hooks/use-mobile";
+
+import { Drawer } from "@/components/ui/drawer";
+import { Dialog } from "@/components/ui/dialog";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import HoverFlashcardCard from "@/components/Flashcards/HoverFlashcardCard";
-import { PiCards } from "react-icons/pi";
 
 const FlashcardsPage: React.FC = () => {
   const { deckId } = useParams<{ deckId: string }>();
   const { flashcards, loading, error } = useFetchFlashcards(deckId!);
   const location = useLocation();
   const deckName = location.state?.deckName || "Untitled Deck";
+  const isMobile = useIsMobile();
   const [isAddFlashcardDrawerOpen, setIsAddFlashcardDrawerOpen] =
+    useState(false);
+  const [isAddFlashcardDialogOpen, setIsAddFlashcardDialogOpen] =
     useState(false);
 
   const [filterOptions, setFilterOptions] = useState<options>({
@@ -34,8 +43,17 @@ const FlashcardsPage: React.FC = () => {
     filterOptions,
   );
 
+  const toggleAddFlashcard = () => {
+    if (isMobile) setIsAddFlashcardDrawerOpen((prev) => !prev);
+    else setIsAddFlashcardDialogOpen((prev) => !prev);
+  };
+
   const toggleAddFlashcardDrawer = () => {
     setIsAddFlashcardDrawerOpen((prev) => !prev);
+  };
+
+  const toggleAddFlashcardDialog = () => {
+    setIsAddFlashcardDialogOpen((prev) => !prev);
   };
 
   const handleFormSuccess = () => {
@@ -72,26 +90,40 @@ const FlashcardsPage: React.FC = () => {
           isFlashCardsPage={true}
           isSectionTitleOnly={false}
           sectionTitle={deckName}
-          onAdd={toggleAddFlashcardDrawer}
+          onAdd={toggleAddFlashcard}
           hasAddButton={true}
           deckId={deckId}
           onApplyOptions={handleApplyFilters}
           onSearch={handleSearch}
         />
+
+        <Dialog
+          open={isAddFlashcardDialogOpen}
+          onOpenChange={setIsAddFlashcardDialogOpen}
+        >
+          <AddFlashcardDialog
+            deckId={deckId!}
+            onClose={toggleAddFlashcardDialog}
+            onSuccess={handleFormSuccess}
+          />
+        </Dialog>
+
+        <Drawer
+          open={isAddFlashcardDrawerOpen}
+          onOpenChange={setIsAddFlashcardDrawerOpen}
+        >
+          <AddFlashcardDrawer
+            deckId={deckId!}
+            onClose={toggleAddFlashcardDrawer}
+            onSuccess={handleFormSuccess}
+          />
+        </Drawer>
+
         <div className="w-[90%]">
           <div className="pb-10 text-black text-2xl md:text-3xl lg:text-2xl flex gap-3 font-secondaryRegular align-middle items-center">
             Cards
           </div>
-          <Drawer
-            open={isAddFlashcardDrawerOpen}
-            onOpenChange={setIsAddFlashcardDrawerOpen}
-          >
-            <AddFlashcardDrawer
-              deckId={deckId!}
-              onClose={toggleAddFlashcardDrawer}
-              onSuccess={handleFormSuccess}
-            />
-          </Drawer>
+
           <div className="flex flex-col gap-4 scroll-auto">
             {filteredFlashcards.length === 0 ? (
               <NoItemsContainerBox

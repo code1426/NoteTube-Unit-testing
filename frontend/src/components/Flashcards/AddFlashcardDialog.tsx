@@ -1,35 +1,29 @@
 import { useState } from "react";
-import {
-  PiTrash,
-  PiPlusCircle,
-  PiList,
-  PiListNumbers,
-  PiXCircle,
-} from "react-icons/pi";
+import { PiTrash, PiPlusCircle, PiList, PiListNumbers } from "react-icons/pi";
 import { Spinner } from "react-activity";
 import useCreateFlashcard from "../../hooks/Flashcards/useCreateFlashcard";
 import toast from "react-hot-toast";
 import {
-  DrawerContent,
-  DrawerClose,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerTitle,
-} from "@/components/ui/drawer";
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
-interface AddFlashcardDrawerProps {
+interface AddFlashcardDialogProps {
   deckId: string;
   onClose: () => void;
   onSuccess: () => void;
 }
 
-const AddFlashcardDrawer = ({
+const AddFlashcardDialog = ({
   deckId,
   onClose,
   onSuccess,
-}: AddFlashcardDrawerProps) => {
+}: AddFlashcardDialogProps) => {
   const { createFlashcard, loading } = useCreateFlashcard();
   const [flashcardFront, setFlashcardFront] = useState("");
   const [flashcardBack, setFlashcardBack] = useState("");
@@ -94,23 +88,16 @@ const AddFlashcardDrawer = ({
   };
 
   return (
-    <DrawerContent className="bg-white px-6 pb-10 sm:px-10 md:px-16 lg:px-24 xl:px-32">
-      <DrawerHeader className="relative">
-        <DrawerTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center">
-          Add New Flashcard
-        </DrawerTitle>
-        <DrawerClose
-          className="absolute right-4 top-1/2 -translate-y-1/2"
-          onClick={onClose}
-        >
-          <PiXCircle
-            size={32}
-            className="text-gray-500 hover:text-gray-700 transition-colors"
-          />
-        </DrawerClose>
-      </DrawerHeader>
+    <DialogContent className="sm:max-w-[425px] bg-white p-6 rounded-lg shadow-lg">
+      <DialogHeader>
+        <DialogTitle>Create New Flashcard</DialogTitle>
+        <DialogDescription>
+          Create a new flashcard here. Provide the front and back contents for
+          the card. Click add card when you are done.
+        </DialogDescription>
+      </DialogHeader>
 
-      <div className="px-4 sm:px-6 py-4 space-y-4">
+      <div className="space-y-4">
         <div className="flex flex-col border-2 border-black">
           <div className="relative">
             <Textarea
@@ -147,57 +134,46 @@ const AddFlashcardDrawer = ({
                 <PiTrash size={24} />
               </button>
             )}
-          </div>
 
-          <div className="editText bg-white text-gray-400 text-sm mt-2 flex justify-between">
-            <div className="flex gap-2">
-              <button
-                className="p-2 text-black hover:bg-gray-200 rounded"
-                onClick={() => modifyText("bulleted")}
-              >
-                <PiList size={24} />
-              </button>
-              <button
-                className="p-2 text-black hover:bg-gray-200 rounded"
-                onClick={() => modifyText("numbered")}
-              >
-                <PiListNumbers size={24} />
-              </button>
+            <div className="editText bg-white text-gray-400 text-sm mt-2 flex justify-between">
+              <div className="flex gap-2">
+                <button
+                  className="p-2 text-black hover:bg-gray-200 rounded"
+                  onClick={() => modifyText("bulleted")}
+                >
+                  <PiList size={24} />
+                </button>
+                <button
+                  className="p-2 text-black hover:bg-gray-200 rounded"
+                  onClick={() => modifyText("numbered")}
+                >
+                  <PiListNumbers size={24} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <DrawerFooter className="space-y-4">
-        <div className="flex gap-4">
-          <Button
-            className="flex-1 px-4 py-2 md:px-6 md:py-3 border-2 bg-white border-green text-green rounded-lg text-base md:text-xl font-semibold hover:bg-gray-200 transition-colors disabled:opacity-50"
-            onClick={onClose}
-            disabled={loading}
-          >
-            Cancel
-          </Button>
-          <Button
-            className={`flex-1 px-4 py-2 md:px-6 md:py-3 flex items-center justify-center ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} text-white rounded-lg text-base md:text-xl font-semibold transition-colors disabled:opacity-50 gap-2`}
-            onClick={handleCreateFlashcard}
-            disabled={
-              loading || !flashcardFront.trim() || !flashcardBack.trim()
-            }
-            type="submit"
-          >
-            {loading ? (
-              <Spinner size={12} color="#fff" animating={true} />
-            ) : (
-              <>
-                <PiPlusCircle size={24} />
-                Add Flashcard
-              </>
-            )}
-          </Button>
-        </div>
-      </DrawerFooter>
-    </DrawerContent>
+      <DialogFooter className="space-y-4">
+        <Button
+          className={`flex-1 px-4 py-2 md:px-6 md:py-3 flex items-center justify-center ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} text-white rounded-lg text-base md:text-xl font-semibold transition-colors disabled:opacity-50 gap-2`}
+          onClick={handleCreateFlashcard}
+          disabled={loading || !flashcardFront.trim() || !flashcardBack.trim()}
+          type="submit"
+        >
+          {loading ? (
+            <Spinner size={12} color="#fff" animating={true} />
+          ) : (
+            <>
+              <PiPlusCircle size={24} />
+              Add Flashcard
+            </>
+          )}
+        </Button>
+      </DialogFooter>
+    </DialogContent>
   );
 };
 
-export default AddFlashcardDrawer;
+export default AddFlashcardDialog;
