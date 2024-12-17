@@ -46,7 +46,7 @@ const DeleteUserForm = () => {
           <AlertDialogAction
             onClick={handleDelete}
             disabled={loading}
-            className="bg-red-700 text-white hover:bg-red-900 "
+            className="bg-red-500 text-white hover:bg-red-700 "
           >
             {loading ? "Deleting..." : "DELETE ACCOUNT"}
           </AlertDialogAction>
