@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { PiPaletteLight, PiPaintBrush } from "react-icons/pi";
 import toast from "react-hot-toast";
 import type { Deck } from "@/types/deck.types";
@@ -27,11 +28,7 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
     isColorPreset ? "#ffffff" : color!,
   );
   const [isPickerOpen, setPickerOpen] = useState<boolean>(false);
-
-  const resetDeckColor = (): void => {
-    setSelectedColor(color!);
-    setCustomColor(isColorPreset ? "#ffffff" : color!);
-  };
+  const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const handleColorSelect = (color: string): void => {
     setSelectedColor(color);
@@ -50,6 +47,7 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
 
     if (res.success) {
       toast.success("Changed deck color.");
+      setDialogOpen(false);
       // window.location.reload();
     } else {
       console.error("Failed to change deck color:", error);
@@ -57,8 +55,17 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
     }
   };
 
+  const handleDialogOpenChange = (open: boolean): void => {
+    setDialogOpen(open);
+    if (open) {
+      setSelectedColor(color!);
+      setCustomColor(isColorPreset ? "#ffffff" : color!);
+    }
+  };
+
   return (
-    <Dialog onOpenChange={resetDeckColor}>
+    // <Dialog onOpenChange={resetDeckColor}>
+    <Dialog open={isDialogOpen} onOpenChange={handleDialogOpenChange}>
       <DialogTrigger>
         <button className="flex items-center justify-left p-2 w-40 hover:bg-gray-200 rounded-sm">
           <PiPaletteLight size={20} className="mr-2" />
@@ -122,20 +129,21 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
         </div>
 
         <DialogFooter>
-          <button
-            className={`flex-1 px-6 h-14 flex items-center justify-center
+          <Button
+            className={`flex-1 px-6 flex items-center justify-center
                 ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} 
                 text-white rounded-lg text-xl font-semibold 
                 transition-colors disabled:opacity-50 gap-2`}
             onClick={handleChangeDeckColor}
             disabled={loading || !selectedColor}
+            type="submit"
           >
             {loading ? (
               <Spinner size={12} color="#fff" animating={true} />
             ) : (
               "Save Changes"
             )}
-          </button>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

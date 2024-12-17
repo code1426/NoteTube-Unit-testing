@@ -9,20 +9,26 @@ import useFilterDecks from "../hooks/Decks/useFilterDecks";
 import { options } from "../types/options.types";
 import { DeckEntity } from "../types/deck.types";
 import AddDeckDrawer from "../components/Decks/AddDeckDrawer";
-import { Drawer } from "@/components/ui/drawer";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import AddDeckDialog from "@/components/Decks/AddDeckDialog";
 import HoverDeckCard from "@/components/Decks/HoverDeckCard";
 import { UserContext, DecksContext } from "@/context/Contexts";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+import { Drawer } from "@/components/ui/drawer";
+import { Dialog } from "@/components/ui/dialog";
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 
 const UserDecksPage: React.FC = () => {
   const { user } = useContext(UserContext);
   const { decks: userDecks } = useContext(DecksContext);
+  const isMobile = useIsMobile();
   // const {
   //   userDecks,
   //   loading: decksLoading,
   //   error,
   // } = useFetchUserDecks(user?.id || "");
   const [isAddDeckDrawerOpen, setIsAddDeckDrawerOpen] = useState(false);
+  const [isAddDeckDialogOpen, setIsAddDeckDialogOpen] = useState(false);
   const [filterOptions, setFilterOptions] = useState<options>({
     sortByNames: "",
     sortByDate: "latest", // Default order
@@ -37,8 +43,9 @@ const UserDecksPage: React.FC = () => {
     return <LoadingScreen message="Loading decks..." />;
   }
 
-  const toggleAddDeckDrawer = () => {
-    setIsAddDeckDrawerOpen((prev) => !prev);
+  const toggleAddDeck = () => {
+    if (isMobile) setIsAddDeckDrawerOpen((prev) => !prev);
+    else setIsAddDeckDialogOpen((prev) => !prev);
   };
 
   const handleFormSuccess = () => {
@@ -68,10 +75,21 @@ const UserDecksPage: React.FC = () => {
           isSectionTitleOnly={false}
           hasAddButton={true}
           sectionTitle="My Decks"
-          onAdd={toggleAddDeckDrawer}
+          onAdd={toggleAddDeck}
           onApplyOptions={handleApplyFilters}
           onSearch={handleSearch}
         />
+
+        <Dialog
+          open={isAddDeckDialogOpen}
+          onOpenChange={setIsAddDeckDialogOpen}
+        >
+          <AddDeckDialog
+            userId={user.id!}
+            onClose={() => setIsAddDeckDialogOpen(false)}
+            onSuccess={handleFormSuccess}
+          />
+        </Dialog>
 
         <Drawer
           open={isAddDeckDrawerOpen}

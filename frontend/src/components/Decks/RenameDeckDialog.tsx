@@ -13,15 +13,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
   const { renameDeck, loading, error } = useRenameDeck();
   const [newDeckName, setNewDeckName] = useState(deckName!);
-  const [isInputFocused, setIsInputFocused] = useState(false);
-
-  const resetDeckName = () => {
-    setNewDeckName(deckName!);
-  };
+  const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const handleRenameDeck = async () => {
     if (!newDeckName.trim()) {
@@ -36,6 +35,7 @@ const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
 
     if (res.success) {
       toast.success("Renamed deck successfully.");
+      setDialogOpen(false);
       // window.location.reload();
     } else {
       console.error("Failed to rename deck:", error);
@@ -45,8 +45,15 @@ const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
 
   const clearText = () => setNewDeckName("");
 
+  const handleDialogOpenChange = (open: boolean): void => {
+    setDialogOpen(open);
+    if (open) {
+      setNewDeckName(deckName!);
+    }
+  };
+
   return (
-    <Dialog onOpenChange={resetDeckName}>
+    <Dialog open={isDialogOpen} onOpenChange={handleDialogOpenChange}>
       <DialogTrigger>
         <div className="flex items-center justify-left p-2 w-40 hover:bg-gray-200 rounded-sm">
           <PiPencil size={20} className="mr-2" />
@@ -61,27 +68,14 @@ const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 mb-4 space-y-1">
-          <label
-            htmlFor="deckName"
-            className="block text-lg font-semibold mb-2 text-left"
-          >
-            Deck Name
-          </label>
+          <Label>Deck Name</Label>
           <div className="relative">
-            <input
+            <Input
               id="deckName"
-              className={`w-full p-3 pr-12 border-2 rounded-lg outline-none text-black font-semibold 
-                ${
-                  isInputFocused
-                    ? "border-green ring-2 ring-green/50"
-                    : "border-gray-300 hover:border-green/50"
-                } 
-                transition-all duration-300 ease-in-out`}
+              className="px-2.5 py-1.5 rounded-lg border bg-whit focus:outline-none focus:ring-1 focus:ring-green focus:ring-offset-2 hover:outline-none hover:ring-green hover:ring-1 hover:ring-offset-2 transition-all"
               placeholder="New Deck Name"
               value={newDeckName}
               onChange={(e) => setNewDeckName(e.target.value)}
-              onBlur={() => setIsInputFocused(false)}
-              onFocus={() => setIsInputFocused(true)}
               disabled={loading}
               maxLength={50}
             />
@@ -102,20 +96,21 @@ const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
         </div>
 
         <DialogFooter>
-          <button
-            className={`flex-1 px-6 h-14 flex items-center justify-center 
+          <Button
+            className={`flex-1 px-6 flex items-center justify-center 
                 ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} 
                 text-white rounded-lg text-xl font-semibold 
                 transition-colors disabled:opacity-50 gap-2`}
             onClick={handleRenameDeck}
             disabled={loading || !newDeckName.trim()}
+            type="submit"
           >
             {loading ? (
               <Spinner size={12} color="#fff" animating={true} />
             ) : (
               "Save Changes"
             )}
-          </button>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
