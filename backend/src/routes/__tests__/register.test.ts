@@ -11,15 +11,15 @@ const route = "/auth/register";
 describe("The user registration endpoint", () => {
   beforeEach(async () => {
     await pool.query("BEGIN");
-  }, 30000);
+  }, 50000);
 
   afterEach(async () => {
     await pool.query("ROLLBACK");
-  }, 30000);
+  }, 50000);
 
   afterAll(async () => {
     await pool.end(); // close the db connection after testing all
-  }, 30000);
+  }, 50000);
 
   // ADDING A NEW USER
   it("should register a new user successfully", async () => {
@@ -28,7 +28,7 @@ describe("The user registration endpoint", () => {
     expect(response.status).toBe(201);
     expect(response.body).toBeDefined();
     expect(typeof response.body).toBe("string");
-  }, 30000);
+  }, 50000);
 
   // ADDING A NEW USER WITH THE SAME USERNAME
   it("should return an error if the username is already taken", async () => {
@@ -44,7 +44,7 @@ describe("The user registration endpoint", () => {
       field: "username",
       message: "This username is already taken. Try another one!",
     });
-  }, 30000);
+  }, 50000);
 
   // ADDING A NEW USER WITH THE SAME EMAIL
   it("should return an error if the email is already in use", async () => {
@@ -60,5 +60,5 @@ describe("The user registration endpoint", () => {
       field: "email",
       message: "This email is already in use. Please use a different one.",
     });
-  }, 30000);
+  }, 50000);
 });

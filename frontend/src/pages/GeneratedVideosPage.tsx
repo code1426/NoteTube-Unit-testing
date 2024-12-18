@@ -27,11 +27,11 @@ const GeneratedVideosPage = () => {
   useEffect(() => {
     if (notes) {
       console.log(notes);
-      setDisplayedNote(notes[notes.length - 1]);
-      if (displayedNote) {
-        setSelectedVideo(displayedNote!.videos[0].videoId);
+      if (notes.length > 0) {
+        setDisplayedNote(notes[0] as NoteWithVideos);
+        setSelectedVideo(notes[0].videos[0].videoId);
+        console.log("Note ", displayedNote, " Selected Video ", selectedVideo);
       }
-      console.log("Notes ", displayedNote);
       if (isMobile !== null) {
         setMobileWidth(window.outerWidth);
         console.log(
