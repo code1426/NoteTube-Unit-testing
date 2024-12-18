@@ -23,7 +23,7 @@ const NotesHistoryCard = ({ id, title, videos, createdAt }: NoteWithVideos) => {
   };
 
   return (
-    <Card className="shadow-md">
+    <Card className="shadow-md w-full max-w-5xl">
       <CardHeader className="flex-row items-center justify-between border-b">
         <HoverCard>
           <HoverCardTrigger>
@@ -36,13 +36,13 @@ const NotesHistoryCard = ({ id, title, videos, createdAt }: NoteWithVideos) => {
         </div>
       </CardHeader>
       <Link to={`/notes/${id}`}>
-        <CardContent className="flex flex-row flex-wrap justify-start items-center mb-8 gap-8 p-4 select-none">
-          {!videos ? (
-            <></>
-          ) : isMobile ? (
-            <p></p>
+        <CardContent className="flex flex-row flex-wrap justify-center items-center mb-8 gap-8 p-4 select-none">
+          {isMobile ? (
+            <div className="w-full"></div>
           ) : (
-            videos!.map((video) => (
+            videos &&
+            videos.length > 0 &&
+            videos.map((video) => (
               <HistoryGeneratedVideoThumbnail
                 key={video.videoId}
                 thumbnailUrl={video.thumbnailUrl}
