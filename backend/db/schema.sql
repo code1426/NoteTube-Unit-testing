@@ -36,7 +36,8 @@ CREATE TABLE public.decks (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     deck_name character varying(255) NOT NULL,
     user_id uuid,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    color character varying(7) NOT NULL
 );
 
 
@@ -49,6 +50,19 @@ CREATE TABLE public.flashcards (
     front text NOT NULL,
     back text NOT NULL,
     deck_id uuid,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+--
+-- Name: notes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.notes (
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    title character varying(255) NOT NULL,
+    content text NOT NULL,
+    user_id uuid,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -76,6 +90,19 @@ CREATE TABLE public.users (
 
 
 --
+-- Name: videos; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.videos (
+    video_id character varying(255) NOT NULL,
+    thumbnail_url text NOT NULL,
+    title character varying(255) NOT NULL,
+    note_id uuid,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+--
 -- Name: decks decks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -89,6 +116,14 @@ ALTER TABLE ONLY public.decks
 
 ALTER TABLE ONLY public.flashcards
     ADD CONSTRAINT flashcards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notes notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notes
+    ADD CONSTRAINT notes_pkey PRIMARY KEY (id);
 
 
 --
@@ -116,6 +151,14 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: videos videos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.videos
+    ADD CONSTRAINT videos_pkey PRIMARY KEY (video_id);
+
+
+--
 -- Name: decks decks_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -132,6 +175,22 @@ ALTER TABLE ONLY public.flashcards
 
 
 --
+-- Name: notes notes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notes
+    ADD CONSTRAINT notes_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: videos videos_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.videos
+    ADD CONSTRAINT videos_note_id_fkey FOREIGN KEY (note_id) REFERENCES public.notes(id) ON DELETE CASCADE;
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -143,5 +202,11 @@ ALTER TABLE ONLY public.flashcards
 INSERT INTO public.schema_migrations (version) VALUES
     ('20241119140502'),
     ('20241119140539'),
-    ('20241119140621'),
-    ('20241123115947');
+    ('20241123115947'),
+    ('20241218094408'),
+    ('20241218094550'),
+    ('20241218100828'),
+    ('20241218100851'),
+    ('20241218100907'),
+    ('20241218100925'),
+    ('20241218101003');
