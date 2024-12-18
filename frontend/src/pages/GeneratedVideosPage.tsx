@@ -31,10 +31,15 @@ const GeneratedVideosPage = () => {
       if (displayedNote) {
         setSelectedVideo(displayedNote!.videos[0].videoId);
       }
-      console.log(displayedNote);
-      if (isMobile) {
+      console.log("Notes ", displayedNote);
+      if (isMobile !== null) {
         setMobileWidth(window.outerWidth);
-        console.log(window.outerWidth);
+        console.log(
+          "Window Size ",
+          window.outerWidth,
+          " MobileMode ",
+          isMobile,
+        );
       }
     }
   }, [notes, isMobile]);
@@ -76,25 +81,21 @@ const GeneratedVideosPage = () => {
       </div>
       <div
         id="videos-containers"
-        className={`flex ${isMobile ? "flex-col" : "flex-row"} items-center w-[96%]`}
+        className={`flex ${isMobile ? "flex-col" : "flex-row"} items-center w-[96%] h-[70%]`}
       >
         <div
-          id="current-selected-video"
-          className=" p-4 h-auto w-auto flex justify-center flex-col"
+          id="current-selected-video-container"
+          className={`${isMobile ? "p-2" : "p-10"} h-full w-[67%] flex justify-center items-center flex-col`}
         >
           <div
-            className={`h-[${isMobile ? `${mobileWidth * 0.8}px` : "32rem"}] w-[${isMobile ? `${mobileWidth}px` : "48rem"}] flex justify-center`}
+            className={`h-${isMobile ? `[${mobileWidth * 0.8}px]` : "full"} w-${isMobile ? `[${mobileWidth}px]` : "full"} flex justify-center border-4 rounded-2xl bg-black border-black`}
             id="main-video-container"
           >
-            <div
-              className={`h-full w-full border-4 rounded-2xl flex justify-center bg-black border-black`}
-            >
-              <iframe
-                className="w-[100%] h-[100%]"
-                src={`https://www.youtube.com/embed/${selectedVideo}`}
-                allowFullScreen={true}
-              ></iframe>
-            </div>
+            <iframe
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${selectedVideo}`}
+              allowFullScreen={true}
+            ></iframe>
           </div>
         </div>
         <div id="ai-generated-videos" className=" my-1 p-2 h-full w-auto">
