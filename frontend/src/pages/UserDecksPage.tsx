@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import Header from "../components/Header/Header";
 import DeckItem from "../components/Decks/DeckItem";
 import LoadingScreen from "../components/LoadingScreen";
-// import useFetchUserDecks from "../hooks/Decks/useFetchUserDecks";
 import { Toaster } from "react-hot-toast";
 import NoItemsContainerBox from "../components/NoItemsContainerBox";
 import useFilterDecks from "../hooks/Decks/useFilterDecks";
@@ -22,11 +21,6 @@ const UserDecksPage: React.FC = () => {
   const { user } = useContext(UserContext);
   const { decks: userDecks } = useContext(DecksContext);
   const isMobile = useIsMobile();
-  // const {
-  //   userDecks,
-  //   loading: decksLoading,
-  //   error,
-  // } = useFetchUserDecks(user?.id || "");
   const [isAddDeckDrawerOpen, setIsAddDeckDrawerOpen] = useState(false);
   const [isAddDeckDialogOpen, setIsAddDeckDialogOpen] = useState(false);
   const [filterOptions, setFilterOptions] = useState<options>({
@@ -50,7 +44,6 @@ const UserDecksPage: React.FC = () => {
 
   const handleFormSuccess = () => {
     setIsAddDeckDrawerOpen(false);
-    // window.location.reload();
   };
 
   const handleApplyFilters = (newOptions: options) => {

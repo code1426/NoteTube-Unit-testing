@@ -9,16 +9,17 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import renderListContent from "@/utils/listRenderHandler";
 
 const FlashcardItem = ({ id, front, back, deckId }: Flashcard) => {
-  const { deleteFlashcard, error } = useDeleteFlashcard(id);
+  const { deleteFlashcard } = useDeleteFlashcard(id, deckId);
   const handleConfirmDelete = async () => {
-    const result = await deleteFlashcard();
-    if (result.success) {
-      toast.success("Flashcard deleted successfully.");
-      window.location.reload();
-    } else {
-      toast.error("Error deleting flashcard. Please try again.");
-      console.error("Error deleting flashcard:", error);
-    }
+    toast.promise(deleteFlashcard(), {
+      loading: <p>Deleting flashcard...</p>,
+      success: () => {
+        return "Flashcard deleted successfully.";
+      },
+      error: (_error) => {
+        return "Error deleting flashcard. Please try again.";
+      },
+    });
   };
 
   return (

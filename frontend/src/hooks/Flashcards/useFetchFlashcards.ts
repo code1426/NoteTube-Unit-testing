@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Flashcard } from "../../types/flashcard.types";
+import { FlashcardsContext } from "@/context/Contexts";
 
 interface FetchFlashcardsResult {
-  flashcards: Flashcard[] | null;
+  flashcards: Flashcard[] | undefined;
   loading: boolean;
   error?: string | null;
 }
 
 const useFetchFlashcards = (deckId: string): FetchFlashcardsResult => {
-  const [flashcards, setFlashcards] = useState<Flashcard[] | null>(null);
+  const { flashcards, setFlashcards } = useContext(FlashcardsContext);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,11 +17,11 @@ const useFetchFlashcards = (deckId: string): FetchFlashcardsResult => {
     const fetchFlashcards = async () => {
       if (!deckId) {
         setLoading(false);
-        setError("No deck ID provided");
         return;
       }
 
       try {
+        setFlashcards([]);
         const response = await fetch(
           `${import.meta.env.VITE_BASE_API_URL}/decks/${deckId}/flashcards`,
           {
