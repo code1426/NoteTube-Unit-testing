@@ -17,7 +17,7 @@ router.post("/:userId", async (request: Request, response: Response) => {
       [title, content, userId],
     );
 
-    console.log(response);
+    // console.log(response);
     response.status(201).json(result.rows[0]);
   } catch (error) {
     response.status(500).json({ message: error });

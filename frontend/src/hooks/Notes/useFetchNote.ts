@@ -33,8 +33,6 @@ const useFetchNote = (noteId: string): FetchNoteResult => {
           },
         );
 
-        console.log(`${import.meta.env.VITE_BASE_API_URL}/notes/${noteId}`);
-
         if (!noteResponse.ok) {
           const errorData = await noteResponse.json();
           console.log(errorData);
