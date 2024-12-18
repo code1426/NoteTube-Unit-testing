@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const JoinUsSection = () => {
   return (
-    <section className="bg-gray-100 py-24 px-6">
+    <section className="py-24 px-6 bg-gradient-to-b from-gray-50 to-gray-200 ">
       <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
         <div className="flex flex-col md:flex-row items-center">
           <motion.div
