@@ -12,6 +12,7 @@ import HoverHistoryNotesCard from "@/components/History/HoverHistoryNotesCard";
 import applySortingAndFilteringToNotes from "@/utils/notesSorterFilter";
 import { options } from "@/types/options.types";
 import { NotesContext } from "@/context/Contexts";
+import { Toaster } from "react-hot-toast";
 
 const NotesHistoryPage = () => {
   const { notes } = useContext(NotesContext);
@@ -59,7 +60,8 @@ const NotesHistoryPage = () => {
 
   return (
     <>
-      <div className="relative w-full bg-white select-none overflow-auto scrollbar-custom h-screen">
+      <Toaster />
+      <div className="relative w-full bg-white select-none overflow-auto scrollbar-custom h-screen scrollbar-custom">
         <Header
           isHomepage={false}
           isFlashCardsPage={false}

@@ -232,25 +232,21 @@
   }
 }
 
-.scrollbar-custom {
-  height: 100%;
-  overflow-y: auto;
-  .scrollbar-custom {
-    scrollbar-color: var(--sidebar-accent) var(--sidebar-background);
-  }
-  .scrollbar-custom::-webkit-scrollbar {
-    height: 0.5rem;
-    width: 0.5rem;
-  }
-  .scrollbar-custom::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
-  }
-  .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: #03c04a;
-    border-radius: 10px;
-  }
-  .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-    background: #009a3a;
-  }
+.scrollbar-custom::-webkit-scrollbar {
+  height: 0.5rem;
+  width: 0.5rem;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #f4f4f4;
+  border-radius: 50px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: #03c04a;
+  border-radius: 50px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background: #009a3a;
 }

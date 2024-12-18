@@ -29,7 +29,7 @@ const InformationCardsSection = () => {
   ];
 
   return (
-    <div className="py-24 px-8 bg-white section transition-all duration-500 w-screen">
+    <div className="py-24 px-8 bg-white section transition-all duration-500 w-full overflow-auto">
       <h2 className="text-6xl font-secondaryRegular text-green text-center mb-12 px-60">
         Why Choose NoteTube
       </h2>

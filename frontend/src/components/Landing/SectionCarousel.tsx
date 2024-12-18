@@ -5,12 +5,12 @@ import {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-  CarouselApi, // Import the correct API type
+  CarouselApi,
 } from "../ui/carousel";
 
 interface SectionCarouselProps {
   children: React.ReactNode[];
-  duration?: number; // Time each slide stays visible (in ms)
+  duration?: number;
 }
 
 const SectionCarousel = ({
@@ -19,18 +19,16 @@ const SectionCarousel = ({
 }: SectionCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideCount = children.length;
-  const carouselApiRef = useRef<CarouselApi | null>(null); // Correct type for the ref
+  const carouselApiRef = useRef<CarouselApi | null>(null);
 
-  // Update the current index automatically for autoplay
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slideCount);
     }, duration);
 
-    return () => clearInterval(timer); // Clear the interval on unmount
+    return () => clearInterval(timer);
   }, [duration, slideCount]);
 
-  // Update the carousel to the new index when currentIndex changes
   useEffect(() => {
     if (carouselApiRef.current) {
       carouselApiRef.current.scrollTo(currentIndex);
@@ -42,9 +40,8 @@ const SectionCarousel = ({
       <Carousel
         opts={{ loop: true }}
         aria-live="polite"
-        setApi={(api) => (carouselApiRef.current = api)} // Save API reference
+        setApi={(api) => (carouselApiRef.current = api)}
       >
-        {/* Carousel Controls */}
         <CarouselPrevious className="absolute left-4 top-1/2 transform -translate-y-1/2" />
         <CarouselNext className="absolute right-4 top-1/2 transform -translate-y-1/2" />
 
@@ -63,21 +60,11 @@ const SectionCarousel = ({
           <button
             key={index}
             className={`w-3 h-3 rounded-full ${
-              index === currentIndex ? "bg-green" : "bg-gray-400"
+              index === currentIndex ? "bg-white" : "bg-gray-300"
             }`}
-            onClick={() => setCurrentIndex(index)} // Manually select slide
+            onClick={() => setCurrentIndex(index)}
           />
         ))}
-      </div>
-
-      {/* Loading Bar */}
-      <div className="absolute bottom-0 left-0 h-1 bg-green-300 border-2 border-black">
-        <div
-          className="h-full bg-green-500 transition-all duration-500 ease-linear"
-          style={{
-            width: `${((currentIndex + 1) / slideCount) * 100}%`,
-          }}
-        />
       </div>
     </div>
   );

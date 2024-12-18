@@ -82,7 +82,7 @@ const FlashcardsPage: React.FC = () => {
   return (
     <>
       <Toaster />
-      <div className="bg-white relative w-full px- flex flex-col items-center pb-14">
+      <div className="bg-white relative w-full px- flex flex-col items-center pb-14 scrollbar-custom">
         <Header
           isHomepage={false}
           isFlashCardsPage={true}
