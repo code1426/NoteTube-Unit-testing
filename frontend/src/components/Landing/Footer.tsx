@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => (
   <footer className="bg-green-800 text-white py-12">
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-8">
       <div className="flex flex-wrap justify-between">
         <div className="w-full md:w-1/3 mb-8 md:mb-0">
           <h2 className="text-3xl font-bold mb-4">NoteTube</h2>
