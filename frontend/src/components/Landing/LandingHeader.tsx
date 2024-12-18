@@ -55,13 +55,13 @@ const LandingHeader: React.FC<LandingHeaderProps> = ({ refs }) => {
         <div className="hidden md:flex space-x-4">
           <Link
             to="/login"
-            className="px-4 py-2 text-green-600 border border-green-600 rounded-full hover:bg-green-600 hover:text-white transition-colors"
+            className="px-4 py-2 w-24 flex items-center justify-center text-green-600 border border-green-600 rounded-full hover:bg-green-600 hover:text-white transition-colors"
           >
             Log In
           </Link>
           <Link
             to="/register"
-            className="px-4 py-2 text-white bg-green-600 rounded-full hover:bg-green-700 transition-colors"
+            className="px-4 py-2 w-24 flex items-center justify-center text-white bg-green-600 rounded-full hover:bg-green-700 transition-colors"
           >
             Sign Up
           </Link>
