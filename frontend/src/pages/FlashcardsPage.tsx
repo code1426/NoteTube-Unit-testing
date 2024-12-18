@@ -127,7 +127,7 @@ const FlashcardsPage: React.FC = () => {
               <NoItemsContainerBox
                 mainText="No cards available."
                 subText="Add a card to the selected deck using the + Add Card button."
-                imageSrc="./chillguy.png"
+                imageSrc="../chillguy.png"
                 altText="No Cards Available"
               />
             ) : (

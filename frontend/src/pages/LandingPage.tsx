@@ -77,7 +77,7 @@ const LandingPage = () => {
               title="Get Related Videos"
               description="Dive deeper into your learning with curated, intelligent video recommendations. Our AI analyzes your notes and finds the most relevant, high-quality educational content from across the web, ensuring you get targeted explanations that complement and enhance your existing study materials."
               reverse
-              image="src/assets/images/videos.png"
+              image="./videos.png"
             />
           </div>
           <div className="section">
