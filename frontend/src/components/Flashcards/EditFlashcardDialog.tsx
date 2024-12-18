@@ -18,6 +18,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Label } from "@/components/ui/label";
 
 const EditFlashcardDialog: React.FC<Flashcard> = ({
   id,
@@ -89,7 +90,7 @@ const EditFlashcardDialog: React.FC<Flashcard> = ({
     <Dialog onOpenChange={resetContent}>
       <Tooltip>
         <TooltipTrigger>
-          <DialogTrigger>
+          <DialogTrigger className="select-none">
             <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200">
               <PiPencil size={16} />
             </button>
@@ -100,19 +101,14 @@ const EditFlashcardDialog: React.FC<Flashcard> = ({
         </TooltipContent>
       </Tooltip>
       <DialogContent className="sm:max-w-[600px] bg-white p-6 rounded-lg shadow-lg">
-        <DialogHeader>
+        <DialogHeader className="select-none">
           <DialogTitle>Edit Card</DialogTitle>
           <DialogDescription>
             Update the contents of your card here. Click save when you are done.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
-          <label
-            htmlFor="front"
-            className="block text-lg font-semibold mb-2 text-left"
-          >
-            Front
-          </label>
+          <Label className="select-none">Front</Label>
           <div className="relative">
             <textarea
               className="w-full p-3 border-2 border-[#03c04a] text-black text-xl resize-none"
@@ -132,12 +128,7 @@ const EditFlashcardDialog: React.FC<Flashcard> = ({
               </button>
             )}
           </div>
-          <label
-            htmlFor="back"
-            className="block text-lg font-semibold mb-2 text-left"
-          >
-            Back
-          </label>
+          <Label className="select-none">Back</Label>
           <div className="relative">
             <textarea
               className="w-full p-3 border-2 border-[#03c04a] text-black text-xl resize-none"
@@ -174,7 +165,7 @@ const EditFlashcardDialog: React.FC<Flashcard> = ({
             </div>
           </div>
         </div>
-        <DialogFooter>
+        <DialogFooter className="select-none">
           <button
             className={`flex-1 px-6 py-3 flex items-center justify-center 
                 ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} 

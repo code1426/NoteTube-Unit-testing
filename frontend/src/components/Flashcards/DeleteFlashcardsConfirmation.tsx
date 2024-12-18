@@ -38,7 +38,7 @@ const DeleteFlashcardsConfirmation = ({
           <p>Delete Card</p>
         </TooltipContent>
       </Tooltip>
-      <AlertDialogContent>
+      <AlertDialogContent className="select-none">
         <AlertDialogHeader>
           <AlertDialogTitle>
             Are you sure you want to delete this card?
