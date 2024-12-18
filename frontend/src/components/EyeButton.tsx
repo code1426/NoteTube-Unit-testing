@@ -1,6 +1,3 @@
-import eyeVisible from "@/assets/images/eye-visible.png";
-import eyeHidden from "@/assets/images/eye-hidden.png";
-
 interface Props {
   isVisible: boolean;
   setIsVisible: (value: boolean) => void;
@@ -17,9 +14,9 @@ const EyeButton = ({ isVisible, setIsVisible }: Props) => {
       onClick={handleToggle}
     >
       {isVisible ? (
-        <img src={eyeVisible} alt="eye" />
+        <img src="./eye-visible.png" alt="eye" />
       ) : (
-        <img src={eyeHidden} alt="eye" />
+        <img src="./eye-hidden.png" alt="eye" />
       )}
     </div>
   );

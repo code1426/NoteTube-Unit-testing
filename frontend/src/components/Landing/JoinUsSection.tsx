@@ -6,7 +6,7 @@ const JoinUsSection = () => {
       <div className="bg-green/10 rounded-3xl flex items-center max-w-6xl w-full overflow-hidden shadow-2xl">
         <div className="flex-1 p-12">
           <img
-            src="/src/assets/images/join_us.png"
+            src="./join_us.png"
             alt="Join NoteTube"
             className="w-full  object-contain"
           />

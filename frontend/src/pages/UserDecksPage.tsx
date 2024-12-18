@@ -100,7 +100,7 @@ const UserDecksPage: React.FC = () => {
             <NoItemsContainerBox
               mainText="No decks available"
               subText="Add a deck using the + Add Deck button."
-              imageSrc="../src/assets/images/chillguy.png"
+              imageSrc="./chillguy.png"
               altText="No Cards Available"
             />
           </div>
