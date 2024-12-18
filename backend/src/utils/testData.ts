@@ -38,3 +38,9 @@ export const testVideo = {
   thumbnailUrl: "https://example.com/thumbnail.jpg",
   title: "Test Video Title",
 };
+
+export const testNewUsername: User = {
+  username: "newUsername",
+  email: "testing@test.com",
+  password: "passwordKo123456",
+};
