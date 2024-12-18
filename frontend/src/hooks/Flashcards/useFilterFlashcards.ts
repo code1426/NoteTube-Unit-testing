@@ -9,7 +9,7 @@ interface UseFilteredFlashcardsResult {
 }
 
 const useFilterFlashcards = (
-  flashcards: Flashcard[] | null,
+  flashcards: Flashcard[] | undefined,
   initialOptions: options,
 ): UseFilteredFlashcardsResult => {
   const [filteredFlashcards, setFilteredFlashcards] = useState<Flashcard[]>([]);

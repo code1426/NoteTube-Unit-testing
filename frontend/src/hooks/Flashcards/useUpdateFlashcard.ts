@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Flashcard } from "../../types/flashcard.types";
+import { FlashcardsContext } from "@/context/Contexts";
 
 interface UpdateFlashcardResult {
   success: boolean;
@@ -10,11 +11,13 @@ interface UpdateFlashcardResult {
 const useUpdateFlashcard = (flashcardId: string) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { flashcards, setFlashcards } = useContext(FlashcardsContext);
 
   const updateFlashcard = async (
     flashcardData: Flashcard,
   ): Promise<UpdateFlashcardResult> => {
     try {
+      setLoading(true);
       const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}/flashcards/${flashcardId}`,
         {
@@ -35,6 +38,18 @@ const useUpdateFlashcard = (flashcardId: string) => {
         return { success: false, error: error };
       } else {
         const flashcard: Flashcard = await response.json();
+
+        setFlashcards(
+          flashcards!.map((existingCard) =>
+            existingCard.id === flashcardData.id
+              ? {
+                  ...existingCard,
+                  front: flashcardData.front,
+                  back: flashcardData.back,
+                }
+              : existingCard,
+          ),
+        );
         return { success: true, flashcard: flashcard };
       }
     } catch (error) {

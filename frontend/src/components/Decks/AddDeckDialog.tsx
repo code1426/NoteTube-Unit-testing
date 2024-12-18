@@ -100,7 +100,7 @@ const AddDeckDialog = ({ userId, onClose, onSuccess }: AddDeckDialogProps) => {
           )}
         </div>
 
-        <div className="text-sm text-gray-500 text-right select-none">
+        <div className="text-sm text-gray-500 text-right select-none my-2 mb-4">
           {deckName.length} / 50 characters
         </div>
 
