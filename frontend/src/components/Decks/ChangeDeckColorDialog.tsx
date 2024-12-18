@@ -135,7 +135,7 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
 
           <DialogFooter>
             <Button
-              className={`flex-1 px-6 flex items-center justify-center
+              className={`flex-1 px-6 h-12 flex items-center justify-center
                 ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} 
                 text-white rounded-lg text-xl font-semibold 
                 transition-colors disabled:opacity-50 gap-2 select-none`}
