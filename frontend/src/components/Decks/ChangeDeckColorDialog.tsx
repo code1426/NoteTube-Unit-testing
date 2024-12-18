@@ -27,6 +27,7 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
   const [customColor, setCustomColor] = useState<string>(
     isColorPreset ? "#ffffff" : color!,
   );
+
   const [isPickerOpen, setPickerOpen] = useState<boolean>(false);
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
 
@@ -39,7 +40,9 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
     handleColorSelect(color);
   };
 
-  const handleChangeDeckColor = async (): Promise<void> => {
+  const handleChangeDeckColor = async (e: React.FormEvent) => {
+    e.preventDefault();
+
     const res = await changeDeckColor({
       id: id,
       color: selectedColor,
@@ -48,7 +51,6 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
     if (res.success) {
       toast.success("Changed deck color.");
       setDialogOpen(false);
-      // window.location.reload();
     } else {
       console.error("Failed to change deck color:", error);
       toast.error("Failed to change deck color. Please try again.");
@@ -64,7 +66,6 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
   };
 
   return (
-    // <Dialog onOpenChange={resetDeckColor}>
     <Dialog open={isDialogOpen} onOpenChange={handleDialogOpenChange}>
       <DialogTrigger>
         <button className="flex items-center justify-left p-2 w-40 hover:bg-gray-200 rounded-sm">
@@ -73,78 +74,83 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white p-6 rounded-lg shadow-lg">
-        <DialogHeader>
+        <DialogHeader className="select-none">
           <DialogTitle>Select a Color</DialogTitle>
           <DialogDescription>
             Choose a color for your deck. You can select from the palette or use
             the custom color picker.
           </DialogDescription>
         </DialogHeader>
-        <div className="py-4">
-          <div className="flex flex-wrap gap-4">
-            {PASTEL_COLORS.map((color) => (
-              <button
-                key={color}
-                className={`w-12 h-12 rounded-full border-4 transition-colors ${
-                  selectedColor === color
-                    ? "border-black"
-                    : "border-transparent"
-                }`}
-                style={{ backgroundColor: color }}
-                onClick={() => handleColorSelect(color)}
-              ></button>
-            ))}
-            <div className="relative">
-              <button
-                className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-colors ${
-                  !PASTEL_COLORS.includes(selectedColor!)
-                    ? "border-black"
-                    : "border-transparent"
-                }`}
-                style={{ backgroundColor: customColor }}
-                onClick={() => setPickerOpen(!isPickerOpen)}
-              >
-                <PiPaintBrush size={20} color="#000" />
-              </button>
-              {isPickerOpen && (
-                <div className="absolute top-16 left-0 z-10">
-                  <HexColorPicker
-                    color={customColor}
-                    onChange={handleCustomColorSelect}
-                  />
-                </div>
-              )}
+
+        <form onSubmit={handleChangeDeckColor}>
+          <div className="py-4">
+            <div className="flex flex-wrap gap-4">
+              {PASTEL_COLORS.map((color) => (
+                <button
+                  key={color}
+                  className={`w-12 h-12 rounded-full border-4 transition-colors ${
+                    selectedColor === color
+                      ? "border-black"
+                      : "border-transparent"
+                  }`}
+                  type="button"
+                  style={{ backgroundColor: color }}
+                  onClick={() => handleColorSelect(color)}
+                ></button>
+              ))}
+              <div className="relative">
+                <button
+                  className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-colors ${
+                    !PASTEL_COLORS.includes(selectedColor!)
+                      ? "border-black"
+                      : "border-transparent"
+                  }`}
+                  type="button"
+                  style={{ backgroundColor: customColor }}
+                  onClick={() => setPickerOpen(!isPickerOpen)}
+                >
+                  <PiPaintBrush size={20} color="#000" />
+                </button>
+                {isPickerOpen && (
+                  <div className="absolute top-16 left-0 z-10">
+                    <HexColorPicker
+                      color={customColor}
+                      onChange={handleCustomColorSelect}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="mt-4 flex items-center gap-2">
+              <p className="text-sm text-gray-500">
+                Selected Color: {selectedColor}
+              </p>
+              <div
+                className="w-6 h-6 rounded-full border"
+                style={{ backgroundColor: selectedColor }}
+              ></div>
             </div>
           </div>
 
-          <div className="mt-4 flex items-center gap-2">
-            <p className="text-sm text-gray-500">
-              Selected Color: {selectedColor}
-            </p>
-            <div
-              className="w-6 h-6 rounded-full border"
-              style={{ backgroundColor: selectedColor }}
-            ></div>
-          </div>
-        </div>
-
-        <DialogFooter>
-          <Button
-            className={`flex-1 px-6 flex items-center justify-center
+          <DialogFooter>
+            <Button
+              className={`flex-1 px-6 h-12 flex items-center justify-center
                 ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} 
                 text-white rounded-lg text-xl font-semibold 
-                transition-colors disabled:opacity-50 gap-2`}
-            onClick={handleChangeDeckColor}
-            disabled={loading || !selectedColor}
-            type="submit"
-          >
-            {loading ? (
-              <Spinner size={12} color="#fff" animating={true} />
-            ) : (
-              "Save Changes"
-            )}
-          </Button>
-        </DialogFooter>
+                transition-colors disabled:opacity-50 gap-2 select-none`}
+              //onClick={handleChangeDeckColor}
+              disabled={loading || !selectedColor}
+              type="submit"
+            >
+              {loading ? (
+                <Spinner size={12} color="#fff" animating={true} />
+              ) : (
+                "Save Changes"
+              )}
+            </Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );

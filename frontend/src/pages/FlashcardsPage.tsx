@@ -5,7 +5,7 @@ import type { Flashcard } from "../types/flashcard.types";
 import { PiCards } from "react-icons/pi";
 import LoadingScreen from "../components/LoadingScreen";
 import useFetchFlashcards from "../hooks/Flashcards/useFetchFlashcards";
-import { toast, Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import NoItemsContainerBox from "../components/NoItemsContainerBox";
 import useFilterFlashcards from "../hooks/Flashcards/useFilterFlashcards";
 import { options } from "../types/options.types";
@@ -22,11 +22,11 @@ import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import HoverFlashcardCard from "@/components/Flashcards/HoverFlashcardCard";
 
 const FlashcardsPage: React.FC = () => {
-  const { deckId } = useParams<{ deckId: string }>();
-  const { flashcards, loading, error } = useFetchFlashcards(deckId!);
   const location = useLocation();
-  const deckName = location.state?.deckName || "Untitled Deck";
   const isMobile = useIsMobile();
+  const deckName = location.state?.deckName || "Untitled Deck";
+  const { deckId } = useParams<{ deckId: string }>();
+  const { flashcards, loading } = useFetchFlashcards(deckId!);
   const [isAddFlashcardDrawerOpen, setIsAddFlashcardDrawerOpen] =
     useState(false);
   const [isAddFlashcardDialogOpen, setIsAddFlashcardDialogOpen] =
@@ -58,7 +58,6 @@ const FlashcardsPage: React.FC = () => {
 
   const handleFormSuccess = () => {
     setIsAddFlashcardDrawerOpen(false);
-    window.location.reload();
   };
 
   const handleApplyFilters = (newOptions: options) => {
@@ -73,13 +72,12 @@ const FlashcardsPage: React.FC = () => {
     }));
   };
 
-  if (loading || !flashcards)
-    return <LoadingScreen message="Loading cards..." />;
+  if (loading) return <LoadingScreen message="Loading cards..." />;
 
-  if (error) {
-    console.error(error);
-    toast.error("Error fetching flashcards.");
-  }
+  // if (error) {
+  //   console.error(error);
+  //   toast.error("Error fetching flashcards.");
+  // }
 
   return (
     <>
@@ -129,7 +127,7 @@ const FlashcardsPage: React.FC = () => {
               <NoItemsContainerBox
                 mainText="No cards available."
                 subText="Add a card to the selected deck using the + Add Card button."
-                imageSrc="/src/assets/images/chillguy.png"
+                imageSrc="./chillguy.png"
                 altText="No Cards Available"
               />
             ) : (
@@ -141,7 +139,7 @@ const FlashcardsPage: React.FC = () => {
                       id={flashcard.id}
                       front={flashcard.front}
                       back={flashcard.back}
-                      deckId={flashcard.deckId}
+                      deckId={deckId!}
                       created_at={flashcard.created_at!}
                     />
                   </HoverCardTrigger>

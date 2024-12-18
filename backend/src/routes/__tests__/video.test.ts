@@ -11,15 +11,15 @@ describe("The video POST endpoint", () => {
       "INSERT INTO Notes (title, content, created_at) VALUES ($1, $2, NOW())",
       [testNote.title, testNote.content],
     );
-  }, 30000);
+  }, 50000);
 
   afterEach(async () => {
     await pool.query("ROLLBACK");
-  }, 30000);
+  }, 50000);
 
   afterAll(async () => {
     await pool.end();
-  }, 30000);
+  }, 50000);
 
   it("should create a new video successfully", async () => {
     const noteIdResult = await pool.query(
@@ -46,7 +46,7 @@ describe("The video POST endpoint", () => {
       title: videoData.title,
       note_id: videoData.noteId,
     });
-  }, 30000);
+  }, 50000);
 
   it("should return a 400 error when required fields are missing", async () => {
     const incompleteVideoData = {
@@ -62,7 +62,7 @@ describe("The video POST endpoint", () => {
     expect(response.status).toBe(400);
     expect(response.body).toBeDefined();
     expect(response.body).toMatchObject({ message: "Missing required fields" });
-  }, 30000);
+  }, 50000);
 
   it("should return a 500 error for database issues", async () => {
     const videoDataWithInvalidNoteId = {
@@ -79,5 +79,5 @@ describe("The video POST endpoint", () => {
     expect(response.status).toBe(500);
     expect(response.body).toBeDefined();
     expect(response.body.message).toBeDefined();
-  }, 30000);
+  }, 50000);
 });

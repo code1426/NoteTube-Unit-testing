@@ -6,6 +6,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { Input } from "../ui/input";
 
 interface SearchCardModalProps {
   onClose: () => void;
@@ -35,12 +36,12 @@ const SearchCardModal = ({ onClose, onSearch }: SearchCardModalProps) => {
 
       {/* Content */}
       <CardContent>
-        <input
+        <Input
           type="text"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           placeholder="Type to search..."
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 transition-all focus:ring-offset-2 focus:ring-green"
         />
       </CardContent>
 

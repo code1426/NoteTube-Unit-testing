@@ -3,7 +3,7 @@ import InformationCard from "./InformationCard";
 const InformationCardsSection = () => {
   const InformationCards = [
     {
-      icon: "/src/assets/images/ai_image.png",
+      icon: "./ai_image.png",
       title: "AI-Powered Learning",
       description:
         "Leverage cutting-edge artificial intelligence to transform your study materials into smart, interactive learning resources.",
@@ -11,7 +11,7 @@ const InformationCardsSection = () => {
       textColor: "text-green",
     },
     {
-      icon: "/src/assets/images/personalization_image.png",
+      icon: "./personalization_image.png",
       title: "Personalized Experience",
       description:
         "Get tailored content recommendations and study materials that adapt to your unique learning style and needs.",
@@ -19,7 +19,7 @@ const InformationCardsSection = () => {
       textColor: "text-blue",
     },
     {
-      icon: "/src/assets/images/efficiency_image.png",
+      icon: "./efficiency_image.png",
       title: "Study Efficiency",
       description:
         "Maximize your learning potential with auto-generated summaries, videos, and flashcards that help you study smarter, not harder.",

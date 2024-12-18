@@ -23,7 +23,6 @@ interface AddDeckDrawerProps {
 const AddDeckDrawer = ({ userId, onClose, onSuccess }: AddDeckDrawerProps) => {
   const { createDeck, loading } = useCreateDeck();
   const [deckName, setDeckName] = useState("");
-  // const [isInputFocused, setIsInputFocused] = useState(false);
 
   const handleCreateDeck = async () => {
     if (!deckName.trim()) {
@@ -58,8 +57,15 @@ const AddDeckDrawer = ({ userId, onClose, onSuccess }: AddDeckDrawerProps) => {
     setDeckName("");
   };
 
+  const clearForm = () => {
+    setDeckName("");
+  };
+
   return (
-    <DrawerContent className="bg-white px-6 pb-10 sm:px-10 md:px-16 lg:px-24 xl:px-32">
+    <DrawerContent
+      onOpenAutoFocus={clearForm}
+      className="bg-white px-6 pb-10 sm:px-10 md:px-16 lg:px-24 xl:px-32"
+    >
       <DrawerHeader className="relative">
         <DrawerTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center">
           Create New Deck

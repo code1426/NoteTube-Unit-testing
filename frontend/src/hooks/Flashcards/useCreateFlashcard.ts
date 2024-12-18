@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Flashcard } from "../../types/flashcard.types";
+import { FlashcardsContext, DecksContext } from "@/context/Contexts";
 
 interface CreateFlashcardResult {
   success: boolean;
@@ -10,6 +11,8 @@ interface CreateFlashcardResult {
 const useCreateFlashcard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { flashcards, setFlashcards } = useContext(FlashcardsContext);
+  const { decks, setDecks } = useContext(DecksContext);
 
   const createFlashcard = async (
     flashcardData: Flashcard,
@@ -38,9 +41,25 @@ const useCreateFlashcard = () => {
         return { success: false, error: error };
       } else {
         const flashcard: Flashcard = await response.json();
+
+        setFlashcards([...flashcards!, flashcard]);
+
+        // Update the deck count in the decks context as well
+        setDecks(
+          decks!.map((existingDeck) =>
+            existingDeck.id === flashcardData.deckId
+              ? {
+                  ...existingDeck,
+                  card_count: Number(existingDeck.card_count) + 1,
+                }
+              : existingDeck,
+          ),
+        );
+
         return { success: true, flashcard: flashcard };
       }
     } catch (error) {
+      console.error("Error creating flashcard:", error);
       return { success: false, error: "Failed to create flashcard" };
     } finally {
       setLoading(false);
