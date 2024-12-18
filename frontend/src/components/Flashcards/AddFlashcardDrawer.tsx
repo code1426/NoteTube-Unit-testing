@@ -18,11 +18,17 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "../ui/label";
 
 interface AddFlashcardDrawerProps {
   deckId: string;
   onClose: () => void;
   onSuccess: () => void;
+}
+
+interface FlashcardContentProps {
+  front: string;
+  back: string;
 }
 
 const AddFlashcardDrawer = ({
@@ -31,44 +37,24 @@ const AddFlashcardDrawer = ({
   onSuccess,
 }: AddFlashcardDrawerProps) => {
   const { createFlashcard, loading } = useCreateFlashcard();
-  const [flashcardFront, setFlashcardFront] = useState("");
-  const [flashcardBack, setFlashcardBack] = useState("");
+  const [flashcardContent, setFlashcardContent] =
+    useState<FlashcardContentProps>({
+      front: "",
+      back: "",
+    });
   const [activeField, setActiveField] = useState<"front" | "back">("front");
 
-  const handleCreateFlashcard = async () => {
-    const isEmpty: boolean = !flashcardFront.trim() || !flashcardBack.trim();
+  const handleChange = (field: "front" | "back", value: string) => {
+    setFlashcardContent((prev) => ({ ...prev, [field]: value }));
+  };
 
-    if (isEmpty) {
-      toast.error("Both front and back text are required.");
-      return;
-    }
-
-    const result = await createFlashcard({
-      id: "",
-      front: flashcardFront,
-      back: flashcardBack,
-      deckId,
-    });
-
-    if (result.error) {
-      toast.error("Failed to create flashcard. Please try again.");
-      return;
-    }
-
-    if (result.success) {
-      toast.success("Flashcard created successfully.");
-      setFlashcardFront("");
-      setFlashcardBack("");
-      onSuccess();
-      onClose();
-    }
+  const clearContent = (field: "front" | "back") => {
+    handleChange(field, "");
   };
 
   const modifyText = (type: "bulleted" | "numbered") => {
-    const currentText =
-      activeField === "front" ? flashcardFront : flashcardBack;
-    const formattedText = currentText
-      .split("\n")
+    const lines = flashcardContent[activeField].split("\n");
+    const formattedText = lines
       .map((line, index) => {
         const cleanedLine = line.replace(/^(•|\d+\.)\s*/, "").trim();
         if (!cleanedLine) return "";
@@ -77,24 +63,38 @@ const AddFlashcardDrawer = ({
           : `${index + 1}. ${cleanedLine}`;
       })
       .join("\n");
+    handleChange(activeField, formattedText);
+  };
 
-    if (activeField === "front") {
-      setFlashcardFront(formattedText);
+  const handleCreateFlashcard = async () => {
+    const { front, back } = flashcardContent;
+    if (!front.trim() || !back.trim()) {
+      toast.error("Both front and back text are required.");
+      return;
+    }
+
+    const result = await createFlashcard({
+      id: "",
+      front,
+      back,
+      deckId,
+    });
+
+    if (result.error) {
+      toast.error("Failed to create flashcard. Please try again.");
     } else {
-      setFlashcardBack(formattedText);
+      toast.success("Flashcard created successfully.");
+      setFlashcardContent({ front: "", back: "" });
+      onSuccess();
+      onClose();
     }
   };
 
-  const clearFrontText = () => {
-    setFlashcardFront("");
-  };
-
-  const clearBackText = () => {
-    setFlashcardBack("");
-  };
-
   return (
-    <DrawerContent className="bg-white px-6 pb-10 sm:px-10 md:px-16 lg:px-24 xl:px-32">
+    <DrawerContent
+      onOpenAutoFocus={() => setFlashcardContent({ front: "", back: "" })}
+      className="bg-white px-6 pb-10 sm:px-10 md:px-16 lg:px-24 xl:px-32"
+    >
       <DrawerHeader className="relative">
         <DrawerTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center">
           Add New Flashcard
@@ -110,60 +110,49 @@ const AddFlashcardDrawer = ({
         </DrawerClose>
       </DrawerHeader>
 
-      <div className="px-4 sm:px-6 py-4 space-y-4">
-        <div className="flex flex-col border-2 border-black">
-          <div className="relative">
-            <Textarea
-              className="p-3 md:text-lg lg:text-xl resize-none"
-              placeholder="Front of the card"
-              value={flashcardFront}
-              onChange={(e) => setFlashcardFront(e.target.value)}
-              onFocus={() => setActiveField("front")}
-              disabled={loading}
-            />
-            {flashcardFront && (
-              <button
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 transition-colors"
-                onClick={clearFrontText}
-              >
-                <PiTrash size={24} />
-              </button>
-            )}
-          </div>
-          <div className="relative">
-            <Textarea
-              className="p-3 md:text-lg lg:text-xl resize-none"
-              placeholder="Back of the card"
-              value={flashcardBack}
-              onChange={(e) => setFlashcardBack(e.target.value)}
-              onFocus={() => setActiveField("back")}
-              disabled={loading}
-            />
-            {flashcardBack && (
-              <button
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 transition-colors"
-                onClick={clearBackText}
-              >
-                <PiTrash size={24} />
-              </button>
-            )}
-          </div>
-
-          <div className="editText bg-white text-gray-400 text-sm mt-2 flex justify-between">
-            <div className="flex gap-2">
-              <button
-                className="p-2 text-black hover:bg-gray-200 rounded"
-                onClick={() => modifyText("bulleted")}
-              >
-                <PiList size={24} />
-              </button>
-              <button
-                className="p-2 text-black hover:bg-gray-200 rounded"
-                onClick={() => modifyText("numbered")}
-              >
-                <PiListNumbers size={24} />
-              </button>
+      <div className="px-2 sm:px-2 py-2 space-y-2">
+        {(["front", "back"] as Array<"front" | "back">).map((field) => (
+          <>
+            <Label>{field === "front" ? "Question" : "Answer"}</Label>
+            <div key={field} className="relative">
+              <Textarea
+                className="p-3 pr-10 md:text-lg lg:text-xl resize-none"
+                placeholder={`${
+                  field === "front"
+                    ? "Enter the question for the flashcard (e.g., What is the capital of France?)"
+                    : "Enter the answer for the flashcard (e.g., Paris)"
+                }`}
+                value={flashcardContent[field]}
+                onChange={(e) => handleChange(field, e.target.value)}
+                onFocus={() => setActiveField(field)}
+                disabled={loading}
+              />
+              {flashcardContent[field] && (
+                <button
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 transition-colors"
+                  onClick={() => clearContent(field)}
+                >
+                  <PiTrash size={24} />
+                </button>
+              )}
             </div>
+          </>
+        ))}
+
+        <div className="editText bg-white text-gray-400 text-sm mt-2 flex justify-between">
+          <div className="flex gap-2">
+            <button
+              className="p-2 text-black hover:bg-gray-200 rounded"
+              onClick={() => modifyText("bulleted")}
+            >
+              <PiList size={24} />
+            </button>
+            <button
+              className="p-2 text-black hover:bg-gray-200 rounded"
+              onClick={() => modifyText("numbered")}
+            >
+              <PiListNumbers size={24} />
+            </button>
           </div>
         </div>
       </div>
@@ -178,12 +167,15 @@ const AddFlashcardDrawer = ({
             Cancel
           </Button>
           <Button
-            className={`flex-1 px-4 py-2 md:px-6 md:py-3 flex items-center justify-center ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} text-white rounded-lg text-base md:text-xl font-semibold transition-colors disabled:opacity-50 gap-2`}
+            className={`flex-1 px-4 py-2 md:px-6 md:py-3 flex items-center justify-center ${
+              loading ? "bg-gray-300" : "bg-green hover:bg-green/90"
+            } text-white rounded-lg text-base md:text-xl font-semibold transition-colors disabled:opacity-50 gap-2`}
             onClick={handleCreateFlashcard}
             disabled={
-              loading || !flashcardFront.trim() || !flashcardBack.trim()
+              loading ||
+              !flashcardContent.front.trim() ||
+              !flashcardContent.back.trim()
             }
-            type="submit"
           >
             {loading ? (
               <Spinner size={12} color="#fff" animating={true} />
