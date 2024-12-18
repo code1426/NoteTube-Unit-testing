@@ -7,8 +7,6 @@ import NoItemsContainerBox from "@/components/NoItemsContainerBox";
 
 import { useContext, useEffect, useState } from "react";
 import NotesHistoryCard from "@/components/History/NotesHistoryCard";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import HoverHistoryNotesCard from "@/components/History/HoverHistoryNotesCard";
 import applySortingAndFilteringToNotes from "@/utils/notesSorterFilter";
 import { options } from "@/types/options.types";
 import { NotesContext } from "@/context/Contexts";
@@ -83,22 +81,14 @@ const NotesHistoryPage = () => {
             </div>
           ) : (
             displayedNotes!.map((note: NoteWithVideos) => (
-              <HoverCard>
-                <HoverCardTrigger>
-                  <NotesHistoryCard
-                    key={note.id}
-                    id={note.id}
-                    content={note.content}
-                    title={note.title}
-                    createdAt={note.createdAt}
-                    videos={note.videos}
-                  />
-                </HoverCardTrigger>
-                <HoverHistoryNotesCard
-                  title={note.title}
-                  createdAt={note.createdAt}
-                />
-              </HoverCard>
+              <NotesHistoryCard
+                key={note.id}
+                id={note.id}
+                content={note.content}
+                title={note.title}
+                createdAt={note.createdAt}
+                videos={note.videos}
+              />
             ))
           )}
         </div>

@@ -5,8 +5,6 @@ import LoadingScreen from "@/components/LoadingScreen";
 import useFetchNote from "@/hooks/Notes/useFetchNote";
 import SummaryContainer from "@/components/Notes/SummaryContainer";
 import VideoCard from "@/components/Notes/VideoCard";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import HoverVideoCard from "@/components/Notes/HoverVideoCard";
 
 const NotePage: React.FC = () => {
   const { noteId } = useParams<{ noteId: string }>();
@@ -55,16 +53,11 @@ const NotePage: React.FC = () => {
                     className="max-w-72 flex-shrink-0"
                     key={generatedVideo.videoId}
                   >
-                    <HoverCard>
-                      <HoverCardTrigger>
-                        <VideoCard
-                          videoId={generatedVideo.videoId}
-                          thumbnailUrl={generatedVideo.thumbnailUrl}
-                          title={generatedVideo.title}
-                        />
-                      </HoverCardTrigger>
-                      <HoverVideoCard title={generatedVideo.title} />
-                    </HoverCard>
+                    <VideoCard
+                      videoId={generatedVideo.videoId}
+                      thumbnailUrl={generatedVideo.thumbnailUrl}
+                      title={generatedVideo.title}
+                    />
                   </div>
                 ))
               )}

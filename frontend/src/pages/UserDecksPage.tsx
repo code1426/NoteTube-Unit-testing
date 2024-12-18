@@ -9,13 +9,11 @@ import { options } from "../types/options.types";
 import { DeckEntity } from "../types/deck.types";
 import AddDeckDrawer from "../components/Decks/AddDeckDrawer";
 import AddDeckDialog from "@/components/Decks/AddDeckDialog";
-import HoverDeckCard from "@/components/Decks/HoverDeckCard";
 import { UserContext, DecksContext } from "@/context/Contexts";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import { Drawer } from "@/components/ui/drawer";
 import { Dialog } from "@/components/ui/dialog";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 
 const UserDecksPage: React.FC = () => {
   const { user } = useContext(UserContext);
@@ -109,23 +107,15 @@ const UserDecksPage: React.FC = () => {
             className={`w-[90%] gap-4 pb-4 flex flex-col md:grid xs:grid-cols-1 sm:grid-cols-1 sm-md:grid-cols-1 md:grid-cols-2 md-lg:grid-cols-3 lg:grid-cols-3 lg-xl:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-5 4k:grid-cols-5 xxl:grid-cols-5 auto-cols-auto`}
           >
             {filteredDecks.map((deck: DeckEntity) => (
-              <HoverCard key={deck.id}>
-                <HoverCardTrigger>
-                  <DeckItem
-                    key={deck.id}
-                    id={deck.id}
-                    deckName={deck.deck_name}
-                    cardCount={deck.card_count}
-                    userId={deck.user_id}
-                    color={deck.color}
-                    createdAt={deck.created_at!}
-                  />
-                </HoverCardTrigger>
-                <HoverDeckCard
-                  deckName={deck.deck_name!}
-                  createdAt={deck.created_at!}
-                />
-              </HoverCard>
+              <DeckItem
+                key={deck.id}
+                id={deck.id}
+                deckName={deck.deck_name}
+                cardCount={deck.card_count}
+                userId={deck.user_id}
+                color={deck.color}
+                createdAt={deck.created_at!}
+              />
             ))}
           </div>
         )}
