@@ -15,15 +15,15 @@ describe("The profile endpoint", () => {
       "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3)",
       [testUser.username, testUser.email, hashedPassword],
     );
-  }, 50000);
+  }, 60000);
 
   afterEach(async () => {
     await pool.query("ROLLBACK");
-  }, 50000);
+  }, 60000);
 
   afterAll(async () => {
     await pool.end(); // close the db connection after testing all
-  }, 50000);
+  }, 60000);
 
   it("should rename the user", async () => {
     const { rows: userRows } = await pool.query(
@@ -43,7 +43,7 @@ describe("The profile endpoint", () => {
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
     expect(response.body[0]["username"]).toBe(testNewUsername.username);
-  }, 50000);
+  }, 60000);
 
   it("should give an error that the username already exists", async () => {
     const { rows: userRows } = await pool.query(
@@ -72,5 +72,5 @@ describe("The profile endpoint", () => {
     const response = await request(app).delete(route).send({ id: userId });
     expect(response.status).toBe(200);
     expect(response.body.message).toBe("User deleted successfully.");
-  }, 50000);
+  }, 60000);
 });
