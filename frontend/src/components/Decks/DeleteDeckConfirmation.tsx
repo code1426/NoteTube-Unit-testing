@@ -19,13 +19,13 @@ interface DeleteDeckModalProps {
 const DeleteDeckConfirmation = ({ onDelete }: DeleteDeckModalProps) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
+      <AlertDialogTrigger className="select-none">
         <div className="flex items-center justify-left p-2 w-40 hover:bg-red-500 hover:text-white rounded-sm">
           <PiTrash size={20} className="mr-2" />{" "}
           <span className="text-sm">Delete Deck</span>
         </div>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="select-none">
         <AlertDialogHeader>
           <AlertDialogTitle>
             Are you sure you want to delete this deck?
