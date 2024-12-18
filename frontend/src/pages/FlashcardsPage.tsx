@@ -18,8 +18,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 import { Drawer } from "@/components/ui/drawer";
 import { Dialog } from "@/components/ui/dialog";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import HoverFlashcardCard from "@/components/Flashcards/HoverFlashcardCard";
 
 const FlashcardsPage: React.FC = () => {
   const location = useLocation();
@@ -74,11 +72,6 @@ const FlashcardsPage: React.FC = () => {
 
   if (loading) return <LoadingScreen message="Loading cards..." />;
 
-  // if (error) {
-  //   console.error(error);
-  //   toast.error("Error fetching flashcards.");
-  // }
-
   return (
     <>
       <Toaster />
@@ -132,22 +125,14 @@ const FlashcardsPage: React.FC = () => {
               />
             ) : (
               filteredFlashcards.map((flashcard: Flashcard) => (
-                <HoverCard>
-                  <HoverCardTrigger className="">
-                    <FlashcardItem
-                      key={flashcard.id}
-                      id={flashcard.id}
-                      front={flashcard.front}
-                      back={flashcard.back}
-                      deckId={deckId!}
-                      created_at={flashcard.created_at!}
-                    />
-                  </HoverCardTrigger>
-                  <HoverFlashcardCard
-                    key={flashcard.id}
-                    created_at={flashcard.created_at!}
-                  />
-                </HoverCard>
+                <FlashcardItem
+                  key={flashcard.id}
+                  id={flashcard.id}
+                  front={flashcard.front}
+                  back={flashcard.back}
+                  deckId={deckId!}
+                  created_at={flashcard.created_at!}
+                />
               ))
             )}
             <div>

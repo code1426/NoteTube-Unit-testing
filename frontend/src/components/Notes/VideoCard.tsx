@@ -1,4 +1,6 @@
+import { HoverCard, HoverCardTrigger } from "@radix-ui/react-hover-card";
 import React, { useState } from "react";
+import HoverVideoCard from "./HoverVideoCard";
 
 interface VideoCardProps {
   videoId: string;
@@ -16,30 +18,33 @@ const VideoCard: React.FC<VideoCardProps> = ({
   return (
     <>
       <div
-        className="w-full cursor-pointer rounded-lg group"
+        className="cursor-pointer rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
         onClick={() => setVideoPanelState(videoId)}
       >
-        <div className="">
-          <img
-            className="w-full h-48 object-cover"
-            src={thumbnailUrl}
-            alt={title}
-          />
-        </div>
-        <div className="bg-white px-3 py-2 text-center">
-          <h3 className="text-sm font-medium text-gray-800 truncate">
-            {title}
-          </h3>
+        <img
+          className="w-full h-48 object-cover"
+          src={thumbnailUrl}
+          alt={title}
+        />
+        <div className="bg-white px-4 py-3">
+          <HoverCard>
+            <HoverCardTrigger>
+              <h3 className="text-sm font-medium text-gray-800 line-clamp-2">
+                {title}
+              </h3>
+            </HoverCardTrigger>
+            <HoverVideoCard title={title} />
+          </HoverCard>
         </div>
       </div>
 
       {videoPanelOpened && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50"
+          className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50"
           onClick={() => setVideoPanelState(null)}
         >
           <div
-            className="bg-white w-full max-w-7xl p-2 rounded-lg"
+            className="bg-white w-full max-w-7xl p-4 rounded-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <iframe

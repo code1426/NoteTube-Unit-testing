@@ -3,8 +3,17 @@ import type { Deck } from "../../types/deck.types";
 import ManageDeckDropdown from "./ManageDeckDropdown";
 import { Label } from "../ui/label";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { HoverCard, HoverCardTrigger } from "@radix-ui/react-hover-card";
+import HoverDeckCard from "./HoverDeckCard";
 
-const DeckItem = ({ id, deckName, cardCount, userId, color }: Deck) => {
+const DeckItem = ({
+  id,
+  deckName,
+  cardCount,
+  userId,
+  color,
+  createdAt,
+}: Deck) => {
   return (
     <>
       <TooltipProvider>
@@ -26,7 +35,16 @@ const DeckItem = ({ id, deckName, cardCount, userId, color }: Deck) => {
             state={{ deckName }}
             className="p-4 flex flex-col items-start justify-center space-y-2 rounded-b-[35px] "
           >
-            <Label className="text-2xl block w-full truncate">{deckName}</Label>
+            <Label className="text-2xl block w-full truncate">
+              <HoverCard>
+                <HoverCardTrigger>{deckName}</HoverCardTrigger>
+                <HoverDeckCard
+                  key={id}
+                  deckName={deckName!}
+                  createdAt={createdAt!}
+                />
+              </HoverCard>
+            </Label>
             <div className="text-gray-500 text-lg font-primaryRegular">
               {cardCount === 0
                 ? "No cards"
