@@ -54,7 +54,7 @@ const GeneratedVideosPage = () => {
         <NoItemsContainerBox
           mainText="No Videos From Notes Available"
           subText="Add a note by uploading on the upload page."
-          imageSrc="./chillguy.png"
+          imageSrc="../chillguy.png"
           altText="No Video From Notes Available"
         />
       </div>
@@ -64,7 +64,7 @@ const GeneratedVideosPage = () => {
   return (
     <div
       id="main-page-screen-div"
-      className="bg-white relative font-secondaryRegular w-full"
+      className="bg-white relative font-secondaryRegular w-ful scrollbar-custom"
     >
       <Header
         isHomepage={false}

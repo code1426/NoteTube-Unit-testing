@@ -1,7 +1,6 @@
-// import { CgNotes } from "react-icons/cg";
-// import { BiSolidVideos } from "react-icons/bi";
-// import { PiCardsBold } from "react-icons/pi";
 import { useRef, useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 import LandingHeader from "../components/Landing/LandingHeader";
 import Hero from "../components/Landing/Hero";
@@ -12,8 +11,15 @@ import UserManualSection from "@/components/Landing/UserManualSection";
 import JoinUsSection from "@/components/Landing/JoinUsSection";
 import InformationCardsSection from "@/components/Landing/InformationCardsSection";
 import SectionCarousel from "@/components/Landing/SectionCarousel";
+import TestimonialsSection from "@/components/Landing/TestimonialsSection";
 
 const LandingPage = () => {
+  const controls = useAnimation();
+  const [ref] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   const introductionRef = useRef<HTMLDivElement>(null);
   const discoverRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -28,83 +34,90 @@ const LandingPage = () => {
     faqsRef,
   };
 
+  const featureSections = [
+    {
+      title: "Upload Notes",
+      description:
+        "Break free from traditional note-taking limitations. Simply upload your handwritten, typed, or digital notes in any format - PDFs, images, text documents - and watch as NoteTube intelligently processes and transforms them into a comprehensive learning experience tailored just for you.",
+      image: "/notes.png",
+    },
+    {
+      title: "Get Related Videos",
+      description:
+        "Dive deeper into your learning with curated, intelligent video recommendations. Our AI analyzes your notes and finds the most relevant, high-quality educational content from across the web, ensuring you get targeted explanations that complement and enhance your existing study materials.",
+      image: "./videos.png",
+    },
+    {
+      title: "Use Generated Flashcards",
+      description:
+        "Supercharge your memory retention with AI-powered flashcards. NoteTube automatically generates smart, context-aware flashcards from your notes, presenting key concepts, definitions, and critical information in an interactive format that makes studying more engaging and efficient.",
+      image: "./cards.png",
+    },
+  ];
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-          // else {
-          //   entry.target.classList.remove("visible"); // REMOVE "ELSE LINE" IF GUSTO MAG REMAIN AFTER PASSING THE SECTION
-          // }
-        });
-      },
-      {
-        threshold: 0.4,
-      },
-    );
-
-    const elements = document.querySelectorAll(
-      ".section, .left-icon, .right-icon, .infosection, .card",
-    );
-    elements.forEach((el) => observer.observe(el));
-
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
+    controls.start("visible");
+  }, [controls, ref]);
 
   return (
-    <div className="min-h-screen w-full overflow-auto flex flex-col items-center justify-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat scrollbar-custom">
+    <div className="min-h-screen overflow-x-hidden bg-gray-50">
       <LandingHeader refs={refs} />
       <Hero />
-      <section
-        className="section w-screen mx-8 shadow-2xl border-8"
+      <motion.section
         ref={featureRef}
+        animate={controls}
+        initial="hidden"
+        variants={{
+          visible: { opacity: 1, y: 0 },
+          hidden: { opacity: 0, y: 50 },
+        }}
+        transition={{ duration: 0.5 }}
+        className="w-full shadow-2xl"
       >
-        <SectionCarousel duration={3000}>
-          <div className="section">
+        <SectionCarousel duration={5000}>
+          {featureSections.map((section, index) => (
             <Section
-              title="Upload Notes"
-              description="Break free from traditional note-taking limitations. Simply upload your handwritten, typed, or digital notes in any format - PDFs, images, text documents - and watch as NoteTube intelligently processes and transforms them into a comprehensive learning experience tailored just for you."
-              reverse
-              image="/notes.png"
+              key={index}
+              title={section.title}
+              description={section.description}
+              reverse={index % 2 === 0}
+              image={section.image}
             />
-          </div>
-          <div className="section">
-            <Section
-              title="Get Related Videos"
-              description="Dive deeper into your learning with curated, intelligent video recommendations. Our AI analyzes your notes and finds the most relevant, high-quality educational content from across the web, ensuring you get targeted explanations that complement and enhance your existing study materials."
-              reverse
-              image="src/assets/images/videos.png"
-            />
-          </div>
-          <div className="section">
-            <Section
-              title="Use Generated Flashcards"
-              description="  Supercharge your memory retention with AI-powered flashcards. NoteTube automatically generates smart, context-aware flashcards from your notes, presenting key concepts, definitions, and critical information in an interactive format that makes studying more engaging and efficient."
-              reverse
-              image="./cards.png"
-            />
-          </div>
+          ))}
         </SectionCarousel>
-      </section>
-      {/*  */}
-      <div
+      </motion.section>
+      <motion.div
         ref={discoverRef}
-        className="section opacity-0 transform translate-y-24 transition-all duration-500"
+        animate={controls}
+        initial="hidden"
+        variants={{
+          visible: { opacity: 1, y: 0 },
+          hidden: { opacity: 0, y: 50 },
+        }}
+        transition={{ duration: 0.5 }}
       >
         <InformationCardsSection />
-      </div>
-      {/*  */}
-      <div className="section opacity-0 transform translate-y-24 transition-all duration-500 w-screen">
+      </motion.div>
+      <motion.div
+        animate={controls}
+        initial="hidden"
+        variants={{
+          visible: { opacity: 1, y: 0 },
+          hidden: { opacity: 0, y: 50 },
+        }}
+        transition={{ duration: 0.5 }}
+      >
         <UserManualSection />
-      </div>
-      {/*  */}
-      <div
+      </motion.div>
+      <motion.div
         ref={aboutRef}
-        className="section opacity-0 transform translate-y-24 transition-all duration-500 w-screen"
+        animate={controls}
+        initial="hidden"
+        variants={{
+          visible: { opacity: 1, y: 0 },
+          hidden: { opacity: 0, y: 50 },
+        }}
+        transition={{ duration: 0.5 }}
       >
         <Section
           title="About Us"
@@ -112,18 +125,42 @@ const LandingPage = () => {
           reverse={false}
           image="./about.png"
         />
-      </div>
-      {/*  */}
-      <div className="section opacity-0 transform translate-y-24 transition-all duration-500">
-        <JoinUsSection />
-      </div>
-      {/*  */}
-      <div
+      </motion.div>
+      <motion.div
+        animate={controls}
+        initial="hidden"
+        variants={{
+          visible: { opacity: 1, y: 0 },
+          hidden: { opacity: 0, y: 50 },
+        }}
+        transition={{ duration: 0.5 }}
+      >
+        <TestimonialsSection />
+      </motion.div>
+
+      <motion.div
         ref={faqsRef}
-        className="section opacity-0 transform translate-y-24 transition-all duration-500 w-auto"
+        animate={controls}
+        initial="hidden"
+        variants={{
+          visible: { opacity: 1, y: 0 },
+          hidden: { opacity: 0, y: 50 },
+        }}
+        transition={{ duration: 0.5 }}
       >
         <FAQs />
-      </div>
+      </motion.div>
+      <motion.div
+        animate={controls}
+        initial="hidden"
+        variants={{
+          visible: { opacity: 1, y: 0 },
+          hidden: { opacity: 0, y: 50 },
+        }}
+        transition={{ duration: 0.5 }}
+      >
+        <JoinUsSection />
+      </motion.div>
       <Footer />
     </div>
   );

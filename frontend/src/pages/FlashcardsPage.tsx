@@ -18,8 +18,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 import { Drawer } from "@/components/ui/drawer";
 import { Dialog } from "@/components/ui/dialog";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import HoverFlashcardCard from "@/components/Flashcards/HoverFlashcardCard";
 
 const FlashcardsPage: React.FC = () => {
   const location = useLocation();
@@ -74,15 +72,10 @@ const FlashcardsPage: React.FC = () => {
 
   if (loading) return <LoadingScreen message="Loading cards..." />;
 
-  // if (error) {
-  //   console.error(error);
-  //   toast.error("Error fetching flashcards.");
-  // }
-
   return (
     <>
       <Toaster />
-      <div className="bg-white relative w-full px- flex flex-col items-center pb-14">
+      <div className="bg-white relative w-full px- flex flex-col items-center pb-14 scrollbar-custom">
         <Header
           isHomepage={false}
           isFlashCardsPage={true}
@@ -127,27 +120,19 @@ const FlashcardsPage: React.FC = () => {
               <NoItemsContainerBox
                 mainText="No cards available."
                 subText="Add a card to the selected deck using the + Add Card button."
-                imageSrc="./chillguy.png"
+                imageSrc="../chillguy.png"
                 altText="No Cards Available"
               />
             ) : (
               filteredFlashcards.map((flashcard: Flashcard) => (
-                <HoverCard>
-                  <HoverCardTrigger className="">
-                    <FlashcardItem
-                      key={flashcard.id}
-                      id={flashcard.id}
-                      front={flashcard.front}
-                      back={flashcard.back}
-                      deckId={deckId!}
-                      created_at={flashcard.created_at!}
-                    />
-                  </HoverCardTrigger>
-                  <HoverFlashcardCard
-                    key={flashcard.id}
-                    created_at={flashcard.created_at!}
-                  />
-                </HoverCard>
+                <FlashcardItem
+                  key={flashcard.id}
+                  id={flashcard.id}
+                  front={flashcard.front}
+                  back={flashcard.back}
+                  deckId={deckId!}
+                  created_at={flashcard.created_at!}
+                />
               ))
             )}
             <div>

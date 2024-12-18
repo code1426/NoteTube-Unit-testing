@@ -7,11 +7,10 @@ import NoItemsContainerBox from "@/components/NoItemsContainerBox";
 
 import { useContext, useEffect, useState } from "react";
 import NotesHistoryCard from "@/components/History/NotesHistoryCard";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import HoverHistoryNotesCard from "@/components/History/HoverHistoryNotesCard";
 import applySortingAndFilteringToNotes from "@/utils/notesSorterFilter";
 import { options } from "@/types/options.types";
 import { NotesContext } from "@/context/Contexts";
+import { Toaster } from "react-hot-toast";
 
 const NotesHistoryPage = () => {
   const { notes } = useContext(NotesContext);
@@ -59,7 +58,8 @@ const NotesHistoryPage = () => {
 
   return (
     <>
-      <div className="relative w-full bg-white select-none overflow-auto scrollbar-custom h-screen">
+      <Toaster />
+      <div className="relative w-full bg-white select-none overflow-auto scrollbar-custom h-screen scrollbar-custom">
         <Header
           isHomepage={false}
           isFlashCardsPage={false}
@@ -75,28 +75,20 @@ const NotesHistoryPage = () => {
               <NoItemsContainerBox
                 mainText="No Notes Available"
                 subText="Add a note by uploading on the upload page."
-                imageSrc="./chillguy.png"
+                imageSrc="../chillguy.png"
                 altText="No Notes Available"
               />
             </div>
           ) : (
             displayedNotes!.map((note: NoteWithVideos) => (
-              <HoverCard>
-                <HoverCardTrigger>
-                  <NotesHistoryCard
-                    key={note.id}
-                    id={note.id}
-                    content={note.content}
-                    title={note.title}
-                    createdAt={note.createdAt}
-                    videos={note.videos}
-                  />
-                </HoverCardTrigger>
-                <HoverHistoryNotesCard
-                  title={note.title}
-                  createdAt={note.createdAt}
-                />
-              </HoverCard>
+              <NotesHistoryCard
+                key={note.id}
+                id={note.id}
+                content={note.content}
+                title={note.title}
+                createdAt={note.createdAt}
+                videos={note.videos}
+              />
             ))
           )}
         </div>

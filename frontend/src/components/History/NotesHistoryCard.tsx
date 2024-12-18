@@ -6,8 +6,10 @@ import DeleteHistoryConfirmation from "./DeleteHistoryConfirmation";
 import toast from "react-hot-toast";
 import useDeleteNote from "@/hooks/Notes/useDeleteNote";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { HoverCard, HoverCardTrigger } from "@radix-ui/react-hover-card";
+import HoverHistoryNotesCard from "./HoverHistoryNotesCard";
 
-const NotesHistoryCard = ({ id, title, videos }: NoteWithVideos) => {
+const NotesHistoryCard = ({ id, title, videos, createdAt }: NoteWithVideos) => {
   const { deleteNote } = useDeleteNote(id);
   const isMobile = useIsMobile();
 
@@ -23,7 +25,12 @@ const NotesHistoryCard = ({ id, title, videos }: NoteWithVideos) => {
   return (
     <Card className="shadow-md">
       <CardHeader className="flex-row items-center justify-between border-b">
-        <CardTitle className="flex-1 text-left">{title}</CardTitle>
+        <HoverCard>
+          <HoverCardTrigger>
+            <CardTitle className="flex-1 text-left">{title}</CardTitle>
+          </HoverCardTrigger>
+          <HoverHistoryNotesCard title={title} createdAt={createdAt} />
+        </HoverCard>
         <div className="flex">
           <DeleteHistoryConfirmation id={id} onDelete={handleConfirmDelete} />
         </div>
@@ -33,9 +40,7 @@ const NotesHistoryCard = ({ id, title, videos }: NoteWithVideos) => {
           {!videos ? (
             <></>
           ) : isMobile ? (
-            <p className="text-gray-500 text-sm">
-              Video previews are hidden on mobile. Tap on the note to view them.
-            </p>
+            <p></p>
           ) : (
             videos!.map((video) => (
               <HistoryGeneratedVideoThumbnail

@@ -7,8 +7,10 @@ import EditFlashcardDialog from "./EditFlashcardDialog";
 import { Separator } from "../ui/separator";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import renderListContent from "@/utils/listRenderHandler";
+import { HoverCard, HoverCardTrigger } from "@radix-ui/react-hover-card";
+import HoverFlashcardCard from "./HoverFlashcardCard";
 
-const FlashcardItem = ({ id, front, back, deckId }: Flashcard) => {
+const FlashcardItem = ({ id, front, back, deckId, created_at }: Flashcard) => {
   const { deleteFlashcard } = useDeleteFlashcard(id, deckId);
   const handleConfirmDelete = async () => {
     toast.promise(deleteFlashcard(), {
@@ -32,7 +34,10 @@ const FlashcardItem = ({ id, front, back, deckId }: Flashcard) => {
               className="text-lg text-left w-full break-words whitespace-normal leading-relaxed"
               style={{ wordBreak: "break-word", overflowWrap: "break-word" }}
             >
-              {front}
+              <HoverCard>
+                <HoverCardTrigger>{front}</HoverCardTrigger>
+                <HoverFlashcardCard key={id} created_at={created_at!} />
+              </HoverCard>
             </CardTitle>
             <div className="mt-2 flex space-x-1">
               <EditFlashcardDialog
