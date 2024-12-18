@@ -1,5 +1,5 @@
 import React from "react";
-import { Tilt } from "@jdion/tilt-react";
+import { motion } from "framer-motion";
 
 interface UserManualCardProps {
   image: string;
@@ -15,35 +15,23 @@ const UserManualCard: React.FC<UserManualCardProps> = ({
   description,
 }) => {
   return (
-    <div className="flex flex-col items-center">
-      {/* Wrap the card container with the Tilt component */}
-      <Tilt
-        options={{
-          max: 15,
-          scale: 1.1,
-          speed: 400,
-          reverse: true,
-          perspective: 1000,
-          transition: true,
-          axis: null,
-          reset: true,
-          easing: "cubic-bezier(0.03, 0.98, 0.52, 0.99)",
-        }}
-        className="bg-white/50 p-8 rounded-2xl mb-4"
-      >
+    <motion.div
+      className="flex flex-col items-center max-w-xs"
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300 }}
+    >
+      <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
         <img
-          src={`${image}`}
-          alt={`${alt}`}
-          className="w-64 h-64 object-contain"
+          src={image}
+          alt={alt}
+          className="w-48 h-48 object-contain mx-auto"
         />
-      </Tilt>
-      <div className="text-center">
-        <h3 className="text-3xl font-secondaryRegular text-white mb-4 px-20">
-          {title}
-        </h3>
-        <p className="text-xl font-primaryMedium max-w-xs">{description}</p>
       </div>
-    </div>
+      <h3 className="text-2xl font-bold text-white mb-4 text-center">
+        {title}
+      </h3>
+      <p className="text-lg text-green-100 text-center">{description}</p>
+    </motion.div>
   );
 };
 

@@ -1,37 +1,52 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const JoinUsSection = () => {
   return (
-    <div className="bg-white bg-opacity-85 py-16 px-8 flex justify-center items-center w-[99vw]">
-      <div className="bg-green/10 rounded-3xl flex items-center max-w-screen-lg w-full overflow-hidden shadow-2xl">
-        <div className="flex-1 p-12">
-          <img
-            src="./join_us.png"
-            alt="Join NoteTube"
-            className="w-full  object-contain"
-          />
-        </div>
-        <div className="flex-1 p-12 text-center">
-          <h2 className="text-5xl font-secondaryRegular text-green mb-6 select-none">
-            Transform Your Learning Today
-          </h2>
-          <p className="text-xl font-primaryMedium text-gray-700 mb-8 select-none">
-            Unlock the power of AI-driven learning. NoteTube is your smart
-            companion for efficient, engaging study experiences.
-          </p>
-          <Link to="/register">
-            <button
-              className="bg-green text-white text-2xl font-secondaryRegular 
-            px-10 py-4 rounded-full
-            transition-colors duration-300 ease-in-out 
-            transform hover:scale-105 shadow-lg hover:bg-green_hover"
-            >
-              Start Learning Now
-            </button>
-          </Link>
+    <section className="bg-gray-100 py-24 px-6">
+      <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <div className="flex flex-col md:flex-row items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex-1 p-12"
+          >
+            <img
+              src="./join_us.png"
+              alt="Join NoteTube"
+              className="w-full h-auto object-contain"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex-1 p-8 text-center"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-green-800 mb-6">
+              Transform Your Learning Today
+            </h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Unlock the power of AI-driven learning. NoteTube is your smart
+              companion for efficient, engaging study experiences.
+            </p>
+            <Link to="/register">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-green-600 text-white text-xl font-bold 
+                px-10 py-4 rounded-full
+                transition-colors duration-300 ease-in-out 
+                hover:bg-green-700 shadow-lg"
+              >
+                Start Learning Now
+              </motion.button>
+            </Link>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
