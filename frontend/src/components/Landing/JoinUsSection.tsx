@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const JoinUsSection = () => {
   return (
-    <section className="py-24 px-6 bg-gradient-to-b from-gray-50 to-gray-200 ">
+    <section className="py-24 px-8 bg-gradient-to-b from-gray-50 to-gray-200 ">
       <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
         <div className="flex flex-col md:flex-row items-center">
           <motion.div
@@ -35,7 +35,7 @@ const JoinUsSection = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-green-600 text-white text-xl font-bold 
+                className="bg-green-600 text-white text-lg md:text-xl lg:text-xl  xl:text-xl font-bold 
                 px-10 py-4 rounded-full
                 transition-colors duration-300 ease-in-out 
                 hover:bg-green-700 shadow-lg"

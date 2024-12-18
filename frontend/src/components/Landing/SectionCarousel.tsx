@@ -44,10 +44,10 @@ const SectionCarousel = ({
       >
         <CarouselPrevious
           className={
-            "hidden md:flex lg:flex xl:flex absolute left-4 top-1/2 transform -translate-y-1/2 z-50"
+            "hidden md:flex lg:flex xl:flex absolute left-4 top-1/2 transform -translate-y-1/2 z-10"
           }
         />
-        <CarouselNext className="hidden md:flex lg:flex xl:flex absolute right-4 top-1/2 transform -translate-y-1/2 z-50" />
+        <CarouselNext className="hidden md:flex lg:flex xl:flex absolute right-4 top-1/2 transform -translate-y-1/2 z-10" />
 
         <CarouselContent>
           {children.map((child, index) => (
