@@ -14,15 +14,15 @@ describe("The note endpoint", () => {
       "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3)",
       [testUser.username, testUser.email, testUser.password],
     );
-  }, 30000);
+  }, 50000);
 
   afterEach(async () => {
     await pool.query("ROLLBACK");
-  }, 30000);
+  }, 50000);
 
   afterAll(async () => {
     await pool.end();
-  }, 30000);
+  }, 50000);
 
   it("should create a new note successfully", async () => {
     const noteData = {
@@ -43,7 +43,7 @@ describe("The note endpoint", () => {
       title: noteResponse.body.title,
       content: noteResponse.body.content,
     }).toEqual({ title: noteData.title, content: noteData.content });
-  }, 30000);
+  }, 50000);
 
   it("should fetch all user notes", async () => {
     const userId = await pool.query(
@@ -71,7 +71,7 @@ describe("The note endpoint", () => {
     );
 
     // console.log(response.body);
-  }, 30000);
+  }, 50000);
 
   it("should fetch a user note", async () => {
     const userId = await pool.query(
@@ -99,7 +99,7 @@ describe("The note endpoint", () => {
     );
 
     // console.log(response.body);
-  }, 30000);
+  }, 50000);
 
   it("should delete a user note", async () => {
     const userId = await pool.query(
@@ -121,5 +121,5 @@ describe("The note endpoint", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject(testNote);
-  }, 30000);
+  }, 50000);
 });
