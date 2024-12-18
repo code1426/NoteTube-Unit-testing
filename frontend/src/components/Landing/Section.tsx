@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 export interface SectionProps {
   title: string;
@@ -15,41 +16,34 @@ const Section = ({
   Icon,
   image,
 }: SectionProps) => {
-  const position = Icon || image ? "" : "justify-center";
-  const order = reverse ? "flex-row-reverse" : "flex-row";
-  const textColor = reverse ? "text-white" : "text-green";
-  const bgColor = reverse ? "bg-green" : "bg-white";
-
   return (
-    <div
-      className={`flex ${order} ${bgColor} ${position} bg-opacity-85 p-16 sm:p-44 select-none items-center justify-center`}
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className={`flex flex-col ${reverse ? "md:flex-row-reverse" : "md:flex-row"} items-center justify-center gap-12 py-24 px-8 bg-white`}
     >
-      <div className="flex flex-[2] flex-col gap-12">
-        <div
-          className={`text-6xl font-secondaryRegular ${textColor} text-center px-28`}
-        >
+      <div className="flex-1 max-w-xl">
+        <h2 className="text-4xl md:text-5xl font-bold text-green-800 mb-6">
           {title}
-        </div>
-        <div className={`text-xl font-primaryMedium text-black text-justify`}>
-          {description}
-        </div>
+        </h2>
+        <p className="text-lg text-gray-600 leading-relaxed">{description}</p>
       </div>
-      {(Icon || image) && (
-        <div
-          className={`flex flex-1 ${textColor} justify-center self-start sm:self-center text-9xl`}
-        >
-          {image ? (
-            <img
-              src={image}
-              alt={title}
-              className="object-contain max-w-full max-h-[300px]"
-            />
-          ) : (
-            Icon
-          )}
-        </div>
-      )}
-    </div>
+      <div className="flex-1 flex justify-center">
+        {image ? (
+          <motion.img
+            src={image}
+            alt={title}
+            className="max-w-full h-auto rounded-lg shadow-xl"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+          />
+        ) : Icon ? (
+          <div className="text-9xl text-green-600">{Icon}</div>
+        ) : null}
+      </div>
+    </motion.div>
   );
 };
 

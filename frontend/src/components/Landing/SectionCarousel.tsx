@@ -60,7 +60,7 @@ const SectionCarousel = ({
           <button
             key={index}
             className={`w-3 h-3 rounded-full ${
-              index === currentIndex ? "bg-white" : "bg-gray-300"
+              index === currentIndex ? "bg-green" : "bg-gray-300"
             }`}
             onClick={() => setCurrentIndex(index)}
           />
