@@ -30,6 +30,14 @@ jobs:
           echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
           echo "MEMORY_STORAGE_FOLDER=${{ secrets.MEMORY_STORAGE_FOLDER }}" >> .env
 
+      - name: Create frontend .env file
+        run: |
+          cd frontend
+          touch .env
+          echo "VITE_BASE_API_URL=${{ secrets.VITE_BASE_API_URL }}" >> .env
+          echo "VITE_YOUTUBE_SEARCH_API_URL=${{ secrets.VITE_YOUTUBE_SEARCH_API_URL }}" >> .env
+          echo "VITE_YOUTUBE_API_KEY=${{ secrets.VITE_YOUTUBE_API_KEY }}" >> .env
+
       - name: Install dependencies
         run: |
           npm ci
