@@ -10,7 +10,7 @@ const JoinUsSection = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex-1 p-12"
+            className="flex-1"
           >
             <img
               src="./join_us.png"
@@ -22,7 +22,7 @@ const JoinUsSection = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex-1 p-8 text-center"
+            className="flex-1 px-6 py-8 md:px-8 lg:px-8 xl:px-8 text-center"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-green-800 mb-6">
               Transform Your Learning Today
