@@ -3,7 +3,7 @@ import UserManualCard from "./UserManualCard";
 
 const UserManualSection = () => {
   return (
-    <div className="bg-green bg-opacity-85 py-16 px-8 select-none">
+    <div className="bg-green bg-opacity-85 py-16 px-8 select-none overflow-auto">
       <h2 className="text-6xl font-secondaryRegular text-white text-center mb-16 px-52">
         How It Works
       </h2>

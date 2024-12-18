@@ -45,7 +45,7 @@ const AppSidebar = () => {
   const location = useLocation();
 
   return (
-    <Sidebar variant="sidebar" collapsible="icon">
+    <Sidebar variant="sidebar" collapsible="icon" className="bg-white">
       <SidebarHeader>
         <SidebarMenuButton
           variant="header"

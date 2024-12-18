@@ -7,7 +7,7 @@ import {
 
 const FAQs = () => {
   return (
-    <section className="px-4 md:px-8 lg:py-16 bg-white bg-opacity-85 select-none w-screen">
+    <section className="px-4 md:px-8 lg:py-16 bg-white bg-opacity-85 select-none w-full">
       <h2 className="text-6xl font-bold text-center mb-6 font-secondaryRegular">
         FAQs
       </h2>

@@ -64,7 +64,7 @@ const GeneratedVideosPage = () => {
   return (
     <div
       id="main-page-screen-div"
-      className="bg-white relative font-secondaryRegular w-full"
+      className="bg-white relative font-secondaryRegular w-ful scrollbar-custom"
     >
       <Header
         isHomepage={false}

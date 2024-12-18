@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const JoinUsSection = () => {
   return (
-    <div className="bg-white bg-opacity-85 py-16 px-8 flex justify-center items-center w-screen">
-      <div className="bg-green/10 rounded-3xl flex items-center max-w-6xl w-full overflow-hidden shadow-2xl">
+    <div className="bg-white bg-opacity-85 py-16 px-8 flex justify-center items-center w-[99vw]">
+      <div className="bg-green/10 rounded-3xl flex items-center max-w-screen-lg w-full overflow-hidden shadow-2xl">
         <div className="flex-1 p-12">
           <img
             src="./join_us.png"

@@ -56,13 +56,10 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full overflow-auto flex flex-col items-center justify-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat scrollbar-custom">
+    <div className="min-h-screen overflow-y-auto overflow-x-hidden flex flex-col items-center justify-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat scrollbar-custom">
       <LandingHeader refs={refs} />
       <Hero />
-      <section
-        className="section w-screen mx-8 shadow-2xl border-8"
-        ref={featureRef}
-      >
+      <section className="section w-full mx-8 shadow-2xl" ref={featureRef}>
         <SectionCarousel duration={3000}>
           <div className="section">
             <Section
@@ -98,13 +95,13 @@ const LandingPage = () => {
         <InformationCardsSection />
       </div>
       {/*  */}
-      <div className="section opacity-0 transform translate-y-24 transition-all duration-500 w-screen">
+      <div className="section opacity-0 transform translate-y-24 transition-all duration-500 w-full">
         <UserManualSection />
       </div>
       {/*  */}
       <div
         ref={aboutRef}
-        className="section opacity-0 transform translate-y-24 transition-all duration-500 w-screen"
+        className="section opacity-0 transform translate-y-24 transition-all duration-500 w-full"
       >
         <Section
           title="About Us"
@@ -120,7 +117,7 @@ const LandingPage = () => {
       {/*  */}
       <div
         ref={faqsRef}
-        className="section opacity-0 transform translate-y-24 transition-all duration-500 w-auto"
+        className="section opacity-0 transform translate-y-24 transition-all duration-500 w-full"
       >
         <FAQs />
       </div>
