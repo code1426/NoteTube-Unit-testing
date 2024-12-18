@@ -11,7 +11,7 @@ export default {
   theme: {
     extend: {
       cursor: {
-        chillguy: "url(assets/images/chillguy.png), auto",
+        chillguy: "url(./chillguy.png), auto",
       },
       screens: {
         xs: "480px",

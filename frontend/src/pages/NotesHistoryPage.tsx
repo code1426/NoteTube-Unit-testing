@@ -75,7 +75,7 @@ const NotesHistoryPage = () => {
               <NoItemsContainerBox
                 mainText="No Notes Available"
                 subText="Add a note by uploading on the upload page."
-                imageSrc="/src/assets/images/chillguy.png"
+                imageSrc="./chillguy.png"
                 altText="No Notes Available"
               />
             </div>

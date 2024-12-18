@@ -48,7 +48,7 @@ const LandingHeader: React.FC<LandingHeaderProps> = ({ refs }) => {
             your notes into engaging and interactive learning materials.
           </SheetDescription>
           <SheetHeader className="text-3xl font-bold">
-            <img src="../src/assets/images/asking.png" alt="asking.png" />
+            <img src="./asking.png" alt="asking.png" />
           </SheetHeader>
           <SheetTitle>
             NoteTube is your ultimate study companion, transforming notes into
@@ -108,10 +108,7 @@ const LandingHeader: React.FC<LandingHeaderProps> = ({ refs }) => {
                         learning materials.
                       </SheetDescription>
                       <SheetHeader className="text-3xl font-bold">
-                        <img
-                          src="../src/assets/images/asking.png"
-                          alt="asking.png"
-                        />
+                        <img src="./asking.png" alt="asking.png" />
                       </SheetHeader>
                       <SheetTitle>
                         NoteTube is your ultimate study companion, transforming

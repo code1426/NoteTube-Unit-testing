@@ -181,7 +181,7 @@ const AddFlashcardDialog = ({
 
         <DialogFooter className="space-y-4 select-none">
           <Button
-            className={`flex-1 px-4 py-2 md:px-6 h-14 md:py-3 flex items-center justify-center ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} text-white rounded-lg text-base md:text-xl font-semibold transition-colors disabled:opacity-50 gap-2`}
+            className={`flex-1 px-4 py-2 md:px-6 h-12 md:py-3 flex items-center justify-center ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} text-white rounded-lg text-base md:text-xl font-semibold transition-colors disabled:opacity-50 gap-2`}
             disabled={
               loading || !flashcardFront.trim() || !flashcardBack.trim()
             }

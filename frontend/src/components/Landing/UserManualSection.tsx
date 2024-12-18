@@ -9,21 +9,21 @@ const UserManualSection = () => {
       </h2>
       <div className="flex items-center justify-center space-x-8">
         <UserManualCard
-          image="/src/assets/images/upload.png"
+          image="./upload.png"
           alt="Upload Notes"
           title="1. Upload"
           description="Easily upload your notes in various formats - PDFs, images, text documents"
         />
         <PiArrowRight size={50} color="white" />
         <UserManualCard
-          image="/src/assets/images/generate.png"
+          image="./generate.png"
           alt="Generate Content"
           title="2. Generate"
           description="Get auto-generated summaries, relevant videos, and interactive flashcards"
         />
         <PiArrowRight size={50} color="white" />
         <UserManualCard
-          image="/src/assets/images/review.png"
+          image="./review.png"
           alt="Review Content"
           title="3. Review"
           description="Review and interact with AI-generated content to enhance yourlearning"

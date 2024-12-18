@@ -116,7 +116,7 @@ const AddFlashcardDrawer = ({
             <Label>{field === "front" ? "Question" : "Answer"}</Label>
             <div key={field} className="relative">
               <Textarea
-                className="p-3 pr-10 md:text-lg lg:text-xl resize-none"
+                className="p-2 pr-10 md:text-lg lg:text-xl resize-none"
                 placeholder={`${
                   field === "front"
                     ? "Enter the question for the flashcard (e.g., What is the capital of France?)"

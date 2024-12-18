@@ -69,7 +69,7 @@ const LandingPage = () => {
               title="Upload Notes"
               description="Break free from traditional note-taking limitations. Simply upload your handwritten, typed, or digital notes in any format - PDFs, images, text documents - and watch as NoteTube intelligently processes and transforms them into a comprehensive learning experience tailored just for you."
               reverse
-              image="src/assets/images/notes.png"
+              image="/notes.png"
             />
           </div>
           <div className="section">
@@ -85,7 +85,7 @@ const LandingPage = () => {
               title="Use Generated Flashcards"
               description="  Supercharge your memory retention with AI-powered flashcards. NoteTube automatically generates smart, context-aware flashcards from your notes, presenting key concepts, definitions, and critical information in an interactive format that makes studying more engaging and efficient."
               reverse
-              image="src/assets/images/cards.png"
+              image="./cards.png"
             />
           </div>
         </SectionCarousel>
@@ -110,7 +110,7 @@ const LandingPage = () => {
           title="About Us"
           description="At NoteTube, we believe in revolutionizing the way students learn by integrating advanced AI technology. We transform scattered notes into structured, engaging study materials that are easy to comprehend and retain. Our mission is to enhance educational experiences by making studying more effective and enjoyable. With NoteTube, students can maximize their learning potential and achieve academic success."
           reverse={false}
-          image="src\assets\images\about.png"
+          image="./about.png"
         />
       </div>
       {/*  */}
