@@ -78,7 +78,7 @@ const FlashcardsQuizPage = () => {
           <NoItemsContainerBox
             mainText="No flashcards available."
             subText=" Add a card to get started!"
-            imageSrc="./chillguy.png"
+            imageSrc="../chillguy.png"
             altText="No Flashcards Available"
           />
         ) : (
