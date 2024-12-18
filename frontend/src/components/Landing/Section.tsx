@@ -34,7 +34,7 @@ const Section = ({
           <motion.img
             src={image}
             alt={title}
-            className="max-w-full h-auto rounded-lg shadow-xl"
+            className="max-w-[500px] w-full h-auto "
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}

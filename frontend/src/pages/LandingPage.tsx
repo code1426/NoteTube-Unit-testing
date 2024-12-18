@@ -123,7 +123,7 @@ const LandingPage = () => {
           title="About Us"
           description="At NoteTube, we believe in revolutionizing the way students learn by integrating advanced AI technology. We transform scattered notes into structured, engaging study materials that are easy to comprehend and retain. Our mission is to enhance educational experiences by making studying more effective and enjoyable. With NoteTube, students can maximize their learning potential and achieve academic success."
           reverse={false}
-          image="./about.png"
+          image="./bb6.svg"
         />
       </motion.div>
       <motion.div
