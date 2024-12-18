@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import useFetchFlashcards from "../hooks/Flashcards/useFetchFlashcards";
 import type { Flashcard } from "../types/flashcard.types";
@@ -12,8 +12,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Fade from "embla-carousel-fade";
 import { Label } from "@/components/ui/label";
 
-import { BiSkipPrevious } from "react-icons/bi";
-import { BiSkipNext } from "react-icons/bi";
+import { BiSkipPrevious, BiSkipNext } from "react-icons/bi";
 
 const FlashcardsQuizPage = () => {
   const { deckId } = useParams<{ deckId: string }>();
@@ -26,11 +25,20 @@ const FlashcardsQuizPage = () => {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Fade()]);
 
-  useEffect(() => {
+  const updateCurrentIndex = useCallback(() => {
     if (emblaApi) {
-      emblaApi.reInit();
+      const index = emblaApi.selectedScrollSnap();
+      setCurrentIndex(index);
+      setShowAnswer(false);
     }
   }, [emblaApi]);
+
+  useEffect(() => {
+    if (emblaApi) {
+      emblaApi.on("select", updateCurrentIndex);
+      emblaApi.reInit();
+    }
+  }, [emblaApi, updateCurrentIndex]);
 
   useEffect(() => {
     if (flashcards && flashcards.length > 0) {
@@ -41,14 +49,10 @@ const FlashcardsQuizPage = () => {
 
   const handleNext = () => {
     if (emblaApi) emblaApi.scrollNext();
-    setCurrentIndex((prev) => (prev + 1) % quizCards.length);
-    setShowAnswer(false); // Reset answer visibility for the next card
   };
 
   const handlePrev = () => {
     if (emblaApi) emblaApi.scrollPrev();
-    setCurrentIndex((prev) => (prev - 1 + quizCards.length) % quizCards.length);
-    setShowAnswer(false); // Reset answer visibility for the previous card
   };
 
   if (loading) return <LoadingScreen message="Loading quiz..." />;
