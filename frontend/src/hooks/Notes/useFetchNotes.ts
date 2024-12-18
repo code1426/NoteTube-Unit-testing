@@ -15,12 +15,19 @@ interface FetchNotesResult {
 
 const useFetchNotes = (userId: string): FetchNotesResult => {
   const { setNotes } = useContext(NotesContext);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchNotes = async () => {
       try {
+        if (!userId) {
+          setLoading(false);
+          setError("No user ID provided");
+          return;
+        }
+
+        setLoading(true);
         const response = await fetch(
           `${import.meta.env.VITE_BASE_API_URL}/notes?userId=${userId}`,
           {
