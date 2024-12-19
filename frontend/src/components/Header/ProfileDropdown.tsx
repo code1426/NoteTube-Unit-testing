@@ -66,7 +66,7 @@ const ProfileDropdown = () => {
               <DialogTrigger asChild>
                 <div
                   id="change-password"
-                  className="w-full cursor-pointer hover:text-green hover:dark:bg-dark-foreground hover:bg-gray-200 rounded-md flex flex-row text-sm  p-2"
+                  className="w-full cursor-pointer hover:text-green hover:dark:bg-dark-foreground hover:bg-gray-200 rounded-md flex flex-row text-sm p-2"
                 >
                   <PiPasswordBold size={20} className="self-center mr-2" />
                   Change Password
