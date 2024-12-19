@@ -1,6 +1,5 @@
 import { StrictMode } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { ThemeProvider } from "./components/ThemeProvider";
 
 import LandingPage from "@/pages/LandingPage";
 import HomePage from "@/pages/HomePage";
@@ -19,6 +18,7 @@ import useUserVerification from "@/hooks/auth/useUserVerification";
 import useUser from "@/hooks/auth/useUser";
 import useFetchUserDecks from "@/hooks/Decks/useFetchUserDecks";
 import useFetchNotes from "@/hooks/Notes/useFetchNotes";
+import ThemeProvider from "./context/ThemeProvider";
 
 const App = () => {
   const {

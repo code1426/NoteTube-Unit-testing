@@ -60,7 +60,7 @@ const LandingPage = () => {
   }, [controls, ref]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-gray-50">
+    <div className="[data-mode='light'] min-h-screen overflow-x-hidden bg-gray-50">
       <LandingHeader refs={refs} />
       <Hero />
       <motion.section

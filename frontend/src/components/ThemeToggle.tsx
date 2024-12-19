@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useTheme } from "./ThemeProvider";
+import { useContext, useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,15 +7,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ThemeContext } from "@/context/Contexts";
 
 export function ThemeToggle() {
+  const { theme, setTheme } = useContext(ThemeContext);
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
     console.log("ThemeToggle mounted, current theme:", theme);
-  }, []);
+  }, [theme]);
 
   if (!mounted) {
     return null;
@@ -51,14 +51,6 @@ export function ThemeToggle() {
           }}
         >
           Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            console.log("Switching to system mode");
-            setTheme("system");
-          }}
-        >
-          System
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
