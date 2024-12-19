@@ -3,8 +3,7 @@ import useRenameDeck from "@/hooks/Decks/useRenameDeck";
 import { mockAddDeck } from "@/mocks/data";
 
 describe("The useRenameDeck hook", () => {
-  beforeEach(() => {});
-
+  // RENAME DECK WITH MOCKED API
   it("should rename a specified deck successfully", async () => {
     const mockRenamedDeck = { ...mockAddDeck, deck_name: "shishshish" };
 
@@ -16,7 +15,6 @@ describe("The useRenameDeck hook", () => {
     );
 
     expect(success).toBe(true);
-    expect(updatedDeck).toBeDefined();
     expect(updatedDeck).toEqual(mockRenamedDeck);
   });
 });
