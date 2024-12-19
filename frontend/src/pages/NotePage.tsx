@@ -25,7 +25,7 @@ const NotePage: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 mt-14 py-8 max-w-7xl">
+    <div className="container mx-auto px-4 mt-14 py-8 max-w-7xl dark:bg-dark-background">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">{note.title}</h1>
         <p className="text-muted-foreground mt-2">
@@ -35,11 +35,17 @@ const NotePage: React.FC = () => {
 
       <Tabs defaultValue="content" className="w-full">
         <TabsList className="mb-4">
-          <TabsTrigger value="content" className="flex items-center">
+          <TabsTrigger
+            value="content"
+            className="flex items-center hover:dark:bg-dark-foreground"
+          >
             <BookOpen className="w-4 h-4 mr-2" />
             Note Content
           </TabsTrigger>
-          <TabsTrigger value="videos" className="flex items-center">
+          <TabsTrigger
+            value="videos"
+            className="flex items-center hover:dark:bg-dark-foreground"
+          >
             <Video className="w-4 h-4 mr-2" />
             Related Videos
           </TabsTrigger>

@@ -24,7 +24,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
   return (
     <>
       <div
-        className="group cursor-pointer rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+        className="group cursor-pointer rounded-lg overflow-hidden shadow-md dark:bg-dark-foreground hover:shadow-lg transition-all duration-300 transform hover:scale-105"
         onClick={() => setIsVideoOpen(true)}
       >
         <div className="relative">
@@ -37,7 +37,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
             <Play className="w-12 h-12 text-white" />
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 px-4 py-3">
+        <div className="bg-white dark:bg-dark-foreground px-4 py-3">
           <HoverCard>
             <HoverCardTrigger asChild>
               <h3 className="text-sm font-medium text-gray-800 dark:text-gray-200 line-clamp-2">

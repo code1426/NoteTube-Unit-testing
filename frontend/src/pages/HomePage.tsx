@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import { toast } from "sonner";
 
-import GreetingsBanner from "@/components/Header/GreetingsBanner";
 import Header from "@/components/Header/Header";
 import LoadingScreen from "@/components/LoadingScreen";
 import NoteInputForm from "@/components/Notes/NoteInputForm";
@@ -233,7 +232,7 @@ const HomePage = () => {
     <>
       {/* <Toaster /> */}
       <div className="relative w-full min-h-screen bg-white dark:bg-dark-background overflow-auto flex flex-col scrollbar-custom h-screen">
-        <GreetingsBanner />
+        {/* <GreetingsBanner /> */}
         <Header
           isHomepage={true}
           isFlashCardsPage={false}

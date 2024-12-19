@@ -27,7 +27,7 @@ const FlashcardItem = ({ id, front, back, deckId, created_at }: Flashcard) => {
   return (
     <>
       <TooltipProvider>
-        <Card className="shadow-md p-2">
+        <Card className="shadow-md p-2 dark:bg-dark-foreground">
           {/* Header Section */}
           <CardHeader className="flex flex-row items-start justify-between pb-2">
             <CardTitle

@@ -95,7 +95,7 @@ const Header: React.FC<SubHeaderProps> = ({
                 <Tooltip>
                   <TooltipTrigger>
                     <button
-                      className="hover:bg-gray-200 ml-4 rounded-full text-responsive m-auto"
+                      className="hover:bg-gray-200 hover:dark:bg-dark-foreground ml-4 rounded-full text-responsive m-auto"
                       onClick={handleBack}
                     >
                       <PiArrowCircleLeftBold className="m-auto text-3xl sm:text-3xl sm-md:4xl md:text-4xl lg:text-5xl" />
@@ -139,7 +139,7 @@ const Header: React.FC<SubHeaderProps> = ({
                     <Tooltip>
                       <TooltipTrigger>
                         <button
-                          className={`flex py-2 px-2 md:px-6 lg:px-6 xl:px-6 border-2 border-[#03c04a] rounded-full gap-2 hover:bg-gray-200 items-center justify-center`}
+                          className={`flex py-2 px-2 md:px-6 lg:px-6 xl:px-6 border-2 border-[#03c04a] rounded-full gap-2 hover:dark:bg-dark-foreground hover:bg-gray-200 items-center justify-center`}
                           onClick={onAdd}
                         >
                           <PiPlus />{" "}
@@ -169,7 +169,7 @@ const Header: React.FC<SubHeaderProps> = ({
                     <div className="flex items-center gap-2 border-2 border-[#03c04a] rounded-full px-4 py-1.5">
                       <button
                         onClick={handleSearch}
-                        className="text-black hover:bg-gray-200 rounded-full p-1"
+                        className="text-black dark:text-white hover:bg-gray-200 rounded-full p-1"
                       >
                         <PiX className="text-responsive" />
                       </button>
@@ -177,7 +177,7 @@ const Header: React.FC<SubHeaderProps> = ({
                         type="text"
                         value={searchText}
                         placeholder="Search..."
-                        className="flex-1 focus:outline-none"
+                        className="flex-1 focus:outline-none dark:bg-dark-background"
                         autoFocus
                         onChange={(e) => {
                           const newSearchText = e.target.value;
