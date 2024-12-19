@@ -1,11 +1,12 @@
-export const PASTEL_COLORS = [
-  "#FFADAD", // Pastel Red
-  "#FFD6A5", // Pastel Orange
-  "#FDFFB6", // Pastel Yellow
-  "#CAFFBF", // Pastel Green
-  "#9BF6FF", // Pastel Blue
-  "#A0C4FF", // Pastel Purple
-  "#FFC6FF", // Pastel Pink
+export const VIBRANT_COLORS = [
+  "#FF6B6B", // Soft Vibrant Red
+  "#FFA94D", // Soft Vibrant Orange
+  "#FFD93D", // Soft Vibrant Yellow
+  "#8CE99A", // Soft Vibrant Green
+  "#63E6E6", // Soft Vibrant Cyan
+  "#74C0FC", // Soft Vibrant Blue
+  "#B983FF", // Soft Vibrant Purple
+  "#FF77E9", // Soft Vibrant Pink
 ];
 
 export const ALLOWED_FILE_TYPES: { [key: string]: boolean } = {

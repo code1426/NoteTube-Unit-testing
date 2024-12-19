@@ -102,7 +102,7 @@ const UpdatePasswordForm: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="bg-white text-green py-2 rounded-lg hover:bg-green hover:text-white transition-all disabled:opacity-50"
+            className="bg-green text-white py-2 rounded-lg hover:bg-green_hover hover:text-white transition-all disabled:opacity-50"
           >
             {loading ? "Updating..." : "Update Password"}
           </button>

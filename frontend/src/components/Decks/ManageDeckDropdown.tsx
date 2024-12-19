@@ -72,14 +72,39 @@ const ManageDeckDropdown = ({
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem asChild>
-              <RenameDeckDialog id={id} deckName={deckName} />
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                <RenameDeckDialog id={id} deckName={deckName} />
+              </div>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <ChangeDeckColorDialog id={id} color={color!} />
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                <ChangeDeckColorDialog id={id} color={color!} />
+              </div>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <DeleteDeckConfirmation id={id} onDelete={handleConfirmDelete} />
+              <div
+                className="p-0"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                <DeleteDeckConfirmation
+                  id={id}
+                  onDelete={handleConfirmDelete}
+                />
+              </div>
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
