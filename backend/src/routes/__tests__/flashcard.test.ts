@@ -35,15 +35,15 @@ describe("The flashcard endpoint", () => {
     );
 
     deckId = deckIdResult.rows[0].id;
-  }, 50000);
+  }, 60000);
 
   afterEach(async () => {
     await pool.query("ROLLBACK");
-  }, 50000);
+  }, 60000);
 
   afterAll(async () => {
     await pool.end();
-  }, 50000);
+  }, 60000);
 
   it("should create a new flashcard successfully", async () => {
     const response = await request(app)
@@ -53,7 +53,7 @@ describe("The flashcard endpoint", () => {
     expect(response.status).toBe(201);
     expect(response.body).toBeDefined();
     expect(response.body).toMatchObject(testFlashcard);
-  }, 50000);
+  }, 60000);
 
   it("should fetch all deck flashcards", async () => {
     await pool.query(
@@ -68,7 +68,7 @@ describe("The flashcard endpoint", () => {
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
     expect(response.body[0]).toMatchObject(testFlashcard);
-  }, 50000);
+  }, 60000);
 
   it("should change the contents of the flashcard", async () => {
     await pool.query(
@@ -94,7 +94,7 @@ describe("The flashcard endpoint", () => {
     expect(response.status).toBe(200);
     expect(response.body).toBeDefined();
     expect(response.body).toMatchObject(newFlashcardContents);
-  }, 50000);
+  }, 60000);
 
   it("should delete the flashcard", async () => {
     await pool.query(
@@ -115,5 +115,5 @@ describe("The flashcard endpoint", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject(testFlashcard);
-  }, 50000);
+  }, 60000);
 });

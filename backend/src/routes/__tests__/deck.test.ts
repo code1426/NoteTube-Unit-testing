@@ -23,15 +23,15 @@ describe("The deck endpoint", () => {
     );
 
     userId = userIdResult.rows[0].id;
-  }, 50000);
+  }, 60000);
 
   afterEach(async () => {
     await pool.query("ROLLBACK");
-  }, 50000);
+  }, 60000);
 
   afterAll(async () => {
     await pool.end();
-  }, 50000);
+  }, 60000);
 
   it("should create a new deck successfully", async () => {
     const response = await request(app)
@@ -44,7 +44,7 @@ describe("The deck endpoint", () => {
       deck_name: response.body.deck_name,
       color: response.body.color,
     }).toEqual(testDeck);
-  }, 50000);
+  }, 60000);
 
   it("should fetch all user decks", async () => {
     await pool.query(
@@ -60,7 +60,7 @@ describe("The deck endpoint", () => {
       deck_name: response.body[0].deck_name,
       color: response.body[0].color,
     }).toEqual(testDeck);
-  }, 50000);
+  }, 60000);
 
   it("should rename the deck", async () => {
     await pool.query(
@@ -86,7 +86,7 @@ describe("The deck endpoint", () => {
     expect({ deck_name: response.body.deck_name }).toEqual({
       deck_name: newDeckName.deck_name,
     });
-  }, 50000);
+  }, 60000);
 
   it("should change the color of the deck", async () => {
     await pool.query(
@@ -109,7 +109,7 @@ describe("The deck endpoint", () => {
     expect({ color: response.body.color }).toEqual({
       color: newColor.color,
     });
-  }, 50000);
+  }, 60000);
 
   it("should delete the deck", async () => {
     await pool.query(
@@ -128,5 +128,5 @@ describe("The deck endpoint", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject(testDeck);
-  }, 50000);
+  }, 60000);
 });

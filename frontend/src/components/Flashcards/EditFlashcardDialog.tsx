@@ -31,11 +31,7 @@ const EditFlashcardDialog: React.FC<Flashcard> = ({
   const [activeField, setActiveField] = useState<"front" | "back">("front");
   const [newFront, setNewFront] = useState(front);
   const [newBack, setNewBack] = useState(back);
-
-  const resetContent = () => {
-    setNewFront(front);
-    setNewBack(back);
-  };
+  const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const handleEditCard = async () => {
     if (!newFront.trim() || !newBack.trim()) {
@@ -52,6 +48,7 @@ const EditFlashcardDialog: React.FC<Flashcard> = ({
 
     if (result.success) {
       toast.success("Flashcard updated successfully.");
+      setDialogOpen(false);
     } else {
       console.error("Failed to update card:", error);
       toast.error("Failed to update card. Please try again.");
@@ -81,8 +78,16 @@ const EditFlashcardDialog: React.FC<Flashcard> = ({
   const clearFrontText = () => setNewFront("");
   const clearBackText = () => setNewBack("");
 
+  const handleDialogOpenChange = (open: boolean): void => {
+    setDialogOpen(open);
+    if (open) {
+      setNewFront(front);
+      setNewBack(back);
+    }
+  };
+
   return (
-    <Dialog onOpenChange={resetContent}>
+    <Dialog open={isDialogOpen} onOpenChange={handleDialogOpenChange}>
       <Tooltip>
         <TooltipTrigger>
           <DialogTrigger className="select-none">

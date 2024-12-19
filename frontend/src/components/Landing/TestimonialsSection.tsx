@@ -2,22 +2,19 @@ import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    name: "Sarah L.",
-    role: "University Student",
-    content:
-      "NoteTube has revolutionized the way I study. The AI-generated summaries and flashcards have saved me countless hours of preparation time.",
+    name: "Rojee C.",
+    role: "College Student",
+    content: "SHEESH",
   },
   {
-    name: "Michael R.",
-    role: "High School Teacher",
-    content:
-      "As an educator, I'm impressed by NoteTube's ability to enhance learning. It's a game-changer for both students and teachers.",
+    name: "Toneejay",
+    role: "Singer/Artist",
+    content: "Anong gagawin kung wala ka:(",
   },
   {
-    name: "Emily K.",
-    role: "Medical Student",
-    content:
-      "The personalized video recommendations have been invaluable in helping me grasp complex medical concepts. NoteTube is an essential tool for any serious student.",
+    name: "Kaizen S.",
+    role: "College Student",
+    content: "g g",
   },
 ];
 

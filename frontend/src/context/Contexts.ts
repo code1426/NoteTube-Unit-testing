@@ -14,7 +14,7 @@ interface AuthContextProps {
   setIsAuthenticated: (value: boolean) => void;
 }
 
-interface DecksContextProps {
+export interface DecksContextProps {
   decks: DeckEntity[] | undefined;
   setDecks: (value: DeckEntity[]) => void;
 }
