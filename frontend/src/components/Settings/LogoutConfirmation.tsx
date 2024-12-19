@@ -10,7 +10,12 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { ReactNode, useContext } from "react";
-import { AuthContext, DecksContext, UserContext } from "@/context/Contexts";
+import {
+  AuthContext,
+  DecksContext,
+  ThemeContext,
+  UserContext,
+} from "@/context/Contexts";
 
 interface Props {
   children: ReactNode;
@@ -18,6 +23,7 @@ interface Props {
 
 const LogoutConfirmation = ({ children }: Props) => {
   const { setIsAuthenticated } = useContext(AuthContext);
+  const { setTheme } = useContext(ThemeContext);
   const { setUser } = useContext(UserContext);
   const { setDecks } = useContext(DecksContext);
 
@@ -28,6 +34,7 @@ const LogoutConfirmation = ({ children }: Props) => {
   };
 
   const handleLogout = () => {
+    setTheme("light");
     localStorage.removeItem("hasShownBanner");
     localStorage.removeItem("token");
     resetState();

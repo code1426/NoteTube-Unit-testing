@@ -6,7 +6,7 @@ import {
   MIN_TEXT_INPUT_LENGTH,
 } from "@/utils/constants";
 
-const mockOnSubmit = vi.fn();
+const mockOnSubmit = vi.fn(); // mock the onsubmit function
 
 describe("The note input form", () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe("The note input form", () => {
   it("should show an error message when submitting an empty input", async () => {
     const submitButton = screen.getByRole("button");
 
-    fireEvent.click(submitButton);
+    fireEvent.click(submitButton); // click submit button
 
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "You must enter some text",
@@ -26,6 +26,7 @@ describe("The note input form", () => {
   it("should show an error message when submitting text less the min input length", async () => {
     const submitButton = screen.getByRole("button");
 
+    // input text less than min
     fireEvent.input(screen.getByRole("textbox"), {
       target: {
         value: "a",
@@ -42,6 +43,7 @@ describe("The note input form", () => {
   it("should show an error message when submitting text more than the max input length", async () => {
     const submitButton = screen.getByRole("button");
 
+    // input text more than max
     fireEvent.input(screen.getByRole("textbox"), {
       target: {
         value: "a".repeat(MAX_TEXT_INPUT_LENGTH + 1),

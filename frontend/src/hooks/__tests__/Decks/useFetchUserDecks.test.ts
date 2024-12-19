@@ -3,8 +3,7 @@ import useFetchUserDecks from "../../Decks/useFetchUserDecks"; // Adjust the imp
 import { mockDecks } from "@/mocks/data";
 
 describe("The useFetchUserDecks hook", () => {
-  beforeEach(() => {});
-
+  // FETCH USER DECKS WITH MOCKED API
   it("should fetch all user decks", async () => {
     const mockUserId = "1";
 
