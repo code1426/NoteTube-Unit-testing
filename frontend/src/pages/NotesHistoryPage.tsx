@@ -86,7 +86,7 @@ const NotesHistoryPage: React.FC = () => {
   return (
     <>
       <Toaster />
-      <div className="relative w-full bg-white dark:bg-gray-900 select-none overflow-auto scrollbar-custom h-screen">
+      <div className="relative w-full bg-white dark:bg-dark-background select-none overflow-auto scrollbar-custom h-screen">
         <Header
           isHomepage={false}
           isFlashCardsPage={false}

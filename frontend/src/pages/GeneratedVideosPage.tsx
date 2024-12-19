@@ -65,7 +65,7 @@ const GeneratedVideosPage = () => {
   return (
     <div
       id="main-page-screen-div"
-      className="bg-white relative font-secondaryRegular scrollbar-custom flex flex-col items-center w-full gap-4"
+      className="bg-white dark:bg-dark-background relative font-secondaryRegular scrollbar-custom flex flex-col items-center w-full gap-4"
     >
       <Header
         isHomepage={false}
@@ -76,7 +76,7 @@ const GeneratedVideosPage = () => {
       />
       <div
         id="generated-videos-name"
-        className="mt-[-2rem] text-green-700 font-primaryBold text-lg md:text-3xl lg:text-3xl xl:text-3xl py-1 px-8"
+        className="mt-[-2rem] text-green-700 dark:text-green font-primaryBold text-lg md:text-4xl lg:text-4xl xl:text-4xl py-1 px-8"
       >
         Videos From: {displayedNote!.title}
       </div>
@@ -91,7 +91,7 @@ const GeneratedVideosPage = () => {
           <div
             className={`h-${isMobile ? `[${mobileWidth * 0.8}px]` : "full"} w-${
               isMobile ? `[${mobileWidth}px]` : "full"
-            } flex justify-center border-2 rounded-2xl bg-black border-black overflow-hidden`}
+            } flex justify-center border-2 rounded-2xl bg-black border-black dark:border-dark-border overflow-hidden`}
             id="main-video-container"
           >
             <iframe
