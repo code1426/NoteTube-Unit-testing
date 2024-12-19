@@ -75,7 +75,7 @@ const FlashcardsPage: React.FC = () => {
   return (
     <>
       <Toaster />
-      <div className="bg-white relative w-full px- flex flex-col items-center pb-14 scrollbar-custom">
+      <div className="bg-white dark:bg-dark-background relative w-full px- flex flex-col items-center pb-14 scrollbar-custom">
         <Header
           isHomepage={false}
           isFlashCardsPage={true}
@@ -111,7 +111,7 @@ const FlashcardsPage: React.FC = () => {
         </Drawer>
 
         <div className="w-[90%]">
-          <div className="pb-10 text-green-700 text-2xl md:text-4xl lg:text-4xl xl:text-3xl flex gap-3 font-primaryBold align-middle items-center">
+          <div className="pb-10 text-green-700 dark:text-green text-2xl md:text-4xl lg:text-4xl xl:text-3xl flex gap-3 font-primaryBold align-middle items-center">
             {deckName}
           </div>
 
