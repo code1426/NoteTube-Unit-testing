@@ -24,7 +24,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
   return (
     <>
       <div
-        className="group cursor-pointer rounded-lg overflow-hidden shadow-md dark:bg-dark-foreground hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+        className="group cursor-pointer rounded-lg w-full overflow-hidden shadow-md dark:bg-dark-foreground hover:shadow-lg transition-all duration-300 transform hover:scale-105"
         onClick={() => setIsVideoOpen(true)}
       >
         <div className="relative">

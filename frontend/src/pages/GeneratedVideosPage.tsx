@@ -107,7 +107,7 @@ const GeneratedVideosPage = () => {
         >
           <ScrollArea
             id="videos"
-            className="gap-2 h-[calc(100vh-22rem)] md:h-[calc(100vh-18rem)] lg:h-[calc(100vh-18rem)] xl:h-[calc(100vh-18rem)] w-full flex flex-col justify-center"
+            className="gap-2 mx-4 md:mx-0 lg:mx-0 xl:mx-0 h-[calc(100vh-22rem)] md:h-[calc(100vh-18rem)] lg:h-[calc(100vh-18rem)] xl:h-[calc(100vh-18rem)] w-full flex flex-col justify-center"
           >
             {displayedNote.videos.map((video) =>
               video.videoId != selectedVideo ? (

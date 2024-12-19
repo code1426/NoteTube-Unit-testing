@@ -83,7 +83,7 @@ const FlashcardsQuizPage = () => {
           />
         ) : (
           <>
-            <Label className="w-full flex justify-center py-4 mb-4 text-4xl font-primaryBold dark:text-green text-green-700">
+            <Label className="w-full flex justify-center py-4 mb-4 text-xl md:text-4xl lg:text-4xl xl:text-4xl font-primaryBold dark:text-green text-green-700">
               {deckName}
             </Label>
             <div
