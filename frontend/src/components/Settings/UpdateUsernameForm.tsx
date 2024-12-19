@@ -20,7 +20,6 @@ const UpdateUsernameForm = () => {
   const { user } = useUser();
   const [newwUsername, setNewUsername] = useState(user?.username || "");
   const { newUsername, loading, error } = useUpdateUsername();
-  // const [isOpen, setIsOpen] = useState(false);
 
   const handleApply = async () => {
     if (!newwUsername || newwUsername === user?.username) {
@@ -54,7 +53,7 @@ const UpdateUsernameForm = () => {
   }, [error]);
 
   return (
-    <Dialog modal={true}>
+    <Dialog>
       <DialogTrigger asChild>
         <CiEdit size={20} />
       </DialogTrigger>
