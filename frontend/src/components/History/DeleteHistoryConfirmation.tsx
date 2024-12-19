@@ -9,11 +9,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import React from "react";
 import { PiTrash } from "react-icons/pi";
 
 interface DeleteHistoryConfirmationProps {
   id: string;
-  onDelete: () => void;
+  onDelete: (e: React.MouseEvent) => Promise<void>;
 }
 
 const DeleteHistoryConfirmation = ({
