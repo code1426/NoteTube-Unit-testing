@@ -1,18 +1,14 @@
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { NoteWithVideos } from "../../types/note.types";
 import { useNavigate } from "react-router-dom";
-// import HistoryGeneratedVideoThumbnail from "./GeneratedVideoThumbnail";
 import DeleteHistoryConfirmation from "./DeleteHistoryConfirmation";
 import toast from "react-hot-toast";
 import useDeleteNote from "@/hooks/Notes/useDeleteNote";
-// import { useIsMobile } from "@/hooks/use-mobile";
 import { HoverCard, HoverCardTrigger } from "@radix-ui/react-hover-card";
-import HoverHistoryNotesCard from "./HoverHistoryNotesCard";
 import { formatDistanceToNow } from "date-fns";
 
 const NotesHistoryCard = ({ id, title, createdAt }: NoteWithVideos) => {
   const { deleteNote } = useDeleteNote(id);
-  // const isMobile = useIsMobile();
   const navigate = useNavigate();
 
   const handleConfirmDelete = async (e: React.MouseEvent) => {
@@ -41,12 +37,11 @@ const NotesHistoryCard = ({ id, title, createdAt }: NoteWithVideos) => {
             <HoverCardTrigger>
               <CardTitle
                 className="text-left truncate text-lg font-semibold"
-                title={title}
+                title={""}
               >
                 {title}
               </CardTitle>
             </HoverCardTrigger>
-            <HoverHistoryNotesCard title={title} createdAt={createdAt} />
           </HoverCard>
           <p className="text-sm text-muted-foreground mt-1">
             {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}

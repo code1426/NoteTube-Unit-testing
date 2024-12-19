@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import VideoCard from "@/components/Videos/GeneratedVideo";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { NotesContext } from "@/context/Contexts";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const GeneratedVideosPage = () => {
   const { notes } = useContext(NotesContext);
@@ -29,7 +30,7 @@ const GeneratedVideosPage = () => {
       console.log(notes);
       if (notes.length > 0) {
         setDisplayedNote(notes[0] as NoteWithVideos);
-        setSelectedVideo(notes[0].videos[0].videoId);
+        setSelectedVideo(notes[0].videos[notes[0].videos.length - 1].videoId);
         console.log("Note ", displayedNote, " Selected Video ", selectedVideo);
       }
       if (isMobile !== null) {
@@ -104,23 +105,24 @@ const GeneratedVideosPage = () => {
           id="ai-generated-videos"
           className=" my-1 p-2 h-full flex-1 flex w-auto"
         >
-          <div className="h-auto w-full">
-            <div id="videos" className="gap-2 flex flex-col justify-center">
-              {displayedNote.videos.map((video) =>
-                video.videoId != selectedVideo ? (
-                  <VideoCard
-                    key={video.videoId}
-                    videoId={video.videoId}
-                    thumbnailUrl={video.thumbnailUrl}
-                    title={video.title}
-                    onClickFunction={HandleVideoSelect}
-                  />
-                ) : (
-                  <></>
-                ),
-              )}
-            </div>
-          </div>
+          <ScrollArea
+            id="videos"
+            className="gap-2 h-[calc(100vh-22rem)] md:h-[calc(100vh-18rem)] lg:h-[calc(100vh-18rem)] xl:h-[calc(100vh-18rem)] w-full flex flex-col justify-center"
+          >
+            {displayedNote.videos.map((video) =>
+              video.videoId != selectedVideo ? (
+                <VideoCard
+                  key={video.videoId}
+                  videoId={video.videoId}
+                  thumbnailUrl={video.thumbnailUrl}
+                  title={video.title}
+                  onClickFunction={HandleVideoSelect}
+                />
+              ) : (
+                <></>
+              ),
+            )}
+          </ScrollArea>
         </div>
       </div>
     </div>

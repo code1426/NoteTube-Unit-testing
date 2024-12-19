@@ -139,9 +139,7 @@ const HomePage = () => {
         },
       );
 
-      const suggestedVideos = await videoSuggestionsLoad
-        .unwrap()
-        .then((videos) => videos?.slice(0, 5));
+      const suggestedVideos = await videoSuggestionsLoad.unwrap();
 
       if (!suggestedVideos) {
         throw new Error("Failed to get suggested videos");

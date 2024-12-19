@@ -1,70 +1,60 @@
-import Header from "../components/Header/Header";
+import React from "react";
 import { useParams } from "react-router-dom";
-import toast from "react-hot-toast";
-import LoadingScreen from "@/components/LoadingScreen";
+import { toast } from "react-hot-toast";
 import useFetchNote from "@/hooks/Notes/useFetchNote";
-import SummaryContainer from "@/components/Notes/SummaryContainer";
-import VideoCard from "@/components/Notes/VideoCard";
+import { BookOpen, Video } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import NoteContent from "@/components/Notes/NoteContent";
+import VideoList from "@/components/Notes/VIdeoList";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const NotePage: React.FC = () => {
   const { noteId } = useParams<{ noteId: string }>();
   const { note, noteLoading, noteError } = useFetchNote(noteId!);
 
-  if (noteError) {
-    console.error(noteError);
-    toast.error("Error fetching user note.");
-  }
+  React.useEffect(() => {
+    if (noteError) {
+      console.error(noteError);
+      toast.error("Error fetching note. Please try again.");
+    }
+  }, [noteError]);
 
   if (noteLoading || !note) {
-    return <LoadingScreen message="Loading note..." />;
+    return <LoadingScreen message="Loading notes..." />;
   }
 
   return (
-    <div className="w-full min-h-screen flex flex-col md:flex-row overflow-x-hidden bg-white dark:bg-dark-background text-gray-900 dark:text-gray-100">
-      <div className="flex flex-col md:w-9/12">
-        <Header
-          isHomepage={false}
-          isFlashCardsPage={false}
-          isSectionTitleOnly={true}
-          sectionTitle={note!.title}
-          onAdd={() => {}}
-          hasAddButton={false}
-        />
-        <div className="flex-1 flex flex-col items-center px-2 py-4 space-y-4 md:px-4 lg:px-6">
-          <SummaryContainer content={note!.content} />
-        </div>
-      </div>
+    <div className="container mx-auto px-4 mt-14 py-8 max-w-7xl">
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight">{note.title}</h1>
+        <p className="text-muted-foreground mt-2">
+          Created on {new Date(note.createdAt).toLocaleDateString()}
+        </p>
+      </header>
 
-      <div className="flex flex-col overflow-x-hidden border-2 border-gray-200 dark:border-gray-700 h-auto md:h-screen justify-center items-center w-full md:w-auto px-2">
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 px-5 md:pt-12 my-6">
-          Related Videos
-        </h2>
-
-        <div className="w-full">
-          <div className="md:w-auto w-full overflow-auto">
-            <div className="scrollbar-custom overflow-auto flex gap-4 md:flex-col flex-row h-auto md:h-[32rem] w-full md:w-auto">
-              {note!.videos.length === 0 ? (
-                <p className="text-gray-500 dark:text-gray-400 italic mx-auto">
-                  No videos found for this note...
-                </p>
-              ) : (
-                note!.videos!.map((generatedVideo) => (
-                  <div
-                    className="max-w-72 flex-shrink-0"
-                    key={generatedVideo.videoId}
-                  >
-                    <VideoCard
-                      videoId={generatedVideo.videoId}
-                      thumbnailUrl={generatedVideo.thumbnailUrl}
-                      title={generatedVideo.title}
-                    />
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Tabs defaultValue="content" className="w-full">
+        <TabsList className="mb-4">
+          <TabsTrigger value="content" className="flex items-center">
+            <BookOpen className="w-4 h-4 mr-2" />
+            Note Content
+          </TabsTrigger>
+          <TabsTrigger value="videos" className="flex items-center">
+            <Video className="w-4 h-4 mr-2" />
+            Related Videos
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="content">
+          <ScrollArea className="h-[calc(100vh-22rem)] md:h-[calc(100vh-19rem)] lg:h-[calc(100vh-19rem)] xl:h-[calc(100vh-19rem)] pr-4">
+            <NoteContent content={note.content} />
+          </ScrollArea>
+        </TabsContent>
+        <TabsContent value="videos">
+          <ScrollArea className="h-[calc(100vh-22rem)] md:h-[calc(100vh-19rem)] lg:h-[calc(100vh-19rem)] xl:h-[calc(100vh-19rem)] pr-4">
+            <VideoList videos={note.videos} />
+          </ScrollArea>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
