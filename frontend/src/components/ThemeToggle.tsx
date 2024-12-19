@@ -1,13 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { ThemeContext } from "@/context/Contexts";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -22,37 +21,42 @@ export function ThemeToggle() {
     return null;
   }
 
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    console.log(`Switching to ${newTheme} mode`);
+    setTheme(newTheme);
+  };
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-full justify-start px-2 py-1.5 text-sm hover:dark:bg-dark-foreground"
-        >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="ml-2">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          onClick={() => {
-            console.log("Switching to light mode");
-            setTheme("light");
-          }}
-        >
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            console.log("Switching to dark mode");
-            setTheme("dark");
-          }}
-        >
-          Dark
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            onClick={toggleTheme}
+            className={`
+              w-14 h-7 rounded-full p-1 transition-colors duration-200 ease-in-out
+              ${theme === "dark" ? "bg-dark-foreground" : "bg-gray-200"}
+            `}
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+          >
+            <div
+              className={`
+                w-5 h-5 rounded-full transition-transform duration-200 ease-in-out flex items-center justify-center
+                ${theme === "dark" ? "translate-x-7 bg-white" : "translate-x-0 bg-white"}
+              `}
+            >
+              {theme === "light" ? (
+                <Sun className="h-4 w-4 text-yellow-500" />
+              ) : (
+                <Moon className="h-4 w-4 text-blue-500" />
+              )}
+            </div>
+          </button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{theme === "dark" ? "Dark Mode" : "Light Mode"}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }

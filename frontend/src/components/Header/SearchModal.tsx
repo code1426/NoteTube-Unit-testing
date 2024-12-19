@@ -22,10 +22,10 @@ const SearchCardModal = ({ onClose, onSearch }: SearchCardModalProps) => {
   };
 
   return (
-    <Card className="flex-grow absolute top-12 right-0 z-50 bg-white p-2 rounded-lg shadow-lg w-[20rem] border border-gray-300 mr-7">
+    <Card className="flex-grow absolute top-12 right-0 z-50 bg-white dark:bg-dark-background  p-2 rounded-lg shadow-lg w-[20rem] border border-gray-300 mr-7">
       {/* Header */}
       <CardHeader className="grid grid-cols-2">
-        <h2 className="self-start">Search</h2>
+        <h2 className="self-start font-secondaryRegular">Search</h2>
         <button
           className="self-start justify-self-end text-gray-500 hover:text-red-500"
           onClick={onClose}
@@ -41,7 +41,7 @@ const SearchCardModal = ({ onClose, onSearch }: SearchCardModalProps) => {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           placeholder="Type to search..."
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 transition-all focus:ring-offset-2 focus:ring-green"
+          className="w-full dark:bg-dark-background px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 transition-all focus:ring-offset-2 focus:ring-green"
         />
       </CardContent>
 

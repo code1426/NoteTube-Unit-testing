@@ -139,7 +139,7 @@ const FlashcardsPage: React.FC = () => {
               <Link
                 to={`/quiz/${deckId}`}
                 state={{ deckName }}
-                className="flex px-8 py-2 fixed items-center justify-center bottom-0 left-0 right-0 bg-white"
+                className="flex px-8 py-2 fixed items-center justify-center bottom-0 left-0 right-0 dark:bg-dark-background bg-white"
               >
                 <button
                   className={`flex md:hidden lg:hidden xl:hidden max-w-96 flex-row w-full h-12 items-center justify-center bg-green rounded-full text-white text-xl gap-4 active:bg-green_hover`}

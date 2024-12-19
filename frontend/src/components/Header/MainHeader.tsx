@@ -2,6 +2,7 @@ import { SidebarTrigger } from "../ui/sidebar";
 import { useSidebar } from "../ui/sidebar";
 import ProfileDropdown from "./ProfileDropdown";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeToggle } from "../ThemeToggle";
 
 const MainHeader = () => {
   const { toggleSidebar } = useSidebar();
@@ -22,7 +23,10 @@ const MainHeader = () => {
               </span>
             </div>
           </div>
-          <ProfileDropdown />
+          <div className="gap-4 flex flex-row items-center">
+            <ThemeToggle />
+            <ProfileDropdown />
+          </div>
         </div>
       </TooltipProvider>
     </>
