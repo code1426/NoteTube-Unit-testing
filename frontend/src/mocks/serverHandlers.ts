@@ -1,4 +1,4 @@
-import { http, HttpResponse } from "msw"; // msw supports graphql too!
+import { http, HttpResponse } from "msw";
 import { mockDecks } from "./data";
 
 const handlers = [

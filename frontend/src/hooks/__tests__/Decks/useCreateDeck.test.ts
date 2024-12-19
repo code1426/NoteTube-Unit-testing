@@ -3,8 +3,7 @@ import { mockAddDeck } from "@/mocks/data";
 import useCreateDeck from "../../Decks/useCreateDeck";
 
 describe("The useCreateDeck hook", () => {
-  beforeEach(() => {});
-
+  // CREATE A NEW DECK WITH MOCKED API
   it("should create a new deck successfully", async () => {
     const { result } = await waitFor(() => renderHook(() => useCreateDeck()));
     const createDeck = result.current.createDeck;
