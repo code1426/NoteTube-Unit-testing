@@ -31,7 +31,7 @@ const NotesHistoryCard = ({ id, title, createdAt }: NoteWithVideos) => {
 
   return (
     <Card
-      className="shadow-md w-full max-w-5xl cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02]"
+      className="shadow-md w-full max-w-5xl cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02] dark:bg-dark-foreground"
       onClick={handleCardClick}
     >
       <CardHeader className="flex-row items-center justify-between border-b p-4">

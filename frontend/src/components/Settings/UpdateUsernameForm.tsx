@@ -57,7 +57,7 @@ const UpdateUsernameForm = () => {
       <DialogTrigger asChild>
         <CiEdit size={20} />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] dark:bg-dark-background">
         <DialogHeader>
           <DialogTitle>Update Username</DialogTitle>
           <DialogDescription>Click save when you're done.</DialogDescription>

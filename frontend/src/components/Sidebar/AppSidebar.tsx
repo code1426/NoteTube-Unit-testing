@@ -56,7 +56,7 @@ const AppSidebar = () => {
           size="lg"
           asChild
           onClick={toggleSidebar}
-          className="h-12 select-none font-secondaryRegular hover:text-green text-green"
+          className="h-12 select-none font-secondaryRegular hover:dark:bg-dark-foreground hover:text-green text-green"
         >
           <div>
             <img src="../logo.svg" alt="Logo" className="w-8 h-8 mb-2" />
