@@ -15,7 +15,7 @@ export const VideoCard = ({
 }: GeneratedVideo) => {
   return (
     <Card
-      className="flex flex-row py-2 px-2 shadow-md"
+      className="flex flex-row py-2 px-2 shadow-md mb-2"
       onClick={() => onClickFunction(videoId)}
     >
       <div

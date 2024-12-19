@@ -78,7 +78,7 @@ const FAQs = () => {
             Yes, there is a limit. Since this app is free, we are using free
             storage systems to deploy our app. That's why there is a limit to
             the number of times you can upload your notes, as our database can
-            only hold up to 50 rows.
+            only hold up to 500 rows.
           </AccordionContent>
         </AccordionItem>
       </Accordion>

@@ -31,7 +31,7 @@ const DeleteUserForm = () => {
       <AlertDialogTrigger asChild>
         <button>Delete Account</button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="dark:bg-dark-background">
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
@@ -40,7 +40,7 @@ const DeleteUserForm = () => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="bg-green text-white hover:bg-green_hover hover:text-white">
+          <AlertDialogCancel className="bg-white text-black hover:bg-dark-foreground hover:text-white">
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction

@@ -14,7 +14,6 @@ import {
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuItem,
 } from "../ui/dropdown-menu";
 import {
   Dialog,
@@ -59,9 +58,7 @@ const ProfileDropdown = () => {
 
             <DropdownMenuSeparator className=" bg-gray-300 dark:bg-dark-border" />
 
-            <DropdownMenuItem asChild>
-              <ThemeToggle />
-            </DropdownMenuItem>
+            <ThemeToggle />
 
             <DropdownMenuSeparator className="bg-gray-300 dark:bg-dark-border" />
 
