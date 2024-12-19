@@ -1,5 +1,4 @@
 import {
-  AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
@@ -7,7 +6,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import useDeleteUser from "@/hooks/User/useDeleteUser";
 import useUser from "@/hooks/auth/useUser";
