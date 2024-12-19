@@ -42,8 +42,10 @@ const LogoutConfirmation = ({ children }: Props) => {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger>{children}</AlertDialogTrigger>
-      <AlertDialogContent title="log out" className="dark:bg-dark-background">
+      <AlertDialogTrigger asChild>
+        <div className="w-full">{children}</div>
+      </AlertDialogTrigger>
+      <AlertDialogContent className="dark:bg-dark-background">
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure you want to log out?</AlertDialogTitle>
           <AlertDialogDescription>
