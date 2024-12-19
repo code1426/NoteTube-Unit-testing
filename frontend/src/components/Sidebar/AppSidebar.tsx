@@ -45,7 +45,11 @@ const AppSidebar = () => {
   const location = useLocation();
 
   return (
-    <Sidebar variant="sidebar" collapsible="icon" className="bg-white">
+    <Sidebar
+      variant="sidebar"
+      collapsible="icon"
+      className="bg-white dark:bg-dark-background dark:border-dark-border"
+    >
       <SidebarHeader>
         <SidebarMenuButton
           variant="header"
@@ -60,7 +64,7 @@ const AppSidebar = () => {
           </div>
         </SidebarMenuButton>
       </SidebarHeader>
-      <SidebarSeparator className="border-gray-200 border-t" />
+      <SidebarSeparator className="border-gray-200 border-t dark:border-dark-background" />
       <SidebarContent>
         <SidebarGroup>
           {/* <SidebarGroupLabel>Menu</SidebarGroupLabel> */}
@@ -69,7 +73,7 @@ const AppSidebar = () => {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
-                    className={`transition-all hover:bg-gray-200 active:bg-gray-200`}
+                    className={`transition-all hover:bg-gray-200 hover:dark:bg-dark-foreground active:bg-gray-200`}
                     asChild
                     size={"lg"}
                     tooltip={item.title}

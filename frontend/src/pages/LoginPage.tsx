@@ -102,7 +102,7 @@ const LoginPage = ({ setAuth }: Props) => {
     <div>
       <Toaster position="top-center" reverseOrder={false} />
       <div className="main min-h-screen w-screen flex flex-col justify-center blur-sm items-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat" />
-      <div className="bg-gray-300 fixed top-0 right-0 left-0 bottom-0 opacity-40" />
+      <div className="bg-gray-300 dark:bg-dark-background fixed top-0 right-0 left-0 bottom-0 opacity-40" />
       <div className="min-h-screen w-screen flex flex-col fixed top-0 right-0 left-0 bottom-0 justify-center items-center bg-opacity-70">
         <Card className="flex items-center justify-center flex-col min-w-80 w-5/6 max-w-[450px] shadow-md">
           <CardHeader className="flex self-start px-9">

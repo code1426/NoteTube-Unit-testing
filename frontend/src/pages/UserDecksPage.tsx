@@ -59,7 +59,7 @@ const UserDecksPage: React.FC = () => {
   return (
     <>
       <Toaster />
-      <div className="overflow-auto pb-4 h-screen w-full relative bg-white flex flex-col items-center scrollbar-custom">
+      <div className="overflow-auto pb-4 h-screen w-full relative bg-white dark:bg-dark-background flex flex-col items-center scrollbar-custom">
         <Header
           isHomepage={false}
           isFlashCardsPage={false}

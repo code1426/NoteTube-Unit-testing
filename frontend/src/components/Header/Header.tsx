@@ -90,7 +90,7 @@ const Header: React.FC<SubHeaderProps> = ({
       <TooltipProvider>
         <div className="sticky top-0 mt-16 mb-4 w-full">
           <div className="subheader h-16 w-full flex flex-row justify-between items-center select-none">
-            <div className="text-black flex font-secondaryRegular items-center text-responsive">
+            <div className="text-black dark:text-white flex font-secondaryRegular items-center text-responsive">
               {!isHomepage && (
                 <Tooltip>
                   <TooltipTrigger>
