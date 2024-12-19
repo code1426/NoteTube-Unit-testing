@@ -36,8 +36,6 @@ const useFetchNotes = (userId: string): FetchNotesResult => {
         );
 
         if (!response.ok) {
-          const errorData = await response.json();
-          console.log(errorData);
           setError(
             "Request to fetch notes failed with status: " + response.status,
           );

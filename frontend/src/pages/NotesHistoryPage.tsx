@@ -27,7 +27,6 @@ const NotesHistoryPage = () => {
   useEffect(() => {
     if (notes) {
       setDisplayedNotes(notes);
-      console.log(displayedNotes);
     }
   }, [notes]);
 

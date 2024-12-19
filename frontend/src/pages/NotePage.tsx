@@ -11,7 +11,6 @@ const NotePage: React.FC = () => {
   const { note, noteLoading, noteError } = useFetchNote(noteId!);
 
   if (noteError) {
-    console.error(noteError);
     toast.error("Error fetching user note.");
   }
 

@@ -30,8 +30,6 @@ const useUpdateFlashcard = (flashcardId: string) => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
         setError(
           "Request to update flashcard failed with status: " + response.status,
         );

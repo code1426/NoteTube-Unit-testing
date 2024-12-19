@@ -15,7 +15,6 @@ export function ThemeToggle() {
 
   useEffect(() => {
     setMounted(true);
-    console.log("ThemeToggle mounted, current theme:", theme);
   }, [theme]);
 
   if (!mounted) {
@@ -38,7 +37,6 @@ export function ThemeToggle() {
       <DropdownMenuContent align="end">
         <DropdownMenuItem
           onClick={() => {
-            console.log("Switching to light mode");
             setTheme("light");
           }}
         >
@@ -46,7 +44,6 @@ export function ThemeToggle() {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
-            console.log("Switching to dark mode");
             setTheme("dark");
           }}
         >

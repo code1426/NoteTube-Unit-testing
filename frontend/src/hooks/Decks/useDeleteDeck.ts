@@ -20,8 +20,6 @@ const useDeleteDeck = (deckId: string) => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
         setError(
           `Request to delete deck failed with status: ${response.status}`,
         );
@@ -34,7 +32,6 @@ const useDeleteDeck = (deckId: string) => {
       setDecks(decks!.filter((deck) => deck.id !== deckId));
       return { success: true, error: null };
     } catch (error) {
-      console.error(error);
       setError("Failed to delete deck");
       return { success: false, error: "Failed to delete deck" };
     }

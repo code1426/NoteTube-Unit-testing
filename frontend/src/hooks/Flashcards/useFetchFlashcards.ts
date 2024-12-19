@@ -30,8 +30,6 @@ const useFetchFlashcards = (deckId: string): FetchFlashcardsResult => {
         );
 
         if (!response.ok) {
-          const errorData = await response.json();
-          console.log(errorData);
           setError(
             "Request to fetch flashcards failed with status: " +
               response.status,

@@ -73,7 +73,7 @@ const FilterCardModal = ({ onClose, onApply }: FilterCardModalProps) => {
       {/* Footer */}
       <CardFooter className="justify-end">
         <button
-          className="justify-end bg-green hover:bg-green_hover text-sm font-medium text-white px-4 py-2 rounded-lg hover:bg-green-600"
+          className="justify-end bg-green hover:bg-green_hover text-sm font-medium text-white px-4 py-2 rounded-lg"
           onClick={handleApply}
         >
           Apply

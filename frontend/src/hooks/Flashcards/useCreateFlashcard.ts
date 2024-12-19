@@ -33,8 +33,6 @@ const useCreateFlashcard = () => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
         setError(
           "Request to create flashcard failed with status: " + response.status,
         );
@@ -59,7 +57,6 @@ const useCreateFlashcard = () => {
         return { success: true, flashcard: flashcard };
       }
     } catch (error) {
-      console.error("Error creating flashcard:", error);
       return { success: false, error: "Failed to create flashcard" };
     } finally {
       setLoading(false);

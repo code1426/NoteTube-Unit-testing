@@ -39,7 +39,6 @@ const useEditUser = () => {
       const responseData = await response.json();
 
       if (!response.ok) {
-        console.error("Error updating password:", responseData.message);
         setError(responseData.message || "Failed to update password.");
         return { success: false, error: responseData.message };
       }

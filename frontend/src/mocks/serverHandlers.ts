@@ -32,8 +32,6 @@ const handlers = [
     const deckId = params.id;
     const updatedDeck = await request.json();
 
-    console.log("po", updatedDeck);
-
     if (!deckId) {
       return new HttpResponse(null, { status: 400 });
     }

@@ -58,7 +58,6 @@ const FlashcardsQuizPage = () => {
   if (loading) return <LoadingScreen message="Loading quiz..." />;
 
   if (error) {
-    console.error(error);
     toast.error("Error fetching flashcards.");
     return null;
   }

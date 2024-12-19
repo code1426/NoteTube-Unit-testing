@@ -45,7 +45,6 @@ const HomePage = () => {
     generatedFlashcards: GeneratedFlashcard[],
   ) => {
     try {
-      console.log(generatedFlashcards);
       const flashcards = generatedFlashcards.map((item) => ({
         id: "",
         ...item,

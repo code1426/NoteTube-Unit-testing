@@ -14,12 +14,9 @@ const separateNotesWithVideos = (
 
   const newData: NoteWithVideos[] = [];
 
-  console.log(fetchedData);
-
   for (const data of fetchedData) {
     // Skip entries without valid videoId or noteId
     if (!data.id || !data.title || !data.content || !data.created_at) {
-      console.warn("Skipping invalid entry:", data);
       continue;
     }
 
