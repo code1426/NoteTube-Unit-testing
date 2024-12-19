@@ -157,6 +157,48 @@ export default {
           4: "hsl(var(--chart-4))",
           5: "hsl(var(--chart-5))",
         },
+        dark: {
+          background: "#282828",
+          foreground: "#3f3f3f",
+          card: {
+            DEFAULT: "hsl(var(--card-dark, 210, 25%, 15%))",
+            foreground: "hsl(var(--card-foreground-dark, 210, 30%, 88%))",
+          },
+          popover: {
+            DEFAULT: "hsl(var(--popover-dark, 210, 25%, 12%))",
+            foreground: "hsl(var(--popover-foreground-dark, 210, 30%, 90%))",
+          },
+          primary: {
+            DEFAULT: "hsl(var(--primary-dark, 210, 100%, 55%))",
+            foreground: "hsl(var(--primary-foreground-dark, 210, 30%, 96%))",
+          },
+          secondary: {
+            DEFAULT: "hsl(var(--secondary-dark, 210, 18%, 20%))",
+            foreground: "hsl(var(--secondary-foreground-dark, 210, 25%, 85%))",
+          },
+          muted: {
+            DEFAULT: "hsl(var(--muted-dark, 210, 15%, 18%))",
+            foreground: "hsl(var(--muted-foreground-dark, 210, 20%, 80%))",
+          },
+          accent: {
+            DEFAULT: "hsl(var(--accent-dark, 160, 50%, 40%))",
+            foreground: "hsl(var(--accent-foreground-dark, 160, 20%, 95%))",
+          },
+          destructive: {
+            DEFAULT: "hsl(var(--destructive-dark, 0, 70%, 40%))",
+            foreground: "hsl(var(--destructive-foreground-dark, 0, 20%, 95%))",
+          },
+          border: "#717171",
+          input: "#575757",
+          ring: "hsl(var(--ring-dark, 210, 50%, 40%))",
+          chart: {
+            1: "hsl(var(--chart-1-dark, 210, 80%, 55%))",
+            2: "hsl(var(--chart-2-dark, 160, 60%, 45%))",
+            3: "hsl(var(--chart-3-dark, 50, 70%, 50%))",
+            4: "hsl(var(--chart-4-dark, 30, 80%, 55%))",
+            5: "hsl(var(--chart-5-dark, 340, 70%, 50%))",
+          },
+        },
       },
       fontFamily: {
         secondaryRegular: ["Secondary-Regular"],

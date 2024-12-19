@@ -87,7 +87,7 @@ const NoteInputForm = ({ onSubmit, disabled }: NoteInputFormProps) => {
   };
 
   return (
-    <Card className="w-11/12 place-self-center pt-4">
+    <Card className="w-11/12 place-self-center pt-4 bg-white dark:bg-dark-foreground dark:border-dark-border">
       <CardContent>
         <Tabs defaultValue="text" className="flex flex-col gap-3">
           <TabsList className="w-1/2 flex">

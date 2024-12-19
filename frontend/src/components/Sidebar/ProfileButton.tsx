@@ -30,7 +30,7 @@ const ProfileButton = ({ isDropdown = false }: Props) => {
 
   return (
     <div
-      className={`outline-none cursor-pointer  gap-2 px-1 rounded-full transition-all flex flex-col justify-center items-center ${isDropdown && "hover:bg-white min-w-44 w-60 active:bg-white"}`}
+      className={`outline-none cursor-pointer  gap-2 px-1 rounded-full transition-all flex flex-col justify-center items-center ${isDropdown && "hover:bg-white min-w-44 w-60 hover:dark:bg-dark-foreground active:bg-white"}`}
     >
       <Avatar className={` ${isDropdown && "w-20 h-20 border-2 border-green"}`}>
         <AvatarFallback className={`text-xl ${isDropdown && "text-4xl"}`}>
