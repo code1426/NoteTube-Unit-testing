@@ -20,7 +20,7 @@ const NotePage: React.FC = () => {
   }
 
   return (
-    <div className="w-full min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+    <div className="w-full min-h-screen flex flex-col md:flex-row overflow-x-hidden bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div className="flex flex-col md:w-9/12">
         <Header
           isHomepage={false}
@@ -35,8 +35,8 @@ const NotePage: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex flex-col overflow-x-hidden border-2 h-auto md:h-screen justify-center items-center w-full md:w-auto px-2">
-        <h2 className="text-xl font-semibold text-gray-800 px-5 md:pt-12 my-6">
+      <div className="flex flex-col overflow-x-hidden border-2 border-gray-200 dark:border-gray-700 h-auto md:h-screen justify-center items-center w-full md:w-auto px-2">
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 px-5 md:pt-12 my-6">
           Related Videos
         </h2>
 
@@ -44,7 +44,7 @@ const NotePage: React.FC = () => {
           <div className="md:w-auto w-full overflow-auto">
             <div className="scrollbar-custom overflow-auto flex gap-4 md:flex-col flex-row h-auto md:h-[32rem] w-full md:w-auto">
               {note!.videos.length === 0 ? (
-                <p className="text-gray-500 italic mx-auto">
+                <p className="text-gray-500 dark:text-gray-400 italic mx-auto">
                   No videos found for this note...
                 </p>
               ) : (

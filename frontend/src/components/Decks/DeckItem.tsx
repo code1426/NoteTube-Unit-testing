@@ -17,7 +17,7 @@ const DeckItem = ({
   return (
     <>
       <TooltipProvider>
-        <div className="w-full border border-gray-300 rounded-3xl bg-white hover:shadow-md shadow-gray-500 min-h-50 select-none">
+        <div className="w-full border border-gray-300 rounded-3xl bg-white hover:shadow-md dark:bg-dark-foreground dark:border-dark-border shadow-gray-500 min-h-50 select-none">
           <div
             className="w-full h-16 rounded-t-3xl flex items-center justify-end px-4"
             style={{ backgroundColor: color }}

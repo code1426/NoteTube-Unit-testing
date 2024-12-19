@@ -52,8 +52,11 @@ const ManageDeckDropdown = ({
       <Tooltip>
         <TooltipTrigger>
           <DropdownMenuTrigger>
-            <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-300">
-              <PiDotsThreeCircle size={30} color="white" />
+            <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-300 hover:dark:bg-dark-input">
+              <PiDotsThreeCircle
+                size={30}
+                className="dark:text-dark-foreground text-white"
+              />
             </button>
           </DropdownMenuTrigger>
         </TooltipTrigger>

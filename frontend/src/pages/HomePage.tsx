@@ -234,7 +234,7 @@ const HomePage = () => {
   return (
     <>
       {/* <Toaster /> */}
-      <div className="relative w-full min-h-screen bg-white overflow-auto flex flex-col scrollbar-custom h-screen">
+      <div className="relative w-full min-h-screen bg-white dark:bg-dark-background overflow-auto flex flex-col scrollbar-custom h-screen">
         <GreetingsBanner />
         <Header
           isHomepage={true}
