@@ -20,7 +20,7 @@ const NotePage: React.FC = () => {
   }
 
   return (
-    <div className="w-full min-h-screen flex flex-col md:flex-row overflow-x-hidden bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="w-full min-h-screen flex flex-col md:flex-row overflow-x-hidden bg-white dark:bg-dark-background text-gray-900 dark:text-gray-100">
       <div className="flex flex-col md:w-9/12">
         <Header
           isHomepage={false}

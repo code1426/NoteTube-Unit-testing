@@ -20,7 +20,6 @@ const UpdateUsernameForm = () => {
   const { user } = useUser();
   const [newwUsername, setNewUsername] = useState(user?.username || "");
   const { newUsername, loading, error } = useUpdateUsername();
-  const [isOpen, setIsOpen] = useState(false);
 
   const handleApply = async () => {
     if (!newwUsername || newwUsername === user?.username) {
@@ -40,7 +39,7 @@ const UpdateUsernameForm = () => {
 
     if (result.success) {
       console.log("Saved:", { username: result.user?.username });
-      setIsOpen(false);
+      // setIsOpen(false);
       toast.success("Username changed");
       window.location.reload();
     }
@@ -54,11 +53,11 @@ const UpdateUsernameForm = () => {
   }, [error]);
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog>
       <DialogTrigger asChild>
         <CiEdit size={20} />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] dark:bg-dark-background">
         <DialogHeader>
           <DialogTitle>Update Username</DialogTitle>
           <DialogDescription>Click save when you're done.</DialogDescription>
@@ -69,6 +68,7 @@ const UpdateUsernameForm = () => {
               Username
             </Label>
             <Input
+              autoFocus
               id="username"
               value={newwUsername}
               placeholder="Enter a new username"

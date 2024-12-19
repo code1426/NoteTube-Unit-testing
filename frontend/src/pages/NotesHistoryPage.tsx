@@ -59,7 +59,7 @@ const NotesHistoryPage = () => {
   return (
     <>
       <Toaster />
-      <div className="relative w-full bg-white select-none overflow-auto scrollbar-custom h-screen scrollbar-custom">
+      <div className="relative w-full bg-white dark:bg-dark-background select-none overflow-auto scrollbar-custom h-screen scrollbar-custom">
         <Header
           isHomepage={false}
           isFlashCardsPage={false}
@@ -69,7 +69,7 @@ const NotesHistoryPage = () => {
           onApplyOptions={handleApplyFilters}
           onSearch={handleSearch}
         />
-        <div className="flex flex-col h-screen w-full justify-start items-center mb-8 gap-8 p-4 select-none">
+        <div className="flex flex-col h-screen w-full justify-start items-center mb-8 gap-2 p-4 select-none">
           {!displayedNotes || displayedNotes?.length === 0 ? (
             <div className="p-5">
               <NoItemsContainerBox

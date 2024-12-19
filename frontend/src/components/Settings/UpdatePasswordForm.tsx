@@ -67,7 +67,7 @@ const UpdatePasswordForm: React.FC = () => {
   return (
     <>
       <Toaster />
-      <DialogContent>
+      <DialogContent className="dark:bg-dark-background">
         <DialogHeader>
           <DialogTitle>Update Password</DialogTitle>
           <DialogDescription>

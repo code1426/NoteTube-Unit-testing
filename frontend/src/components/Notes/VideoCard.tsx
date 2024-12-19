@@ -18,7 +18,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
   return (
     <>
       <div
-        className="cursor-pointer rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+        className="cursor-pointer rounded-lg overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300"
         onClick={() => setVideoPanelState(videoId)}
       >
         <img
@@ -26,10 +26,10 @@ const VideoCard: React.FC<VideoCardProps> = ({
           src={thumbnailUrl}
           alt={title}
         />
-        <div className="bg-white px-4 py-3">
+        <div className="bg-white dark:bg-dark-foreground px-4 py-3">
           <HoverCard>
             <HoverCardTrigger>
-              <h3 className="text-sm font-medium text-gray-800 line-clamp-2">
+              <h3 className="text-sm font-medium text-gray-800 dark:text-white line-clamp-2">
                 {title}
               </h3>
             </HoverCardTrigger>
@@ -44,7 +44,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
           onClick={() => setVideoPanelState(null)}
         >
           <div
-            className="bg-white w-full max-w-7xl p-4 rounded-lg"
+            className="bg-white dark:bg-dark-background w-full max-w-7xl p-4 rounded-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <iframe

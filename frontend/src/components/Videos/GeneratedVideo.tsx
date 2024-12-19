@@ -20,15 +20,13 @@ export const VideoCard = ({
     >
       <div
         id="video-thumbnail-container"
-        className="border-2 border-black h-24 w-36 rounded-2xl bg-black overflow-hidden flex justify-center items-center"
+        className="border border-black h-24 w-36 rounded-2xl bg-black overflow-hidden flex justify-center items-center"
       >
-        <div className="h-360 w-full flex justify-center">
-          <img
-            src={thumbnailUrl}
-            alt={title}
-            className="object-scale-down"
-          ></img>
-        </div>
+        <img
+          src={thumbnailUrl}
+          alt={title}
+          className="h-full w-full object-fill rounded-xl"
+        />
       </div>
       <CardTitle className="w-[60%] px-3 py-1 font-sans">{title}</CardTitle>
     </Card>

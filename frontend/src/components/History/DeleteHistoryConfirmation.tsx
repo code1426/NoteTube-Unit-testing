@@ -9,11 +9,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import React from "react";
 import { PiTrash } from "react-icons/pi";
 
 interface DeleteHistoryConfirmationProps {
   id: string;
-  onDelete: () => void;
+  onDelete: (e: React.MouseEvent) => Promise<void>;
 }
 
 const DeleteHistoryConfirmation = ({
@@ -22,11 +23,11 @@ const DeleteHistoryConfirmation = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200">
+        <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 hover:dark:bg-dark-background">
           <PiTrash size={16} />
         </button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="dark:bg-dark-background">
         <AlertDialogHeader>
           <AlertDialogTitle>
             Are you sure you want to delete this note?
@@ -39,7 +40,7 @@ const DeleteHistoryConfirmation = ({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            className="bg-red-500 hover:bg-red-600"
+            className="bg-red-500 hover:bg-red-600 dark:bg-red-400"
             onClick={onDelete}
           >
             Confirm
