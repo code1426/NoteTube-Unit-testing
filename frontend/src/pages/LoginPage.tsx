@@ -102,9 +102,9 @@ const LoginPage = ({ setAuth }: Props) => {
     <div>
       <Toaster position="top-center" reverseOrder={false} />
       <div className="main min-h-screen w-screen flex flex-col justify-center blur-sm items-center bg-cover bg-center bg-[url('/src/assets/images/paper-texture-bg.jpg')] bg-repeat" />
-      <div className="bg-gray-300 dark:bg-dark-background fixed top-0 right-0 left-0 bottom-0 opacity-40" />
-      <div className="min-h-screen w-screen flex flex-col fixed top-0 right-0 left-0 bottom-0 justify-center items-center bg-opacity-70">
-        <Card className="flex items-center justify-center flex-col min-w-80 w-5/6 max-w-[450px] shadow-md">
+      <div className="bg-gray-300 fixed top-0 right-0 left-0 bottom-0 opacity-40" />
+      <div className="min-h-screen w-screen flex flex-col fixed top-0 right-0 left-0 bottom-0 justify-center items-center bg-opacity-70 ">
+        <Card className="flex items-center justify-center flex-col min-w-80 w-5/6 max-w-[450px] shadow-md dark:bg-dark-foreground">
           <CardHeader className="flex self-start px-9">
             <CardTitle className="text-3xl text-green">Welcome Back!</CardTitle>
           </CardHeader>
@@ -114,11 +114,11 @@ const LoginPage = ({ setAuth }: Props) => {
               onSubmit={handleSubmit}
             >
               <div className="username-container flex flex-col gap-1 text-lg">
-                <Label className="text-black text-base select-none">
+                <Label className="text-black text-base select-none dark:text-white">
                   Username or Email
                 </Label>
                 <Input
-                  className={`px-2.5 py-1.5 rounded-lg border bg-white focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all ${
+                  className={`px-2.5 py-1.5 rounded-lg border bg-white dark:text-black focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all ${
                     errors.usernameEmail || loginError?.field === "both"
                       ? "border-red-300 focus:ring-red-500 hover:ring-red-500"
                       : "border-gray-300"
@@ -135,12 +135,12 @@ const LoginPage = ({ setAuth }: Props) => {
               </div>
 
               <div className="password-container flex flex-col gap-1 text-lg">
-                <Label className=" text-black text-base select-none">
+                <Label className=" text-black text-base select-none dark:text-white">
                   Password
                 </Label>
                 <div
                   tabIndex={0}
-                  className={`flex flex-row justify-center items-center pr-2 rounded-lg border bg-white focus-within:ring-offset-2 focus-within:outline-none focus-within:ring-1 focus-within:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all ${
+                  className={`flex flex-row justify-center items-center pr-2 rounded-lg border bg-white dark:text-black focus-within:ring-offset-2 focus-within:outline-none focus-within:ring-1 focus-within:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all ${
                     errors.password || loginError?.field === "both"
                       ? "border-red-300 focus-within:ring-red-500 hover:ring-red-500"
                       : "border-gray-300"
