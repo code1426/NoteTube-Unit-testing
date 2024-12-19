@@ -1,19 +1,22 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { NoteWithVideos } from "../../types/note.types";
-import { Link } from "react-router-dom";
-import HistoryGeneratedVideoThumbnail from "./GeneratedVideoThumbnail";
+import { useNavigate } from "react-router-dom";
+// import HistoryGeneratedVideoThumbnail from "./GeneratedVideoThumbnail";
 import DeleteHistoryConfirmation from "./DeleteHistoryConfirmation";
 import toast from "react-hot-toast";
 import useDeleteNote from "@/hooks/Notes/useDeleteNote";
-import { useIsMobile } from "@/hooks/use-mobile";
+// import { useIsMobile } from "@/hooks/use-mobile";
 import { HoverCard, HoverCardTrigger } from "@radix-ui/react-hover-card";
 import HoverHistoryNotesCard from "./HoverHistoryNotesCard";
+import { formatDistanceToNow } from "date-fns";
 
-const NotesHistoryCard = ({ id, title, videos, createdAt }: NoteWithVideos) => {
+const NotesHistoryCard = ({ id, title, createdAt }: NoteWithVideos) => {
   const { deleteNote } = useDeleteNote(id);
-  const isMobile = useIsMobile();
+  // const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
-  const handleConfirmDelete = async () => {
+  const handleConfirmDelete = async (e: React.MouseEvent) => {
+    e.stopPropagation();
     const result = await deleteNote();
     if (result.success) {
       toast.success("Note deleted successfully.");
@@ -22,35 +25,40 @@ const NotesHistoryCard = ({ id, title, videos, createdAt }: NoteWithVideos) => {
     }
   };
 
+  const handleCardClick = () => {
+    navigate(`/notes/${id}`);
+  };
+
   return (
-    <Card className="shadow-md w-full max-w-5xl">
-      <CardHeader className="flex-row items-center justify-between border-b">
-        <HoverCard>
-          <HoverCardTrigger>
-            <CardTitle className="flex-1 text-left">{title}</CardTitle>
-          </HoverCardTrigger>
-          <HoverHistoryNotesCard title={title} createdAt={createdAt} />
-        </HoverCard>
-        <div className="flex">
+    <Card
+      className="shadow-md w-full max-w-5xl cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02]"
+      onClick={handleCardClick}
+    >
+      <CardHeader className="flex-row items-center justify-between border-b p-4">
+        <div className="flex-1 min-w-0">
+          {" "}
+          <HoverCard>
+            <HoverCardTrigger>
+              <CardTitle
+                className="text-left truncate text-lg font-semibold"
+                title={title}
+              >
+                {title}
+              </CardTitle>
+            </HoverCardTrigger>
+            <HoverHistoryNotesCard title={title} createdAt={createdAt} />
+          </HoverCard>
+          <p className="text-sm text-muted-foreground mt-1">
+            {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
+          </p>
+        </div>
+        <div
+          className="flex items-center space-x-2"
+          onClick={(e) => e.stopPropagation()}
+        >
           <DeleteHistoryConfirmation id={id} onDelete={handleConfirmDelete} />
         </div>
       </CardHeader>
-      <Link to={`/notes/${id}`}>
-        <CardContent className="flex flex-row flex-wrap justify-center items-center mb-8 gap-8 p-4 select-none">
-          {isMobile ? (
-            <div className="w-full"></div>
-          ) : (
-            videos &&
-            videos.length > 0 &&
-            videos.map((video) => (
-              <HistoryGeneratedVideoThumbnail
-                key={video.videoId}
-                thumbnailUrl={video.thumbnailUrl}
-              />
-            ))
-          )}
-        </CardContent>
-      </Link>
     </Card>
   );
 };

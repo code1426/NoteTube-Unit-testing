@@ -64,7 +64,7 @@ const GeneratedVideosPage = () => {
   return (
     <div
       id="main-page-screen-div"
-      className="bg-white relative font-secondaryRegular w-ful scrollbar-custom"
+      className="bg-white relative font-secondaryRegular scrollbar-custom flex flex-col items-center w-full gap-4"
     >
       <Header
         isHomepage={false}
@@ -75,32 +75,37 @@ const GeneratedVideosPage = () => {
       />
       <div
         id="generated-videos-name"
-        className=" font-secondaryRegular text-green text-3xl py-1 px-8"
+        className="mt-[-2rem] text-green-700 font-primaryBold text-lg md:text-3xl lg:text-3xl xl:text-3xl py-1 px-8"
       >
         Videos From: {displayedNote!.title}
       </div>
       <div
         id="videos-containers"
-        className={`flex ${isMobile ? "flex-col" : "flex-row"} items-center w-[96%] h-[70%]`}
+        className={`flex flex-col md:flex-row lg:flex-row xl:flex-row gap-8 w-[90%] items-center`}
       >
         <div
           id="current-selected-video-container"
-          className={`${isMobile ? "p-2" : "p-10"} h-full w-[67%] flex justify-center items-center flex-col`}
+          className={`h-full flex flex-[2] justify-center items-center flex-col`}
         >
           <div
-            className={`h-${isMobile ? `[${mobileWidth * 0.8}px]` : "full"} w-${isMobile ? `[${mobileWidth}px]` : "full"} flex justify-center border-4 rounded-2xl bg-black border-black`}
+            className={`h-${isMobile ? `[${mobileWidth * 0.8}px]` : "full"} w-${
+              isMobile ? `[${mobileWidth}px]` : "full"
+            } flex justify-center border-2 rounded-2xl bg-black border-black overflow-hidden`}
             id="main-video-container"
           >
             <iframe
-              className="w-full h-full"
+              className="w-full h-full rounded-xl"
               src={`https://www.youtube.com/embed/${selectedVideo}`}
               allowFullScreen={true}
             ></iframe>
           </div>
         </div>
-        <div id="ai-generated-videos" className=" my-1 p-2 h-full w-auto">
+        <div
+          id="ai-generated-videos"
+          className=" my-1 p-2 h-full flex-1 flex w-auto"
+        >
           <div className="h-auto w-full">
-            <div id="videos" className="gap-4 flex flex-col justify-center">
+            <div id="videos" className="gap-2 flex flex-col justify-center">
               {displayedNote.videos.map((video) =>
                 video.videoId != selectedVideo ? (
                   <VideoCard
