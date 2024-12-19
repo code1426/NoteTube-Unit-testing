@@ -4,7 +4,6 @@ import ProfileButton from "../Sidebar/ProfileButton";
 import LogoutConfirmation from "../Settings/LogoutConfirmation";
 import UpdatePasswordForm from "../Settings/UpdatePasswordForm";
 import DeleteUserForm from "../Settings/DeleteUserForm";
-import { ThemeToggle } from "../ThemeToggle";
 import { PiPasswordBold } from "react-icons/pi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { LogOutIcon } from "lucide-react";
@@ -54,10 +53,6 @@ const ProfileDropdown = () => {
         <DropdownMenuLabel>
           <ProfileButton isDropdown />
         </DropdownMenuLabel>
-
-        <DropdownMenuSeparator className="bg-gray-300 dark:bg-dark-border" />
-
-        <ThemeToggle />
 
         <DropdownMenuSeparator className="bg-gray-300 dark:bg-dark-border" />
 
