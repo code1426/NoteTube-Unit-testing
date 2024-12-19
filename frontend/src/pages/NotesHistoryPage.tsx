@@ -69,7 +69,7 @@ const NotesHistoryPage = () => {
           onApplyOptions={handleApplyFilters}
           onSearch={handleSearch}
         />
-        <div className="flex flex-col h-screen w-full justify-start items-center mb-8 gap-8 p-4 select-none">
+        <div className="flex flex-col h-screen w-full justify-start items-center mb-8 gap-2 p-4 select-none">
           {!displayedNotes || displayedNotes?.length === 0 ? (
             <div className="p-5">
               <NoItemsContainerBox

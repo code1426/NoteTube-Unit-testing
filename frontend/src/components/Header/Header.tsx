@@ -108,7 +108,7 @@ const Header: React.FC<SubHeaderProps> = ({
               )}
 
               <div
-                className={`max-w-36 ${!isSearchActive ? "md:max-w-[660px] lg:max-w-[660px] xl:max-w-[660px]" : "md:max-w-[412px] lg:max-w-[412px] xl:max-w-[412px]"} block truncate ml-4 w-full text-responsive_header`}
+                className={`max-w-36 ${sectionTitle === "Generated Videos" && "max-w-full"} ${!isSearchActive ? "md:max-w-[660px] lg:max-w-[660px] xl:max-w-[660px]" : "md:max-w-[412px] lg:max-w-[412px] xl:max-w-[412px]"} block truncate ml-4 w-full text-responsive_header`}
               >
                 {sectionTitle}
               </div>

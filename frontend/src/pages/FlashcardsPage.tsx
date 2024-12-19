@@ -80,7 +80,7 @@ const FlashcardsPage: React.FC = () => {
           isHomepage={false}
           isFlashCardsPage={true}
           isSectionTitleOnly={false}
-          sectionTitle={deckName}
+          sectionTitle={"Flashcards"}
           onAdd={toggleAddFlashcard}
           hasAddButton={true}
           deckId={deckId}
@@ -111,8 +111,8 @@ const FlashcardsPage: React.FC = () => {
         </Drawer>
 
         <div className="w-[90%]">
-          <div className="pb-10 text-black text-2xl md:text-3xl lg:text-2xl flex gap-3 font-secondaryRegular align-middle items-center">
-            Cards
+          <div className="pb-10 text-green-700 text-2xl md:text-4xl lg:text-4xl xl:text-3xl flex gap-3 font-primaryBold align-middle items-center">
+            {deckName}
           </div>
 
           <div className="flex flex-col gap-4 scroll-auto">
