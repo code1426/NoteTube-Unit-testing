@@ -1,7 +1,7 @@
-import { PASTEL_COLORS } from "./constants";
+import { VIBRANT_COLORS } from "./constants";
 
 const generateRandomColor = () => {
-  return PASTEL_COLORS[Math.floor(Math.random() * PASTEL_COLORS.length)];
+  return VIBRANT_COLORS[Math.floor(Math.random() * VIBRANT_COLORS.length)];
 };
 
 export default generateRandomColor;

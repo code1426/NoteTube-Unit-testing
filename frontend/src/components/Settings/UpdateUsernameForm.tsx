@@ -63,17 +63,17 @@ const UpdateUsernameForm = () => {
           <DialogDescription>Click save when you're done.</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="flex w-full items-center gap-4">
             <Label htmlFor="username" className="text-right">
               Username
             </Label>
             <Input
-              autoFocus
+              // autoFocus
               id="username"
               value={newwUsername}
               placeholder="Enter a new username"
               onChange={(e) => setNewUsername(e.target.value)}
-              className="col-span-3"
+              className="px-2.5 w-full py-1.5 rounded-lg border bg-white dark:text-black focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all"
               disabled={loading}
             />
           </div>
