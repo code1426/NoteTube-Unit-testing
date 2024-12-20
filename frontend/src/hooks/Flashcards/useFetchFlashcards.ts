@@ -3,7 +3,7 @@ import { Flashcard } from "../../types/flashcard.types";
 import { FlashcardsContext } from "@/context/Contexts";
 
 interface FetchFlashcardsResult {
-  flashcards: Flashcard[] | undefined;
+  flashcards?: Flashcard[];
   loading: boolean;
   error?: string | null;
 }
@@ -46,7 +46,7 @@ const useFetchFlashcards = (deckId: string): FetchFlashcardsResult => {
       }
     };
     fetchFlashcards();
-  }, [deckId]);
+  }, [deckId, setFlashcards]);
 
   return { flashcards, loading, error };
 };
