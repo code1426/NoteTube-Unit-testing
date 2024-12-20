@@ -105,7 +105,7 @@ const AddFlashcardDialog = ({
   }, []);
 
   return (
-    <DialogContent className="sm:max-w-[425px] bg-white p-6 rounded-lg shadow-lg">
+    <DialogContent className="sm:max-w-[425px] bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg">
       <DialogHeader className="select-none">
         <DialogTitle>Create New Flashcard</DialogTitle>
         <DialogDescription>
@@ -120,7 +120,7 @@ const AddFlashcardDialog = ({
             <div className="relative flex flex-col gap-2">
               <Label className="text-base">Question</Label>
               <Textarea
-                className="p-3 pr-12 md:text-lg lg:text-xl resize-none"
+                className="p-3 pr-12 md:text-lg lg:text-xl resize-none dark:border-dark-border"
                 placeholder="Enter the question for the flashcard (e.g., What is the capital of France?)"
                 value={flashcardFront}
                 onChange={(e) => setFlashcardFront(e.target.value)}
@@ -140,7 +140,7 @@ const AddFlashcardDialog = ({
             <div className="relative flex flex-col gap-2">
               <Label className="text-base">Answer</Label>
               <Textarea
-                className="p-3 pr-12 md:text-lg lg:text-xl resize-none"
+                className="p-3 pr-12 md:text-lg lg:text-xl resize-none dark:border-dark-border"
                 placeholder="Enter the answer for the flashcard (e.g., Paris)"
                 value={flashcardBack}
                 onChange={(e) => setFlashcardBack(e.target.value)}
@@ -157,17 +157,17 @@ const AddFlashcardDialog = ({
                 </button>
               )}
 
-              <div className="editText bg-white text-gray-400 text-sm mt-2 flex justify-between mb-2">
+              <div className="editText bg-white dark:bg-dark-background text-gray-400 text-sm mt-2 flex justify-between mb-2">
                 <div className="flex gap-2">
                   <button
-                    className="p-2 text-black hover:bg-gray-200 rounded"
+                    className="p-2 text-black hover:bg-gray-200 dark:text-white hover:dark:bg-dark-foreground rounded"
                     type="button"
                     onClick={() => modifyText("bulleted")}
                   >
                     <PiList size={24} />
                   </button>
                   <button
-                    className="p-2 text-black hover:bg-gray-200 rounded"
+                    className="p-2 text-black hover:bg-gray-200 dark:text-white hover:dark:bg-dark-foreground rounded"
                     type="button"
                     onClick={() => modifyText("numbered")}
                   >
