@@ -28,8 +28,6 @@ const useUpdateUsername = () => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData.message);
         setError(
           "Request to change username failed with status: " + response.status,
         );

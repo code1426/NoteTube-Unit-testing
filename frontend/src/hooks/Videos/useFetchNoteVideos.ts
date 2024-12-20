@@ -21,8 +21,6 @@ const useFetchNoteVideos = (noteId: string): FetchNoteVideosResult => {
         return;
       }
 
-      console.log("fetching videos for note: ", noteId);
-
       try {
         const response = await fetch(
           `${import.meta.env.VITE_BASE_API_URL}/notes/${noteId}/videos`,
@@ -32,8 +30,6 @@ const useFetchNoteVideos = (noteId: string): FetchNoteVideosResult => {
         );
 
         if (!response.ok) {
-          const errorData = await response.json();
-          console.log(errorData);
           setError(
             "Request to fetch note videos failed with status: " +
               response.status,

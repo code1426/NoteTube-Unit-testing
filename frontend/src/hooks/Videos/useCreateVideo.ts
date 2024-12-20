@@ -24,7 +24,6 @@ const useCreateVideos = () => {
         return;
       }
     } catch (error) {
-      console.log(error);
       setError("An error occurred while creating the video.");
     }
   };

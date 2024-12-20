@@ -15,7 +15,6 @@ const NotePage: React.FC = () => {
 
   React.useEffect(() => {
     if (noteError) {
-      console.error(noteError);
       toast.error("Error fetching note. Please try again.");
     }
   }, [noteError]);

@@ -27,7 +27,7 @@ const EditFlashcardDialog: React.FC<Flashcard> = ({
   back,
   deckId,
 }) => {
-  const { updateFlashcard, loading, error } = useUpdateFlashcard(id);
+  const { updateFlashcard, loading } = useUpdateFlashcard(id);
   const [activeField, setActiveField] = useState<"front" | "back">("front");
   const [newFront, setNewFront] = useState(front);
   const [newBack, setNewBack] = useState(back);
@@ -50,7 +50,6 @@ const EditFlashcardDialog: React.FC<Flashcard> = ({
       toast.success("Flashcard updated successfully.");
       setDialogOpen(false);
     } else {
-      console.error("Failed to update card:", error);
       toast.error("Failed to update card. Please try again.");
     }
   };

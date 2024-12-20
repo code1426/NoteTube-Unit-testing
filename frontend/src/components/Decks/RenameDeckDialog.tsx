@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
-  const { renameDeck, loading, error } = useRenameDeck();
+  const { renameDeck, loading } = useRenameDeck();
   const [newDeckName, setNewDeckName] = useState(deckName!);
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
 
@@ -40,7 +40,6 @@ const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
       toast.success("Renamed deck successfully.");
       setDialogOpen(false);
     } else {
-      console.error("Failed to rename deck:", error);
       toast.error("Failed to rename deck. Please try again.");
     }
   };

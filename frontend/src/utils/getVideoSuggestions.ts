@@ -29,7 +29,6 @@ const getVideoSuggestions = async (query: string): Promise<Video[] | null> => {
       })
       .filter((item) => item !== null);
   } catch (error) {
-    console.error(error);
     return null;
   }
 };
