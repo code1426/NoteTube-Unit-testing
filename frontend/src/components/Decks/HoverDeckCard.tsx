@@ -16,9 +16,14 @@ const HoverDeckCard: React.FC<HoverDeckCardProps> = ({
   });
 
   return (
-    <HoverCardContent className="bg-slate-100 w-60">
+    <HoverCardContent className="bg-slate-100 w-60 p-4 rounded-lg">
       <div className="space-y-2">
-        <label className="text-sm font-semibold">Deck: {deckName}</label>
+        <div className="text-sm font-semibold truncate max-w-full">
+          <span>Deck:</span>
+          <span className="ml-1" title={deckName}>
+            {deckName}
+          </span>
+        </div>
         <div className="flex items-center pt-2">
           <PiCalendar className="mr-2 h-4 w-4 opacity-70" />
           <span className="text-xs text-muted-foreground">
