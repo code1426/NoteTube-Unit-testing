@@ -1,26 +1,66 @@
 import { motion } from "framer-motion";
+import TestimonialRow from "./TestimonialRow";
 
-const testimonials = [
+const testimonialsRow1 = [
   {
-    name: "Rojee C.",
+    name: "Rojee Cacar",
     role: "College Student",
-    content: "SHEESH",
+    content:
+      "This app is a valuable resource for students who struggle with learning.",
   },
   {
-    name: "Toneejay",
-    role: "Singer/Artist",
-    content: "Anong gagawin kung wala ka:(",
-  },
-  {
-    name: "Kaizen S.",
-    role: "College Student",
+    name: "Kaizen Somosera",
+    role: "Software Engineering Student",
     content: "g g",
+  },
+  {
+    name: "Paul Ardiente",
+    role: "Software Engineering Student",
+    content: "Very good!",
+  },
+  {
+    name: "EJ Cortez",
+    role: "Software Engineering Student",
+    content: "Good Stuff",
+  },
+  {
+    name: "Julius Somosera",
+    role: "Overseas Filipino Worker",
+    content: "I think it is useful most specially to the students.",
   },
 ];
 
-const TestimonialsSection = () => {
+const testimonialsRow2 = [
+  {
+    name: "Nelissa Tuden",
+    role: "Software Engineering Student",
+    content: "Slayy!",
+  },
+  {
+    name: "Cassandra Gallo",
+    role: "Software Engineering Student",
+    content: "Good, I like the UI and the overall concept.",
+  },
+  {
+    name: "Mamamo",
+    role: "Software Engineering Student",
+    content: "Sheeshable",
+  },
+  {
+    name: "Thresha Agregado",
+    role: "College Student",
+    content: "Very helpful and useful in our study.",
+  },
+  {
+    name: "Kenneth Joel",
+    role: "Software Engineering Student",
+    content: "Goods!",
+  },
+];
+
+const TestimonialsSection: React.FC = () => {
   return (
-    <section className="bg-green-800 py-24 px-8">
+    <section className="bg-green-800 py-24 px-8 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -30,20 +70,9 @@ const TestimonialsSection = () => {
         >
           What Our Users Say
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-lg p-8 shadow-lg"
-            >
-              <p className="text-gray-600 mb-4">{testimonial.content}</p>
-              <div className="font-bold">{testimonial.name}</div>
-              <div className="text-sm text-gray-500">{testimonial.role}</div>
-            </motion.div>
-          ))}
+        <div className="space-y-6">
+          <TestimonialRow testimonials={testimonialsRow1} direction="left" />
+          <TestimonialRow testimonials={testimonialsRow2} direction="right" />
         </div>
       </div>
     </section>
