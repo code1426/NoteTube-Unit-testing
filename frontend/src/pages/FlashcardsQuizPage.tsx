@@ -63,7 +63,7 @@ const FlashcardsQuizPage = () => {
   }
 
   return (
-    <div className="flex flex-col w-full items-center scrollbar-custom">
+    <div className="flex flex-col w-full items-center scrollbar-custom dark:bg-dark-background">
       <Toaster />
       <Header
         isHomepage={false}
@@ -82,7 +82,7 @@ const FlashcardsQuizPage = () => {
           />
         ) : (
           <>
-            <Label className="w-full flex justify-center py-4 mb-4 text-4xl font-primaryBold text-green-700">
+            <Label className="w-full flex justify-center py-4 mb-4 text-4xl font-primaryBold dark:text-green text-green-700">
               {deckName}
             </Label>
             <div
@@ -109,7 +109,7 @@ const FlashcardsQuizPage = () => {
             <div className="button-container w-full flex items-center justify-center gap-4 mt-8">
               <button
                 onClick={handlePrev}
-                className="w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
+                className="w-12 h-12 rounded-full bg-gray-200 dark:bg-dark-foreground hover:dark:bg-dark-input hover:bg-gray-300 flex items-center justify-center"
                 aria-label="Previous Card"
               >
                 <BiSkipPrevious size={35} />
@@ -127,7 +127,7 @@ const FlashcardsQuizPage = () => {
 
               <button
                 onClick={handleNext}
-                className="w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
+                className="w-12 h-12 rounded-full bg-gray-200 dark:bg-dark-foreground hover:bg-gray-300 hover:dark:bg-dark-input flex items-center justify-center"
                 aria-label="Next Card"
               >
                 <BiSkipNext size={35} />

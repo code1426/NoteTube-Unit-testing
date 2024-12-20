@@ -1,6 +1,12 @@
-import { HoverCard, HoverCardTrigger } from "@radix-ui/react-hover-card";
 import React, { useState } from "react";
-import HoverVideoCard from "./HoverVideoCard";
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "@/components/ui/hover-card";
+import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { X, Play } from "lucide-react";
 
 interface VideoCardProps {
   videoId: string;
@@ -13,48 +19,61 @@ const VideoCard: React.FC<VideoCardProps> = ({
   thumbnailUrl,
   title,
 }) => {
-  const [videoPanelOpened, setVideoPanelState] = useState<string | null>(null);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   return (
     <>
       <div
-        className="cursor-pointer rounded-lg overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300"
-        onClick={() => setVideoPanelState(videoId)}
+        className="group cursor-pointer rounded-lg overflow-hidden shadow-md dark:bg-dark-foreground hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+        onClick={() => setIsVideoOpen(true)}
       >
-        <img
-          className="w-full h-48 object-cover"
-          src={thumbnailUrl}
-          alt={title}
-        />
+        <div className="relative">
+          <img
+            className="w-full h-48 object-cover"
+            src={thumbnailUrl}
+            alt={title}
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <Play className="w-12 h-12 text-white" />
+          </div>
+        </div>
         <div className="bg-white dark:bg-dark-foreground px-4 py-3">
           <HoverCard>
-            <HoverCardTrigger>
-              <h3 className="text-sm font-medium text-gray-800 dark:text-white line-clamp-2">
+            <HoverCardTrigger asChild>
+              <h3 className="text-sm font-medium text-gray-800 dark:text-gray-200 line-clamp-2">
                 {title}
               </h3>
             </HoverCardTrigger>
-            <HoverVideoCard title={title} />
+            <HoverCardContent className="w-80">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {title}
+              </p>
+            </HoverCardContent>
           </HoverCard>
         </div>
       </div>
 
-      {videoPanelOpened && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50"
-          onClick={() => setVideoPanelState(null)}
-        >
-          <div
-            className="bg-white dark:bg-dark-background w-full max-w-7xl p-4 rounded-lg"
-            onClick={(e) => e.stopPropagation()}
-          >
+      <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
+        <DialogContent className="sm:max-w-6xl max-h-[90vh] p-0">
+          <div className="relative pt-[56.25%]">
             <iframe
-              className="w-full h-[70vh]"
-              src={`https://www.youtube.com/embed/${videoPanelOpened}`}
+              className="absolute top-0 left-0 rounded-lg w-full h-full"
+              src={`https://www.youtube.com/embed/${videoId}`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           </div>
-        </div>
-      )}
+          <DialogClose asChild>
+            <Button
+              className="absolute top-2 right-2 rounded-full p-2"
+              variant="ghost"
+            >
+              <X className="h-4 w-4" />
+              <span className="sr-only">Close</span>
+            </Button>
+          </DialogClose>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

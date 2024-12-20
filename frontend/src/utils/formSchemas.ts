@@ -41,7 +41,7 @@ export const FileUploadSchema = z.object({
         return [...files].every((file) => file.size <= MAX_FILE_SIZE); // 5MB
       },
       {
-        message: `Each file should not exceed ${formatBytes(MAX_FILE_SIZE, 0)} mb`,
+        message: `Each file should not exceed ${formatBytes(MAX_FILE_SIZE, 0)}`,
       },
     ),
 });
