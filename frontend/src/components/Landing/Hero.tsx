@@ -35,8 +35,8 @@ const Hero = () => {
       >
         <iframe
           className="aspect-video w-full rounded-lg shadow-xl select-none pointer-events-none"
-          src={`https://www.youtube.com/embed/iu0Tpl6RcSg?loop=1&autoplay=1&mute=1&controls=0`}
-          allow="autoplay"
+          src={`https://www.youtube.com/embed/iu0Tpl6RcSg?loop=1&autoplay=1&mute=1&controls=0&playlist=iu0Tpl6RcSg`}
+          allow="loop; autoplay"
         />
       </motion.div>
     </div>
