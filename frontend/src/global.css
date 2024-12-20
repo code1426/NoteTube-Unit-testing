@@ -232,21 +232,16 @@
   }
 }
 
-/* .scrollbar-custom::-webkit-scrollbar {
+.scrollbar-custom::-webkit-scrollbar {
   height: 0.5rem;
-  width: 0.5rem;
-}
-
-.scrollbar-custom::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #f4f4f4;
-  border-radius: 50px;
+  width: 0.3rem;
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
-  background: #03c04a;
-  border-radius: 50px;
+  background: #c7c7c7;
+  border-radius: 20px;
 }
-
+/* 
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-  background: #009a3a;
+  background: #9c9c9c;
 } */

@@ -23,7 +23,7 @@ const DeckItem = ({
   return (
     <div
       onClick={handleClick}
-      className="w-full border border-gray-300 rounded-3xl bg-white hover:shadow-md dark:bg-dark-foreground dark:border-dark-border shadow-gray-500 min-h-50 select-none cursor-pointer"
+      className="w-full border border-gray-300 rounded-3xl bg-white hover:shadow-md dark:bg-dark-foreground dark:border-gray-800 shadow-gray-500 min-h-50 select-none cursor-pointer"
     >
       <TooltipProvider>
         <div

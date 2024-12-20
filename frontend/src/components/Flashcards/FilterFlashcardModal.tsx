@@ -35,7 +35,7 @@ const FilterCardModal = ({ onClose, onApply }: FilterCardModalProps) => {
   };
 
   return (
-    <Card className="flex-grow absolute top-12 right-0 z-50 bg-white dark:bg-dark-background p-2 rounded-lg shadow-lg w-[20rem] border dark:border-dark-border border-gray-300">
+    <Card className="flex-grow absolute top-12 right-0 z-50 bg-white dark:bg-dark-background p-2 rounded-lg shadow-lg w-[20rem] border dark:border-gray-800 border-gray-300">
       {/* Header */}
       <CardHeader className="grid grid-cols-2 ">
         <h2 className="self-start">Sort</h2>

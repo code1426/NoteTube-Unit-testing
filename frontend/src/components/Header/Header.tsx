@@ -88,7 +88,7 @@ const Header: React.FC<SubHeaderProps> = ({
   return (
     <>
       <TooltipProvider>
-        <div className="sticky top-0 mt-16 mb-4 w-full">
+        <div className="sticky top-0 pt-16 bg-white dark:bg-dark-background mb-4 w-full z-20">
           <div className="subheader h-16 w-full flex flex-row justify-between items-center select-none">
             <div className="text-black dark:text-white flex font-secondaryRegular items-center text-responsive">
               {!isHomepage && (
@@ -217,10 +217,10 @@ const Header: React.FC<SubHeaderProps> = ({
                   <Tooltip>
                     <TooltipTrigger>
                       <button
-                        className="flex items-center hover:underline gap-2"
+                        className="flex items-center justify-center hover:underline gap-2"
                         onClick={openFilter}
                       >
-                        <PiArrowsDownUpLight />{" "}
+                        <PiArrowsDownUpLight />
                         <p
                           className={`text-responsive hidden md:flex lg:flex xl:flex`}
                         >

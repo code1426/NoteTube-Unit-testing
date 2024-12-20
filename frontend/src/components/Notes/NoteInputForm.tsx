@@ -87,7 +87,7 @@ const NoteInputForm = ({ onSubmit, disabled }: NoteInputFormProps) => {
   };
 
   return (
-    <Card className="w-11/12 place-self-center pt-4 bg-white dark:bg-dark-foreground dark:border-dark-border">
+    <Card className="w-11/12 place-self-center pt-4 bg-white dark:bg-dark-foreground ">
       <CardContent>
         <Tabs defaultValue="text" className="flex flex-col gap-3">
           <TabsList className="w-1/2 flex">
@@ -120,7 +120,7 @@ const NoteInputForm = ({ onSubmit, disabled }: NoteInputFormProps) => {
         <Button
           disabled={disabled}
           className={cn(
-            "bg-green hover:bg-green_hover text-base",
+            "bg-green hover:bg-green_hover dark:text-white text-base",
             "w-full md:min-w-72 md:w-auto",
           )}
           onClick={() => {

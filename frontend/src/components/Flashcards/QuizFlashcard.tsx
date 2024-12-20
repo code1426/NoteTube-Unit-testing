@@ -30,7 +30,7 @@ const QuizFlashcard: React.FC<QuizFlashcardProps> = ({
       </div>
 
       {/* Separator */}
-      <Separator className="border-t-2 border-gray-300 dark:border-dark-border w-full my-4" />
+      <Separator className="border-t-2 border-gray-300 dark:border-800 w-full my-4" />
 
       {/* Back Content */}
       <div className="back flex w-full flex-1">

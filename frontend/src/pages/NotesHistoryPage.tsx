@@ -109,7 +109,7 @@ const NotesHistoryPage: React.FC = () => {
           ) : (
             Object.entries(groupedNotes).map(([group, notes]) => (
               <div key={group} className="w-full max-w-4xl">
-                <h2 className="text-2xl font-bold mb-4 text-green-700 dark:text-gray-200">
+                <h2 className="text-2xl font-bold mb-4 text-green-700 dark:text-green">
                   {group}
                 </h2>
                 <div className="space-y-4">
