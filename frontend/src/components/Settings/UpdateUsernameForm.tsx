@@ -22,12 +22,12 @@ const UpdateUsernameForm = () => {
   const { newUsername, loading, error } = useUpdateUsername();
 
   const handleApply = async () => {
-    if (!newwUsername.trim() || newwUsername === user?.username) {
+    if (!newwUsername.trim() || newwUsername.trim() === user?.username) {
       toast.error("New username should be different.");
       return;
     }
 
-    if (newwUsername.length < 3 || newwUsername.length > 254) {
+    if (newwUsername.trim().length < 3 || newwUsername.trim().length > 254) {
       toast.error("Username must be between 3 and 254 characters.");
       return;
     }
