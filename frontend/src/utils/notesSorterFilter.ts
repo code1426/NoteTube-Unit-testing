@@ -10,7 +10,6 @@ const applySortingAndFilteringToNotes = (
   let sortedFilteredarray: NoteWithVideos[] = [...array];
 
   if (options.sortByDate === "latest") {
-    console.log("(notes) sortByDate latest");
     sortedFilteredarray = sortedFilteredarray.sort((a, b) => {
       const dateA = new Date(a["createdAt"]!).getTime() || 0;
       const dateB = new Date(b["createdAt"]!).getTime() || 0;
@@ -19,7 +18,6 @@ const applySortingAndFilteringToNotes = (
   }
 
   if (options.sortByDate === "oldest") {
-    console.log("(notes) using sortByDate oldest");
     sortedFilteredarray = sortedFilteredarray.sort((a, b) => {
       const dateA = new Date(a["createdAt"]!).getTime() || 0;
       const dateB = new Date(b["createdAt"]!).getTime() || 0;
@@ -31,7 +29,6 @@ const applySortingAndFilteringToNotes = (
 
   // sort deck name by ascending
   if (options.sortByNames === "ascending") {
-    console.log("(notes) using sortByName ascending");
     sortedFilteredarray = sortedFilteredarray.sort((a, b) => {
       const frontA = a["title"] || "";
       const frontB = b["title"] || "";
@@ -40,7 +37,6 @@ const applySortingAndFilteringToNotes = (
   }
   // sort deck name by descending
   if (options.sortByNames === "descending") {
-    console.log("(notes) using sortByName descending");
     sortedFilteredarray = sortedFilteredarray.sort((a, b) => {
       const frontA = a["title"] || "";
       const frontB = b["title"] || "";
@@ -50,7 +46,6 @@ const applySortingAndFilteringToNotes = (
 
   //  filter notes by search
   if (options.searchByName !== "") {
-    console.log("(notes) using searchBy");
     sortedFilteredarray = sortedFilteredarray.filter((content) => {
       if (
         content["title"]

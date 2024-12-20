@@ -31,8 +31,6 @@ const useCreateNote = () => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
         setError(
           "Request to create note failed with status: " + response.status,
         );

@@ -32,8 +32,6 @@ const useFetchUserDecks = (userId: string): FetchUserDecksResult => {
         );
 
         if (!response.ok) {
-          const errorData = await response.json();
-          console.log(errorData);
           setError(
             "Request to fetch user decks failed with status: " +
               response.status,

@@ -30,8 +30,6 @@ const useChangeDeckColor = () => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
         setError(
           "Request to update deck failed with status: " + response.status,
         );

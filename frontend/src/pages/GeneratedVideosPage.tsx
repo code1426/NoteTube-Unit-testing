@@ -27,20 +27,12 @@ const GeneratedVideosPage = () => {
 
   useEffect(() => {
     if (notes) {
-      console.log(notes);
       if (notes.length > 0) {
         setDisplayedNote(notes[0] as NoteWithVideos);
         setSelectedVideo(notes[0].videos[notes[0].videos.length - 1].videoId);
-        console.log("Note ", displayedNote, " Selected Video ", selectedVideo);
       }
       if (isMobile !== null) {
         setMobileWidth(window.outerWidth);
-        console.log(
-          "Window Size ",
-          window.outerWidth,
-          " MobileMode ",
-          isMobile,
-        );
       }
     }
   }, [notes, isMobile]);

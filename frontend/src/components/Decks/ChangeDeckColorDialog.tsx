@@ -18,7 +18,7 @@ import useChangeDeckColor from "@/hooks/Decks/useChangeColorDeck";
 import { VIBRANT_COLORS } from "@/utils/constants";
 
 const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
-  const { changeDeckColor, loading, error } = useChangeDeckColor();
+  const { changeDeckColor, loading } = useChangeDeckColor();
   const isColorPreset: boolean = VIBRANT_COLORS.includes(color!);
 
   const [selectedColor, setSelectedColor] = useState<string>(
@@ -52,7 +52,6 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
       toast.success("Changed deck color.");
       setDialogOpen(false);
     } else {
-      console.error("Failed to change deck color:", error);
       toast.error("Failed to change deck color. Please try again.");
     }
   };

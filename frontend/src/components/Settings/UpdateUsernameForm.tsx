@@ -38,7 +38,6 @@ const UpdateUsernameForm = () => {
     } as User);
 
     if (result.success) {
-      console.log("Saved:", { username: result.user?.username });
       // setIsOpen(false);
       toast.success("Username changed");
       window.location.reload();
@@ -46,7 +45,6 @@ const UpdateUsernameForm = () => {
   };
 
   useEffect(() => {
-    console.log(error);
     if (error?.includes("400")) {
       toast.error("Username already exists.");
     }

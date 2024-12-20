@@ -25,6 +25,7 @@ describe("The profile endpoint", () => {
     await pool.end(); // close the db connection after testing all
   }, 60000);
 
+  // CHANGE USERNAME
   it("should rename the user", async () => {
     const { rows: userRows } = await pool.query(
       "SELECT id FROM Users WHERE username = $1",
@@ -45,6 +46,7 @@ describe("The profile endpoint", () => {
     expect(response.body[0]["username"]).toBe(testNewUsername.username);
   }, 60000);
 
+  // CHANGE USERNAME WITH AN EXISTING USERNAME
   it("should give an error that the username already exists", async () => {
     const { rows: userRows } = await pool.query(
       "SELECT id FROM Users WHERE username = $1",
@@ -63,6 +65,7 @@ describe("The profile endpoint", () => {
     expect(response.body.message).toBe("Username already exists.");
   });
 
+  // DELETE USER
   it("should delete the user", async () => {
     const { rows: userRows } = await pool.query(
       "SELECT id FROM Users WHERE username = $1",

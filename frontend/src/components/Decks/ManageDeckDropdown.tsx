@@ -41,7 +41,6 @@ const ManageDeckDropdown = ({
         return `Deleted deck successfully`;
       },
       error: (error) => {
-        console.error("Error deleting deck:", error);
         return `Failed to delete deck: ${error}`;
       },
     });

@@ -114,8 +114,6 @@ describe("The note endpoint", () => {
     const noteId = await pool.query("SELECT id FROM Notes WHERE user_id = $1", [
       userId.rows[0].id,
     ]);
-    console.log(noteId.rows);
-    console.log(noteId.rows[0].id);
 
     const response = await request(app).delete(route + `/${noteId.rows[0].id}`);
 

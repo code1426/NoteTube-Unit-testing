@@ -43,7 +43,6 @@ const fetchAIResponse = async (
         throw new Error(errorData.message);
       }
       const result = (await response.json()) as AIResponse;
-      console.log(result);
       return result;
     }
   } catch (error) {

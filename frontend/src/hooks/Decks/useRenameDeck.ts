@@ -30,8 +30,6 @@ const useRenameDeck = () => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error(errorData);
         setError(
           `Request to update deck failed with status: ${response.status}`,
         );
@@ -51,7 +49,6 @@ const useRenameDeck = () => {
         return { success: true, deck: updatedDeck };
       }
     } catch (error) {
-      console.error(error);
       return { success: false, error: "Failed to update deck" };
     } finally {
       setLoading(false);

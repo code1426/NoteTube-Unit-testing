@@ -22,8 +22,6 @@ const useDeleteFlashcard = (flashcardId: string, deckId: string) => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
         setError(
           `Request to delete flashcard failed with status: ${response.status}`,
         );
@@ -49,7 +47,6 @@ const useDeleteFlashcard = (flashcardId: string, deckId: string) => {
 
       return { success: true, error: null };
     } catch (error) {
-      console.error(error);
       setError("Failed to delete flashcard");
       return { success: false, error: "Failed to delete flashcard" };
     }
