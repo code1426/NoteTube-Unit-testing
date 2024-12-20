@@ -68,12 +68,12 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleDialogOpenChange}>
       <DialogTrigger>
-        <button className="flex items-center justify-left p-2 w-40 hover:bg-gray-200 rounded-sm">
+        <button className="flex items-center justify-left p-2 w-40 hover:bg-gray-200 hover:dark:bg-dark-foreground rounded-sm">
           <PiPaletteLight size={20} className="mr-2" />
           <span className="text-sm">Change Color</span>
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-white p-6 rounded-lg shadow-lg">
+      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-dark-background p-6 rounded-lg shadow-lg">
         <DialogHeader className="select-none">
           <DialogTitle>Select a Color</DialogTitle>
           <DialogDescription>

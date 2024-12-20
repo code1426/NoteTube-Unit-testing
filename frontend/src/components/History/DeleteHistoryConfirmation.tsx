@@ -38,9 +38,11 @@ const DeleteHistoryConfirmation = ({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="bg-white text-black hover:bg-gray-100 hover:dark:bg-dark-foreground">
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
-            className="bg-red-500 hover:bg-red-600 dark:bg-red-400"
+            className="bg-red-500 hover:bg-red-400 dark:bg-red-500"
             onClick={onDelete}
           >
             Confirm

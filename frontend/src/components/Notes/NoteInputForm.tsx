@@ -95,7 +95,7 @@ const NoteInputForm = ({ onSubmit, disabled }: NoteInputFormProps) => {
               role="text-tab-btn"
               value="text"
               onClick={() => switchTo("text")}
-              className=" m-0 rounded-tr-none"
+              className=" m-0 rounded-tr-none hover:dark:bg-dark-background"
             >
               Text
             </TabsTrigger>
@@ -103,7 +103,7 @@ const NoteInputForm = ({ onSubmit, disabled }: NoteInputFormProps) => {
               role="file-tab-btn"
               value="files"
               onClick={() => switchTo("files")}
-              className=" m-0 rounded-tl-none"
+              className=" m-0 rounded-tl-none hover:dark:bg-dark-background"
             >
               Files
             </TabsTrigger>
