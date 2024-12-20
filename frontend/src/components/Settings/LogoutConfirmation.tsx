@@ -58,7 +58,7 @@ const LogoutConfirmation = ({ children }: Props) => {
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={handleLogout}
-            className="bg-red-500 hover:bg-red-600"
+            className="bg-red-500 dark:text-white hover:bg-red-600"
           >
             Log out
           </AlertDialogAction>
