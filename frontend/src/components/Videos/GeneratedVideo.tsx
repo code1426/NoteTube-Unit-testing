@@ -20,7 +20,7 @@ export const VideoCard = ({
     >
       <div
         id="video-thumbnail-container"
-        className="border border-black h-24 w-36 rounded-2xl bg-black overflow-hidden flex justify-center items-center"
+        className="border border-black h-24 rounded-2xl bg-black overflow-hidden flex justify-center items-center"
       >
         <img
           src={thumbnailUrl}
