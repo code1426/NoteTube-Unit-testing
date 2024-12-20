@@ -95,7 +95,7 @@ const FileUploadTab = ({
                     )}
                   </Dropzone>
                 </FormControl>
-                <FormMessage role="alert" />
+                <FormMessage role="alert" className="dark:text-red-500" />
               </FormItem>
             )}
           />

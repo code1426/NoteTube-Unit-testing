@@ -42,7 +42,7 @@ const TextAreaTab = ({ form, onChange }: TextAreaTabProps) => {
                     className="dark:bg-dark-foreground dark:border-dark-border"
                   />
                 </FormControl>
-                <FormMessage role="alert" />
+                <FormMessage role="alert" className="dark:text-red-500" />
               </FormItem>
             )}
           />

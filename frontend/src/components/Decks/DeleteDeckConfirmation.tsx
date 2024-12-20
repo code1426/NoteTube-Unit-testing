@@ -25,7 +25,7 @@ const DeleteDeckConfirmation = ({ onDelete }: DeleteDeckModalProps) => {
           <span className="text-sm">Delete Deck</span>
         </div>
       </AlertDialogTrigger>
-      <AlertDialogContent className="select-none">
+      <AlertDialogContent className="select-none dark:bg-dark-background">
         <AlertDialogHeader>
           <AlertDialogTitle>
             Are you sure you want to delete this deck?
@@ -36,7 +36,9 @@ const DeleteDeckConfirmation = ({ onDelete }: DeleteDeckModalProps) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="bg-white text-black hover:bg-gray-100 hover:dark:bg-dark-background">
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
             className="bg-red-500 hover:bg-red-600"
             onClick={onDelete}

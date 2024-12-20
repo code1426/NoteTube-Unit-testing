@@ -80,7 +80,7 @@ const UpdatePasswordForm: React.FC = () => {
             placeholder="Current Password"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg border bg-white focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all"
+            className="px-2.5 py-1.5 rounded-lg border bg-white dark:bg-dark-input focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all"
             required
           />
           <Input
@@ -88,7 +88,7 @@ const UpdatePasswordForm: React.FC = () => {
             placeholder="New Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg border bg-white focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all"
+            className="px-2.5 py-1.5 rounded-lg border bg-white dark:bg-dark-input focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all"
             required
           />
           <Input
@@ -96,7 +96,7 @@ const UpdatePasswordForm: React.FC = () => {
             placeholder="Confirm New Password"
             value={confirmNewPassword}
             onChange={(e) => setConfirmNewPassword(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg border bg-white focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all"
+            className="px-2.5 py-1.5 rounded-lg border bg-white dark:bg-dark-input focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all"
             required
           />
           <button

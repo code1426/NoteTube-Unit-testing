@@ -34,7 +34,7 @@ const DeleteUserForm = () => {
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
-        <AlertDialogCancel className="bg-white text-black hover:bg-gray-100">
+        <AlertDialogCancel className="bg-white text-black hover:bg-gray-100 hover:dark:bg-dark-foreground">
           Cancel
         </AlertDialogCancel>
         <AlertDialogAction
