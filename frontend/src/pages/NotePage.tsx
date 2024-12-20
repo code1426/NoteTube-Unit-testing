@@ -24,7 +24,7 @@ const NotePage: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 mt-14 py-8 max-w-7xl dark:bg-dark-background">
+    <div className="container px-4 mt-14 py-8 dark:bg-dark-background">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">{note.title}</h1>
         <p className="text-muted-foreground mt-2">
@@ -50,12 +50,12 @@ const NotePage: React.FC = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="content">
-          <ScrollArea className="h-[calc(100vh-22rem)] md:h-[calc(100vh-19rem)] lg:h-[calc(100vh-19rem)] xl:h-[calc(100vh-19rem)] pr-4">
+          <ScrollArea className="h-[calc(100vh-22rem)] md:h-[calc(100vh-18rem)] lg:h-[calc(100vh-18rem)] xl:h-[calc(100vh-18rem)] pr-4">
             <NoteContent content={note.content} />
           </ScrollArea>
         </TabsContent>
         <TabsContent value="videos">
-          <ScrollArea className="h-[calc(100vh-22rem)] md:h-[calc(100vh-19rem)] lg:h-[calc(100vh-19rem)] xl:h-[calc(100vh-19rem)] pr-4">
+          <ScrollArea className="h-[calc(100vh-22rem)] md:h-[calc(100vh-18rem)] lg:h-[calc(100vh-18rem)] xl:h-[calc(100vh-18rem)] pr-4">
             <VideoList videos={note.videos} />
           </ScrollArea>
         </TabsContent>

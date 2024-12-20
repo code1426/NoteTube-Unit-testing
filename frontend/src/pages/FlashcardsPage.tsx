@@ -80,7 +80,8 @@ const FlashcardsPage: React.FC = () => {
           isHomepage={false}
           isFlashCardsPage={true}
           isSectionTitleOnly={false}
-          sectionTitle={"Flashcards"}
+          sectionTitle="Flashcards"
+          deckName={deckName}
           onAdd={toggleAddFlashcard}
           hasAddButton={true}
           deckId={deckId}
