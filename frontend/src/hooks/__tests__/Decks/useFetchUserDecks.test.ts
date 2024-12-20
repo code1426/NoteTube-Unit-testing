@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import useFetchUserDecks from "../../Decks/useFetchUserDecks"; // Adjust the import based on your file structure
-import { mockDecks } from "@/mocks/data";
+import useFetchUserDecks from "../../Decks/useFetchUserDecks";
+import { mockDecks } from "@/__mocks__/data";
 
 describe("The useFetchUserDecks hook", () => {
   // FETCH USER DECKS WITH MOCKED API
