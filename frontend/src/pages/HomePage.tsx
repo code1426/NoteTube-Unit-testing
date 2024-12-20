@@ -205,11 +205,11 @@ const HomePage = () => {
       await handleAddVideos(result.note?.id || null, suggestedVideos);
 
       setNotes([
-        ...notes!,
         {
           ...result.note!,
           videos: suggestedVideos,
         },
+        ...notes!,
       ]);
 
       navigate("/generated-videos");

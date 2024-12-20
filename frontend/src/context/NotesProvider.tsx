@@ -8,7 +8,13 @@ const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <NotesContext.Provider
-      value={{ isUploading, setIsUploading, notes, setNotes }}
+      value={{
+        isUploading,
+        setIsUploading,
+        notes,
+        setNotes,
+        // : (notes) => console.log(notes),
+      }}
     >
       {children}
     </NotesContext.Provider>
