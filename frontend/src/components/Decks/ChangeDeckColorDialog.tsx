@@ -42,6 +42,7 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
 
   const handleChangeDeckColor = async (e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
 
     const res = await changeDeckColor({
       id: id,
@@ -138,7 +139,7 @@ const ChangeDeckColorDialog: React.FC<Deck> = ({ id, color }) => {
                 ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} 
                 text-white rounded-lg text-xl font-semibold 
                 transition-colors disabled:opacity-50 gap-2 select-none`}
-              //onClick={handleChangeDeckColor}
+              onClick={handleChangeDeckColor}
               disabled={loading || !selectedColor}
               type="submit"
             >

@@ -24,6 +24,7 @@ const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
 
   const handleRenameDeck = async (e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
 
     if (!newDeckName.trim()) {
       toast.error("Deck name cannot be empty!");
@@ -103,7 +104,7 @@ const RenameDeckDialog: React.FC<Deck> = ({ id, deckName }) => {
                 ${loading ? "bg-gray-300" : "bg-green hover:bg-green/90"} 
                 text-white rounded-lg text-xl font-semibold 
                 transition-colors disabled:opacity-50 gap-2 select-none`}
-              // onClick={handleRenameDeck}
+              onClick={handleRenameDeck}
               disabled={loading || !newDeckName.trim()}
               type="submit"
             >
