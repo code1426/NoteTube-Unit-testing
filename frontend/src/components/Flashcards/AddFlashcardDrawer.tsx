@@ -93,10 +93,10 @@ const AddFlashcardDrawer = ({
   return (
     <DrawerContent
       onOpenAutoFocus={() => setFlashcardContent({ front: "", back: "" })}
-      className="bg-white px-6 pb-10 sm:px-10 md:px-16 lg:px-24 xl:px-32"
+      className="bg-white dark:bg-dark-background px-6 pb-10 sm:px-10 md:px-16 lg:px-24 xl:px-32"
     >
       <DrawerHeader className="relative">
-        <DrawerTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center">
+        <DrawerTitle className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white text-center">
           Add New Flashcard
         </DrawerTitle>
         <DrawerClose
@@ -114,7 +114,7 @@ const AddFlashcardDrawer = ({
         {(["front", "back"] as Array<"front" | "back">).map((field) => (
           <>
             <Label>{field === "front" ? "Question" : "Answer"}</Label>
-            <div key={field} className="relative">
+            <div key={field} className="relative dark:border-dark-border">
               <Textarea
                 className="p-2 pr-10 md:text-lg lg:text-xl resize-none"
                 placeholder={`${
@@ -139,16 +139,16 @@ const AddFlashcardDrawer = ({
           </>
         ))}
 
-        <div className="editText bg-white text-gray-400 text-sm mt-2 flex justify-between">
+        <div className="editText bg-white text-gray-400 dark:bg-dark-background text-sm mt-2 flex justify-between">
           <div className="flex gap-2">
             <button
-              className="p-2 text-black hover:bg-gray-200 rounded"
+              className="p-2 text-black hover:bg-gray-200 dark:text-white hover:dark:bg-dark-foreground rounded"
               onClick={() => modifyText("bulleted")}
             >
               <PiList size={24} />
             </button>
             <button
-              className="p-2 text-black hover:bg-gray-200 rounded"
+              className="p-2 text-black hover:bg-gray-200 dark:text-white hover:dark:bg-dark-foreground rounded"
               onClick={() => modifyText("numbered")}
             >
               <PiListNumbers size={24} />
