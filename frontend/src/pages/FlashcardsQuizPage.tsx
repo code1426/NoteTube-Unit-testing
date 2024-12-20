@@ -17,7 +17,7 @@ import { BiSkipPrevious, BiSkipNext } from "react-icons/bi";
 const FlashcardsQuizPage = () => {
   const { deckId } = useParams<{ deckId: string }>();
   const location = useLocation();
-  const deckName = location.state?.sectionTitle || location.state?.deckName;
+  const deckName = location.state?.deckName;
   const { flashcards, loading, error } = useFetchFlashcards(deckId!);
   const [quizCards, setQuizCards] = useState<Flashcard[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);

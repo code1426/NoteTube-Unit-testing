@@ -27,6 +27,7 @@ interface SubHeaderProps {
   hasAddButton: boolean;
   onAdd?: () => void;
   deckId?: string;
+  deckName?: string;
   onApplyOptions?: (options: options) => void;
   onSearch?: (searchText: string) => void;
 }
@@ -39,6 +40,7 @@ const Header: React.FC<SubHeaderProps> = ({
   hasAddButton,
   onAdd,
   deckId,
+  deckName,
   onApplyOptions,
   onSearch,
 }) => {
@@ -120,7 +122,7 @@ const Header: React.FC<SubHeaderProps> = ({
                   <div>
                     <Tooltip>
                       <TooltipTrigger>
-                        <Link to={`/quiz/${deckId}`} state={{ sectionTitle }}>
+                        <Link to={`/quiz/${deckId}`} state={{ deckName }}>
                           <button
                             className={`hidden md:flex lg:flex xl:flex py-2 px-8 text-white items-center justify-center bg-green rounded-[50px] gap-2 hover:bg-green_hover`}
                           >
