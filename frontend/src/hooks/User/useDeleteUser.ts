@@ -27,7 +27,6 @@ const useDeleteUser = () => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
         setError(
           "Request to change user failed with status: " + response.status,
         );
