@@ -1,5 +1,5 @@
 import Header from "../components/Header/Header";
-import UseUser from "../hooks/auth/useUser";
+import useUser from "../hooks/auth/useUser";
 import LoadingScreen from "../components/LoadingScreen";
 import { NoteWithVideos } from "../types/note.types";
 import NoItemsContainerBox from "@/components/NoItemsContainerBox";
@@ -12,7 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 const GeneratedVideosPage = () => {
   const { notes } = useContext(NotesContext);
 
-  const { user } = UseUser();
+  const { user } = useUser();
   const [displayedNote, setDisplayedNote] = useState<NoteWithVideos | null>(
     null,
   );

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { isToday, isYesterday, isThisWeek, isThisMonth } from "date-fns";
-import UseUser from "../hooks/auth/useUser";
+import useUser from "../hooks/auth/useUser";
 import Header from "../components/Header/Header";
 import LoadingScreen from "../components/LoadingScreen";
 import { NoteWithVideos } from "../types/note.types";
@@ -17,7 +17,7 @@ type GroupedNotes = {
 
 const NotesHistoryPage: React.FC = () => {
   const { notes } = useContext(NotesContext);
-  const { user } = UseUser();
+  const { user } = useUser();
   const [displayedNotes, setDisplayedNotes] = useState<NoteWithVideos[]>([]);
   const [groupedNotes, setGroupedNotes] = useState<GroupedNotes>({});
 

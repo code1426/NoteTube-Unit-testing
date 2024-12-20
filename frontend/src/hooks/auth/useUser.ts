@@ -8,7 +8,7 @@ interface ErrorDetails {
 
 const useUser = () => {
   const { user, setUser } = useContext(UserContext);
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,6 +24,7 @@ const useUser = () => {
         );
 
         if (!response.ok) {
+          setIsAuthenticated(false);
           const errorDetails: ErrorDetails = await response.json();
           setError(errorDetails.message);
           return;
@@ -39,7 +40,7 @@ const useUser = () => {
     };
 
     getUser();
-  }, [setUser, isAuthenticated]);
+  }, [setUser, isAuthenticated, setIsAuthenticated]);
 
   return { user, setUser, loading, error };
 };
