@@ -33,16 +33,11 @@ const Hero = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <video
-          className="w-full rounded-lg shadow-xl"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src="../test.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <iframe
+          className="aspect-video w-full rounded-lg shadow-xl select-none pointer-events-none"
+          src={`https://www.youtube.com/embed/iu0Tpl6RcSg?loop=1&autoplay=1&mute=1&controls=0`}
+          allow="autoplay"
+        />
       </motion.div>
     </div>
   );
