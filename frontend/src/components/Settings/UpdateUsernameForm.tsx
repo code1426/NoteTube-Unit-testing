@@ -22,7 +22,7 @@ const UpdateUsernameForm = () => {
   const { newUsername, loading, error } = useUpdateUsername();
 
   const handleApply = async () => {
-    if (!newwUsername || newwUsername === user?.username) {
+    if (!newwUsername.trim() || newwUsername === user?.username) {
       toast.error("New username should be different.");
       return;
     }
