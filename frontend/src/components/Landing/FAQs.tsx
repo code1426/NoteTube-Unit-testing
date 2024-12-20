@@ -72,13 +72,11 @@ const FAQs = () => {
           className="border-gray-100 text-base py-1 px-4 rounded-xl border shadow-md bg-white"
         >
           <AccordionTrigger className="text-xl">
-            Is there a limit to the notes you upload?
+            Is there a limit to the notes and flashcards you generate?
           </AccordionTrigger>
           <AccordionContent className="text-base text-gray-600">
             Yes, there is a limit. Since this app is free, we are using free
-            storage systems to deploy our app. That's why there is a limit to
-            the number of times you can upload your notes, as our database can
-            only hold up to 500 rows.
+            storage systems to deploy our app.
           </AccordionContent>
         </AccordionItem>
       </Accordion>
