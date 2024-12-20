@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { mockAddDeck } from "@/mocks/data";
-import useCreateDeck from "../../Decks/useCreateDeck";
+import { mockAddDeck } from "@/__mocks__/data";
+import useCreateDeck from "@/hooks/Decks/useCreateDeck";
 
 describe("The useCreateDeck hook", () => {
   // CREATE A NEW DECK WITH MOCKED API

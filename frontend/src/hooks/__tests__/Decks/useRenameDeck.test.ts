@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import useRenameDeck from "@/hooks/Decks/useRenameDeck";
-import { mockAddDeck } from "@/mocks/data";
+import { mockAddDeck } from "@/__mocks__/data";
 
 describe("The useRenameDeck hook", () => {
   // RENAME DECK WITH MOCKED API
