@@ -11,9 +11,13 @@ router.get("/", authorization, async (request: Request, response: Response) => {
       [request.user],
     );
 
+    if (!user.rows[0]) throw new Error("User not found");
+
     response.status(200).json(user.rows[0]);
   } catch (error) {
-    response.status(500).json({ message: error });
+    response.status(500).json({
+      message: error instanceof Error ? error.message : "An error occured",
+    });
   }
 });
 

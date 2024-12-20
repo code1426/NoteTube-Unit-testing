@@ -1,12 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Header from "../components/Header/Header";
 import DeckItem from "../components/Decks/DeckItem";
 import LoadingScreen from "../components/LoadingScreen";
 import { Toaster } from "react-hot-toast";
 import NoItemsContainerBox from "../components/NoItemsContainerBox";
-import useFilterDecks from "../hooks/Decks/useFilterDecks";
 import { options } from "../types/options.types";
-import { DeckEntity } from "../types/deck.types";
+import { Deck, DeckEntity } from "../types/deck.types";
 import AddDeckDrawer from "../components/Decks/AddDeckDrawer";
 import AddDeckDialog from "@/components/Decks/AddDeckDialog";
 import { UserContext, DecksContext } from "@/context/Contexts";
@@ -14,22 +13,30 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 import { Drawer } from "@/components/ui/drawer";
 import { Dialog } from "@/components/ui/dialog";
+import applySortingAndFilteringToDecks from "@/utils/decksSorterFilter";
 
 const UserDecksPage: React.FC = () => {
   const { user } = useContext(UserContext);
-  const { decks: userDecks } = useContext(DecksContext);
   const isMobile = useIsMobile();
+
+  const { decks: userDecks } = useContext(DecksContext);
+  const [displayedDecks, setDisplayedDecks] = useState<Deck[] | null>(null);
+
   const [isAddDeckDrawerOpen, setIsAddDeckDrawerOpen] = useState(false);
   const [isAddDeckDialogOpen, setIsAddDeckDialogOpen] = useState(false);
+
   const [filterOptions, setFilterOptions] = useState<options>({
     sortByNames: "",
-    sortByDate: "latest", // Default order
+    sortByDate: "latest",
     searchByName: "",
   });
-  const { filteredDecks, setOptions } = useFilterDecks(
-    userDecks!,
-    filterOptions,
-  );
+
+  useEffect(() => {
+    if (userDecks)
+      setDisplayedDecks(
+        applySortingAndFilteringToDecks(userDecks, filterOptions),
+      );
+  }, [filterOptions, userDecks]);
 
   if (!user || !userDecks) {
     return <LoadingScreen message="Loading decks..." />;
@@ -46,11 +53,10 @@ const UserDecksPage: React.FC = () => {
 
   const handleApplyFilters = (newOptions: options) => {
     setFilterOptions(newOptions);
-    setOptions(newOptions);
   };
 
   const handleSearch = (searchText: string) => {
-    setOptions((prev) => ({
+    setFilterOptions((prev) => ({
       ...prev,
       searchByName: searchText,
     }));
@@ -93,7 +99,7 @@ const UserDecksPage: React.FC = () => {
           />
         </Drawer>
 
-        {filteredDecks?.length === 0 ? (
+        {displayedDecks?.length === 0 ? (
           <div className="pt-5">
             <NoItemsContainerBox
               mainText="No decks available"
@@ -106,7 +112,7 @@ const UserDecksPage: React.FC = () => {
           <div
             className={`w-[90%] gap-4 pb-4 flex flex-col md:grid xs:grid-cols-1 sm:grid-cols-1 sm-md:grid-cols-1 md:grid-cols-2 md-lg:grid-cols-3 lg:grid-cols-3 lg-xl:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-5 4k:grid-cols-5 xxl:grid-cols-5 auto-cols-auto`}
           >
-            {filteredDecks.map((deck: DeckEntity) => (
+            {displayedDecks?.map((deck: DeckEntity) => (
               <DeckItem
                 key={deck.id}
                 id={deck.id}
