@@ -54,11 +54,12 @@ describe("The profile endpoint", () => {
     );
 
     const userId = userRows[0].id;
+
     const response = await request(app)
-      .put(route + `/?id=${userId}`)
+      .put(route + `/?id=${"52584e60-3480-4523-ab59-f4ad2bbf99aa"}`)
       .send({
-        id: userId,
-        username: "user",
+        id: "52584e60-3480-4523-ab59-f4ad2bbf99aa",
+        username: testUser.username,
       });
     expect(response.status).toBe(400);
     expect(response.body).toBeDefined();
