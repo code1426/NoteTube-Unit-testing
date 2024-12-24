@@ -119,7 +119,9 @@ const LoginPage = ({ setAuth }: Props) => {
                 </Label>
                 <Input
                   className={`px-2.5 py-1.5 rounded-lg border bg-white dark:text-black focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all ${
-                    errors.usernameEmail || loginError?.field === "both"
+                    errors.usernameEmail ||
+                    loginError?.field === "both" ||
+                    loginError?.field === "usernameEmail"
                       ? "border-red-300 focus:ring-red-500 hover:ring-red-500"
                       : "border-gray-300"
                   }`}
@@ -141,7 +143,9 @@ const LoginPage = ({ setAuth }: Props) => {
                 <div
                   tabIndex={0}
                   className={`flex flex-row justify-center items-center pr-2 rounded-lg border bg-white dark:text-black focus-within:ring-offset-2 focus-within:outline-none focus-within:ring-1 focus-within:ring-green hover:ring-green hover:outline-none hover:ring-1 hover:ring-offset-2 transition-all ${
-                    errors.password || loginError?.field === "both"
+                    errors.password ||
+                    loginError?.field === "both" ||
+                    loginError?.field === "password"
                       ? "border-red-300 focus-within:ring-red-500 hover:ring-red-500"
                       : "border-gray-300"
                   }`}
