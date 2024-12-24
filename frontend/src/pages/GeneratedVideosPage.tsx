@@ -43,7 +43,7 @@ const GeneratedVideosPage = () => {
 
   if (!displayedNote) {
     return (
-      <div className=" h-screen w-full flex justify-center items-center dark:bg-dark-background">
+      <div className=" h-screen min-h-screen w-full flex justify-center items-center dark:bg-dark-background">
         <NoItemsContainerBox
           mainText="No Videos From Notes Available"
           subText="Add a note by uploading on the upload page."
