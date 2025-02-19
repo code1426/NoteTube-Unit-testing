@@ -5,7 +5,8 @@ import { Spinner } from "react-activity";
 import "react-activity/dist/Spinner.css";
 
 import { RegisterData } from "../types/user.types";
-import useAuth from "@/hooks/auth/useAuth";
+// import useAuth from "@/hooks/auth/useAuth";
+import useAuth from "../__mocks__/useAuthMock";
 
 // shadcn ui
 import { Button } from "@/components/ui/button";

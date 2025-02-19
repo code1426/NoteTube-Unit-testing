@@ -25,7 +25,7 @@ const config: StorybookConfig = {
           // Replace the real useAuth hook with our mock.
           "@/hooks/auth/useAuth": path.resolve(
             process.cwd(),
-            "../src/stories/__mock__/useAuthMock.ts",
+            "../__mocks__/useAuthMock.ts",
           ),
         },
       },
