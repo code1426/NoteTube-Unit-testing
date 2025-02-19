@@ -1,11 +1,8 @@
-// RegisterPage.stories.tsx
-
 import { Meta, StoryObj } from "@storybook/react";
 import { MemoryRouter } from "react-router-dom";
 import { within, userEvent, waitFor, expect } from "@storybook/test";
 import RegisterPage from "../pages/RegisterPage";
 
-// Define the type for setAuth as used in your RegisterPage props.
 type SetAuth = (value: boolean) => void;
 
 // Extend the function type with a "calls" property to record calls.
@@ -14,8 +11,8 @@ interface SetAuthMock extends SetAuth {
 }
 
 // Create the mock function with type SetAuthMock.
-const setAuthMock: SetAuthMock = ((_value: boolean) => {
-  setAuthMock.calls.push([true]);
+const setAuthMock: SetAuthMock = ((value: boolean) => {
+  setAuthMock.calls.push([value]);
 }) as SetAuthMock;
 
 // Initialize the calls array.

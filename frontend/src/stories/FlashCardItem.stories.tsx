@@ -7,7 +7,6 @@ const meta: Meta<typeof FlashcardItem> = {
   component: FlashcardItem,
   decorators: [
     (Story) => (
-      // Wrap in MemoryRouter in case any routing hooks are used in sub-components
       <MemoryRouter>
         <Story />
       </MemoryRouter>
@@ -18,10 +17,6 @@ const meta: Meta<typeof FlashcardItem> = {
 export default meta;
 type Story = StoryObj<typeof FlashcardItem>;
 
-/**
- * Default Story
- * A typical flashcard item with a short question and answer.
- */
 export const Default: Story = {
   args: {
     id: "flashcard1",
@@ -32,12 +27,6 @@ export const Default: Story = {
   },
 };
 
-/**
- * LongText Story
- * This story tests how the component handles very long text.
- * Both the question (front) and the answer (back) are exaggeratedly lengthy
- * to ensure text wrapping, truncation (if needed) and overflow handling work correctly.
- */
 export const LongText: Story = {
   args: {
     id: "flashcard2",
@@ -49,13 +38,6 @@ export const LongText: Story = {
   },
 };
 
-/**
- * WithComplexContent Story
- * In this scenario, the flashcard contains multi-line content with a list format.
- * This story deeply tests the component's ability to render and style structured text,
- * ensuring that the rendering utility (renderListContent) correctly transforms plain text
- * into a nicely formatted display.
- */
 export const WithComplexContent: Story = {
   args: {
     id: "flashcard3",

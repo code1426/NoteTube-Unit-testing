@@ -1,3 +1,4 @@
+// .storybook/main.ts
 import type { StorybookConfig } from "@storybook/react-vite";
 import { mergeConfig } from "vite";
 import path from "path";
@@ -17,19 +18,19 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-  viteFinal: async (config, { configType }) => {
-    // Extend Vite config here.
-    return mergeConfig(config, {
+  viteFinal: async (viteConfig, { configType }) => {
+    return mergeConfig(viteConfig, {
       resolve: {
         alias: {
-          // override useAuth with our mock file.
-          "../hooks/auth/useAuth": path.resolve(
-            __dirname,
-            "@/components/stories/__mock__/useAuthMock.ts",
+          // Replace the real useAuth hook with our mock.
+          "@/hooks/auth/useAuth": path.resolve(
+            process.cwd(),
+            "../src/stories/__mock__/useAuthMock.ts",
           ),
         },
       },
     });
   },
 };
+
 export default config;
