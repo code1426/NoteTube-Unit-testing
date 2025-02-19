@@ -2,8 +2,7 @@
 
 import { Meta, StoryObj } from "@storybook/react";
 import { MemoryRouter } from "react-router-dom";
-import { within, userEvent, waitFor } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
 import RegisterPage from "../pages/RegisterPage";
 
 // Define the type for setAuth as used in your RegisterPage props.
